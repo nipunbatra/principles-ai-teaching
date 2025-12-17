@@ -1,0 +1,33 @@
+/* Custom styles for the Principles of AI Teaching website */
+
+body {
+  font-family: 'Arial', sans-serif;
+}
+
+h1 {
+  color: #2E86AB;
+}
+
+h2 {
+  color: #06A77D;
+}
+
+h3 {
+  color: #457B9D;
+}
+
+a {
+  color: #E63946;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+code {
+  background: #f0f0f0;
+  color: #333;
+  padding: 2px 5px;
+  border-radius: 4px;
+}

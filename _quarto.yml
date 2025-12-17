@@ -1,0 +1,20 @@
+project:
+  type: website
+  output-dir: _site
+
+website:
+  title: "Principles of AI Teaching"
+  navbar:
+    left:
+      - text: "Home"
+        href: index.qmd
+    right:
+      - icon: github
+        href: https://github.com/nipunbatra/principles-ai-teaching
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+    link-external-newwindow: true

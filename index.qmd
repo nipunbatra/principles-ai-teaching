@@ -1,0 +1,30 @@
+---
+title: "Principles of AI Teaching"
+---
+
+Welcome to the Principles of AI Teaching resource collection. This site contains educational materials on various AI and machine learning topics.
+
+## Topics
+
+### Machine Learning Tasks
+
+Understanding the taxonomy and zoo of machine learning tasks.
+
+- [ML Tasks Taxonomy (HTML)](ml-tasks/ml-tasks-taxonomy.html) | [PDF](ml-tasks/ml-tasks-taxonomy.pdf)
+- [ML Tasks Zoo (HTML)](ml-tasks/ml-tasks-zoo.html) | [PDF](ml-tasks/ml-tasks-zoo.pdf)
+
+### Next Token Prediction
+
+Deep dive into how language models predict the next token.
+
+- [Next Token Prediction (HTML)](next-token-prediction/next-token-prediction.html) | [PDF](next-token-prediction/next-token-prediction.pdf)
+
+### Object Detection
+
+Introduction to object detection in computer vision.
+
+- [Object Detection Basics (HTML)](object-detection/object-detection-basics.html) | [PDF](object-detection/object-detection-basics.pdf)
+
+---
+
+*These materials are inspired by Andrew Ng's teaching style and created using Marp, Matplotlib & Graphviz.*
