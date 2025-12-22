@@ -6,411 +6,633 @@ backgroundColor: #fff
 style: |
   section {
     font-family: 'Segoe UI', 'Arial', sans-serif;
-    font-size: 22px;
-    padding: 30px;
+    font-size: 24px;
+    padding: 35px;
     color: #333;
   }
-  h1 { color: #2E86AB; font-size: 1.8em; margin-bottom: 0.1em; }
-  h2 { color: #06A77D; font-size: 1.2em; margin-top: 0; }
+  h1 { color: #2E86AB; font-size: 1.7em; margin-bottom: 0.2em; }
+  h2 { color: #06A77D; font-size: 1.1em; margin-top: 0; }
+  h3 { color: #457B9D; font-size: 1.0em; }
   strong { color: #D62828; }
-  .box {
-    background: #f8f9fa;
-    border-left: 6px solid #2E86AB;
-    padding: 10px;
-    margin-bottom: 10px;
+  code {
+    background: #f4f4f4;
+    color: #2E86AB;
+    padding: 2px 6px;
     border-radius: 4px;
+    font-family: 'Consolas', 'Monaco', monospace;
   }
-  .task-meta { font-family: monospace; font-size: 0.85em; color: #666; display: block; margin-bottom: 4px; }
-  .columns { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-  img { max-width: 100%; height: auto; display: block; margin: 0 auto; box-shadow: 2px 2px 8px rgba(0,0,0,0.1); }
+  pre {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 15px;
+    font-size: 0.85em;
+    line-height: 1.4;
+    overflow: hidden;
+  }
+  .example {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-left: 4px solid #06A77D;
+    padding: 12px 15px;
+    margin: 10px 0;
+    border-radius: 0 8px 8px 0;
+  }
+  .insight {
+    background: #fff3cd;
+    border-left: 4px solid #ffc107;
+    padding: 12px 15px;
+    margin: 10px 0;
+    border-radius: 0 8px 8px 0;
+  }
+  .columns { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; }
+  table { font-size: 0.9em; width: 100%; }
+  th { background: #2E86AB; color: white; padding: 8px; }
+  td { padding: 8px; border-bottom: 1px solid #dee2e6; }
 ---
 
 # The Machine Learning Taxonomy
 ## Organizing 40+ Tasks by their Mathematical Roots
 
-**Nipun Batra**
-*IIT Gandhinagar*
+**Nipun Batra** · IIT Gandhinagar
 
 ---
 
-# The Grand Map
+# The Big Insight
 
-Machine Learning isn't just a list of random tricks. It's a family tree.
-Almost every task is a variation of **Classification** or **Regression**.
+Every ML task boils down to **one question**:
 
-*   **Predicting a Label?** Classification.
-*   **Predicting a Number?** Regression.
-*   **Predicting a Sequence?** Repeated Classification.
-*   **Predicting a Structure?** Classification + Regression combined.
-
----
-
-# Part 1: The Supervised Family
-
-![w:600](diagrams/taxonomy_supervised.png)
-
----
-
-# Branch A: "Is it X or Y?" (Classification)
-
-The simplest form of ML. $f(x) \rightarrow \{0, 1, \dots, K\}$
+```
+What are you predicting?
+```
 
 <div class="columns">
 <div>
 
-<div class="box">
-<strong>1. Image Classification</strong>
-<span class="task-meta">Input: Pixels | Output: Label</span>
-Is this image a Cat or Dog?
-</div>
+**Predicting a Category?**
+→ Classification
 
-<div class="box">
-<strong>2. Sentiment Analysis</strong>
-<span class="task-meta">Input: Text | Output: Label</span>
-Is this review Positive or Negative?
-</div>
+**Predicting a Number?**
+→ Regression
 
 </div>
 <div>
 
-<div class="box">
-<strong>3. Spam Detection</strong>
-<span class="task-meta">Input: Email | Output: Binary</span>
-Is this junk?
-</div>
+**Predicting a Sequence?**
+→ Seq2Seq
 
-<div class="box">
-<strong>4. Topic Classification</strong>
-<span class="task-meta">Input: Document | Output: Category</span>
-Is this news about Sports, Politics, or Tech?
-</div>
+**Predicting a Distribution?**
+→ Generative
 
 </div>
+</div>
+
+<div class="insight">
+Once you know the "output type", you know which family the task belongs to!
 </div>
 
 ---
 
-# Branch B: "How Much?" (Regression)
+# Section 1: Classification
+## "Which Bucket Does This Belong To?"
 
-Predicting continuous values. $f(x) \rightarrow \mathbb{R}$
+---
 
-<div class="columns">
-<div>
+# Classification: The Core Idea
 
-<div class="box">
-<strong>5. House Price Prediction</strong>
-<span class="task-meta">Input: Features | Output: $ Price</span>
-Classic regression.
-</div>
+```
+                    ┌─────────────┐
+   Input            │   Model     │         Output
+  ───────────────►  │   f(x)      │  ──────────────►
+  (Image, Text,     │             │   One of K classes
+   Audio, etc.)     └─────────────┘
+```
 
-<div class="box">
-<strong>6. Age Estimation</strong>
-<span class="task-meta">Input: Face Image | Output: Years</span>
-Predicting 25.4 years vs 25 years.
-</div>
+<div class="example">
 
-</div>
-<div>
+**Example 1: Email Spam Detection**
+```
+Input:  "You won $1,000,000! Click here NOW!!!"
+Output: SPAM (class 1 of 2)
+```
 
-<div class="box">
-<strong>7. Time Series Forecasting</strong>
-<span class="task-meta">Input: History | Output: Future Value</span>
-Predicting tomorrow's temperature.
-</div>
+**Example 2: Handwritten Digit**
+```
+Input:  [28x28 pixel image of "7"]
+Output: "7" (class 7 of 10)
+```
 
-<div class="box">
-<strong>8. Bounding Box Regression</strong>
-<span class="task-meta">Input: Image | Output: (x, y, w, h)</span>
-Predicting the coordinates of an object (Part of Detection).
-</div>
-
-</div>
 </div>
 
 ---
 
-# Part 2: The Vision Hierarchy
-*Combining Classification + Regression*
+# Classification: Real-World Examples
 
-![w:700](diagrams/taxonomy_vision.png)
+| Task | Input | Output | # Classes |
+|------|-------|--------|-----------|
+| Cat vs Dog | Photo | "cat" or "dog" | 2 |
+| ImageNet | Photo | Object name | 1000 |
+| Sentiment | Movie review | Positive/Negative | 2-5 |
+| Medical Diagnosis | X-ray | Disease type | varies |
 
----
-
-# Level 2: "Where is it?" (Detection)
-
-We combine **Classification** (What) + **Regression** (Where).
-
-<div class="columns">
-<div>
-
-<div class="box">
-<strong>9. Object Detection</strong>
-<span class="task-meta">Output: Box + Class</span>
-"There is a Car at [10, 50, 200, 300]"
-</div>
-
-<div class="box">
-<strong>10. Face Detection</strong>
-<span class="task-meta">Output: Box</span>
-Finding faces for auto-focus.
-</div>
-
-</div>
-<div>
-
-<div class="box">
-<strong>11. Keypoint Detection (Pose)</strong>
-<span class="task-meta">Output: (x,y) points</span>
-Finding Elbows, Knees, Eyes. (Regression of 17 points).
-</div>
-
-<div class="box">
-<strong>12. Text Detection (OCR)</strong>
-<span class="task-meta">Output: Box around text</span>
-Finding words in street signs.
-</div>
-
-</div>
+<div class="insight">
+Binary (2 classes) vs Multi-class (K classes) — same algorithm, different output layer!
 </div>
 
 ---
 
-# Level 3: "Which Pixels?" (Segmentation)
+# Classification: The Math
 
-Now we classify **every single pixel**.
+```
+Input x ──► Neural Network ──► Softmax ──► Probabilities
+                                              │
+                                              ▼
+                                    ┌─────────────────┐
+                                    │ Cat:   0.85     │
+                                    │ Dog:   0.10     │
+                                    │ Bird:  0.05     │
+                                    └─────────────────┘
+                                              │
+                                              ▼
+                                        Pick highest
+                                              │
+                                              ▼
+                                           "Cat"
+```
 
-<div class="columns">
-<div>
+The model outputs **probabilities** for each class, then picks the highest.
 
-<div class="box">
-<strong>13. Semantic Segmentation</strong>
-<span class="task-meta">Output: Class per pixel</span>
-Road, Sky, Tree (No distinction between two trees).
-</div>
+---
 
-</div>
-<div>
+# Section 2: Regression
+## "How Much? How Many?"
 
-<div class="box">
-<strong>14. Instance Segmentation</strong>
-<span class="task-meta">Output: Class + ID per pixel</span>
-Car #1 vs Car #2.
-</div>
+---
 
-</div>
-</div>
+# Regression: The Core Idea
 
-<div class="box">
-<strong>15. Image Matting</strong>
-<span class="task-meta">Output: Alpha Matte (Transparency)</span>
-Zoom background blur / Green screen removal.
+Instead of discrete classes, we predict a **continuous number**.
+
+```
+                    ┌─────────────┐
+   Input            │   Model     │         Output
+  ───────────────►  │   f(x)      │  ──────────────►
+  (Features)        │             │   A real number
+                    └─────────────┘
+```
+
+<div class="example">
+
+**Example: House Price**
+```
+Input:  [3 beds, 2 baths, 1500 sqft, good location]
+Output: $425,000
+```
+
+**Example: Age Estimation**
+```
+Input:  [Face photo]
+Output: 27.3 years
+```
+
 </div>
 
 ---
 
-# Part 3: The Sequence Family
-*Predicting Lists of things*
+# Regression: Real-World Examples
 
-![w:800](diagrams/taxonomy_sequence.png)
+| Task | Input | Output | Unit |
+|------|-------|--------|------|
+| House Price | Features | $425,000 | Dollars |
+| Temperature | Historical data | 32.5°C | Celsius |
+| Stock Price | Market data | $147.23 | Dollars |
+| Age from Face | Photo | 27.3 | Years |
+| Bounding Box | Image region | (x, y, w, h) | Pixels |
 
----
-
-# Many-to-Many (Seq2Seq)
-
-Standard Classification is Many-to-One.
-Seq2Seq is **Text In, Text Out**.
-
-<div class="columns">
-<div>
-
-<div class="box">
-<strong>16. Machine Translation</strong>
-<span class="task-meta">English $\rightarrow$ Hindi</span>
-Mapping sequence to sequence.
-</div>
-
-<div class="box">
-<strong>17. Text Summarization</strong>
-<span class="task-meta">Long Text $\rightarrow$ Short Text</span>
-Extracting key information.
-</div>
-
-</div>
-<div>
-
-<div class="box">
-<strong>18. Speech Recognition (ASR)</strong>
-<span class="task-meta">Audio Wave $\rightarrow$ Text</span>
-Mapping sound frames to phonemes/words.
-</div>
-
-<div class="box">
-<strong>19. Text-to-Speech (TTS)</strong>
-<span class="task-meta">Text $\rightarrow$ Audio Wave</span>
-The reverse of ASR.
-</div>
-
-</div>
+<div class="insight">
+Bounding box prediction is just **4 regression problems** solved together!
 </div>
 
 ---
 
-# Token-Level Tasks (Tagging)
+# Classification vs Regression: Side by Side
 
-Classifying each token in a sequence (like Semantic Seg for text).
+```
+┌──────────────────────────────────────────────────────────────────┐
+│                      CLASSIFICATION                              │
+│                                                                  │
+│   Input ───► Model ───► [0.1, 0.2, 0.7] ───► Class "C"          │
+│                              ▲                                   │
+│                         Probabilities                            │
+│                         must sum to 1                            │
+└──────────────────────────────────────────────────────────────────┘
 
-<div class="columns">
-<div>
+┌──────────────────────────────────────────────────────────────────┐
+│                        REGRESSION                                │
+│                                                                  │
+│   Input ───► Model ───► 425000.00 ───► $425,000                 │
+│                              ▲                                   │
+│                       Any real number                            │
+│                       (no constraints)                           │
+└──────────────────────────────────────────────────────────────────┘
+```
 
-<div class="box">
-<strong>20. Named Entity Recognition (NER)</strong>
-<span class="task-meta">Output: [PER, LOC, ORG] per word</span>
-Identifying "Sundar Pichai" as PER.
-</div>
+---
 
-</div>
-<div>
+# Section 3: Vision Hierarchy
+## From Labels to Pixels
 
-<div class="box">
-<strong>21. Part-of-Speech Tagging</strong>
-<span class="task-meta">Output: [Noun, Verb] per word</span>
-Grammatical analysis.
-</div>
+---
 
-</div>
+# The Computer Vision Ladder
+
+```
+Level 1: CLASSIFICATION          "There is a cat in this image"
+         ────────────────────────────────────────────────────
+              One label for the whole image
+
+Level 2: DETECTION               "Cat at position (50,30,200,180)"
+         ────────────────────────────────────────────────────
+              Label + Bounding box
+
+Level 3: SEGMENTATION            "These exact pixels are cat"
+         ────────────────────────────────────────────────────
+              Label for EVERY pixel
+```
+
+<div class="insight">
+Each level builds on the previous. More precision = More complexity.
 </div>
 
 ---
 
-# Part 4: Unsupervised & Generative
-*Learning without Labels*
+# Level 1: Image Classification
 
-![w:800](diagrams/taxonomy_unsupervised.png)
+```
+┌────────────────────────┐
+│                        │
+│    🐱  (somewhere)     │     ───►    "Cat"
+│                        │
+└────────────────────────┘
+      Input Image              Single Label
+```
 
----
-
-# Grouping & Representation
-
-<div class="columns">
-<div>
-
-<div class="box">
-<strong>22. Clustering</strong>
-<span class="task-meta">Task: Find Groups</span>
-Customer segmentation.
-</div>
-
-<div class="box">
-<strong>23. Topic Modeling</strong>
-<span class="task-meta">Task: Find Themes</span>
-Discovering "Sports" cluster in news without labels.
-</div>
-
-</div>
-<div>
-
-<div class="box">
-<strong>24. Dimensionality Reduction</strong>
-<span class="task-meta">Task: Compression</span>
-PCA / t-SNE. Visualizing high-dim data.
-</div>
-
-<div class="box">
-<strong>25. Anomaly Detection</strong>
-<span class="task-meta">Task: Find Outliers</span>
-Credit fraud, manufacturing defects.
-</div>
-
-</div>
-</div>
+**Use Cases:**
+- Photo organization (Google Photos)
+- Medical imaging (Is this cancerous?)
+- Quality control (Defective or OK?)
 
 ---
 
-# Generative Tasks (The New Wave)
+# Level 2: Object Detection
 
-Modeling the distribution $P(X)$.
+```
+┌────────────────────────┐
+│    ┌──────┐            │
+│    │ 🐱   │            │     ───►    "Cat" at (10,15,80,90)
+│    └──────┘            │             "Dog" at (120,40,90,85)
+│          ┌──────┐      │
+│          │ 🐕   │      │
+│          └──────┘      │
+└────────────────────────┘
+      Input Image              Labels + Bounding Boxes
+```
 
-<div class="columns">
-<div>
+**Detection = Classification + Regression (for box coordinates)**
 
-<div class="box">
-<strong>26. Image Generation</strong>
-<span class="task-meta">Noise $\rightarrow$ Image</span>
-GANs, Diffusion (Midjourney).
-</div>
+---
 
-<div class="box">
-<strong>27. Text Generation</strong>
-<span class="task-meta">Prefix $\rightarrow$ Continuation</span>
-LLMs (GPT).
-</div>
+# Level 3: Semantic Segmentation
 
-</div>
-<div>
+```
+┌────────────────────────┐        ┌────────────────────────┐
+│░░░░░░░░░░░░░░░░░░░░░░░░│        │ SSSSSSSSSSSSSSSSSSSSSS │  S = Sky
+│░░░░░░░░░░░░░░░░░░░░░░░░│        │ SSSSSSSSSSSSSSSSSSSSSS │  T = Tree
+│░░░░TTTTTTTT░░░░░░░░░░░░│   ►    │ SSSSTTTTTTTTSSSSSSSSSS │  R = Road
+│░░░░TTTTTTTT░░░░░░░░░░░░│        │ SSSSTTTTTTTTSSSSSSSSSS │  C = Car
+│RRRRRRRRRRRRRRRRRRRRCCCC│        │ RRRRRRRRRRRRRRRRRRRRCCC │
+│RRRRRRRRRRRRRRRRRRRRRRRR│        │ RRRRRRRRRRRRRRRRRRRRRR │
+└────────────────────────┘        └────────────────────────┘
+      Input Image                    Pixel-wise Labels
+```
 
-<div class="box">
-<strong>28. Inpainting</strong>
-<span class="task-meta">Masked Image $\rightarrow$ Full Image</span>
-Filling holes.
-</div>
+**Every pixel gets a class label!**
 
-<div class="box">
-<strong>29. Style Transfer</strong>
-<span class="task-meta">Content + Style $\rightarrow$ Image</span>
-Artistic filters.
-</div>
+---
 
-</div>
+# Instance vs Semantic Segmentation
+
+```
+SEMANTIC SEGMENTATION:               INSTANCE SEGMENTATION:
+┌────────────────────┐               ┌────────────────────┐
+│                    │               │                    │
+│   CCCCC    CCCCC   │               │   111111   222222  │
+│   CCCCC    CCCCC   │               │   111111   222222  │
+│                    │               │                    │
+└────────────────────┘               └────────────────────┘
+   Both are "Car"                    Car #1 vs Car #2
+
+Semantic: "What class is each pixel?"
+Instance: "What class AND which object?"
+```
+
+<div class="insight">
+Self-driving cars need Instance Segmentation — they must track individual vehicles!
 </div>
 
 ---
 
-# Part 5: The Complex Ones (Multimodal + RL)
+# Section 4: Sequence Tasks
+## When Order Matters
 
-<div class="columns">
-<div>
+---
 
-<div class="box">
-<strong>30. Visual QA (VQA)</strong>
-<span class="task-meta">Image + Text $\rightarrow$ Text</span>
-"What color is the car?"
-</div>
+# Sequence-to-Sequence (Seq2Seq)
 
-<div class="box">
-<strong>31. Image Captioning</strong>
-<span class="task-meta">Image $\rightarrow$ Text</span>
-"A dog running on grass."
-</div>
+```
+       Input Sequence                    Output Sequence
+┌───┬───┬───┬───┬───┐              ┌───┬───┬───┬───┐
+│ H │ e │ l │ l │ o │    ────►     │ 你 │ 好 │   │   │
+└───┴───┴───┴───┴───┘              └───┴───┴───┴───┘
+      "Hello"                           "Ni Hao"
+      (English)                         (Chinese)
+```
 
-</div>
-<div>
+**Key insight:** Input and output can have **different lengths**!
 
-<div class="box">
-<strong>32. Reinforcement Learning</strong>
-<span class="task-meta">State $\rightarrow$ Action</span>
-Playing Chess, Robot Control.
-</div>
+---
 
-<div class="box">
-<strong>33. Recommendation</strong>
-<span class="task-meta">User History $\rightarrow$ Item Rank</span>
-Netflix/Amazon.
-</div>
+# Seq2Seq Examples
 
-</div>
+| Task | Input | Output |
+|------|-------|--------|
+| Translation | "Hello" (EN) | "Bonjour" (FR) |
+| Summarization | Long article | Short summary |
+| Speech-to-Text | Audio waveform | Text transcript |
+| Text-to-Speech | Text | Audio waveform |
+| Chatbot | Question | Answer |
+
+<div class="example">
+
+**Translation:**
+```
+Input:  "The cat sat on the mat"
+Output: "Le chat s'est assis sur le tapis"
+```
+
 </div>
 
 ---
 
-# Summary
+# Token-Level Classification (Tagging)
 
-We didn't just list tasks. We grouped them by their **Mathematical Nature**.
+Sometimes we classify **each element** in the sequence:
 
-1.  **Classification:** The parent of Vision/NLP classification.
-2.  **Regression:** The parent of Prediction/Bounding Boxes.
-3.  **Seq2Seq:** The parent of Translation/Speech.
-4.  **Generative:** The parent of GPT/DALL-E.
+```
+Input:    "Sundar  Pichai   visited  New    York   yesterday"
+           │       │        │        │      │      │
+           ▼       ▼        ▼        ▼      ▼      ▼
+Output:   PER     PER       O       LOC    LOC     O
 
-**Understanding the root helps you solve the leaf.**
+PER = Person, LOC = Location, O = Other
+```
+
+<div class="insight">
+Named Entity Recognition (NER) is like "semantic segmentation for text"!
+</div>
+
+---
+
+# Section 5: Unsupervised Learning
+## Finding Patterns Without Labels
+
+---
+
+# The Unsupervised Setting
+
+```
+SUPERVISED:                        UNSUPERVISED:
+┌─────────────────────────┐        ┌─────────────────────────┐
+│ Data: X                 │        │ Data: X                 │
+│ Labels: Y               │        │ Labels: ???             │
+│                         │        │                         │
+│ Learn: f(X) → Y         │        │ Find: patterns in X     │
+└─────────────────────────┘        └─────────────────────────┘
+```
+
+**No one tells the model what to look for — it discovers structure!**
+
+---
+
+# Clustering
+
+Group similar items together **without predefined categories**.
+
+```
+Before Clustering:               After Clustering:
+        •    •                       ○    ○
+    •      •   •                 ○      ○   ○
+      •  •                         ○  ○
+
+        ▲  ▲                         △  △
+    ▲        ▲                   △        △
+      ▲    ▲                       △    △
+
+      ■  ■                           □  □
+        ■    ■                         □    □
+      ■                              □
+```
+
+**Example:** Customer segmentation — find groups of similar shoppers.
+
+---
+
+# Dimensionality Reduction
+
+Compress data while preserving structure.
+
+```
+1000 Dimensions                    2 Dimensions
+     (Hard to visualize)               (Easy to plot!)
+           │                               │
+           │                               │
+           ▼                               ▼
+    ┌─────────────┐                    •  •
+    │ 0.23, 0.11, │                   •    ••
+    │ 0.87, 0.45, │    ─────────►        •
+    │ 0.32, ...   │      PCA/t-SNE    ▲  ▲
+    │ (1000 nums) │                  ▲  ▲ ▲
+    └─────────────┘                    ■ ■
+                                        ■
+```
+
+**Use case:** Visualizing word embeddings, gene expression data.
+
+---
+
+# Anomaly Detection
+
+Find the **weird ones**.
+
+```
+Normal Data Points:          Anomaly:
+
+    •  •  •  •  •                           ★ ← ALERT!
+    •  •  •  •  •
+    •  •  •  •  •
+    •  •  •  •  •
+```
+
+**Use cases:**
+- Credit card fraud detection
+- Network intrusion detection
+- Manufacturing defect detection
+
+---
+
+# Section 6: Generative Models
+## Creating New Data
+
+---
+
+# Generative vs Discriminative
+
+```
+DISCRIMINATIVE (Classification):
+┌─────────┐
+│  Image  │ ────► Model ────► "Cat" or "Dog"
+└─────────┘
+   Given X, predict Y
+
+GENERATIVE:
+┌─────────┐
+│  Noise  │ ────► Model ────► [New realistic image]
+│ or Text │
+└─────────┘
+   Create new X from scratch
+```
+
+---
+
+# Generative Task Examples
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│ TEXT-TO-IMAGE                                                   │
+│                                                                 │
+│ "A cat wearing                    ┌────────────┐               │
+│  a tiny hat,        ────────►     │  🐱 + 🎩   │               │
+│  oil painting"                    └────────────┘               │
+│                                                                 │
+├─────────────────────────────────────────────────────────────────┤
+│ IMAGE INPAINTING                                                │
+│                                                                 │
+│ ┌──────────┐                      ┌──────────┐                 │
+│ │ 🏔️  ??? │        ────────►     │ 🏔️  🌅  │                 │
+│ └──────────┘                      └──────────┘                 │
+│   Missing part                      Filled in                   │
+├─────────────────────────────────────────────────────────────────┤
+│ TEXT GENERATION (LLMs)                                          │
+│                                                                 │
+│ "Once upon a"       ────────►     "Once upon a time, there     │
+│                                    lived a dragon..."           │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+# Section 7: Complex & Multimodal
+## Combining Everything
+
+---
+
+# Multimodal Tasks
+
+These tasks combine **multiple input/output types**:
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│ VISUAL QUESTION ANSWERING (VQA)                             │
+│                                                             │
+│   Image: [Photo of red car]                                 │
+│   Question: "What color is the car?"    ────►   "Red"       │
+│                                                             │
+├─────────────────────────────────────────────────────────────┤
+│ IMAGE CAPTIONING                                            │
+│                                                             │
+│   Image: [Dog running on beach]                             │
+│                                         ────►   "A dog      │
+│                                                  running    │
+│                                                  on a       │
+│                                                  sandy      │
+│                                                  beach"     │
+└─────────────────────────────────────────────────────────────┘
+```
+
+---
+
+# Reinforcement Learning
+
+A different paradigm: **Learning through interaction**.
+
+```
+                    ┌─────────────────┐
+                    │   Environment   │
+                    │   (Game/World)  │
+                    └────────┬────────┘
+                             │
+              State ◄────────┴────────► Reward
+                │                         ▲
+                ▼                         │
+         ┌─────────────┐                  │
+         │    Agent    │ ─── Action ──────┘
+         │   (Model)   │
+         └─────────────┘
+```
+
+**Goal:** Maximize total reward over time.
+
+**Examples:** Game playing (Chess, Go), Robot control, Trading bots
+
+---
+
+# Summary: The ML Family Tree
+
+```
+                           Machine Learning
+                                  │
+           ┌──────────────────────┼──────────────────────┐
+           │                      │                      │
+      Supervised            Unsupervised           Reinforcement
+           │                      │                      │
+     ┌─────┴─────┐          ┌─────┴─────┐          State → Action
+     │           │          │           │
+Classification Regression Clustering  Dim. Red.
+     │           │
+  ┌──┴──┐     ┌──┴──┐
+  │     │     │     │
+Image  Text  Price  Box
+Class  Class Pred.  Pred.
+```
+
+---
+
+# Key Takeaways
+
+1. **Classification** → Predict a category (discrete)
+2. **Regression** → Predict a number (continuous)
+3. **Detection** → Classification + Box Regression
+4. **Segmentation** → Classification for every pixel
+5. **Seq2Seq** → Sequence in, sequence out
+6. **Unsupervised** → Find patterns without labels
+7. **Generative** → Create new data
+
+<div class="insight">
+Understanding the output type tells you which family of techniques to use!
+</div>
+
+---
+
+# Thank You!
+
+**"All models are wrong, but some are useful."** — George Box
 
 ## Questions?
