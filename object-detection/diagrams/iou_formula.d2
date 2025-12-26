@@ -1,0 +1,118 @@
+# IoU (Intersection over Union)
+
+direction: down
+
+title: {
+  label: IoU = Intersection / Union
+  near: top-center
+  shape: text
+  style.font-size: 28
+  style.bold: true
+}
+
+boxes: {
+  direction: right
+
+  gt: {
+    label: |md
+      **Ground Truth**
+      (Human label)
+    |
+    shape: rectangle
+    style.fill: "#BBDEFB"
+    style.stroke: "#1976D2"
+    style.stroke-width: 3
+    width: 150
+    height: 100
+  }
+
+  plus: {
+    label: "+"
+    shape: text
+    style.font-size: 32
+  }
+
+  pred: {
+    label: |md
+      **Prediction**
+      (Model output)
+    |
+    shape: rectangle
+    style.fill: "#C8E6C9"
+    style.stroke: "#388E3C"
+    style.stroke-width: 3
+    width: 150
+    height: 100
+  }
+
+  gt -> plus
+  plus -> pred
+}
+
+formula: {
+  label: |md
+    ```
+            Area of Overlap (Intersection)
+    IoU = ─────────────────────────────────
+               Area of Union
+
+    Union = Area(GT) + Area(Pred) - Intersection
+    ```
+  |
+  shape: rectangle
+  style.fill: "#FFF9C4"
+  style.stroke: "#F9A825"
+  style.stroke-width: 2
+}
+
+boxes -> formula
+
+examples: {
+  direction: right
+
+  perfect: {
+    label: |md
+      **IoU = 1.0**
+      Perfect overlap
+      Boxes identical
+    |
+    shape: rectangle
+    style.fill: "#E8F5E9"
+    style.stroke: "#4CAF50"
+  }
+
+  good: {
+    label: |md
+      **IoU ≈ 0.7**
+      Good detection
+      Mostly overlapping
+    |
+    shape: rectangle
+    style.fill: "#FFF3E0"
+    style.stroke: "#FF9800"
+  }
+
+  threshold: {
+    label: |md
+      **IoU = 0.5**
+      Typical threshold
+      for "correct"
+    |
+    shape: rectangle
+    style.fill: "#FFEBEE"
+    style.stroke: "#F44336"
+  }
+
+  none: {
+    label: |md
+      **IoU = 0.0**
+      No overlap
+      Wrong detection
+    |
+    shape: rectangle
+    style.fill: "#ECEFF1"
+    style.stroke: "#607D8B"
+  }
+}
+
+formula -> examples

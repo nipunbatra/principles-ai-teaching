@@ -1,0 +1,124 @@
+# One-Stage vs Two-Stage Detectors
+
+direction: down
+
+title: {
+  label: Detection Architectures
+  near: top-center
+  shape: text
+  style.font-size: 24
+  style.bold: true
+}
+
+two_stage: {
+  label: Two-Stage Detectors (Faster R-CNN)
+  shape: rectangle
+  style.fill: "#E3F2FD"
+  style.stroke: "#2E86AB"
+  style.stroke-width: 2
+
+  direction: right
+
+  img: {
+    label: Image
+    shape: rectangle
+    style.fill: "#fff"
+  }
+
+  backbone: {
+    label: |md
+      **Backbone**
+      Feature
+      Extraction
+    |
+    shape: rectangle
+    style.fill: "#BBDEFB"
+  }
+
+  rpn: {
+    label: |md
+      **Stage 1: RPN**
+      Region Proposal
+      ~2000 candidates
+    |
+    shape: rectangle
+    style.fill: "#90CAF9"
+  }
+
+  head: {
+    label: |md
+      **Stage 2: Head**
+      Classify & Refine
+      each region
+    |
+    shape: rectangle
+    style.fill: "#64B5F6"
+  }
+
+  out: {
+    label: Output
+    shape: rectangle
+    style.fill: "#fff"
+  }
+
+  img -> backbone -> rpn -> head -> out
+
+  pros: {
+    label: "✓ More accurate"
+    shape: text
+    style.fill: "#E8F5E9"
+  }
+  cons: {
+    label: "✗ Slower (~5 FPS)"
+    shape: text
+    style.fill: "#FFEBEE"
+  }
+}
+
+one_stage: {
+  label: One-Stage Detectors (YOLO, SSD)
+  shape: rectangle
+  style.fill: "#E8F5E9"
+  style.stroke: "#06A77D"
+  style.stroke-width: 2
+
+  direction: right
+
+  img: {
+    label: Image
+    shape: rectangle
+    style.fill: "#fff"
+  }
+
+  net: {
+    label: |md
+      **Single Network**
+      Predict all boxes
+      + classes at once
+    |
+    shape: rectangle
+    style.fill: "#A5D6A7"
+    width: 250
+  }
+
+  out: {
+    label: Output
+    shape: rectangle
+    style.fill: "#fff"
+  }
+
+  img -> net -> out
+
+  pros: {
+    label: "✓ Very fast (~60+ FPS)"
+    shape: text
+    style.fill: "#E8F5E9"
+  }
+  cons: {
+    label: "✗ Slightly less accurate"
+    shape: text
+    style.fill: "#FFEBEE"
+  }
+}
+
+two_stage -> one_stage: "Trade-off: Speed vs Accuracy" {style.stroke-dash: 3}

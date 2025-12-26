@@ -1,0 +1,120 @@
+# Anchor Boxes
+
+direction: down
+
+title: {
+  label: Anchor Boxes (Shape Priors)
+  near: top-center
+  shape: text
+  style.font-size: 24
+  style.bold: true
+}
+
+problem: {
+  label: |md
+    **Problem**: A grid cell might need to detect multiple objects
+    or objects of very different shapes (tall person vs wide car)
+  |
+  shape: rectangle
+  style.fill: "#FFEBEE"
+  style.stroke: "#D32F2F"
+  style.stroke-width: 2
+}
+
+solution: {
+  label: |md
+    **Solution**: Pre-defined anchor boxes of different aspect ratios and scales
+  |
+  shape: rectangle
+  style.fill: "#E8F5E9"
+  style.stroke: "#388E3C"
+  style.stroke-width: 2
+}
+
+anchors: {
+  direction: right
+
+  tall: {
+    label: |md
+      **Tall**
+      Ratio 1:2
+      For people
+    |
+    shape: rectangle
+    style.fill: "#BBDEFB"
+    style.stroke: "#1976D2"
+    width: 60
+    height: 120
+  }
+
+  square: {
+    label: |md
+      **Square**
+      Ratio 1:1
+      For faces
+    |
+    shape: rectangle
+    style.fill: "#C8E6C9"
+    style.stroke: "#388E3C"
+    width: 90
+    height: 90
+  }
+
+  wide: {
+    label: |md
+      **Wide**
+      Ratio 2:1
+      For cars
+    |
+    shape: rectangle
+    style.fill: "#FFF9C4"
+    style.stroke: "#F9A825"
+    width: 120
+    height: 60
+  }
+}
+
+problem -> solution -> anchors
+
+scales: {
+  direction: right
+
+  small: {
+    label: "Small"
+    shape: rectangle
+    style.fill: "#E1F5FE"
+    width: 40
+    height: 40
+  }
+
+  medium: {
+    label: "Medium"
+    shape: rectangle
+    style.fill: "#B3E5FC"
+    width: 70
+    height: 70
+  }
+
+  large: {
+    label: "Large"
+    shape: rectangle
+    style.fill: "#81D4FA"
+    width: 100
+    height: 100
+  }
+}
+
+anchors -> scales: "× 3 scales"
+
+note: {
+  label: |md
+    **YOLOv3+**: 9 anchors total (3 aspect ratios × 3 scales)
+    Model predicts **offset from anchor** rather than absolute coordinates
+  |
+  shape: rectangle
+  style.fill: "#ECEFF1"
+  style.stroke: "#607D8B"
+  style.font-size: 14
+}
+
+scales -> note

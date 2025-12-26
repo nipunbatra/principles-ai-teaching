@@ -1,0 +1,85 @@
+# Detection Loss Function
+
+direction: down
+
+title: {
+  label: Detection Loss Function
+  near: top-center
+  shape: text
+  style.font-size: 24
+  style.bold: true
+}
+
+total: {
+  label: |md
+    **Total Loss** = λ₁ × Box Loss + λ₂ × Objectness Loss + λ₃ × Classification Loss
+  |
+  shape: rectangle
+  style.fill: "#FFF9C4"
+  style.stroke: "#F9A825"
+  style.stroke-width: 3
+}
+
+components: {
+  direction: right
+
+  box: {
+    label: |md
+      **Box Loss**
+      "How accurate are
+      the coordinates?"
+
+      (x, y, w, h)
+      MSE or IoU-based
+    |
+    shape: rectangle
+    style.fill: "#E3F2FD"
+    style.stroke: "#2E86AB"
+    style.stroke-width: 2
+  }
+
+  obj: {
+    label: |md
+      **Objectness Loss**
+      "Does this cell
+      contain an object?"
+
+      Binary cross-entropy
+      (object vs background)
+    |
+    shape: rectangle
+    style.fill: "#E8F5E9"
+    style.stroke: "#06A77D"
+    style.stroke-width: 2
+  }
+
+  cls: {
+    label: |md
+      **Classification Loss**
+      "What class is
+      this object?"
+
+      Cross-entropy
+      over C classes
+    |
+    shape: rectangle
+    style.fill: "#F3E5F5"
+    style.stroke: "#7B1FA2"
+    style.stroke-width: 2
+  }
+}
+
+total -> components
+
+note: {
+  label: |md
+    **λ values** weight the importance of each component
+    (e.g., λ_coord = 5, λ_noobj = 0.5 in YOLOv1)
+  |
+  shape: rectangle
+  style.fill: "#ECEFF1"
+  style.stroke: "#607D8B"
+  style.font-size: 14
+}
+
+components -> note

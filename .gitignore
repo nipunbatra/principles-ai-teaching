@@ -1,2 +1,5 @@
 /.quarto/
 /_site/
+video-demo-suggestions.md
+*.pt
+*/diagrams/realistic/cache/
