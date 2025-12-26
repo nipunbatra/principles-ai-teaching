@@ -1,0 +1,102 @@
+# Sequence-to-Sequence Architecture
+
+direction: right
+
+title: {
+  label: Sequence-to-Sequence (Seq2Seq)
+  near: top-center
+  shape: text
+  style.font-size: 24
+  style.bold: true
+}
+
+input_seq: {
+  label: |md
+    **Input Sequence**
+    [x₁, x₂, ..., xₙ]
+
+    "Hello world"
+    (English)
+  |
+  shape: rectangle
+  style.fill: "#E3F2FD"
+  style.stroke: "#2E86AB"
+  style.stroke-width: 2
+}
+
+encoder: {
+  label: |md
+    **Encoder**
+
+    Process input
+    token by token
+
+    Build context
+    representation
+  |
+  shape: rectangle
+  style.fill: "#BBDEFB"
+  style.stroke: "#1976D2"
+  style.stroke-width: 2
+}
+
+context: {
+  label: |md
+    **Context Vector**
+
+    Fixed-size
+    representation
+    of input
+  |
+  shape: circle
+  style.fill: "#FFF9C4"
+  style.stroke: "#F9A825"
+  style.stroke-width: 2
+  width: 120
+  height: 120
+}
+
+decoder: {
+  label: |md
+    **Decoder**
+
+    Generate output
+    token by token
+
+    Conditioned on
+    context
+  |
+  shape: rectangle
+  style.fill: "#C8E6C9"
+  style.stroke: "#388E3C"
+  style.stroke-width: 2
+}
+
+output_seq: {
+  label: |md
+    **Output Sequence**
+    [y₁, y₂, ..., yₘ]
+
+    "Bonjour monde"
+    (French)
+  |
+  shape: rectangle
+  style.fill: "#FFECB3"
+  style.stroke: "#FF8F00"
+  style.stroke-width: 2
+}
+
+input_seq -> encoder: ""
+encoder -> context: "compress"
+context -> decoder: ""
+decoder -> output_seq: ""
+
+apps: {
+  label: |md
+    **Applications**: Translation, Summarization, Chatbots, Code Generation
+  |
+  shape: rectangle
+  style.fill: "#ECEFF1"
+  style.stroke: "#607D8B"
+  style.font-size: 14
+}

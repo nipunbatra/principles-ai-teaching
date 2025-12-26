@@ -1,0 +1,67 @@
+# Regression Pipeline
+
+direction: right
+
+title: {
+  label: Regression Pipeline
+  near: top-center
+  shape: text
+  style.font-size: 24
+  style.bold: true
+}
+
+input: {
+  label: |md
+    **Input**
+    Features X
+    (e.g., house size,
+    location, age)
+  |
+  shape: rectangle
+  style.fill: "#E3F2FD"
+  style.stroke: "#2E86AB"
+  style.stroke-width: 2
+}
+
+model: {
+  label: |md
+    **Model**
+    f(X; θ)
+
+    Learns continuous
+    mapping
+  |
+  shape: rectangle
+  style.fill: "#C8E6C9"
+  style.stroke: "#388E3C"
+  style.stroke-width: 2
+}
+
+output: {
+  label: |md
+    **Output**
+    Continuous Value ŷ
+
+    Price = $425,000
+    Temperature = 23.5°C
+    Age = 34.2 years
+  |
+  shape: rectangle
+  style.fill: "#FFECB3"
+  style.stroke: "#FF8F00"
+  style.stroke-width: 2
+}
+
+input -> model: ""
+model -> output: "ŷ ∈ ℝ"
+
+note: {
+  label: |md
+    **Key Difference from Classification**
+    Output is a continuous number, not a discrete class
+  |
+  shape: rectangle
+  style.fill: "#ECEFF1"
+  style.stroke: "#607D8B"
+  style.font-size: 14
+}

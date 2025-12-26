@@ -1,0 +1,110 @@
+# RNN Sequence Processing
+
+direction: right
+
+title: {
+  label: RNN - Recurrent Neural Network
+  near: top-center
+  shape: text
+  style.font-size: 24
+  style.bold: true
+}
+
+h0: {
+  label: "h0"
+  shape: circle
+  style.fill: "#E1F5FE"
+  style.stroke: "#0288D1"
+  width: 50
+  height: 50
+}
+
+rnn1: {
+  label: "RNN"
+  shape: rectangle
+  style.fill: "#B3E5FC"
+  style.stroke: "#0288D1"
+  style.stroke-width: 2
+}
+
+rnn2: {
+  label: "RNN"
+  shape: rectangle
+  style.fill: "#B3E5FC"
+  style.stroke: "#0288D1"
+  style.stroke-width: 2
+}
+
+rnn3: {
+  label: "RNN"
+  shape: rectangle
+  style.fill: "#B3E5FC"
+  style.stroke: "#0288D1"
+  style.stroke-width: 2
+}
+
+rnn4: {
+  label: "RNN"
+  shape: rectangle
+  style.fill: "#B3E5FC"
+  style.stroke: "#0288D1"
+  style.stroke-width: 2
+}
+
+rnn5: {
+  label: "RNN"
+  shape: rectangle
+  style.fill: "#B3E5FC"
+  style.stroke: "#0288D1"
+  style.stroke-width: 2
+}
+
+w1: {
+  label: '"The"'
+  shape: text
+  style.font-size: 14
+}
+
+w2: {
+  label: '"cat"'
+  shape: text
+  style.font-size: 14
+}
+
+w3: {
+  label: '"sat"'
+  shape: text
+  style.font-size: 14
+}
+
+w4: {
+  label: '"on"'
+  shape: text
+  style.font-size: 14
+}
+
+w5: {
+  label: '"the"'
+  shape: text
+  style.font-size: 14
+}
+
+h0 -> rnn1
+rnn1 -> rnn2: "h1"
+rnn2 -> rnn3: "h2"
+rnn3 -> rnn4: "h3"
+rnn4 -> rnn5: "h4"
+
+w1 -> rnn1
+w2 -> rnn2
+w3 -> rnn3
+w4 -> rnn4
+w5 -> rnn5
+
+note: {
+  label: "Hidden state h carries information forward through the sequence"
+  shape: rectangle
+  style.fill: "#FFF9C4"
+  style.stroke: "#F9A825"
+  style.font-size: 14
+}

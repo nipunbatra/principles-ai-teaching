@@ -98,13 +98,7 @@ Once you know the "output type", you know which family the task belongs to!
 
 # Classification: The Core Idea
 
-```
-                    ┌─────────────┐
-   Input            │   Model     │         Output
-  ───────────────►  │   f(x)      │  ──────────────►
-  (Image, Text,     │             │   One of K classes
-   Audio, etc.)     └─────────────┘
-```
+![w:900 center](diagrams/svg/classification_pipeline.svg)
 
 <div class="example">
 
@@ -171,13 +165,7 @@ The model outputs **probabilities** for each class, then picks the highest.
 
 Instead of discrete classes, we predict a **continuous number**.
 
-```
-                    ┌─────────────┐
-   Input            │   Model     │         Output
-  ───────────────►  │   f(x)      │  ──────────────►
-  (Features)        │             │   A real number
-                    └─────────────┘
-```
+![w:900 center](diagrams/svg/regression_pipeline.svg)
 
 <div class="example">
 
@@ -244,19 +232,7 @@ Bounding box prediction is just **4 regression problems** solved together!
 
 # The Computer Vision Ladder
 
-```
-Level 1: CLASSIFICATION          "There is a cat in this image"
-         ────────────────────────────────────────────────────
-              One label for the whole image
-
-Level 2: DETECTION               "Cat at position (50,30,200,180)"
-         ────────────────────────────────────────────────────
-              Label + Bounding box
-
-Level 3: SEGMENTATION            "These exact pixels are cat"
-         ────────────────────────────────────────────────────
-              Label for EVERY pixel
-```
+![w:900 center](diagrams/svg/vision_tasks_hierarchy.svg)
 
 <div class="insight">
 Each level builds on the previous. More precision = More complexity.
@@ -347,14 +323,7 @@ Self-driving cars need Instance Segmentation — they must track individual vehi
 
 # Sequence-to-Sequence (Seq2Seq)
 
-```
-       Input Sequence                    Output Sequence
-┌───┬───┬───┬───┬───┐              ┌───┬───┬───┬───┐
-│ H │ e │ l │ l │ o │    ────►     │ 你 │ 好 │   │   │
-└───┴───┴───┴───┴───┘              └───┴───┴───┴───┘
-      "Hello"                           "Ni Hao"
-      (English)                         (Chinese)
-```
+![w:950 center](diagrams/svg/seq2seq.svg)
 
 **Key insight:** Input and output can have **different lengths**!
 
@@ -426,20 +395,7 @@ SUPERVISED:                        UNSUPERVISED:
 
 Group similar items together **without predefined categories**.
 
-```
-Before Clustering:               After Clustering:
-        •    •                       ○    ○
-    •      •   •                 ○      ○   ○
-      •  •                         ○  ○
-
-        ▲  ▲                         △  △
-    ▲        ▲                   △        △
-      ▲    ▲                       △    △
-
-      ■  ■                           □  □
-        ■    ■                         □    □
-      ■                              □
-```
+![w:800 center](diagrams/svg/clustering.svg)
 
 **Example:** Customer segmentation — find groups of similar shoppers.
 
@@ -573,20 +529,7 @@ These tasks combine **multiple input/output types**:
 
 A different paradigm: **Learning through interaction**.
 
-```
-                    ┌─────────────────┐
-                    │   Environment   │
-                    │   (Game/World)  │
-                    └────────┬────────┘
-                             │
-              State ◄────────┴────────► Reward
-                │                         ▲
-                ▼                         │
-         ┌─────────────┐                  │
-         │    Agent    │ ─── Action ──────┘
-         │   (Model)   │
-         └─────────────┘
-```
+![w:900 center](diagrams/svg/rl_loop.svg)
 
 **Goal:** Maximize total reward over time.
 
@@ -596,22 +539,7 @@ A different paradigm: **Learning through interaction**.
 
 # Summary: The ML Family Tree
 
-```
-                           Machine Learning
-                                  │
-           ┌──────────────────────┼──────────────────────┐
-           │                      │                      │
-      Supervised            Unsupervised           Reinforcement
-           │                      │                      │
-     ┌─────┴─────┐          ┌─────┴─────┐          State → Action
-     │           │          │           │
-Classification Regression Clustering  Dim. Red.
-     │           │
-  ┌──┴──┐     ┌──┴──┐
-  │     │     │     │
-Image  Text  Price  Box
-Class  Class Pred.  Pred.
-```
+![w:1000 center](diagrams/svg/ml_family_tree.svg)
 
 ---
 

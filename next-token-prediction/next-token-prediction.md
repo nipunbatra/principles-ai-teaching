@@ -65,25 +65,7 @@ style: |
 
 # The Journey Ahead
 
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                                                                 │
-│   Level 1: Intuition          "The Autocomplete Game"          │
-│      ↓                                                          │
-│   Level 2: Counting           "Bigrams (Just Statistics)"      │
-│      ↓                                                          │
-│   Level 3: Representation     "Embeddings (Meaning as Vectors)"│
-│      ↓                                                          │
-│   Level 4: Learning           "Neural Networks (The Brain)"    │
-│      ↓                                                          │
-│   Level 5: Memory             "RNNs (Remembering Context)"     │
-│      ↓                                                          │
-│   Level 6: Attention          "Transformers (The Revolution)"  │
-│      ↓                                                          │
-│   Level 7: Scale              "ChatGPT (Putting it Together)"  │
-│                                                                 │
-└─────────────────────────────────────────────────────────────────┘
-```
+![w:700 center](diagrams/svg/learning_journey.svg)
 
 ---
 
@@ -386,26 +368,7 @@ Now `a` and `e` are **mathematically close**!
 
 # Word Embeddings: The Famous Example
 
-```
-                    ▲
-                    │
-                    │    ● Queen
-                    │
-                    │    ● King
-                    │
-                    │    ● Woman
-                    │
-                    │    ● Man
-                    │
-                    └────────────────────────►
-
-    King - Man + Woman = ???
-
-    Move from "King" toward "Woman" direction:
-    You land near "Queen"!
-
-    The model learned: King is to Queen as Man is to Woman
-```
+![w:900 center](diagrams/svg/embedding_space.svg)
 
 ---
 
@@ -460,32 +423,7 @@ BIGRAM (Counting):                NEURAL NETWORK (Learning):
 
 # The Neural Network Architecture
 
-```
-Input: Last 3 characters → "a" "a" "b"
-                            │   │   │
-                            ▼   ▼   ▼
-┌─────────────────────────────────────────────────────────────┐
-│ EMBEDDING LAYER                                             │
-│   'a' → [0.2, 0.8]     'a' → [0.2, 0.8]     'b' → [-0.5, 0.1]│
-└───────────────────────────────┬─────────────────────────────┘
-                                │
-                                ▼ Concatenate
-                    [0.2, 0.8, 0.2, 0.8, -0.5, 0.1]
-                                │
-                                ▼
-┌─────────────────────────────────────────────────────────────┐
-│ HIDDEN LAYER: 6 inputs → 100 neurons → ReLU                │
-└───────────────────────────────┬─────────────────────────────┘
-                                │
-                                ▼
-┌─────────────────────────────────────────────────────────────┐
-│ OUTPUT LAYER: 100 → 27 (one per character + end)           │
-│ + SOFTMAX → Probabilities that sum to 1                     │
-└───────────────────────────────┬─────────────────────────────┘
-                                │
-                                ▼
-            P(next='a')=0.05, P(next='i')=0.45, ...
-```
+![w:800 center](diagrams/svg/neural_net_architecture.svg)
 
 ---
 
@@ -539,28 +477,7 @@ Step 4: Repeat millions of times
 
 # Gradient Descent: Finding the Best Weights
 
-```
-Loss
-  ▲
-  │
-  │   ╲
-  │    ╲
-  │     ╲
-  │      ╲
-  │       ●  Start (random weights, high loss)
-  │        ╲
-  │         ╲   ← Follow the slope downhill
-  │          ╲
-  │           ╲
-  │            ●  Better
-  │             ╲
-  │              ●  Even better
-  │               ╲
-  │                ●  Minimum! (best weights)
-  └──────────────────────────────────────────► Weights
-
-Each step: weights = weights - learning_rate × gradient
-```
+![w:900 center](diagrams/svg/gradient_descent.svg)
 
 ---
 
@@ -594,19 +511,7 @@ Model's window:     │ ... with the ___                │
 
 **Recurrent Neural Networks** maintain a "memory" that carries forward.
 
-```
-       h₀        h₁        h₂        h₃        h₄
-       │         │         │         │         │
-       ▼         ▼         ▼         ▼         ▼
-    ┌─────┐   ┌─────┐   ┌─────┐   ┌─────┐   ┌─────┐
-    │ RNN │──►│ RNN │──►│ RNN │──►│ RNN │──►│ RNN │──► ...
-    └─────┘   └─────┘   └─────┘   └─────┘   └─────┘
-       ▲         ▲         ▲         ▲         ▲
-       │         │         │         │         │
-      "The"    "cat"     "sat"     "on"      "the"
-
-    The hidden state h carries information forward!
-```
+![w:950 center](diagrams/svg/rnn_sequence.svg)
 
 ---
 
@@ -689,27 +594,7 @@ ATTENTION:
 
 Think of it like a **database lookup**:
 
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                                                                 │
-│  Current word: "___" (need to fill in)                         │
-│                                                                 │
-│  QUERY (Q): "What object was mentioned that opens things?"     │
-│                                                                 │
-│  For each past word, we have:                                   │
-│    KEY (K): What this word is about                            │
-│    VALUE (V): The actual content/meaning                        │
-│                                                                 │
-│  Past words:                                                    │
-│    "Alice"  → K: "person name"      V: [embedding of Alice]    │
-│    "key"    → K: "object, opens"    V: [embedding of key]  ← Match!│
-│    "door"   → K: "object, building" V: [embedding of door]     │
-│                                                                 │
-│  Score = similarity(Q, K)                                       │
-│  Output = weighted sum of Values                                │
-│                                                                 │
-└─────────────────────────────────────────────────────────────────┘
-```
+![w:800 center](diagrams/svg/attention_qkv.svg)
 
 ---
 
@@ -758,28 +643,7 @@ Computed in parallel (not sequential like RNN)!
 
 # The Transformer Architecture
 
-```
-┌──────────────────────────────────────────────────────────────────┐
-│                     TRANSFORMER BLOCK                            │
-│  ┌────────────────────────────────────────────────────────────┐  │
-│  │  Input Embeddings: [The] [cat] [sat] [on] [the] [mat]      │  │
-│  └────────────────────────────┬───────────────────────────────┘  │
-│                               ▼                                   │
-│  ┌────────────────────────────────────────────────────────────┐  │
-│  │  + Positional Encoding (so model knows word order)          │  │
-│  └────────────────────────────┬───────────────────────────────┘  │
-│                               ▼                                   │
-│  ┌────────────────────────────────────────────────────────────┐  │
-│  │  SELF-ATTENTION (every word attends to every other)        │  │
-│  └────────────────────────────┬───────────────────────────────┘  │
-│                               ▼                                   │
-│  ┌────────────────────────────────────────────────────────────┐  │
-│  │  FEED-FORWARD NETWORK (process each position)               │  │
-│  └────────────────────────────┬───────────────────────────────┘  │
-│                               ▼                                   │
-│                    Repeat 12-96 times!                           │
-└──────────────────────────────────────────────────────────────────┘
-```
+![w:700 center](diagrams/svg/transformer_block.svg)
 
 ---
 
@@ -859,53 +723,13 @@ High temp → Might pick "clouds" (creative but weird)
 
 Because we sample probabilistically, each generation is different!
 
-```
-                        "Once upon a"
-                              │
-              ┌───────────────┼───────────────┐
-              ▼               ▼               ▼
-           "time"          "day"         "midnight"
-              │               │               │
-        ┌─────┼─────┐    ┌────┼────┐    ┌────┼────┐
-        ▼     ▼     ▼    ▼    ▼    ▼    ▼    ▼    ▼
-     "there" "in"  ","  "a"  "in" ","  "a"  ","  "when"
-        │     │     │    │    │    │    │    │    │
-        ▼     ▼     ▼    ▼    ▼    ▼    ▼    ▼    ▼
-      ...   ...   ... ...  ...  ... ...  ...  ...
-
-Each path = a different story!
-```
+![w:800 center](diagrams/svg/sampling_tree.svg)
 
 ---
 
 # The Complete Recipe
 
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                    How to Build an LLM                          │
-├─────────────────────────────────────────────────────────────────┤
-│                                                                 │
-│ 1. COLLECT DATA                                                 │
-│    → Scrape the internet, books, code (terabytes of text)      │
-│                                                                 │
-│ 2. TOKENIZE                                                     │
-│    → Convert text to token sequences                            │
-│                                                                 │
-│ 3. BUILD ARCHITECTURE                                           │
-│    → Transformer with embeddings + attention + FFN              │
-│                                                                 │
-│ 4. TRAIN (Pre-training)                                         │
-│    → Predict next token, minimize loss                          │
-│    → Weeks on thousands of GPUs                                 │
-│                                                                 │
-│ 5. FINE-TUNE (Instruction tuning)                               │
-│    → Train on (instruction, response) pairs                     │
-│                                                                 │
-│ 6. RLHF (Optional but important!)                               │
-│    → Human feedback to make it helpful & safe                   │
-│                                                                 │
-└─────────────────────────────────────────────────────────────────┘
-```
+![w:650 center](diagrams/svg/llm_recipe.svg)
 
 ---
 

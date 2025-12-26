@@ -1,0 +1,82 @@
+# Attention Q, K, V
+
+direction: down
+
+title: {
+  label: Attention as Database Lookup
+  near: top-center
+  shape: text
+  style.font-size: 24
+  style.bold: true
+}
+
+query: {
+  label: "QUERY (Q)\n\nCurrent position asks:\n'What object opens things?'"
+  shape: rectangle
+  style.fill: "#E3F2FD"
+  style.stroke: "#2E86AB"
+  style.stroke-width: 2
+  width: 250
+}
+
+keys: {
+  direction: right
+
+  k1: {
+    label: "KEY: 'Alice'\n(person name)"
+    shape: rectangle
+    style.fill: "#ECEFF1"
+    style.stroke: "#607D8B"
+  }
+
+  k2: {
+    label: "KEY: 'key'\n(object, opens)"
+    shape: rectangle
+    style.fill: "#C8E6C9"
+    style.stroke: "#388E3C"
+    style.stroke-width: 3
+  }
+
+  k3: {
+    label: "KEY: 'door'\n(object, building)"
+    shape: rectangle
+    style.fill: "#ECEFF1"
+    style.stroke: "#607D8B"
+  }
+}
+
+values: {
+  direction: right
+
+  v1: {
+    label: "VALUE\n[Alice embed]"
+    shape: rectangle
+    style.fill: "#ECEFF1"
+  }
+
+  v2: {
+    label: "VALUE\n[key embed]"
+    shape: rectangle
+    style.fill: "#C8E6C9"
+    style.stroke-width: 2
+  }
+
+  v3: {
+    label: "VALUE\n[door embed]"
+    shape: rectangle
+    style.fill: "#ECEFF1"
+  }
+}
+
+output: {
+  label: "OUTPUT\n\nWeighted sum of Values\n(mostly 'key' embedding)"
+  shape: rectangle
+  style.fill: "#FFECB3"
+  style.stroke: "#FF8F00"
+  style.stroke-width: 2
+  width: 250
+}
+
+query -> keys: "Compare Q with each K"
+keys -> values: "Score = similarity(Q, K)"
+values -> output: "Weighted sum by scores"
