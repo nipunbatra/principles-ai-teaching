@@ -110,7 +110,7 @@ style: |
 
 ---
 
-# 🎯 Level 1: The Intuition
+# Level 1: The Intuition
 ## What Are We Really Doing?
 
 ---
@@ -145,13 +145,13 @@ You've been using next-word prediction your whole life:
 ```
 ┌─────────────────────────────────────────────────────────────────────┐
 │                                                                      │
-│   📱 Your Phone's Keyboard:                                          │
+│   Your Phone's Keyboard:                                             │
 │   ┌─────────────────────────────────────────────────┐               │
 │   │  I'm running ___                                 │               │
 │   │              [late]  [out]  [away]              │               │
 │   └─────────────────────────────────────────────────┘               │
 │                                                                      │
-│   🔍 Google Search:                                                  │
+│   Google Search:                                                     │
 │   ┌─────────────────────────────────────────────────┐               │
 │   │  how to make ___                                 │               │
 │   │  • how to make money                            │               │
@@ -159,7 +159,7 @@ You've been using next-word prediction your whole life:
 │   │  • how to make friends                          │               │
 │   └─────────────────────────────────────────────────┘               │
 │                                                                      │
-│   📧 Gmail Smart Compose:                                            │
+│   Gmail Smart Compose:                                               │
 │   ┌─────────────────────────────────────────────────┐               │
 │   │  Thanks for the ___                              │               │
 │   │               ┌───────────────────┐              │               │
@@ -323,7 +323,7 @@ As models get bigger, surprising abilities **emerge**:
 
 ---
 
-# 🔢 Level 2: The Counting Era
+# Level 2: The Counting Era
 ## Bigrams: The Simplest Language Model
 
 ---
@@ -568,7 +568,7 @@ This is where neural networks come in!
 
 ---
 
-# 📐 Level 3: Representing Meaning
+# Level 3: Representing Meaning
 ## Embeddings: Words as Vectors
 
 ---
@@ -774,7 +774,7 @@ Similar things automatically cluster together!
 
 ---
 
-# 🧠 Level 4: Learning Patterns
+# Level 4: Learning Patterns
 ## Neural Networks for Next-Token Prediction
 
 ---
@@ -950,7 +950,7 @@ Step 4: Repeat millions of times
 
 ---
 
-# 🔄 Level 5: The Context Problem
+# Level 5: The Context Problem
 ## Why Fixed Windows Aren't Enough
 
 ---
@@ -1104,13 +1104,13 @@ Gradients become tiny → Old info can't influence predictions
 │                                                                      │
 │   Three gates control information:                                   │
 │                                                                      │
-│   🚪 FORGET GATE: "Should I forget old stuff?"                       │
+│   FORGET GATE: "Should I forget old stuff?"                          │
 │      Example: When starting a new sentence, forget the old one       │
 │                                                                      │
-│   🚪 INPUT GATE: "Should I remember this new thing?"                 │
+│   INPUT GATE: "Should I remember this new thing?"                    │
 │      Example: "key" is important, remember it!                       │
 │                                                                      │
-│   🚪 OUTPUT GATE: "What should I output now?"                        │
+│   OUTPUT GATE: "What should I output now?"                           │
 │      Example: Output information relevant to current prediction      │
 │                                                                      │
 │   Result: Information can "skip" through time without degradation!   │
@@ -1122,7 +1122,7 @@ But LSTMs are still slow (sequential) and still struggle with very long contexts
 
 ---
 
-# 🚀 Level 6: The Revolution
+# Level 6: The Revolution
 ## Attention: "Just Look Back!"
 
 ---
@@ -1168,7 +1168,7 @@ ATTENTION:
     Reading with a highlighter and search engine!
     "Let me search for 'object that opens doors'..."
     Found: "key" at position 7!
-    └── Spotlight on relevant words! 🔦
+    └── Spotlight on relevant words!
 ```
 
 ---
@@ -1409,7 +1409,7 @@ GPT-4 has ~120 layers! Each layer refines understanding.
 
 ---
 
-# 🌍 Level 7: From Theory to ChatGPT
+# Level 7: From Theory to ChatGPT
 ## Scaling Up
 
 ---

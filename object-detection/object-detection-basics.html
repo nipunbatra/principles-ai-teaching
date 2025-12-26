@@ -248,9 +248,9 @@ td { padding: 6px; border-bottom: 1px solid #dee2e6; }
 
 ┌─────────────────────────────────────────────────────────────────────┐
 │                                                                     │
-│    <img class="emoji" draggable="false" alt="🚗" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f697.svg" data-marp-twemoji=""/>  ←── Your car sees this scene                                │
+│   [Car] &lt;-- Your car sees this scene                               │
 │         ┌─────────────────────────────────────────────────────┐    │
-│         │  <img class="emoji" draggable="false" alt="🚶" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f6b6.svg" data-marp-twemoji=""/> pedestrian      <img class="emoji" draggable="false" alt="🚗" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f697.svg" data-marp-twemoji=""/> car       <img class="emoji" draggable="false" alt="🚲" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f6b2.svg" data-marp-twemoji=""/> cyclist          │    │
+│         │  [Ped] pedestrian   [Car] car    [Bike] cyclist      │    │
 │         │      ↓                ↓              ↓               │    │
 │         │   STOP!           SLOW DOWN      CAREFUL!           │    │
 │         │                                                      │    │
@@ -641,7 +641,7 @@ td { padding: 6px; border-bottom: 1px solid #dee2e6; }
 ─────────────────────────────────────────────────────────────────
          ┌─────────────────────────┐
          │                         │
-         │   <img class="emoji" draggable="false" alt="🐕" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f415.svg" data-marp-twemoji=""/> <img class="emoji" draggable="false" alt="🐕" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f415.svg" data-marp-twemoji=""/> <img class="emoji" draggable="false" alt="🐈" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f408.svg" data-marp-twemoji=""/>              │  →  Output: &quot;dog&quot; (or &quot;cat&quot;)
+         │   [Dog] [Dog] [Cat]    │  -&gt;  Output: &quot;dog&quot; (or &quot;cat&quot;)
          │                         │
          └─────────────────────────┘
          Just ONE label for the whole image
@@ -650,7 +650,7 @@ Level 2: OBJECT DETECTION              &quot;What + Where?&quot;
 ─────────────────────────────────────────────────────────────────
          ┌─────────────────────────┐
          │  ┌───┐   ┌───┐  ┌───┐  │  →  Output: 3 boxes with labels
-         │  │<img class="emoji" draggable="false" alt="🐕" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f415.svg" data-marp-twemoji=""/> │   │<img class="emoji" draggable="false" alt="🐕" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f415.svg" data-marp-twemoji=""/> │  │<img class="emoji" draggable="false" alt="🐈" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f408.svg" data-marp-twemoji=""/> │  │      dog (0.95) @ [10,20,50,80]
+         │  │Dog│   │Dog│  │Cat│  │      dog (0.95) @ [10,20,50,80]
          │  └───┘   └───┘  └───┘  │      dog (0.92) @ [100,20,140,85]
          └─────────────────────────┘      cat (0.88) @ [200,30,250,90]
 
@@ -783,10 +783,10 @@ td { padding: 6px; border-bottom: 1px solid #dee2e6; }
 
 ┌────────────────────────┐              ┌────────────────────────┐
 │                        │              │  ┌────┐      ┌────┐   │
-│    <img class="emoji" draggable="false" alt="🐈" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f408.svg" data-marp-twemoji=""/>     <img class="emoji" draggable="false" alt="🐈" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f408.svg" data-marp-twemoji=""/>          │              │  │ <img class="emoji" draggable="false" alt="🐈" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f408.svg" data-marp-twemoji=""/> │      │ <img class="emoji" draggable="false" alt="🐈" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f408.svg" data-marp-twemoji=""/> │   │
-│          <img class="emoji" draggable="false" alt="🐈" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f408.svg" data-marp-twemoji=""/>           │              │  │0.97│      │0.94│   │
+│   [Cat]  [Cat]        │              │  │Cat │      │Cat │   │
+│         [Cat]         │              │  │0.97│      │0.94│   │
 │                        │              │  └────┘  ┌────┤    │
-│                        │              │          │ <img class="emoji" draggable="false" alt="🐈" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f408.svg" data-marp-twemoji=""/> │    │
+│                        │              │          │Cat │    │
 │                        │              │          │0.91│    │
 └────────────────────────┘              └──────────┴────┴────┘
 
@@ -1092,17 +1092,17 @@ td { padding: 6px; border-bottom: 1px solid #dee2e6; }
 │                      OBJECT DETECTION IN THE WILD                   │
 ├─────────────────────────────────────────────────────────────────────┤
 │                                                                     │
-│  <img class="emoji" draggable="false" alt="🚗" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f697.svg" data-marp-twemoji=""/> AUTONOMOUS DRIVING              <img class="emoji" draggable="false" alt="📱" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f4f1.svg" data-marp-twemoji=""/> SMARTPHONE CAMERAS           │
+│  AUTONOMOUS DRIVING                 SMARTPHONE CAMERAS              │
 │  • Pedestrians, cars, signs         • Face detection for focus     │
 │  • Traffic lights, lanes            • Scene understanding          │
 │  • Cyclist detection                • AR filters positioning       │
 │                                                                     │
-│  <img class="emoji" draggable="false" alt="🏪" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f3ea.svg" data-marp-twemoji=""/> RETAIL &amp; INVENTORY              <img class="emoji" draggable="false" alt="🏥" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f3e5.svg" data-marp-twemoji=""/> MEDICAL IMAGING              │
+│  RETAIL &amp; INVENTORY                 MEDICAL IMAGING                 │
 │  • Shelf stock monitoring           • Tumor detection              │
 │  • Checkout-free stores (Amazon Go) • Cell counting                │
 │  • Customer flow analysis           • Organ localization           │
 │                                                                     │
-│  <img class="emoji" draggable="false" alt="🔒" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f512.svg" data-marp-twemoji=""/> SECURITY &amp; SURVEILLANCE         <img class="emoji" draggable="false" alt="🏭" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f3ed.svg" data-marp-twemoji=""/> MANUFACTURING                │
+│  SECURITY &amp; SURVEILLANCE            MANUFACTURING                   │
 │  • Intrusion detection              • Defect detection             │
 │  • Crowd monitoring                 • Quality control              │
 │  • License plate recognition        • Safety compliance            │
@@ -1487,7 +1487,7 @@ td { padding: 6px; border-bottom: 1px solid #dee2e6; }
             │
             │         (x₁, y₁) ─────────────┐
             │            │                  │
-            │            │     <img class="emoji" draggable="false" alt="🐕" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f415.svg" data-marp-twemoji=""/>           │  ← The dog lives
+            │            │    [Dog]         │  &lt;- The dog lives
             │            │    doggo         │     inside this box
             │            │                  │
             │            └──────────────────┤ (x₂, y₂)
@@ -3510,7 +3510,7 @@ td { padding: 6px; border-bottom: 1px solid #dee2e6; }
 │         ┌─────────────┐                                             │
 │         │ ┌─────────┐ │                                             │
 │         │ │ ┌─────┐ │ │                                             │
-│         │ │ │ <img class="emoji" draggable="false" alt="🐕" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f415.svg" data-marp-twemoji=""/>  │ │ │  ← Same dog, but 5 different boxes!        │
+│         │ │ │[Dog]│ │ │  &lt;- Same dog, but 5 different boxes!       │
 │         │ │ └─────┘ │ │    All have high confidence!               │
 │         │ └─────────┘ │                                             │
 │         └─────────────┘                                             │
@@ -4884,7 +4884,7 @@ td { padding: 6px; border-bottom: 1px solid #dee2e6; }
 ├─────┼─────┼─────┼─────┼─────┼─────┼─────┤
 │     │     │     │  ●══════════════╗     │
 ├─────┼─────┼─────┼──║──┼─────┼─────║─────┤
-│     │     │     │  ║  │ <img class="emoji" draggable="false" alt="🐕" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f415.svg" data-marp-twemoji=""/>  │     ║     │
+│     │     │     │  ║  │[Dog]│     ║     │
 ├─────┼─────┼─────┼──║──┼─────┼─────║─────┤
 │     │     │     │  ║  │     │     ║     │
 ├─────┼─────┼─────┼──╚══════════════╝─────┤
@@ -5434,7 +5434,7 @@ td { padding: 6px; border-bottom: 1px solid #dee2e6; }
     ┌─────┬─────┬─────┐
     │     │     │     │
     ├─────┼─────┼─────┤
-    │     │ <img class="emoji" draggable="false" alt="🐕" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f415.svg" data-marp-twemoji=""/><img class="emoji" draggable="false" alt="🐈" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f408.svg" data-marp-twemoji=""/>│     │  ← Both dog AND cat center here!
+    │     │D C │     │  &lt;- Both dog AND cat center here!
     ├─────┼─────┼─────┤       But cell can only predict
     │     │     │     │       one class in YOLO v1
     └─────┴─────┴─────┘
@@ -7251,7 +7251,7 @@ td { padding: 6px; border-bottom: 1px solid #dee2e6; }
 │   Original              Flipped                                     │
 │   ┌──────────────┐     ┌──────────────┐                            │
 │   │ ┌───┐        │     │        ┌───┐ │                            │
-│   │ │<img class="emoji" draggable="false" alt="🐕" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f415.svg" data-marp-twemoji=""/> │        │  →  │        │<img class="emoji" draggable="false" alt="🐕" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f415.svg" data-marp-twemoji=""/> │ │                            │
+│   │ │Dog│        │  -&gt;  │       │Dog│ │                            │
 │   │ └───┘        │     │        └───┘ │                            │
 │   └──────────────┘     └──────────────┘                            │
 │   Box: [10,20,60,80]   Box: [W-60, 20, W-10, 80]                   │
@@ -7390,12 +7390,12 @@ td { padding: 6px; border-bottom: 1px solid #dee2e6; }
 
 ┌─────────────┬─────────────┐
 │   Image 1   │   Image 2   │
-│  <img class="emoji" draggable="false" alt="🐕" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f415.svg" data-marp-twemoji=""/>  <img class="emoji" draggable="false" alt="🐕" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f415.svg" data-marp-twemoji=""/>     │     <img class="emoji" draggable="false" alt="🚗" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f697.svg" data-marp-twemoji=""/>      │
-│             │   <img class="emoji" draggable="false" alt="🐕" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f415.svg" data-marp-twemoji=""/>        │
+│ D1   D2    │     C1      │
+│             │   D3        │
 ├─────────────┼─────────────┤
 │   Image 3   │   Image 4   │
-│   <img class="emoji" draggable="false" alt="🐈" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f408.svg" data-marp-twemoji=""/>        │     <img class="emoji" draggable="false" alt="🐕" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f415.svg" data-marp-twemoji=""/> <img class="emoji" draggable="false" alt="🐈" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f408.svg" data-marp-twemoji=""/>   │
-│     <img class="emoji" draggable="false" alt="🐈" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f408.svg" data-marp-twemoji=""/>      │             │
+│  C2         │    D4 C3    │
+│    C4       │             │
 └─────────────┴─────────────┘
         ↓
     Single training image with

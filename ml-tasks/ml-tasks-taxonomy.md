@@ -574,9 +574,9 @@ Each level builds on the previous. More precision = More complexity = More data 
 │                                                                 │
 │   Input Image:                   Output Mask:                   │
 │   ┌──────────────────┐          ┌──────────────────┐           │
-│   │  ☀️ Sky          │          │ SSSSSSSSSSSSSSS  │  S = Sky  │
+│   │  [Sun] Sky       │          │ SSSSSSSSSSSSSSS  │  S = Sky  │
 │   │                  │          │ SSSSSSSSSSSSSSS  │  T = Tree │
-│   │  🌳  🚗  🌳     │   ──►    │ TTT CCCCC TTT    │  C = Car  │
+│   │  Tree Car Tree   │   -->    │ TTT CCCCC TTT    │  C = Car  │
 │   │                  │          │ TTT CCCCC TTT    │  R = Road │
 │   │  ═══════════════ │          │ RRRRRRRRRRRRRRR  │           │
 │   └──────────────────┘          └──────────────────┘           │

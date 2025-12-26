@@ -71,7 +71,7 @@ style: |
   td { padding: 6px; border-bottom: 1px solid #dee2e6; }
 ---
 
-# The Machine Learning Task Zoo 🦁
+# The Machine Learning Task Zoo
 ## A Safari Through 40+ Real-World AI Problems
 
 **Nipun Batra** · IIT Gandhinagar
@@ -85,19 +85,19 @@ style: |
 │                    THE ML TASK SAFARI MAP                           │
 ├─────────────────────────────────────────────────────────────────────┤
 │                                                                     │
-│   🔷 COMPUTER VISION          🔶 NATURAL LANGUAGE PROCESSING        │
+│   COMPUTER VISION             NATURAL LANGUAGE PROCESSING           │
 │   Classification              Sentiment Analysis                    │
 │   Detection                   Named Entity Recognition              │
 │   Segmentation               Translation                            │
 │   Pose Estimation            Summarization                          │
 │   Depth Estimation           Question Answering                     │
 │                                                                     │
-│   🔷 AUDIO & SPEECH           🔶 GENERATIVE MODELS                   │
+│   AUDIO & SPEECH              GENERATIVE MODELS                     │
 │   Speech-to-Text             Image Generation                       │
 │   Text-to-Speech             Text Generation                        │
 │   Speaker Recognition        Video Generation                       │
 │                                                                     │
-│   🔷 REINFORCEMENT            🔶 MULTIMODAL                          │
+│   REINFORCEMENT               MULTIMODAL                            │
 │   Game Playing               Visual QA                              │
 │   Robot Control              Image Captioning                       │
 │                                                                     │
@@ -187,7 +187,7 @@ The same model architecture can solve many different tasks — what changes is t
 
 ---
 
-# 🔷 Domain 1: Computer Vision
+# Domain 1: Computer Vision
 ## Teaching Machines to See
 
 *"A picture is worth a thousand words... to a neural network, it's worth millions of numbers!"*
@@ -234,10 +234,10 @@ SAME IMAGE, DIFFERENT TASKS:
 │  ───────────────       ─────────          ────────────    ────       │
 │                                                                       │
 │  ┌───────────┐        ┌───────────┐       ┌───────────┐   ┌───────┐  │
-│  │           │        │  ┌─────┐  │       │  ▓▓▓▓▓    │   │   ●   │  │
-│  │   🐕      │        │  │ Dog │  │       │ ▓▓▓▓▓▓▓   │   │  /│\  │  │
+│  │           │        │  ┌─────┐  │       │  ▓▓▓▓▓    │   │   *   │  │
+│  │  [Dog]    │        │  │ Dog │  │       │ ▓▓▓▓▓▓▓   │   │  /|\  │  │
 │  │           │        │  │ 95% │  │       │▓▓▓▓▓▓▓▓▓  │   │  / \  │  │
-│  │           │        │  └─────┘  │       │ ▓▓▓ ▓▓▓   │   │ ●   ● │  │
+│  │           │        │  └─────┘  │       │ ▓▓▓ ▓▓▓   │   │ *   * │  │
 │  └───────────┘        └───────────┘       └───────────┘   └───────┘  │
 │                                                                       │
 │  Output: "Dog"        Output:             Output:         Output:     │
@@ -265,10 +265,10 @@ SAME IMAGE, DIFFERENT TASKS:
 ```
 
 **Real-world uses:**
-- 📱 Google Photos auto-tagging
-- 🏥 Medical X-ray diagnosis
-- 🏭 Quality control in factories
-- 🌿 Plant disease detection
+- Google Photos auto-tagging
+- Medical X-ray diagnosis
+- Quality control in factories
+- Plant disease detection
 
 </div>
 <div>
@@ -340,7 +340,7 @@ Input Image (e.g., 224 × 224 × 3 = 150,528 numbers)
 │                                                                     │
 │   Classes include:                                                  │
 │   ┌─────────┐ ┌─────────┐ ┌─────────┐ ┌─────────┐ ┌─────────┐     │
-│   │ 🐕      │ │ 🚗      │ │ 🎸      │ │ 🍕      │ │ 🏠      │     │
+│   │ [Dog]   │ │ [Car]   │ │ [Music] │ │ [Food]  │ │ [Home]  │     │
 │   │ 120 dog │ │ Cars    │ │ Musical │ │ Foods   │ │ Objects │     │
 │   │ breeds! │ │         │ │ instr.  │ │         │ │         │     │
 │   └─────────┘ └─────────┘ └─────────┘ └─────────┘ └─────────┘     │
@@ -348,7 +348,7 @@ Input Image (e.g., 224 × 224 × 3 = 150,528 numbers)
 │   Year    Winner           Top-5 Error    Note                      │
 │   ─────────────────────────────────────────────────                 │
 │   2010    Traditional ML   28.2%          Hand-crafted features    │
-│   2012    AlexNet (CNN)    16.4%          🔥 Deep learning begins!  │
+│   2012    AlexNet (CNN)    16.4%          Deep learning begins!    │
 │   2015    ResNet           3.6%           Superhuman performance!  │
 │   2020    ViT              1.0%           Transformers enter vision│
 │                                                                     │
@@ -369,8 +369,8 @@ Input Image (e.g., 224 × 224 × 3 = 150,528 numbers)
 │                                                                     │
 │   ┌───────────┐                   ┌───────────┐                     │
 │   │           │                   │           │                     │
-│   │   🐱      │ → "Cat"           │ 🐱 + 🐕   │ → ["Cat", "Dog"]   │
-│   │           │   (one class)     │   + 🛋️    │    ["Couch"]        │
+│   │   [Cat]   │ -> "Cat"          │ Cat + Dog │ -> ["Cat", "Dog"]  │
+│   │           │   (one class)     │   + Couch │    ["Couch"]        │
 │   └───────────┘                   └───────────┘   ["Indoors"]       │
 │                                                                     │
 │   Each image has                  Each image can have               │
@@ -477,11 +477,11 @@ Must process 30+ frames/second!
 │   ┌───┬───┬───┬───┬───┬───┬───┐                                    │
 │   │   │   │   │   │   │   │   │                                    │
 │   ├───┼───┼───┼───┼───┼───┼───┤     Each cell predicts:            │
-│   │   │   │ 🐕│   │   │   │   │     • B bounding boxes              │
+│   │   │   │DOG│   │   │   │   │     * B bounding boxes              │
 │   ├───┼───┼───┼───┼───┼───┼───┤     • Confidence scores            │
 │   │   │   │   │   │   │   │   │     • C class probabilities         │
 │   ├───┼───┼───┼───┼───┼───┼───┤                                    │
-│   │   │   │   │   │   │ 🐱│   │                                    │
+│   │   │   │   │   │   │CAT│   │                                    │
 │   ├───┼───┼───┼───┼───┼───┼───┤                                    │
 │   │   │   │   │   │   │   │   │                                    │
 │   └───┴───┴───┴───┴───┴───┴───┘                                    │
@@ -529,7 +529,7 @@ SEMANTIC SEGMENTATION:               INSTANCE SEGMENTATION:
 │ ░░░░░░░░░░░░░░░░░░░░ │              │ ░░░░░░░░░░░░░░░░░░░░ │
 │ ░░░░░░░░░░░░░░░░░░░░ │              │ ░░░░░░░░░░░░░░░░░░░░ │
 │                      │              │                      │
-│  ▓▓▓▓▓    ▓▓▓▓▓     │     vs       │  🔵🔵🔵   🟢🟢🟢     │
+│  ▓▓▓▓▓    ▓▓▓▓▓     │     vs       │  111111   222222     │
 │                      │              │                      │
 │ ████████████████████ │              │ ████████████████████ │
 │ ████████████████████ │              │ ████████████████████ │
@@ -559,7 +559,7 @@ SEMANTIC SEGMENTATION:               INSTANCE SEGMENTATION:
 │   │ ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ │     │
 │   │                                                           │     │
 │   │    Car #1        Person #1        Car #2                  │     │
-│   │    🔵🔵🔵         🟡🟡              🟢🟢                  │     │
+│   │    Car #1         Person #1        Car #2                │     │
 │   │                                                           │     │
 │   │ Road (stuff - no instances)                               │     │
 │   │ ████████████████████████████████████████████████████████ │     │
@@ -650,12 +650,12 @@ Output: 17 keypoints with (x, y, confidence) each
 <div>
 
 **Other Applications**
-- 🎬 Motion capture for movies/games
-- 🏃 Running form analysis
-- 🕺 Dance move recognition
-- 🤟 Sign language interpretation
-- 🎮 Controller-free gaming (Kinect)
-- 🛡️ Fall detection for elderly
+- Motion capture for movies/games
+- Running form analysis
+- Dance move recognition
+- Sign language interpretation
+- Controller-free gaming (Kinect)
+- Fall detection for elderly
 
 </div>
 </div>
@@ -674,11 +674,11 @@ Output: 17 keypoints with (x, y, confidence) each
 RGB Image:                         Depth Map:
 ┌─────────────────────┐           ┌─────────────────────┐
 │                     │           │ ░░░░░░░░░░░░░░░░░░ │  ░ = Far
-│    🏔️ (mountains)   │           │ ░░░░░░░░░░░░░░░░░░ │      (light)
+│    Mountains        │           │ ░░░░░░░░░░░░░░░░░░ │      (light)
 │                     │           │                     │
-│  🌳 (trees)         │    ──►    │  ▒▒▒▒▒▒            │  ▒ = Medium
+│    Trees            │    -->    │  ▒▒▒▒▒▒            │  ▒ = Medium
 │                     │           │                     │
-│ 🚗 (close car)      │           │ ████████████        │  █ = Close
+│    Car (close)      │           │ ████████████        │  █ = Close
 │                     │           │                     │      (dark)
 └─────────────────────┘           └─────────────────────┘
 
@@ -702,7 +702,7 @@ Place virtual
 furniture in
 your room!
 
-   🛋️
+   [Sofa]
    (knows it's
    on the floor)
 ```
@@ -715,7 +715,7 @@ your room!
 Blur background
 based on depth
 
-  👤 (sharp)
+  [Person sharp]
   ░░░ (blurred)
 ```
 
@@ -728,7 +728,7 @@ Navigate without
 bumping into
 objects
 
-  🤖 → 📦
+  Robot --> Box
   (knows distance)
 ```
 
@@ -769,19 +769,19 @@ Frame t:                Frame t+1:              Flow Vectors:
 │                      OPTICAL FLOW USE CASES                          │
 ├─────────────────────────────────────────────────────────────────────┤
 │                                                                      │
-│  🎬 VIDEO COMPRESSION                                                │
+│  VIDEO COMPRESSION                                                   │
 │  Instead of storing every frame, store keyframes + motion vectors   │
 │  Result: 10x smaller file sizes                                     │
 │                                                                      │
-│  🏃 ACTION RECOGNITION                                               │
+│  ACTION RECOGNITION                                                  │
 │  "Running" = specific pattern of flow vectors                       │
 │  "Waving" = different pattern                                       │
 │                                                                      │
-│  🚗 AUTONOMOUS DRIVING                                               │
+│  AUTONOMOUS DRIVING                                                  │
 │  Objects moving towards you → collision warning                     │
 │  Everything moving left → you're turning right                      │
 │                                                                      │
-│  🎮 VIDEO GAMES                                                      │
+│  VIDEO GAMES                                                         │
 │  Frame interpolation: turn 30fps into 60fps                         │
 │                                                                      │
 └─────────────────────────────────────────────────────────────────────┘
@@ -829,7 +829,7 @@ Frame t:                Frame t+1:              Flow Vectors:
 │                                                                     │
 │   ┌───────────────────┐            ┌───────────────────┐            │
 │   │  ┌───┐            │            │      ┌───┐        │            │
-│   │  │ ? │   ┌───┐    │            │      │ 👤 │        │            │
+│   │  │ ? │   ┌───┐    │            │      │ ID │        │            │
 │   │  └───┘   │ ? │    │            │      └───┘        │            │
 │   │          └───┘    │            │        ↓          │            │
 │   └───────────────────┘            │   "This is Nipun" │            │
@@ -858,7 +858,7 @@ Frame t:                Frame t+1:              Flow Vectors:
 
 ---
 
-# 🔶 Domain 2: Natural Language Processing
+# Domain 2: Natural Language Processing
 ## Teaching Machines to Read & Write
 
 *"Language is the dress of thought."* — Samuel Johnson
@@ -929,7 +929,7 @@ Binary:     Positive / Negative
 3-class:    Positive / Neutral /
             Negative
 
-5-class:    ⭐ to ⭐⭐⭐⭐⭐
+5-class:    1 to 5 stars
 
 Continuous: -1.0 to +1.0
             (very negative →
@@ -951,11 +951,11 @@ Continuous: -1.0 to +1.0
 **Brand Monitoring**
 ```
 Twitter Stream:
-├─ "Love the new iPhone!" → 😊
-├─ "Battery dies so fast" → 😠
-├─ "Just bought one!"     → 😐
-├─ "Worst purchase ever"  → 😠
-└─ "Camera is incredible" → 😊
++- "Love the new iPhone!" -> Positive
++- "Battery dies so fast" -> Negative
++- "Just bought one!"     -> Neutral
++- "Worst purchase ever"  -> Negative
++- "Camera is incredible" -> Positive
 
 Daily Sentiment: 67% positive
 ```
@@ -1048,14 +1048,14 @@ Output: "Elon Musk announced that Tesla will open a factory
 │                                                                      │
 │   TYPE          EXAMPLES                      COLOR CODE             │
 │   ─────         ─────────                     ──────────             │
-│   PERSON        Elon Musk, Marie Curie        🟦 Blue                │
-│   ORGANIZATION  Tesla, Google, UN             🟩 Green               │
-│   LOCATION      Berlin, Mount Everest         🟨 Yellow              │
-│   DATE          March 2025, last Tuesday      🟧 Orange              │
-│   MONEY         $5 million, €100              🟫 Brown               │
-│   PERCENT       15%, three percent            ⬜ White               │
-│   TIME          3:30 PM, midnight             🟪 Purple              │
-│   PRODUCT       iPhone 15, Model S            🟥 Red                 │
+│   PERSON        Elon Musk, Marie Curie        [Blue]                 │
+│   ORGANIZATION  Tesla, Google, UN             [Green]                │
+│   LOCATION      Berlin, Mount Everest         [Yellow]               │
+│   DATE          March 2025, last Tuesday      [Orange]               │
+│   MONEY         $5 million, €100              [Brown]                │
+│   PERCENT       15%, three percent            [White]                │
+│   TIME          3:30 PM, midnight             [Purple]               │
+│   PRODUCT       iPhone 15, Model S            [Red]                  │
 │                                                                      │
 │   Domain-specific:                                                   │
 │   - Medical: DISEASE, DRUG, SYMPTOM                                  │
@@ -1378,7 +1378,7 @@ Output: "The secret to happiness is not in wealth but in
 
 ---
 
-# 🔷 Domain 3: Audio & Speech
+# Domain 3: Audio & Speech
 ## Teaching Machines to Hear
 
 *"The human voice is the most beautiful instrument of all."* — Arvo Pärt
@@ -1545,7 +1545,7 @@ Voice + "I am Alice"
 
 ---
 
-# 🔶 Domain 4: Unsupervised Learning
+# Domain 4: Unsupervised Learning
 ## Finding Patterns Without Labels
 
 *"The goal is to find structure in chaos."*
@@ -1636,7 +1636,7 @@ After K-Means (K=16):
 Only 16 colors!
 
 ┌───────────────────┐
-│ 🔴🟠🟡🟢🔵🟣⬛⬜│
+│ [Color Palette] │
 │ and 8 more shades │
 └───────────────────┘
 
@@ -1661,7 +1661,7 @@ Normal Transactions:                 Anomaly Alert!
 │   ●     ●    ●     ●    ●    ●      ★       ●     ●      │
 │                                     ▲                     │
 │                                     │                     │
-│                              🚨 FRAUD ALERT!              │
+│                              ** FRAUD ALERT! **           │
 │                              Unusual transaction          │
 │                              detected!                    │
 └───────────────────────────────────────────────────────────┘
@@ -1784,7 +1784,7 @@ Linear projection      Clusters tight         Clusters + structure
 
 ---
 
-# 🔷 Domain 5: Generative Models
+# Domain 5: Generative Models
 ## Creating New Content
 
 *"Creativity is just connecting things."* — Steve Jobs
@@ -1831,7 +1831,7 @@ Text-to-Image (Stable Diffusion, DALL-E, Midjourney):
 Prompt: "A robot painting                  Generated Image:
          a sunset, oil                     ┌─────────────────────┐
          painting style"                   │                     │
-              │                            │    🤖 🎨 🌅         │
+              │                            │  [AI Generated Art] │
               └──────────────────────────► │                     │
                                            │  [Beautiful AI      │
                                            │   generated art]    │
@@ -1856,7 +1856,7 @@ Random Noise ──► Generator ──► Realistic Image
 │   ──────────────────────────                                         │
 │   Take image → gradually add noise → pure noise                      │
 │                                                                      │
-│   🖼️ ──► 🖼️+░ ──► 🖼️+▒ ──► 🖼️+▓ ──► ▓▓▓▓▓                           │
+│   [Img] -> [Img+░] -> [Img+▒] -> [Img+▓] -> [Noise]                  │
 │   Clean    Slight   Medium   Heavy    Pure                           │
 │   image    noise    noise    noise    noise                          │
 │                                                                      │
@@ -1864,7 +1864,7 @@ Random Noise ──► Generator ──► Realistic Image
 │   ─────────────────────────────                                      │
 │   Start with noise → gradually denoise → clean image                 │
 │                                                                      │
-│   ▓▓▓▓▓ ──► 🖼️+▓ ──► 🖼️+▒ ──► 🖼️+░ ──► 🖼️                           │
+│   [Noise] -> [Img+▓] -> [Img+▒] -> [Img+░] -> [Img]                  │
 │   Pure      Heavy    Medium   Slight   Clean                         │
 │   noise     noise    noise    noise    image!                        │
 │                                                                      │
@@ -1883,19 +1883,19 @@ Random Noise ──► Generator ──► Realistic Image
 Original with hole:                  Inpainted result:
 ┌─────────────────────────┐         ┌─────────────────────────┐
 │                         │         │                         │
-│    🏔️  ████████         │   ──►   │    🏔️  ☀️ with clouds   │
+│    Mtns ████████        │   -->   │    Mtns + sun + clouds  │
 │       ████████          │         │       blue sky...       │
 │                         │         │                         │
-│    🌲  🏠  🌲           │         │    🌲  🏠  🌲           │
+│    Trees House Trees    │         │    Trees House Trees    │
 │                         │         │                         │
 └─────────────────────────┘         └─────────────────────────┘
    (user painted a mask)              (AI filled it in)
 ```
 
 **Uses:**
-- 🧹 Remove unwanted objects (photobombers!)
-- 🖼️ Restore damaged/old photos
-- ⬆️ Extend image boundaries (outpainting)
+- Remove unwanted objects (photobombers!)
+- Restore damaged/old photos
+- Extend image boundaries (outpainting)
 
 ---
 
@@ -1944,7 +1944,7 @@ AI upscaling: Adds plausible detail that wasn't there!
 
 ---
 
-# 🔶 Domain 6: Self-Supervised Learning
+# Domain 6: Self-Supervised Learning
 ## The Secret Sauce of Modern AI
 
 *"Give me a lever long enough and I shall move the world."* — Archimedes
@@ -2072,13 +2072,13 @@ Next token distribution:
 ```
 Original Image:
     ┌─────────────┐
-    │     🐱      │
+    │    [Cat]    │
     └──────┬──────┘
            │
     ┌──────┴──────┐      Create different "views"
     ▼             ▼      (augmentations)
 ┌─────────┐  ┌─────────┐
-│ 🐱      │  │    🐱   │
+│ [Cat]   │  │  [Cat]  │
 │(cropped)│  │(rotated)│
 └────┬────┘  └────┬────┘
      │            │
@@ -2124,7 +2124,7 @@ Meanwhile: embeddings of DIFFERENT images should be DIFFERENT!
 
 ---
 
-# 🔷 Domain 7: Reinforcement Learning
+# Domain 7: Reinforcement Learning
 ## Learning by Doing
 
 *"Experience is the teacher of all things."* — Julius Caesar
@@ -2228,10 +2228,10 @@ No human games needed — pure self-play!
 │                                                                     │
 │        ENVIRONMENT (Simulation or Real World)                       │
 │                                                                     │
-│             🤖 ──────────────────────────► 🎯                       │
+│           [Robot] -----------------------> [Goal]                   │
 │            Robot                          Goal                      │
 │                                                                     │
-│   Obstacles: 📦  🪑  🚧                                              │
+│   Obstacles: [Box] [Chair] [Barrier]                                │
 │                                                                     │
 └─────────────────────────────────────────────────────────────────────┘
                     ▲                    │
@@ -2286,7 +2286,7 @@ Reward: +10 for reaching goal, -1 for bumping, -0.01 per step
 
 ---
 
-# 🔶 Domain 8: Multimodal Tasks
+# Domain 8: Multimodal Tasks
 ## Combining Vision + Language
 
 *"The whole is greater than the sum of its parts."* — Aristotle
@@ -2329,12 +2329,12 @@ Reward: +10 for reaching goal, -1 for bumping, -0.01 per step
 Image:                              Questions & Answers:
 ┌───────────────────────┐
 │                       │        Q: "How many people are
-│    👨 👩 🐕              │            in the image?"
+│    Man Woman Dog         │            in the image?"
 │                       │        A: "Two people"
 │  [People walking      │
 │   a dog in a park]    │        Q: "What animal is there?"
 │                       │        A: "A dog"
-│    🌳      🌳         │
+│    Tree    Tree       │
 │                       │        Q: "What are they doing?"
 │                       │        A: "Walking their dog
 │                       │            in a park"
@@ -2356,13 +2356,13 @@ Requires BOTH:
 Image:                              Generated Caption:
 ┌───────────────────────┐
 │                       │
-│   🏃‍♂️ 🏃‍♀️ 🏃           │   ──►   "A group of runners
+│   [Runners]           │   -->   "A group of runners
 │                       │          participating in a city
 │   [Marathon scene     │          marathon on a sunny day,
 │    with crowds and    │          with spectators cheering
 │    city buildings]    │          along the street and tall
 │                       │          buildings in the background."
-│   👥 👥 👥 👥 🏢🏢    │
+│   [Crowds][Buildings]  │
 │                       │
 └───────────────────────┘
 
@@ -2390,8 +2390,8 @@ Prompt: "A golden retriever running through a field
                      ▼
     ┌───────┐ ┌───────┐ ┌───────┐ ┌───────┐     ┌───────┐
     │Frame 1│ │Frame 2│ │Frame 3│ │Frame 4│ ... │Frame N│
-    │  🐕   │ │  🐕   │ │  🐕   │ │  🐕   │     │  🐕   │
-    │ 🌻🌻  │ │ 🌻🌻  │ │ 🌻🌻  │ │ 🌻🌻  │     │ 🌻🌻  │
+    │ [Dog] │ │ [Dog] │ │ [Dog] │ │ [Dog] │     │ [Dog] │
+    │ Field │ │ Field │ │ Field │ │ Field │     │ Field │
     └───────┘ └───────┘ └───────┘ └───────┘     └───────┘
 
                   Temporally consistent video!
@@ -2427,7 +2427,7 @@ Prompt: "A golden retriever running through a field
 
 ---
 
-# 🔷 Domain 9: Tabular & Time Series
+# Domain 9: Tabular & Time Series
 ## The Classic ML Tasks
 
 *"Not everything that counts can be counted, but data often helps."*
@@ -2549,9 +2549,9 @@ Components to model:
 User-Item Matrix:                    Recommendations:
                                      ┌──────────────────────┐
          Movie1 Movie2 Movie3 Movie4 │ For User A:          │
-User A    ⭐⭐⭐⭐⭐   ?    ⭐⭐⭐   ?    │  • Movie2 (pred: 4.2)│
-User B    ⭐⭐⭐⭐  ⭐⭐⭐⭐⭐  ?    ⭐⭐  │  • Movie4 (pred: 3.8)│
-User C     ?    ⭐⭐⭐⭐  ⭐⭐⭐⭐⭐ ⭐⭐⭐ │                      │
+User A      5       ?       3       ?    |  * Movie2 (pred: 4.2)|
+User B      4       5       ?       2    |  * Movie4 (pred: 3.8)|
+User C      ?       4       5       3    |                      |
                                      │ "Because you liked   │
                                      │  Movie1 and Movie3"  │
                                      └──────────────────────┘
