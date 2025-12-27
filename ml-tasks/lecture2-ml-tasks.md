@@ -229,6 +229,23 @@ style: |
     font-size: 1.4em;
     font-weight: 400;
   }
+  section.section-divider h3 {
+    color: rgba(255,255,255,0.9);
+    font-size: 1.2em;
+    font-weight: 500;
+    margin-top: 30px;
+  }
+  section.section-divider p {
+    color: rgba(255,255,255,0.85);
+    font-size: 1.3em;
+    margin: 10px 0;
+  }
+  section.section-divider strong {
+    color: white;
+  }
+  section.section-divider em {
+    color: rgba(255,255,255,0.7);
+  }
 
   /* Page numbers */
   section::after {
