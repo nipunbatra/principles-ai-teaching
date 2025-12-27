@@ -69,22 +69,16 @@ You use machine learning **every single day**.
 
 Can you identify where?
 
-```
-┌────────────────────────────────────────────────────────────────┐
-│                     YOUR DAILY LIFE                             │
-├────────────────────────────────────────────────────────────────┤
-│                                                                 │
-│   Morning:  Phone unlocks with your face                       │
-│   Commute:  Google Maps predicts traffic                       │
-│   Email:    Gmail filters spam, suggests replies               │
-│   Music:    Spotify recommends songs you'll love               │
-│   Shopping: Amazon shows "You might also like..."              │
-│   Photos:   Google Photos groups by faces, finds "beach"       │
-│   Evening:  Netflix suggests what to watch                     │
-│   Chat:     You ask ChatGPT a question                         │
-│                                                                 │
-└────────────────────────────────────────────────────────────────┘
-```
+| Time | Application | ML Behind It |
+|------|-------------|--------------|
+| Morning | Phone unlocks with your face | Face Recognition |
+| Commute | Google Maps predicts traffic | Time Series Prediction |
+| Email | Gmail filters spam, suggests replies | Text Classification + Generation |
+| Music | Spotify recommends songs you'll love | Recommendation Systems |
+| Shopping | Amazon shows "You might also like..." | Collaborative Filtering |
+| Photos | Google Photos groups by faces, finds "beach" | Clustering + Image Classification |
+| Evening | Netflix suggests what to watch | Recommendation Systems |
+| Chat | You ask ChatGPT a question | Language Models (Generative AI) |
 
 **Each of these is a different ML task!**
 
@@ -135,27 +129,7 @@ Once you know the "output type", you know which family the task belongs to!
 
 # The Master Taxonomy
 
-```
-                    ┌─────────────────────────┐
-                    │    MACHINE LEARNING     │
-                    └───────────┬─────────────┘
-          ┌─────────────────────┼─────────────────────┐
-          │                     │                     │
-    ┌─────┴─────┐         ┌─────┴─────┐         ┌─────┴─────┐
-    │SUPERVISED │         │UNSUPERVISED│        │   SELF-   │
-    │           │         │            │        │SUPERVISED │
-    └─────┬─────┘         └─────┬──────┘        └─────┬─────┘
-          │                     │                     │
-    ┌─────┴─────┐         ┌─────┴─────┐         ┌─────┴─────┐
-    │Has Labels │         │ No Labels │         │Creates Own│
-    │ (X → Y)   │         │ (X only)  │         │  Labels   │
-    └───────────┘         └───────────┘         └───────────┘
-          │                     │                     │
-   Classification          Clustering            Next Token
-   Regression              Dim. Reduction        Prediction
-   Detection               Anomaly Det.          Contrastive
-   Segmentation                                  Learning
-```
+![w:1000 center](diagrams/svg/ml_family_tree.svg)
 
 ---
 
@@ -168,23 +142,16 @@ Once you know the "output type", you know which family the task belongs to!
 
 Think about how YOU classify things every day:
 
-```
-┌────────────────────────────────────────────────────────────────┐
-│                                                                 │
-│   "Is this mushroom safe to eat?"     → Edible / Poisonous    │
-│                                                                 │
-│   "What animal is in this photo?"     → Dog / Cat / Bird      │
-│                                                                 │
-│   "Should I trust this email?"        → Legitimate / Spam     │
-│                                                                 │
-│   "What number is written here?"      → 0 / 1 / 2 / ... / 9   │
-│                                                                 │
-└────────────────────────────────────────────────────────────────┘
-```
+| Question | Possible Answers |
+|----------|-----------------|
+| "Is this mushroom safe to eat?" | Edible / Poisonous |
+| "What animal is in this photo?" | Dog / Cat / Bird / ... |
+| "Should I trust this email?" | Legitimate / Spam |
+| "What number is written here?" | 0, 1, 2, ... 9 |
 
-You look at the input and pick **one category** from a fixed set.
+You look at the input and pick **one category** from a fixed set. That's classification!
 
-That's classification!
+![w:600 center](examples/cifar10_examples.png)
 
 ---
 
@@ -193,6 +160,14 @@ That's classification!
 ![w:900 center](diagrams/svg/classification_pipeline.svg)
 
 The model learns patterns that distinguish categories, then applies those patterns to new inputs.
+
+---
+
+# Classification in Action: Decision Trees
+
+![w:1000 center](examples/decision_tree_example.png)
+
+A decision tree learns **if-then rules** from data: "If sepal length > 5.5 AND sepal width < 3.0, then iris-versicolor"
 
 ---
 
@@ -312,28 +287,11 @@ But actually it's: ✓ Action
 
 ---
 
-# The Math Behind Classification
+# The Math Behind Classification: Softmax
 
-```
-Input x ──► Neural Network ──► Softmax ──► Probabilities
-                                              │
-                                              ▼
-                                    ┌─────────────────┐
-                                    │ Cat:   0.85     │
-                                    │ Dog:   0.10     │
-                                    │ Bird:  0.05     │
-                                    └─────────────────┘
-                                              │
-                                         Sum = 1.0
-                                              │
-                                              ▼
-                                        Pick highest
-                                              │
-                                              ▼
-                                           "Cat"
-```
+![w:900 center](examples/softmax_example.png)
 
-**Softmax** converts raw scores to probabilities that sum to 1.
+**Softmax** converts raw scores (logits) to probabilities that sum to 1.
 
 The model isn't just saying "Cat" — it's saying "85% sure it's a cat!"
 
@@ -394,27 +352,11 @@ Instead of choosing from buckets, we predict a specific point on a number line.
 
 ---
 
-# Example: House Price Prediction
+# Regression in Action: Linear Regression
 
-```
-FEATURES (Input):                         PREDICTION (Output):
-┌──────────────────────────────────┐
-│ Bedrooms:        3               │
-│ Bathrooms:       2               │
-│ Square Feet:     1,500           │     ───────►    $425,000
-│ Year Built:      2005            │
-│ Location Score:  8.5/10          │
-│ Has Pool:        No              │
-└──────────────────────────────────┘
+![w:1000 center](examples/linear_regression_example.png)
 
-The model learns patterns like:
-  - More bedrooms → higher price (usually)
-  - Better location → higher price (definitely!)
-  - Older house → lower price (sometimes)
-  - Has pool → depends on the climate!
-
-Then combines all these patterns into ONE number.
-```
+The model learns: **Price = $50,000 + $150 * (square feet)**
 
 ---
 
@@ -545,67 +487,23 @@ Each level builds on the previous. More precision = More complexity = More data 
 
 # Level 2: Object Detection
 
-```
-┌────────────────────────────────────────────────────────────────┐
-│                                                                 │
-│   ┌──────────────────────────┐                                 │
-│   │  ┌───────┐               │    ───────►    "Cat" @ (10,20)  │
-│   │  │ CAT   │   ┌───────┐   │                "Dog" @ (80,50)  │
-│   │  │       │   │ DOG   │   │                                 │
-│   │  └───────┘   │       │   │                                 │
-│   │              └───────┘   │                                 │
-│   └──────────────────────────┘                                 │
-│        Input Image                   Labels + Bounding Boxes   │
-│                                                                 │
-│   KNOWS: What's in the image AND where                         │
-│   DOESN'T KNOW: Exact shape of objects                         │
-│                                                                 │
-└────────────────────────────────────────────────────────────────┘
-```
-
 **Detection = Classification (what) + Regression (where)**
 
----
+![w:900 center](examples/coco_detection_examples.png)
 
-# Level 3: Semantic Segmentation
-
-```
-┌────────────────────────────────────────────────────────────────┐
-│                                                                 │
-│   Input Image:                   Output Mask:                   │
-│   ┌──────────────────┐          ┌──────────────────┐           │
-│   │  [Sun] Sky       │          │ SSSSSSSSSSSSSSS  │  S = Sky  │
-│   │                  │          │ SSSSSSSSSSSSSSS  │  T = Tree │
-│   │  Tree Car Tree   │   -->    │ TTT CCCCC TTT    │  C = Car  │
-│   │                  │          │ TTT CCCCC TTT    │  R = Road │
-│   │  ═══════════════ │          │ RRRRRRRRRRRRRRR  │           │
-│   └──────────────────┘          └──────────────────┘           │
-│                                                                 │
-│   EVERY pixel gets a class label!                               │
-│   Perfect for self-driving cars, medical imaging               │
-│                                                                 │
-└────────────────────────────────────────────────────────────────┘
-```
+Output: List of `(class_name, confidence, x, y, width, height)` for each object
 
 ---
 
-# Level 4: Instance Segmentation
+# Level 3 & 4: Segmentation
 
-**What if there are TWO cars?**
+![w:700 center](examples/segmentation_comparison.png)
 
-```
-SEMANTIC SEGMENTATION:               INSTANCE SEGMENTATION:
-┌────────────────────┐               ┌────────────────────┐
-│                    │               │                    │
-│   CCCCC    CCCCC   │               │   11111    22222   │
-│   CCCCC    CCCCC   │               │   11111    22222   │
-│                    │               │                    │
-└────────────────────┘               └────────────────────┘
-   Both labeled "Car"                  Car #1 vs Car #2
+---
 
-Semantic: "These pixels are CAR"
-Instance: "These pixels are CAR #1, those are CAR #2"
-```
+# Instance Segmentation in Action
+
+![w:900 center](examples/instance_segmentation_example.png)
 
 <div class="insight">
 Self-driving cars need Instance Segmentation — they must track WHICH car is doing what!
@@ -615,25 +513,18 @@ Self-driving cars need Instance Segmentation — they must track WHICH car is do
 
 # Real-World Vision Hierarchy Example
 
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                    AUTONOMOUS DRIVING                            │
-├─────────────────────────────────────────────────────────────────┤
-│                                                                  │
-│   Classification:  "There are cars and people in this scene"    │
-│                    (Not enough! Where are they?)                 │
-│                                                                  │
-│   Detection:       "Car at (100,200), Person at (300,150)"      │
-│                    (Better! But how close to lane?)              │
-│                                                                  │
-│   Segmentation:    "The drivable road area is these pixels"     │
-│                    (Great! Now I know where to drive)            │
-│                                                                  │
-│   Instance Seg:    "This is Car #1, that is Car #2, tracking..."│
-│                    (Perfect! I can predict each car's movement) │
-│                                                                  │
-└─────────────────────────────────────────────────────────────────┘
-```
+**Autonomous Driving: Why Each Level Matters**
+
+| Level | Task | What it Tells the Car |
+|-------|------|----------------------|
+| 1 | Classification | "There are cars and people in this scene" |
+| 2 | Detection | "Car at (100,200), Person at (300,150)" |
+| 3 | Semantic Seg. | "The drivable road area is these pixels" |
+| 4 | Instance Seg. | "This is Car #1, that is Car #2" - can track each! |
+
+<div class="insight">
+Higher levels give more precise information but require more data and compute!
+</div>
 
 ---
 
@@ -646,23 +537,12 @@ Self-driving cars need Instance Segmentation — they must track WHICH car is do
 
 Some data comes in **ordered** form where **position matters**:
 
-```
-┌────────────────────────────────────────────────────────────────┐
-│                                                                 │
-│   TEXT:   "I love you"   vs   "You love I"                     │
-│            (Sweet)             (Grammatically wrong!)           │
-│                                                                 │
-│   DNA:    ATCGATCG  vs  GATCATCG                               │
-│            (Different gene!)                                    │
-│                                                                 │
-│   AUDIO:  ♪ Do-Re-Mi  vs  ♪ Mi-Re-Do                           │
-│            (Different melody!)                                  │
-│                                                                 │
-│   VIDEO:  Frame1→Frame2→Frame3  vs  Frame3→Frame2→Frame1       │
-│            (Forward vs Backward!)                               │
-│                                                                 │
-└────────────────────────────────────────────────────────────────┘
-```
+| Data Type | Original | Shuffled | Problem |
+|-----------|----------|----------|---------|
+| Text | "I love you" | "You love I" | Grammatically wrong! |
+| DNA | ATCGATCG | GATCATCG | Different gene! |
+| Audio | Do-Re-Mi | Mi-Re-Do | Different melody! |
+| Video | Frame 1→2→3 | Frame 3→2→1 | Forward vs Backward! |
 
 <div class="insight">
 For sequences, we need models that understand ORDER, not just content!
@@ -750,27 +630,13 @@ SUPERVISED:                        UNSUPERVISED:
 
 # Clustering: Finding Natural Groups
 
-```
-BEFORE (Unlabeled data):           AFTER (Discovered clusters):
+![w:1000 center](examples/kmeans_example.png)
 
-    •    ■                              ○    □
-  •   •    ■ ■                        ○   ○    □ □
-    •        ■                          ○        □
-
-        ▲   ▲                              △   △
-    ▲          ▲                       △          △
-      ▲    ▲                             △    △
-
-No one told the algorithm these     The algorithm discovered
-are 3 groups — it figured it out!   3 natural groupings.
-```
+**K-Means:** No labels needed! The algorithm discovers natural groupings on its own.
 
 <div class="realworld">
 
-**Real applications:**
-- Customer segmentation: VIPs vs Bargain hunters vs Occasional buyers
-- Gene expression: Which genes behave similarly?
-- Document clustering: Group news articles by topic
+**Real applications:** Customer segmentation, gene expression analysis, document clustering
 
 </div>
 
@@ -1045,6 +911,22 @@ Learning from trial/error?  →  Reinforcement Learning
 
 ---
 
+# The Common Thread: Neural Networks
+
+![w:900 center](examples/neural_network_diagram.png)
+
+**All these tasks use the same fundamental building block:** Neural networks!
+
+---
+
+# How Neural Networks Learn: Gradient Descent
+
+![w:1000 center](examples/gradient_descent.png)
+
+**Training = Finding the weights that minimize the loss function**
+
+---
+
 # Key Takeaways
 
 1. **Classification** → Predict a category (discrete)
@@ -1063,15 +945,10 @@ Understanding the output type tells you which family of techniques to use!
 
 ---
 
-# What's Next?
+# Coming Up: Deep Dives
 
-In the **ML Tasks Zoo** lecture, we'll dive deeper into:
-
-- 40+ specific tasks across all domains
-- Computer Vision tasks in detail
-- NLP tasks explained
-- Audio processing
-- And much more!
+**Lecture 3:** Language Models (Next Token Prediction → ChatGPT)
+**Lecture 4:** Object Detection (YOLO and beyond)
 
 ---
 

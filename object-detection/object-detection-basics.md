@@ -162,26 +162,10 @@ Level 3: INSTANCE SEGMENTATION         "Exact shape of each object"
 
 # Classification vs Detection: Key Difference
 
-```
-CLASSIFICATION:                         DETECTION:
-"Is there a cat?"                       "Where are all the cats?"
+![w:1100 center](diagrams/realistic/classification_vs_detection.png)
 
-┌────────────────────────┐              ┌────────────────────────┐
-│                        │              │  ┌────┐      ┌────┐   │
-│   [Cat]  [Cat]        │              │  │Cat │      │Cat │   │
-│         [Cat]         │              │  │0.97│      │0.94│   │
-│                        │              │  └────┘  ┌────┤    │
-│                        │              │          │Cat │    │
-│                        │              │          │0.91│    │
-└────────────────────────┘              └──────────┴────┴────┘
-
-Output: "cat" (0.99)                    Output: 3 detections
-                                        • cat @ box1 (0.97)
-                                        • cat @ box2 (0.94)
-                                        • cat @ box3 (0.91)
-
-ONE answer for the image                MULTIPLE answers with locations
-```
+**Classification:** ONE label for the whole image
+**Detection:** MULTIPLE objects with locations (bounding boxes)
 
 <div class="insight">
 Detection = Classification + Localization + Counting (implicitly)
@@ -492,27 +476,21 @@ Answer: IoU = Intersection / Union
 
 ---
 
-# IoU: Visual Examples
+# IoU: Visual Example
 
-```
-IoU = 0.0                IoU ≈ 0.3               IoU ≈ 0.7               IoU = 1.0
-(No overlap)             (Poor)                  (Good)                  (Perfect)
-
-┌─────┐  ┌─────┐        ┌─────┐                 ┌─────┐                 ┌─────┐
-│  A  │  │  B  │        │  A  ┼──┐              │  A  │                 │ A=B │
-│     │  │     │        │     │  │              │ ┌───┼──┐              │     │
-└─────┘  └─────┘        └─────┼──┤ B            │ │███│  │              │     │
-                              │  │              └─┼───┘  │ B            └─────┘
-                              └──┘                │      │
-                                                  └──────┘
-
-Boxes don't             Small overlap           Large overlap           Boxes are
-touch at all            relative to union       relative to union       identical
-```
+![w:800 center](diagrams/realistic/iou_example.png)
 
 <div class="insight">
 IoU is between 0 and 1. Higher is better. Think of it as "percent overlap."
 </div>
+
+| IoU Value | Interpretation | Action |
+|-----------|---------------|--------|
+| 0.0 | No overlap | Completely wrong |
+| 0.3 | Poor overlap | Likely wrong |
+| 0.5+ | Good overlap | Typically counts as correct |
+| 0.75+ | Great overlap | High-quality detection |
+| 1.0 | Perfect overlap | Identical boxes |
 
 ---
 
@@ -707,34 +685,17 @@ Algorithm intuition:
 
 ---
 
-# NMS: Step-by-Step Visualization
+# NMS: Before and After
 
-```
-Step 0: All detections (same class: "dog")
-─────────────────────────────────────────────────────────────────────
-Boxes:   [A: 0.95]  [B: 0.91]  [C: 0.85]  [D: 0.70]
-         (all overlap with each other, except D is far away)
+![w:900 center](diagrams/realistic/nms_example.png)
 
-Step 1: Sort by confidence
-─────────────────────────────────────────────────────────────────────
-Queue:   A(0.95) → B(0.91) → C(0.85) → D(0.70)
-Keep:    []
+**The Algorithm:**
+1. **Sort** all boxes by confidence (descending)
+2. **Take** the best box, add to "keep" list
+3. **Remove** all boxes with IoU > threshold (default 0.5) from queue
+4. **Repeat** until queue is empty
 
-Step 2: Take A (best), add to keep
-─────────────────────────────────────────────────────────────────────
-Queue:   B(0.91) → C(0.85) → D(0.70)
-Keep:    [A]
-Check:   IoU(A,B)=0.8 > 0.5 → remove B
-         IoU(A,C)=0.7 > 0.5 → remove C
-         IoU(A,D)=0.0 < 0.5 → keep D in queue
-
-Step 3: Take D (next best remaining), add to keep
-─────────────────────────────────────────────────────────────────────
-Queue:   (empty)
-Keep:    [A, D]
-
-DONE! From 4 boxes → 2 boxes (one for each actual dog)
-```
+Result: Multiple overlapping boxes -> One clean box per object!
 
 ---
 

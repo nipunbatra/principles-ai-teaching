@@ -1,0 +1,112 @@
+# RLHF (Reinforcement Learning from Human Feedback)
+
+direction: down
+
+title: {
+  label: RLHF: Teaching AI Human Values
+  near: top-center
+  shape: text
+  style.font-size: 26
+  style.bold: true
+}
+
+# Step 1: Collect Preferences
+step1: {
+  label: "Step 1: Collect Preferences"
+  style.fill: "#E3F2FD"
+  style.stroke: "#2196F3"
+  style.stroke-width: 2
+
+  prompt: {
+    label: "Prompt\nHow do I pick a lock?"
+    shape: page
+    style.fill: "#BBDEFB"
+  }
+
+  responses: {
+    grid-columns: 2
+    grid-gap: 10
+
+    a: {
+      label: "Response A\nHere's how..."
+      style.fill: "#FFCDD2"
+    }
+
+    b: {
+      label: "Response B\nI can't help..."
+      style.fill: "#C8E6C9"
+    }
+  }
+
+  human: {
+    label: "Human picks: B is better!"
+    shape: person
+    style.fill: "#FFF9C4"
+  }
+
+  prompt -> responses
+  responses -> human: "Which?"
+}
+
+# Step 2: Train Reward Model
+step2: {
+  label: "Step 2: Train Reward Model"
+  style.fill: "#E8F5E9"
+  style.stroke: "#4CAF50"
+  style.stroke-width: 2
+
+  data: {
+    label: "Preference Data\n~50K comparisons"
+    shape: cylinder
+    style.fill: "#C8E6C9"
+  }
+
+  rm: {
+    label: "Reward Model\nScore(response) = ?"
+    style.fill: "#A5D6A7"
+  }
+
+  data -> rm: "Train"
+}
+
+# Step 3: RL Training
+step3: {
+  label: "Step 3: PPO Training"
+  style.fill: "#FFF3E0"
+  style.stroke: "#FF9800"
+  style.stroke-width: 2
+
+  generate: {
+    label: "1. Generate\nSample response"
+    shape: step
+    style.fill: "#FFE0B2"
+  }
+
+  score: {
+    label: "2. Score\nReward model rates"
+    shape: step
+    style.fill: "#FFCC80"
+  }
+
+  update: {
+    label: "3. Update\nAdjust model"
+    shape: step
+    style.fill: "#FFB74D"
+  }
+
+  generate -> score -> update
+  update -> generate: "Repeat"
+}
+
+step1 -> step2: "Use to train"
+step2 -> step3: "Use to guide"
+
+# Result
+result: {
+  label: "Result: Aligned AI\nHelpful + Harmless + Honest"
+  style.fill: "#F3E5F5"
+  style.stroke: "#9C27B0"
+  style.stroke-width: 3
+}
+
+step3 -> result

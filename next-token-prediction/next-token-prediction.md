@@ -1676,33 +1676,83 @@ Because we sample probabilistically, each generation is different!
 
 ---
 
-# From GPT to ChatGPT
+# From GPT to ChatGPT: The Full Training Pipeline
 
-```
-┌─────────────────────────────────────────────────────────────────────┐
-│                    PRE-TRAINING → FINE-TUNING                        │
-├─────────────────────────────────────────────────────────────────────┤
-│                                                                      │
-│   Step 1: PRE-TRAINING (GPT)                                        │
-│   • Train on internet text (next token prediction)                  │
-│   • Model learns language patterns, facts, reasoning                 │
-│   • But it's just an autocomplete engine!                           │
-│                                                                      │
-│   Step 2: SUPERVISED FINE-TUNING (SFT)                              │
-│   • Train on (instruction, response) pairs                          │
-│   • Humans write example responses                                   │
-│   • Model learns to follow instructions                              │
-│                                                                      │
-│   Step 3: RLHF (Reinforcement Learning from Human Feedback)         │
-│   • Humans rank model responses                                      │
-│   • Train a reward model on these rankings                           │
-│   • Use RL to optimize for human preferences                         │
-│   • Makes responses helpful, harmless, honest                        │
-│                                                                      │
-│   Result: ChatGPT = GPT + SFT + RLHF                                │
-│                                                                      │
-└─────────────────────────────────────────────────────────────────────┘
-```
+![w:1100 center](diagrams/svg/llm_training_pipeline.svg)
+
+---
+
+# Stage 1: Pre-Training
+
+**Goal:** Learn language from massive text data
+
+| Aspect | Details |
+|--------|---------|
+| Data | Internet, books, Wikipedia (~trillions of tokens) |
+| Objective | Next token prediction: P(next \| context) |
+| Compute | 1000s of GPU-hours |
+| Result | **Base model** - can complete text but not helpful |
+
+**This is the most expensive step!** OpenAI, Anthropic, Google spend $10M-$100M+ here.
+
+---
+
+# Stage 2: Supervised Fine-Tuning (SFT)
+
+**Goal:** Learn to follow instructions
+
+| Aspect | Details |
+|--------|---------|
+| Data | Human-written (instruction, response) pairs (~100K) |
+| Objective | Imitate high-quality responses |
+| Compute | 10s of GPU-hours |
+| Result | **Instruction-tuned** - follows directions |
+
+Example training data:
+- **User:** "Explain photosynthesis to a 5-year-old"
+- **Assistant:** "Plants eat sunlight! They use it to make food from air and water..."
+
+---
+
+# Stage 3: RLHF (Alignment)
+
+**Goal:** Learn human values and preferences
+
+![w:900 center](diagrams/svg/rlhf_pipeline.svg)
+
+---
+
+# RLHF Details
+
+**Why RLHF?** SFT models can still be:
+- Harmful (follow dangerous instructions)
+- Dishonest (make up facts confidently)
+- Unhelpful (technically correct but useless)
+
+**The Solution:**
+1. Generate multiple responses to each prompt
+2. Have humans rank them (which is better?)
+3. Train a reward model to predict human preferences
+4. Use RL (PPO) to optimize the LLM for high reward
+
+**Result:** ChatGPT = GPT + SFT + RLHF
+
+---
+
+# Alternative: DPO (Direct Preference Optimization)
+
+**New approach (2023):** Skip the reward model!
+
+| Method | Steps | Complexity |
+|--------|-------|------------|
+| RLHF | Reward model + PPO | High |
+| DPO | Direct optimization | Lower |
+
+DPO trains directly on preference data:
+- Input: (prompt, chosen_response, rejected_response)
+- Output: Model that prefers good responses
+
+Used by: Llama 2, many open-source models
 
 ---
 

@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en-IN"><head><title>The Machine Learning Taxonomy</title><meta property="og:title" content="The Machine Learning Taxonomy"><meta charset="UTF-8"><meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0"><meta name="apple-mobile-web-app-capable" content="yes"><meta http-equiv="X-UA-Compatible" content="ie=edge"><meta property="og:type" content="website"><meta name="twitter:card" content="summary"><style>@media screen{body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc>button,body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc>button,body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-info-container button,body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container button{appearance:none;background-color:initial;border:0;color:inherit;cursor:pointer;font-size:inherit;opacity:.8;outline:none;padding:0;transition:opacity .2s linear;-webkit-tap-highlight-color:transparent}body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc>button:disabled,body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc>button:disabled,body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-info-container button:disabled,body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container button:disabled{cursor:not-allowed;opacity:.15!important}body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc>button:hover,body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc>button:hover,body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-info-container button:hover,body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container button:hover{opacity:1}body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc>button:hover:active,body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc>button:hover:active,body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-info-container button:hover:active,body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container button:hover:active{opacity:.6}body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc>button:hover:not(:disabled),body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc>button:hover:not(:disabled),body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-info-container button:hover:not(:disabled),body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container button:hover:not(:disabled){transition:none}body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc>button[data-bespoke-marp-osc=prev],body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc>button[data-bespoke-marp-osc=prev],body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-info-container button.bespoke-marp-presenter-info-page-prev{background:#0000 url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cGF0aCBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSI1IiBkPSJNNjggOTAgMjggNTBsNDAtNDAiLz48L3N2Zz4=") no-repeat 50%;background-size:contain;overflow:hidden;text-indent:100%;white-space:nowrap}body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc>button[data-bespoke-marp-osc=next],body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc>button[data-bespoke-marp-osc=next],body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-info-container button.bespoke-marp-presenter-info-page-next{background:#0000 url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cGF0aCBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSI1IiBkPSJtMzIgOTAgNDAtNDAtNDAtNDAiLz48L3N2Zz4=") no-repeat 50%;background-size:contain;overflow:hidden;text-indent:100%;white-space:nowrap}body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc>button[data-bespoke-marp-osc=fullscreen],body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc>button[data-bespoke-marp-osc=fullscreen]{background:#0000 url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48ZGVmcz48c3R5bGU+LmF7ZmlsbDpub25lO3N0cm9rZTojZmZmO3N0cm9rZS1saW5lY2FwOnJvdW5kO3N0cm9rZS1saW5lam9pbjpyb3VuZDtzdHJva2Utd2lkdGg6NXB4fTwvc3R5bGU+PC9kZWZzPjxyZWN0IHdpZHRoPSI4MCIgaGVpZ2h0PSI2MCIgeD0iMTAiIHk9IjIwIiBjbGFzcz0iYSIgcng9IjUuNjciLz48cGF0aCBkPSJNNDAgNzBIMjBWNTBtMjAgMEwyMCA3MG00MC00MGgyMHYyMG0tMjAgMCAyMC0yMCIgY2xhc3M9ImEiLz48L3N2Zz4=") no-repeat 50%;background-size:contain;overflow:hidden;text-indent:100%;white-space:nowrap}body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc>button.exit[data-bespoke-marp-osc=fullscreen],body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc>button.exit[data-bespoke-marp-osc=fullscreen]{background-image:url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48ZGVmcz48c3R5bGU+LmF7ZmlsbDpub25lO3N0cm9rZTojZmZmO3N0cm9rZS1saW5lY2FwOnJvdW5kO3N0cm9rZS1saW5lam9pbjpyb3VuZDtzdHJva2Utd2lkdGg6NXB4fTwvc3R5bGU+PC9kZWZzPjxyZWN0IHdpZHRoPSI4MCIgaGVpZ2h0PSI2MCIgeD0iMTAiIHk9IjIwIiBjbGFzcz0iYSIgcng9IjUuNjciLz48cGF0aCBkPSJNMjAgNTBoMjB2MjBtLTIwIDAgMjAtMjBtNDAgMEg2MFYzMG0yMCAwTDYwIDUwIiBjbGFzcz0iYSIvPjwvc3ZnPg==")}body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc>button[data-bespoke-marp-osc=presenter],body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc>button[data-bespoke-marp-osc=presenter]{background:#0000 url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cGF0aCBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSI1IiBkPSJNODcuOCA0Ny41Qzg5IDUwIDg3LjcgNTIgODUgNTJIMzVhOC43IDguNyAwIDAgMS03LjItNC41bC0xNS42LTMxQzExIDE0IDEyLjIgMTIgMTUgMTJoNTBhOC44IDguOCAwIDAgMSA3LjIgNC41ek02MCA1MnYzNm0tMTAgMGgyME00NSA0MmgyMCIvPjwvc3ZnPg==") no-repeat 50%;background-size:contain;overflow:hidden;text-indent:100%;white-space:nowrap}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container button.bespoke-marp-presenter-note-bigger{background:#0000 url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cGF0aCBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSI1IiBkPSJNMTIgNTBoODBNNTIgOTBWMTAiLz48L3N2Zz4=") no-repeat 50%;background-size:contain;overflow:hidden;text-indent:100%;white-space:nowrap}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container button.bespoke-marp-presenter-note-smaller{background:#0000 url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cGF0aCBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSI1IiBkPSJNMTIgNTBoODAiLz48L3N2Zz4=") no-repeat 50%;background-size:contain;overflow:hidden;text-indent:100%;white-space:nowrap}}@keyframes __bespoke_marp_transition_reduced_outgoing__{0%{opacity:1}to{opacity:0}}@keyframes __bespoke_marp_transition_reduced_incoming__{0%{mix-blend-mode:plus-lighter;opacity:0}to{mix-blend-mode:plus-lighter;opacity:1}}.bespoke-marp-note,.bespoke-marp-osc,.bespoke-progress-parent{display:none;transition:none}@media screen{::view-transition-group(*){animation-duration:var(--marp-bespoke-transition-animation-duration,.5s);animation-timing-function:ease}::view-transition-new(*),::view-transition-old(*){animation-delay:0s;animation-direction:var(--marp-bespoke-transition-animation-direction,normal);animation-duration:var(--marp-bespoke-transition-animation-duration,.5s);animation-fill-mode:both;animation-name:var(--marp-bespoke-transition-animation-name,var(--marp-bespoke-transition-animation-name-fallback,__bespoke_marp_transition_no_animation__));mix-blend-mode:normal}::view-transition-old(*){--marp-bespoke-transition-animation-name-fallback:__bespoke_marp_transition_reduced_outgoing__;animation-timing-function:ease}::view-transition-new(*){--marp-bespoke-transition-animation-name-fallback:__bespoke_marp_transition_reduced_incoming__;animation-timing-function:ease}::view-transition-new(root),::view-transition-old(root){animation-timing-function:linear}::view-transition-new(__bespoke_marp_transition_osc__),::view-transition-old(__bespoke_marp_transition_osc__){animation-duration:0s!important;animation-name:__bespoke_marp_transition_osc__!important}::view-transition-new(__bespoke_marp_transition_osc__){opacity:0!important}.bespoke-marp-transition-warming-up::view-transition-group(*),.bespoke-marp-transition-warming-up::view-transition-new(*),.bespoke-marp-transition-warming-up::view-transition-old(*){animation-play-state:paused!important}body,html{height:100%;margin:0}body{background:#000;overflow:hidden}svg.bespoke-marp-slide{content-visibility:hidden;opacity:0;pointer-events:none;z-index:-1}svg.bespoke-marp-slide:not(.bespoke-marp-active) *{view-transition-name:none!important}svg.bespoke-marp-slide.bespoke-marp-active{content-visibility:visible;opacity:1;pointer-events:auto;z-index:0}svg.bespoke-marp-slide.bespoke-marp-active.bespoke-marp-active-ready *{animation-name:__bespoke_marp__!important}@supports not (content-visibility:hidden){svg.bespoke-marp-slide[data-bespoke-marp-load=hideable]{display:none}svg.bespoke-marp-slide[data-bespoke-marp-load=hideable].bespoke-marp-active{display:block}}}@media screen and (prefers-reduced-motion:reduce){svg.bespoke-marp-slide *{view-transition-name:none!important}}@media screen{[data-bespoke-marp-fragment=inactive]{visibility:hidden}body[data-bespoke-view=""] .bespoke-marp-parent,body[data-bespoke-view=next] .bespoke-marp-parent{inset:0;position:absolute}body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc,body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc{background:#000000a6;border-radius:7px;bottom:50px;color:#fff;contain:paint;display:block;font-family:Helvetica,Arial,sans-serif;font-size:16px;left:50%;line-height:0;opacity:1;padding:12px;position:absolute;touch-action:manipulation;transform:translateX(-50%);transition:opacity .2s linear;-webkit-user-select:none;user-select:none;white-space:nowrap;will-change:transform;z-index:1;view-transition-name:__bespoke_marp_transition_osc__}body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc>*,body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc>*{margin-left:6px}body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc>:first-child,body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc>:first-child{margin-left:0}body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc>span,body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc>span{opacity:.8}body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc>span[data-bespoke-marp-osc=page],body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc>span[data-bespoke-marp-osc=page]{display:inline-block;min-width:140px;text-align:center}body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc>button[data-bespoke-marp-osc=fullscreen],body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc>button[data-bespoke-marp-osc=next],body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc>button[data-bespoke-marp-osc=presenter],body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc>button[data-bespoke-marp-osc=prev],body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc>button[data-bespoke-marp-osc=fullscreen],body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc>button[data-bespoke-marp-osc=next],body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc>button[data-bespoke-marp-osc=presenter],body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc>button[data-bespoke-marp-osc=prev]{height:32px;line-height:32px;width:32px}body[data-bespoke-view=""] .bespoke-marp-parent.bespoke-marp-inactive,body[data-bespoke-view=next] .bespoke-marp-parent.bespoke-marp-inactive{cursor:none}body[data-bespoke-view=""] .bespoke-marp-parent.bespoke-marp-inactive>.bespoke-marp-osc,body[data-bespoke-view=next] .bespoke-marp-parent.bespoke-marp-inactive>.bespoke-marp-osc{opacity:0;pointer-events:none}body[data-bespoke-view=""] svg.bespoke-marp-slide,body[data-bespoke-view=next] svg.bespoke-marp-slide{height:100%;left:0;position:absolute;top:0;width:100%}body[data-bespoke-view=""] .bespoke-progress-parent{background:#222;display:flex;height:5px;width:100%}body[data-bespoke-view=""] .bespoke-progress-parent+.bespoke-marp-parent{top:5px}body[data-bespoke-view=""] .bespoke-progress-parent .bespoke-progress-bar{background:#0288d1;flex:0 0 0;transition:flex-basis .2s cubic-bezier(0,1,1,1)}body[data-bespoke-view=next]{background:#0000}body[data-bespoke-view=presenter]{background:#161616}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container{display:grid;font-family:Helvetica,Arial,sans-serif;grid-template:"current dragbar next" minmax(140px,1fr) "current dragbar note" 2fr "info    dragbar note" 3em;grid-template-columns:minmax(3px,var(--bespoke-marp-presenter-split-ratio,66%)) 0 minmax(3px,1fr);height:100%;left:0;position:absolute;top:0;width:100%}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-parent{grid-area:current;overflow:hidden;position:relative}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-parent svg.bespoke-marp-slide{height:calc(100% - 40px);left:20px;pointer-events:none;position:absolute;top:20px;-webkit-user-select:none;user-select:none;width:calc(100% - 40px)}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-parent svg.bespoke-marp-slide.bespoke-marp-active{filter:drop-shadow(0 3px 10px rgba(0,0,0,.5))}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-dragbar-container{background:#0288d1;cursor:col-resize;grid-area:dragbar;margin-left:-3px;opacity:0;position:relative;transition:opacity .4s linear .1s;width:6px;z-index:10}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-dragbar-container:hover{opacity:1}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-dragbar-container.active{opacity:1;transition-delay:0s}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-next-container{background:#222;cursor:pointer;display:none;grid-area:next;overflow:hidden;position:relative}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-next-container.active{display:block}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-next-container iframe.bespoke-marp-presenter-next{background:#0000;border:0;display:block;filter:drop-shadow(0 3px 10px rgba(0,0,0,.5));height:calc(100% - 40px);left:20px;pointer-events:none;position:absolute;top:20px;-webkit-user-select:none;user-select:none;width:calc(100% - 40px)}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container{background:#222;color:#eee;grid-area:note;position:relative;z-index:1}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container button{height:1.5em;line-height:1.5em;width:1.5em}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container .bespoke-marp-presenter-note-wrapper{display:block;inset:0;position:absolute}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container .bespoke-marp-presenter-note-buttons{background:#000000a6;border-radius:4px;bottom:0;display:flex;gap:4px;margin:12px;opacity:0;padding:6px;pointer-events:none;position:absolute;right:0;transition:opacity .2s linear}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container .bespoke-marp-presenter-note-buttons:focus-within,body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container .bespoke-marp-presenter-note-wrapper:focus-within+.bespoke-marp-presenter-note-buttons,body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container:hover .bespoke-marp-presenter-note-buttons{opacity:1;pointer-events:auto}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container .bespoke-marp-note{box-sizing:border-box;font-size:calc(1.1em*var(--bespoke-marp-note-font-scale, 1));height:calc(100% - 40px);margin:20px;overflow:auto;padding-right:3px;white-space:pre-wrap;width:calc(100% - 40px);word-wrap:break-word;scrollbar-color:#eeeeee80 #0000;scrollbar-width:thin}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container .bespoke-marp-note::-webkit-scrollbar{width:6px}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container .bespoke-marp-note::-webkit-scrollbar-track{background:#0000}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container .bespoke-marp-note::-webkit-scrollbar-thumb{background:#eeeeee80;border-radius:6px}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container .bespoke-marp-note:empty{pointer-events:none}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container .bespoke-marp-note.active{display:block}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container .bespoke-marp-note p:first-child{margin-top:0}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container .bespoke-marp-note p:last-child{margin-bottom:0}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-info-container{align-items:center;box-sizing:border-box;color:#eee;display:flex;flex-wrap:nowrap;grid-area:info;justify-content:center;overflow:hidden;padding:0 10px}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-info-container .bespoke-marp-presenter-info-page,body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-info-container .bespoke-marp-presenter-info-time,body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-info-container .bespoke-marp-presenter-info-timer{box-sizing:border-box;display:block;padding:0 10px;white-space:nowrap;width:100%}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-info-container button{height:1.5em;line-height:1.5em;width:1.5em}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-info-container .bespoke-marp-presenter-info-page{order:2;text-align:center}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-info-container .bespoke-marp-presenter-info-page .bespoke-marp-presenter-info-page-text{display:inline-block;min-width:120px;text-align:center}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-info-container .bespoke-marp-presenter-info-time{color:#999;order:1;text-align:left}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-info-container .bespoke-marp-presenter-info-timer{color:#999;order:3;text-align:right}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-info-container .bespoke-marp-presenter-info-timer:hover{cursor:pointer}}@media print{.bespoke-marp-presenter-info-container,.bespoke-marp-presenter-next-container,.bespoke-marp-presenter-note-container{display:none}}</style><style>div#\:\$p > svg > foreignObject > section{width:1280px;height:720px;box-sizing:border-box;overflow:hidden;position:relative;scroll-snap-align:center center;-webkit-text-size-adjust:100%;text-size-adjust:100%}div#\:\$p > svg > foreignObject > section::after{bottom:0;content:attr(data-marpit-pagination);padding:inherit;pointer-events:none;position:absolute;right:0}div#\:\$p > svg > foreignObject > section:not([data-marpit-pagination])::after{display:none}div#\:\$p > svg > foreignObject > section :is(h1, marp-h1){font-size:2em;margin-block:0.67em}div#\:\$p > svg > foreignObject > section video::-webkit-media-controls{will-change:transform}@page {size:1280px 720px;margin:0}@media print{html, body{background-color:#fff;margin:0;page-break-inside:avoid;break-inside:avoid-page}div#\:\$p > svg > foreignObject > section{page-break-before:always;break-before:page}div#\:\$p > svg > foreignObject > section, div#\:\$p > svg > foreignObject > section *{-webkit-print-color-adjust:exact!important;animation-delay:0s!important;animation-duration:0s!important;color-adjust:exact!important;print-color-adjust:exact!important;transition:none!important}div#\:\$p > svg[data-marpit-svg]{display:block;height:100vh;width:100vw}}div#\:\$p > svg > foreignObject > :where(section){container-type:size}div#\:\$p > svg > foreignObject > section img[data-marp-twemoji]{background:transparent;height:1em;margin:0 .05em 0 .1em;vertical-align:-.1em;width:1em}div#\:\$p > svg > foreignObject > section{--focus-outlineColor:light-dark(#0969da, #1f6feb);--fgColor-default:light-dark(#1f2328, #f0f6fc);--fgColor-muted:light-dark(#59636e, #9198a1);--fgColor-accent:light-dark(#0969da, #4493f8);--fgColor-success:light-dark(#1a7f37, #3fb950);--fgColor-attention:light-dark(#9a6700, #d29922);--fgColor-danger:light-dark(#d1242f, #f85149);--fgColor-done:light-dark(#8250df, #ab7df8);--bgColor-default:light-dark(#fff, #0d1117);--bgColor-muted:light-dark(#f6f8fa, #151b23);--bgColor-neutral-muted:light-dark(#818b981f, #656c7633);--bgColor-attention-muted:light-dark(#fff8c5, #bb800926);--borderColor-default:light-dark(#d1d9e0, #3d444d);--borderColor-muted:light-dark(#d1d9e0b3, #3d444db3);--borderColor-neutral-muted:light-dark(#d1d9e0b3, #3d444db3);--borderColor-accent-emphasis:light-dark(#0969da, #1f6feb);--borderColor-success-emphasis:light-dark(#1a7f37, #238636);--borderColor-attention-emphasis:light-dark(#9a6700, #9e6a03);--borderColor-danger-emphasis:light-dark(#cf222e, #da3633);--borderColor-done-emphasis:light-dark(#8250df, #8957e5);--color-prettylights-syntax-comment:light-dark(#59636e, #9198a1);--color-prettylights-syntax-constant:light-dark(#0550ae, #79c0ff);--color-prettylights-syntax-constant-other-reference-link:light-dark(#0a3069, #a5d6ff);--color-prettylights-syntax-entity:light-dark(#6639ba, #d2a8ff);--color-prettylights-syntax-storage-modifier-import:light-dark(#1f2328, #f0f6fc);--color-prettylights-syntax-entity-tag:light-dark(#0550ae, #7ee787);--color-prettylights-syntax-keyword:light-dark(#cf222e, #ff7b72);--color-prettylights-syntax-string:light-dark(#0a3069, #a5d6ff);--color-prettylights-syntax-variable:light-dark(#953800, #ffa657);--color-prettylights-syntax-brackethighlighter-unmatched:light-dark(#82071e, #f85149);--color-prettylights-syntax-brackethighlighter-angle:light-dark(#59636e, #9198a1);--color-prettylights-syntax-invalid-illegal-text:light-dark(#f6f8fa, #f0f6fc);--color-prettylights-syntax-invalid-illegal-bg:light-dark(#82071e, #8e1519);--color-prettylights-syntax-carriage-return-text:light-dark(#f6f8fa, #f0f6fc);--color-prettylights-syntax-carriage-return-bg:light-dark(#cf222e, #b62324);--color-prettylights-syntax-string-regexp:light-dark(#116329, #7ee787);--color-prettylights-syntax-markup-list:light-dark(#3b2300, #f2cc60);--color-prettylights-syntax-markup-heading:light-dark(#0550ae, #1f6feb);--color-prettylights-syntax-markup-italic:light-dark(#1f2328, #f0f6fc);--color-prettylights-syntax-markup-bold:light-dark(#1f2328, #f0f6fc);--color-prettylights-syntax-markup-deleted-text:light-dark(#82071e, #ffdcd7);--color-prettylights-syntax-markup-deleted-bg:light-dark(#ffebe9, #67060c);--color-prettylights-syntax-markup-inserted-text:light-dark(#116329, #aff5b4);--color-prettylights-syntax-markup-inserted-bg:light-dark(#dafbe1, #033a16);--color-prettylights-syntax-markup-changed-text:light-dark(#953800, #ffdfb6);--color-prettylights-syntax-markup-changed-bg:light-dark(#ffd8b5, #5a1e02);--color-prettylights-syntax-markup-ignored-text:light-dark(#d1d9e0, #f0f6fc);--color-prettylights-syntax-markup-ignored-bg:light-dark(#0550ae, #1158c7);--color-prettylights-syntax-meta-diff-range:light-dark(#8250df, #d2a8ff);--color-prettylights-syntax-sublimelinter-gutter-mark:light-dark(#818b98, #3d444d);--base-size-4:calc(var(--marpit-root-font-size, 1rem) * 0.25);--base-size-8:calc(var(--marpit-root-font-size, 1rem) * 0.5);--base-size-16:calc(var(--marpit-root-font-size, 1rem) * 1);--base-size-24:calc(var(--marpit-root-font-size, 1rem) * 1.5);--base-size-40:calc(var(--marpit-root-font-size, 1rem) * 2.5);--base-text-weight-normal:400;--base-text-weight-medium:500;--base-text-weight-semibold:600;--fontStack-monospace:ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;--fgColor-accent:Highlight;}/*!
+<!DOCTYPE html><html lang="C"><head><title>The Machine Learning Taxonomy</title><meta property="og:title" content="The Machine Learning Taxonomy"><meta charset="UTF-8"><meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0"><meta name="apple-mobile-web-app-capable" content="yes"><meta http-equiv="X-UA-Compatible" content="ie=edge"><meta property="og:type" content="website"><meta name="twitter:card" content="summary"><style>@media screen{body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc>button,body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc>button,body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-info-container button,body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container button{appearance:none;background-color:initial;border:0;color:inherit;cursor:pointer;font-size:inherit;opacity:.8;outline:none;padding:0;transition:opacity .2s linear;-webkit-tap-highlight-color:transparent}body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc>button:disabled,body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc>button:disabled,body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-info-container button:disabled,body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container button:disabled{cursor:not-allowed;opacity:.15!important}body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc>button:hover,body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc>button:hover,body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-info-container button:hover,body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container button:hover{opacity:1}body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc>button:hover:active,body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc>button:hover:active,body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-info-container button:hover:active,body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container button:hover:active{opacity:.6}body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc>button:hover:not(:disabled),body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc>button:hover:not(:disabled),body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-info-container button:hover:not(:disabled),body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container button:hover:not(:disabled){transition:none}body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc>button[data-bespoke-marp-osc=prev],body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc>button[data-bespoke-marp-osc=prev],body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-info-container button.bespoke-marp-presenter-info-page-prev{background:#0000 url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cGF0aCBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSI1IiBkPSJNNjggOTAgMjggNTBsNDAtNDAiLz48L3N2Zz4=") no-repeat 50%;background-size:contain;overflow:hidden;text-indent:100%;white-space:nowrap}body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc>button[data-bespoke-marp-osc=next],body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc>button[data-bespoke-marp-osc=next],body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-info-container button.bespoke-marp-presenter-info-page-next{background:#0000 url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cGF0aCBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSI1IiBkPSJtMzIgOTAgNDAtNDAtNDAtNDAiLz48L3N2Zz4=") no-repeat 50%;background-size:contain;overflow:hidden;text-indent:100%;white-space:nowrap}body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc>button[data-bespoke-marp-osc=fullscreen],body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc>button[data-bespoke-marp-osc=fullscreen]{background:#0000 url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48ZGVmcz48c3R5bGU+LmF7ZmlsbDpub25lO3N0cm9rZTojZmZmO3N0cm9rZS1saW5lY2FwOnJvdW5kO3N0cm9rZS1saW5lam9pbjpyb3VuZDtzdHJva2Utd2lkdGg6NXB4fTwvc3R5bGU+PC9kZWZzPjxyZWN0IHdpZHRoPSI4MCIgaGVpZ2h0PSI2MCIgeD0iMTAiIHk9IjIwIiBjbGFzcz0iYSIgcng9IjUuNjciLz48cGF0aCBkPSJNNDAgNzBIMjBWNTBtMjAgMEwyMCA3MG00MC00MGgyMHYyMG0tMjAgMCAyMC0yMCIgY2xhc3M9ImEiLz48L3N2Zz4=") no-repeat 50%;background-size:contain;overflow:hidden;text-indent:100%;white-space:nowrap}body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc>button.exit[data-bespoke-marp-osc=fullscreen],body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc>button.exit[data-bespoke-marp-osc=fullscreen]{background-image:url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48ZGVmcz48c3R5bGU+LmF7ZmlsbDpub25lO3N0cm9rZTojZmZmO3N0cm9rZS1saW5lY2FwOnJvdW5kO3N0cm9rZS1saW5lam9pbjpyb3VuZDtzdHJva2Utd2lkdGg6NXB4fTwvc3R5bGU+PC9kZWZzPjxyZWN0IHdpZHRoPSI4MCIgaGVpZ2h0PSI2MCIgeD0iMTAiIHk9IjIwIiBjbGFzcz0iYSIgcng9IjUuNjciLz48cGF0aCBkPSJNMjAgNTBoMjB2MjBtLTIwIDAgMjAtMjBtNDAgMEg2MFYzMG0yMCAwTDYwIDUwIiBjbGFzcz0iYSIvPjwvc3ZnPg==")}body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc>button[data-bespoke-marp-osc=presenter],body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc>button[data-bespoke-marp-osc=presenter]{background:#0000 url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cGF0aCBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSI1IiBkPSJNODcuOCA0Ny41Qzg5IDUwIDg3LjcgNTIgODUgNTJIMzVhOC43IDguNyAwIDAgMS03LjItNC41bC0xNS42LTMxQzExIDE0IDEyLjIgMTIgMTUgMTJoNTBhOC44IDguOCAwIDAgMSA3LjIgNC41ek02MCA1MnYzNm0tMTAgMGgyME00NSA0MmgyMCIvPjwvc3ZnPg==") no-repeat 50%;background-size:contain;overflow:hidden;text-indent:100%;white-space:nowrap}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container button.bespoke-marp-presenter-note-bigger{background:#0000 url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cGF0aCBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSI1IiBkPSJNMTIgNTBoODBNNTIgOTBWMTAiLz48L3N2Zz4=") no-repeat 50%;background-size:contain;overflow:hidden;text-indent:100%;white-space:nowrap}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container button.bespoke-marp-presenter-note-smaller{background:#0000 url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cGF0aCBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSI1IiBkPSJNMTIgNTBoODAiLz48L3N2Zz4=") no-repeat 50%;background-size:contain;overflow:hidden;text-indent:100%;white-space:nowrap}}@keyframes __bespoke_marp_transition_reduced_outgoing__{0%{opacity:1}to{opacity:0}}@keyframes __bespoke_marp_transition_reduced_incoming__{0%{mix-blend-mode:plus-lighter;opacity:0}to{mix-blend-mode:plus-lighter;opacity:1}}.bespoke-marp-note,.bespoke-marp-osc,.bespoke-progress-parent{display:none;transition:none}@media screen{::view-transition-group(*){animation-duration:var(--marp-bespoke-transition-animation-duration,.5s);animation-timing-function:ease}::view-transition-new(*),::view-transition-old(*){animation-delay:0s;animation-direction:var(--marp-bespoke-transition-animation-direction,normal);animation-duration:var(--marp-bespoke-transition-animation-duration,.5s);animation-fill-mode:both;animation-name:var(--marp-bespoke-transition-animation-name,var(--marp-bespoke-transition-animation-name-fallback,__bespoke_marp_transition_no_animation__));mix-blend-mode:normal}::view-transition-old(*){--marp-bespoke-transition-animation-name-fallback:__bespoke_marp_transition_reduced_outgoing__;animation-timing-function:ease}::view-transition-new(*){--marp-bespoke-transition-animation-name-fallback:__bespoke_marp_transition_reduced_incoming__;animation-timing-function:ease}::view-transition-new(root),::view-transition-old(root){animation-timing-function:linear}::view-transition-new(__bespoke_marp_transition_osc__),::view-transition-old(__bespoke_marp_transition_osc__){animation-duration:0s!important;animation-name:__bespoke_marp_transition_osc__!important}::view-transition-new(__bespoke_marp_transition_osc__){opacity:0!important}.bespoke-marp-transition-warming-up::view-transition-group(*),.bespoke-marp-transition-warming-up::view-transition-new(*),.bespoke-marp-transition-warming-up::view-transition-old(*){animation-play-state:paused!important}body,html{height:100%;margin:0}body{background:#000;overflow:hidden}svg.bespoke-marp-slide{content-visibility:hidden;opacity:0;pointer-events:none;z-index:-1}svg.bespoke-marp-slide:not(.bespoke-marp-active) *{view-transition-name:none!important}svg.bespoke-marp-slide.bespoke-marp-active{content-visibility:visible;opacity:1;pointer-events:auto;z-index:0}svg.bespoke-marp-slide.bespoke-marp-active.bespoke-marp-active-ready *{animation-name:__bespoke_marp__!important}@supports not (content-visibility:hidden){svg.bespoke-marp-slide[data-bespoke-marp-load=hideable]{display:none}svg.bespoke-marp-slide[data-bespoke-marp-load=hideable].bespoke-marp-active{display:block}}}@media screen and (prefers-reduced-motion:reduce){svg.bespoke-marp-slide *{view-transition-name:none!important}}@media screen{[data-bespoke-marp-fragment=inactive]{visibility:hidden}body[data-bespoke-view=""] .bespoke-marp-parent,body[data-bespoke-view=next] .bespoke-marp-parent{inset:0;position:absolute}body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc,body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc{background:#000000a6;border-radius:7px;bottom:50px;color:#fff;contain:paint;display:block;font-family:Helvetica,Arial,sans-serif;font-size:16px;left:50%;line-height:0;opacity:1;padding:12px;position:absolute;touch-action:manipulation;transform:translateX(-50%);transition:opacity .2s linear;-webkit-user-select:none;user-select:none;white-space:nowrap;will-change:transform;z-index:1;view-transition-name:__bespoke_marp_transition_osc__}body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc>*,body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc>*{margin-left:6px}body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc>:first-child,body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc>:first-child{margin-left:0}body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc>span,body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc>span{opacity:.8}body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc>span[data-bespoke-marp-osc=page],body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc>span[data-bespoke-marp-osc=page]{display:inline-block;min-width:140px;text-align:center}body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc>button[data-bespoke-marp-osc=fullscreen],body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc>button[data-bespoke-marp-osc=next],body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc>button[data-bespoke-marp-osc=presenter],body[data-bespoke-view=""] .bespoke-marp-parent>.bespoke-marp-osc>button[data-bespoke-marp-osc=prev],body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc>button[data-bespoke-marp-osc=fullscreen],body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc>button[data-bespoke-marp-osc=next],body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc>button[data-bespoke-marp-osc=presenter],body[data-bespoke-view=next] .bespoke-marp-parent>.bespoke-marp-osc>button[data-bespoke-marp-osc=prev]{height:32px;line-height:32px;width:32px}body[data-bespoke-view=""] .bespoke-marp-parent.bespoke-marp-inactive,body[data-bespoke-view=next] .bespoke-marp-parent.bespoke-marp-inactive{cursor:none}body[data-bespoke-view=""] .bespoke-marp-parent.bespoke-marp-inactive>.bespoke-marp-osc,body[data-bespoke-view=next] .bespoke-marp-parent.bespoke-marp-inactive>.bespoke-marp-osc{opacity:0;pointer-events:none}body[data-bespoke-view=""] svg.bespoke-marp-slide,body[data-bespoke-view=next] svg.bespoke-marp-slide{height:100%;left:0;position:absolute;top:0;width:100%}body[data-bespoke-view=""] .bespoke-progress-parent{background:#222;display:flex;height:5px;width:100%}body[data-bespoke-view=""] .bespoke-progress-parent+.bespoke-marp-parent{top:5px}body[data-bespoke-view=""] .bespoke-progress-parent .bespoke-progress-bar{background:#0288d1;flex:0 0 0;transition:flex-basis .2s cubic-bezier(0,1,1,1)}body[data-bespoke-view=next]{background:#0000}body[data-bespoke-view=presenter]{background:#161616}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container{display:grid;font-family:Helvetica,Arial,sans-serif;grid-template:"current dragbar next" minmax(140px,1fr) "current dragbar note" 2fr "info    dragbar note" 3em;grid-template-columns:minmax(3px,var(--bespoke-marp-presenter-split-ratio,66%)) 0 minmax(3px,1fr);height:100%;left:0;position:absolute;top:0;width:100%}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-parent{grid-area:current;overflow:hidden;position:relative}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-parent svg.bespoke-marp-slide{height:calc(100% - 40px);left:20px;pointer-events:none;position:absolute;top:20px;-webkit-user-select:none;user-select:none;width:calc(100% - 40px)}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-parent svg.bespoke-marp-slide.bespoke-marp-active{filter:drop-shadow(0 3px 10px rgba(0,0,0,.5))}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-dragbar-container{background:#0288d1;cursor:col-resize;grid-area:dragbar;margin-left:-3px;opacity:0;position:relative;transition:opacity .4s linear .1s;width:6px;z-index:10}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-dragbar-container:hover{opacity:1}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-dragbar-container.active{opacity:1;transition-delay:0s}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-next-container{background:#222;cursor:pointer;display:none;grid-area:next;overflow:hidden;position:relative}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-next-container.active{display:block}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-next-container iframe.bespoke-marp-presenter-next{background:#0000;border:0;display:block;filter:drop-shadow(0 3px 10px rgba(0,0,0,.5));height:calc(100% - 40px);left:20px;pointer-events:none;position:absolute;top:20px;-webkit-user-select:none;user-select:none;width:calc(100% - 40px)}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container{background:#222;color:#eee;grid-area:note;position:relative;z-index:1}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container button{height:1.5em;line-height:1.5em;width:1.5em}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container .bespoke-marp-presenter-note-wrapper{display:block;inset:0;position:absolute}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container .bespoke-marp-presenter-note-buttons{background:#000000a6;border-radius:4px;bottom:0;display:flex;gap:4px;margin:12px;opacity:0;padding:6px;pointer-events:none;position:absolute;right:0;transition:opacity .2s linear}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container .bespoke-marp-presenter-note-buttons:focus-within,body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container .bespoke-marp-presenter-note-wrapper:focus-within+.bespoke-marp-presenter-note-buttons,body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container:hover .bespoke-marp-presenter-note-buttons{opacity:1;pointer-events:auto}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container .bespoke-marp-note{box-sizing:border-box;font-size:calc(1.1em*var(--bespoke-marp-note-font-scale, 1));height:calc(100% - 40px);margin:20px;overflow:auto;padding-right:3px;white-space:pre-wrap;width:calc(100% - 40px);word-wrap:break-word;scrollbar-color:#eeeeee80 #0000;scrollbar-width:thin}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container .bespoke-marp-note::-webkit-scrollbar{width:6px}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container .bespoke-marp-note::-webkit-scrollbar-track{background:#0000}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container .bespoke-marp-note::-webkit-scrollbar-thumb{background:#eeeeee80;border-radius:6px}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container .bespoke-marp-note:empty{pointer-events:none}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container .bespoke-marp-note.active{display:block}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container .bespoke-marp-note p:first-child{margin-top:0}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-note-container .bespoke-marp-note p:last-child{margin-bottom:0}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-info-container{align-items:center;box-sizing:border-box;color:#eee;display:flex;flex-wrap:nowrap;grid-area:info;justify-content:center;overflow:hidden;padding:0 10px}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-info-container .bespoke-marp-presenter-info-page,body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-info-container .bespoke-marp-presenter-info-time,body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-info-container .bespoke-marp-presenter-info-timer{box-sizing:border-box;display:block;padding:0 10px;white-space:nowrap;width:100%}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-info-container button{height:1.5em;line-height:1.5em;width:1.5em}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-info-container .bespoke-marp-presenter-info-page{order:2;text-align:center}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-info-container .bespoke-marp-presenter-info-page .bespoke-marp-presenter-info-page-text{display:inline-block;min-width:120px;text-align:center}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-info-container .bespoke-marp-presenter-info-time{color:#999;order:1;text-align:left}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-info-container .bespoke-marp-presenter-info-timer{color:#999;order:3;text-align:right}body[data-bespoke-view=presenter] .bespoke-marp-presenter-container .bespoke-marp-presenter-info-container .bespoke-marp-presenter-info-timer:hover{cursor:pointer}}@media print{.bespoke-marp-presenter-info-container,.bespoke-marp-presenter-next-container,.bespoke-marp-presenter-note-container{display:none}}</style><style>div#\:\$p > svg > foreignObject > section{width:1280px;height:720px;box-sizing:border-box;overflow:hidden;position:relative;scroll-snap-align:center center;-webkit-text-size-adjust:100%;text-size-adjust:100%}div#\:\$p > svg > foreignObject > section::after{bottom:0;content:attr(data-marpit-pagination);padding:inherit;pointer-events:none;position:absolute;right:0}div#\:\$p > svg > foreignObject > section:not([data-marpit-pagination])::after{display:none}div#\:\$p > svg > foreignObject > section :is(h1, marp-h1){font-size:2em;margin-block:0.67em}div#\:\$p > svg > foreignObject > section video::-webkit-media-controls{will-change:transform}@page {size:1280px 720px;margin:0}@media print{html, body{background-color:#fff;margin:0;page-break-inside:avoid;break-inside:avoid-page}div#\:\$p > svg > foreignObject > section{page-break-before:always;break-before:page}div#\:\$p > svg > foreignObject > section, div#\:\$p > svg > foreignObject > section *{-webkit-print-color-adjust:exact!important;animation-delay:0s!important;animation-duration:0s!important;color-adjust:exact!important;print-color-adjust:exact!important;transition:none!important}div#\:\$p > svg[data-marpit-svg]{display:block;height:100vh;width:100vw}}div#\:\$p > svg > foreignObject > :where(section){container-type:size}div#\:\$p > svg > foreignObject > section mjx-container[jax="SVG"]{direction:ltr}div#\:\$p > svg > foreignObject > section mjx-container[jax="SVG"] > svg{overflow:visible;min-height:1px;min-width:1px}div#\:\$p > svg > foreignObject > section mjx-container[jax="SVG"] > svg a{fill:blue;stroke:blue}div#\:\$p > svg > foreignObject > section mjx-container[jax="SVG"][display="true"]{display:block;text-align:center;margin:1em 0}div#\:\$p > svg > foreignObject > section mjx-container[jax="SVG"][display="true"][width="full"]{display:flex}div#\:\$p > svg > foreignObject > section mjx-container[jax="SVG"][justify="left"]{text-align:left}div#\:\$p > svg > foreignObject > section mjx-container[jax="SVG"][justify="right"]{text-align:right}div#\:\$p > svg > foreignObject > section g[data-mml-node="merror"] > g{fill:red;stroke:red}div#\:\$p > svg > foreignObject > section g[data-mml-node="merror"] > rect[data-background]{fill:yellow;stroke:none}div#\:\$p > svg > foreignObject > section g[data-mml-node="mtable"] > line[data-line], div#\:\$p > svg > foreignObject > section svg[data-table] > g > line[data-line]{stroke-width:70px;fill:none}div#\:\$p > svg > foreignObject > section g[data-mml-node="mtable"] > rect[data-frame], div#\:\$p > svg > foreignObject > section svg[data-table] > g > rect[data-frame]{stroke-width:70px;fill:none}div#\:\$p > svg > foreignObject > section g[data-mml-node="mtable"] > .mjx-dashed, div#\:\$p > svg > foreignObject > section svg[data-table] > g > .mjx-dashed{stroke-dasharray:140}div#\:\$p > svg > foreignObject > section g[data-mml-node="mtable"] > .mjx-dotted, div#\:\$p > svg > foreignObject > section svg[data-table] > g > .mjx-dotted{stroke-linecap:round;stroke-dasharray:0,140}div#\:\$p > svg > foreignObject > section g[data-mml-node="mtable"] > g > svg{overflow:visible}div#\:\$p > svg > foreignObject > section [jax="SVG"] mjx-tool{display:inline-block;position:relative;width:0;height:0}div#\:\$p > svg > foreignObject > section [jax="SVG"] mjx-tool > mjx-tip{position:absolute;top:0;left:0}div#\:\$p > svg > foreignObject > section mjx-tool > mjx-tip{display:inline-block;padding:.2em;border:1px solid #888;font-size:70%;background-color:#F8F8F8;color:black;box-shadow:2px 2px 5px #AAAAAA}div#\:\$p > svg > foreignObject > section g[data-mml-node="maction"][data-toggle]{cursor:pointer}div#\:\$p > svg > foreignObject > section mjx-status{display:block;position:fixed;left:1em;bottom:1em;min-width:25%;padding:.2em .4em;border:1px solid #888;font-size:90%;background-color:#F8F8F8;color:black}div#\:\$p > svg > foreignObject > section foreignObject[data-mjx-xml]{font-family:initial;line-height:normal;overflow:visible}div#\:\$p > svg > foreignObject > section mjx-container[jax="SVG"] path[data-c], div#\:\$p > svg > foreignObject > section mjx-container[jax="SVG"] use[data-c]{stroke-width:3}@media print{div#\:\$p > svg > foreignObject > section mjx-container[jax=SVG] path[data-c],div#\:\$p > svg > foreignObject > section mjx-container[jax=SVG] use[data-c]{stroke-width:0}}div#\:\$p > svg > foreignObject > section img[data-marp-twemoji]{background:transparent;height:1em;margin:0 .05em 0 .1em;vertical-align:-.1em;width:1em}div#\:\$p > svg > foreignObject > section{--focus-outlineColor:light-dark(#0969da, #1f6feb);--fgColor-default:light-dark(#1f2328, #f0f6fc);--fgColor-muted:light-dark(#59636e, #9198a1);--fgColor-accent:light-dark(#0969da, #4493f8);--fgColor-success:light-dark(#1a7f37, #3fb950);--fgColor-attention:light-dark(#9a6700, #d29922);--fgColor-danger:light-dark(#d1242f, #f85149);--fgColor-done:light-dark(#8250df, #ab7df8);--bgColor-default:light-dark(#fff, #0d1117);--bgColor-muted:light-dark(#f6f8fa, #151b23);--bgColor-neutral-muted:light-dark(#818b981f, #656c7633);--bgColor-attention-muted:light-dark(#fff8c5, #bb800926);--borderColor-default:light-dark(#d1d9e0, #3d444d);--borderColor-muted:light-dark(#d1d9e0b3, #3d444db3);--borderColor-neutral-muted:light-dark(#d1d9e0b3, #3d444db3);--borderColor-accent-emphasis:light-dark(#0969da, #1f6feb);--borderColor-success-emphasis:light-dark(#1a7f37, #238636);--borderColor-attention-emphasis:light-dark(#9a6700, #9e6a03);--borderColor-danger-emphasis:light-dark(#cf222e, #da3633);--borderColor-done-emphasis:light-dark(#8250df, #8957e5);--color-prettylights-syntax-comment:light-dark(#59636e, #9198a1);--color-prettylights-syntax-constant:light-dark(#0550ae, #79c0ff);--color-prettylights-syntax-constant-other-reference-link:light-dark(#0a3069, #a5d6ff);--color-prettylights-syntax-entity:light-dark(#6639ba, #d2a8ff);--color-prettylights-syntax-storage-modifier-import:light-dark(#1f2328, #f0f6fc);--color-prettylights-syntax-entity-tag:light-dark(#0550ae, #7ee787);--color-prettylights-syntax-keyword:light-dark(#cf222e, #ff7b72);--color-prettylights-syntax-string:light-dark(#0a3069, #a5d6ff);--color-prettylights-syntax-variable:light-dark(#953800, #ffa657);--color-prettylights-syntax-brackethighlighter-unmatched:light-dark(#82071e, #f85149);--color-prettylights-syntax-brackethighlighter-angle:light-dark(#59636e, #9198a1);--color-prettylights-syntax-invalid-illegal-text:light-dark(#f6f8fa, #f0f6fc);--color-prettylights-syntax-invalid-illegal-bg:light-dark(#82071e, #8e1519);--color-prettylights-syntax-carriage-return-text:light-dark(#f6f8fa, #f0f6fc);--color-prettylights-syntax-carriage-return-bg:light-dark(#cf222e, #b62324);--color-prettylights-syntax-string-regexp:light-dark(#116329, #7ee787);--color-prettylights-syntax-markup-list:light-dark(#3b2300, #f2cc60);--color-prettylights-syntax-markup-heading:light-dark(#0550ae, #1f6feb);--color-prettylights-syntax-markup-italic:light-dark(#1f2328, #f0f6fc);--color-prettylights-syntax-markup-bold:light-dark(#1f2328, #f0f6fc);--color-prettylights-syntax-markup-deleted-text:light-dark(#82071e, #ffdcd7);--color-prettylights-syntax-markup-deleted-bg:light-dark(#ffebe9, #67060c);--color-prettylights-syntax-markup-inserted-text:light-dark(#116329, #aff5b4);--color-prettylights-syntax-markup-inserted-bg:light-dark(#dafbe1, #033a16);--color-prettylights-syntax-markup-changed-text:light-dark(#953800, #ffdfb6);--color-prettylights-syntax-markup-changed-bg:light-dark(#ffd8b5, #5a1e02);--color-prettylights-syntax-markup-ignored-text:light-dark(#d1d9e0, #f0f6fc);--color-prettylights-syntax-markup-ignored-bg:light-dark(#0550ae, #1158c7);--color-prettylights-syntax-meta-diff-range:light-dark(#8250df, #d2a8ff);--color-prettylights-syntax-sublimelinter-gutter-mark:light-dark(#818b98, #3d444d);--base-size-4:calc(var(--marpit-root-font-size, 1rem) * 0.25);--base-size-8:calc(var(--marpit-root-font-size, 1rem) * 0.5);--base-size-16:calc(var(--marpit-root-font-size, 1rem) * 1);--base-size-24:calc(var(--marpit-root-font-size, 1rem) * 1.5);--base-size-40:calc(var(--marpit-root-font-size, 1rem) * 2.5);--base-text-weight-normal:400;--base-text-weight-medium:500;--base-text-weight-semibold:600;--fontStack-monospace:ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;--fgColor-accent:Highlight;}/*!
  * Marp default theme.
  *
  * @theme default
@@ -58,7 +58,7 @@ pre {
 table { font-size: 0.9em; width: 100%; }
 th { background: #2E86AB; color: white; padding: 8px; }
 td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-" lang="en-IN" data-marpit-pagination="1" style="--paginate:true;--background-color:#fff;--theme:default;--style:section {
+" lang="C" data-marpit-pagination="1" style="--paginate:true;--background-color:#fff;--theme:default;--style:section {
   font-family: 'Segoe UI', 'Arial', sans-serif;
   font-size: 24px;
   padding: 35px;
@@ -108,7 +108,7 @@ pre {
 table { font-size: 0.9em; width: 100%; }
 th { background: #2E86AB; color: white; padding: 8px; }
 td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-;background-color:#fff;background-image:none;" data-marpit-pagination-total="50">
+;background-color:#fff;background-image:none;" data-marpit-pagination-total="53">
 <h1 id="the-machine-learning-taxonomy">The Machine Learning Taxonomy</h1>
 <h2 id="organizing-40-tasks-by-their-mathematical-roots">Organizing 40+ Tasks by their Mathematical Roots</h2>
 <p><strong>Nipun Batra</strong> · IIT Gandhinagar</p>
@@ -163,7 +163,7 @@ pre {
 table { font-size: 0.9em; width: 100%; }
 th { background: #2E86AB; color: white; padding: 8px; }
 td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-" lang="en-IN" data-marpit-pagination="2" style="--paginate:true;--background-color:#fff;--theme:default;--style:section {
+" lang="C" data-marpit-pagination="2" style="--paginate:true;--background-color:#fff;--theme:default;--style:section {
   font-family: 'Segoe UI', 'Arial', sans-serif;
   font-size: 24px;
   padding: 35px;
@@ -213,25 +213,61 @@ pre {
 table { font-size: 0.9em; width: 100%; }
 th { background: #2E86AB; color: white; padding: 8px; }
 td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-;background-color:#fff;background-image:none;" data-marpit-pagination-total="50">
+;background-color:#fff;background-image:none;" data-marpit-pagination-total="53">
 <h1 id="before-we-begin-a-simple-question">Before We Begin: A Simple Question</h1>
 <p>You use machine learning <strong>every single day</strong>.</p>
 <p>Can you identify where?</p>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>┌────────────────────────────────────────────────────────────────┐
-│                     YOUR DAILY LIFE                             │
-├────────────────────────────────────────────────────────────────┤
-│                                                                 │
-│   Morning:  Phone unlocks with your face                       │
-│   Commute:  Google Maps predicts traffic                       │
-│   Email:    Gmail filters spam, suggests replies               │
-│   Music:    Spotify recommends songs you'll love               │
-│   Shopping: Amazon shows &quot;You might also like...&quot;              │
-│   Photos:   Google Photos groups by faces, finds &quot;beach&quot;       │
-│   Evening:  Netflix suggests what to watch                     │
-│   Chat:     You ask ChatGPT a question                         │
-│                                                                 │
-└────────────────────────────────────────────────────────────────┘
-</code></pre>
+<table>
+<thead>
+<tr>
+<th>Time</th>
+<th>Application</th>
+<th>ML Behind It</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Morning</td>
+<td>Phone unlocks with your face</td>
+<td>Face Recognition</td>
+</tr>
+<tr>
+<td>Commute</td>
+<td>Google Maps predicts traffic</td>
+<td>Time Series Prediction</td>
+</tr>
+<tr>
+<td>Email</td>
+<td>Gmail filters spam, suggests replies</td>
+<td>Text Classification + Generation</td>
+</tr>
+<tr>
+<td>Music</td>
+<td>Spotify recommends songs you'll love</td>
+<td>Recommendation Systems</td>
+</tr>
+<tr>
+<td>Shopping</td>
+<td>Amazon shows &quot;You might also like...&quot;</td>
+<td>Collaborative Filtering</td>
+</tr>
+<tr>
+<td>Photos</td>
+<td>Google Photos groups by faces, finds &quot;beach&quot;</td>
+<td>Clustering + Image Classification</td>
+</tr>
+<tr>
+<td>Evening</td>
+<td>Netflix suggests what to watch</td>
+<td>Recommendation Systems</td>
+</tr>
+<tr>
+<td>Chat</td>
+<td>You ask ChatGPT a question</td>
+<td>Language Models (Generative AI)</td>
+</tr>
+</tbody>
+</table>
 <p><strong>Each of these is a different ML task!</strong></p>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="3" data-paginate="true" data-background-color="#fff" data-theme="default" data-style="section {
@@ -284,7 +320,7 @@ pre {
 table { font-size: 0.9em; width: 100%; }
 th { background: #2E86AB; color: white; padding: 8px; }
 td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-" lang="en-IN" data-marpit-pagination="3" style="--paginate:true;--background-color:#fff;--theme:default;--style:section {
+" lang="C" data-marpit-pagination="3" style="--paginate:true;--background-color:#fff;--theme:default;--style:section {
   font-family: 'Segoe UI', 'Arial', sans-serif;
   font-size: 24px;
   padding: 35px;
@@ -334,7 +370,7 @@ pre {
 table { font-size: 0.9em; width: 100%; }
 th { background: #2E86AB; color: white; padding: 8px; }
 td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-;background-color:#fff;background-image:none;" data-marpit-pagination-total="50">
+;background-color:#fff;background-image:none;" data-marpit-pagination-total="53">
 <h1 id="the-big-insight">The Big Insight</h1>
 <p>Every ML task boils down to <strong>one question</strong>:</p>
 <pre is="marp-pre" data-auto-scaling="downscale-only"><code>┌─────────────────────────────────────────────────────────────────┐
@@ -415,7 +451,7 @@ pre {
 table { font-size: 0.9em; width: 100%; }
 th { background: #2E86AB; color: white; padding: 8px; }
 td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-" lang="en-IN" data-marpit-pagination="4" style="--paginate:true;--background-color:#fff;--theme:default;--style:section {
+" lang="C" data-marpit-pagination="4" style="--paginate:true;--background-color:#fff;--theme:default;--style:section {
   font-family: 'Segoe UI', 'Arial', sans-serif;
   font-size: 24px;
   padding: 35px;
@@ -465,28 +501,9 @@ pre {
 table { font-size: 0.9em; width: 100%; }
 th { background: #2E86AB; color: white; padding: 8px; }
 td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-;background-color:#fff;background-image:none;" data-marpit-pagination-total="50">
+;background-color:#fff;background-image:none;" data-marpit-pagination-total="53">
 <h1 id="the-master-taxonomy">The Master Taxonomy</h1>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>                    ┌─────────────────────────┐
-                    │    MACHINE LEARNING     │
-                    └───────────┬─────────────┘
-          ┌─────────────────────┼─────────────────────┐
-          │                     │                     │
-    ┌─────┴─────┐         ┌─────┴─────┐         ┌─────┴─────┐
-    │SUPERVISED │         │UNSUPERVISED│        │   SELF-   │
-    │           │         │            │        │SUPERVISED │
-    └─────┬─────┘         └─────┬──────┘        └─────┬─────┘
-          │                     │                     │
-    ┌─────┴─────┐         ┌─────┴─────┐         ┌─────┴─────┐
-    │Has Labels │         │ No Labels │         │Creates Own│
-    │ (X → Y)   │         │ (X only)  │         │  Labels   │
-    └───────────┘         └───────────┘         └───────────┘
-          │                     │                     │
-   Classification          Clustering            Next Token
-   Regression              Dim. Reduction        Prediction
-   Detection               Anomaly Det.          Contrastive
-   Segmentation                                  Learning
-</code></pre>
+<p><img src="diagrams/svg/ml_family_tree.svg" alt="center" style="width:1000px;" /></p>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="5" data-paginate="true" data-background-color="#fff" data-theme="default" data-style="section {
   font-family: 'Segoe UI', 'Arial', sans-serif;
@@ -538,7 +555,7 @@ pre {
 table { font-size: 0.9em; width: 100%; }
 th { background: #2E86AB; color: white; padding: 8px; }
 td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-" lang="en-IN" data-marpit-pagination="5" style="--paginate:true;--background-color:#fff;--theme:default;--style:section {
+" lang="C" data-marpit-pagination="5" style="--paginate:true;--background-color:#fff;--theme:default;--style:section {
   font-family: 'Segoe UI', 'Arial', sans-serif;
   font-size: 24px;
   padding: 35px;
@@ -588,7 +605,7 @@ pre {
 table { font-size: 0.9em; width: 100%; }
 th { background: #2E86AB; color: white; padding: 8px; }
 td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-;background-color:#fff;background-image:none;" data-marpit-pagination-total="50">
+;background-color:#fff;background-image:none;" data-marpit-pagination-total="53">
 <h1 id="section-1-classification">Section 1: Classification</h1>
 <h2 id="which-bucket-does-this-belong-to">&quot;Which Bucket Does This Belong To?&quot;</h2>
 </section>
@@ -642,7 +659,7 @@ pre {
 table { font-size: 0.9em; width: 100%; }
 th { background: #2E86AB; color: white; padding: 8px; }
 td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-" lang="en-IN" data-marpit-pagination="6" style="--paginate:true;--background-color:#fff;--theme:default;--style:section {
+" lang="C" data-marpit-pagination="6" style="--paginate:true;--background-color:#fff;--theme:default;--style:section {
   font-family: 'Segoe UI', 'Arial', sans-serif;
   font-size: 24px;
   padding: 35px;
@@ -692,23 +709,37 @@ pre {
 table { font-size: 0.9em; width: 100%; }
 th { background: #2E86AB; color: white; padding: 8px; }
 td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-;background-color:#fff;background-image:none;" data-marpit-pagination-total="50">
+;background-color:#fff;background-image:none;" data-marpit-pagination-total="53">
 <h1 id="classification-you-already-know-this">Classification: You Already Know This!</h1>
 <p>Think about how YOU classify things every day:</p>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>┌────────────────────────────────────────────────────────────────┐
-│                                                                 │
-│   &quot;Is this mushroom safe to eat?&quot;     → Edible / Poisonous    │
-│                                                                 │
-│   &quot;What animal is in this photo?&quot;     → Dog / Cat / Bird      │
-│                                                                 │
-│   &quot;Should I trust this email?&quot;        → Legitimate / Spam     │
-│                                                                 │
-│   &quot;What number is written here?&quot;      → 0 / 1 / 2 / ... / 9   │
-│                                                                 │
-└────────────────────────────────────────────────────────────────┘
-</code></pre>
-<p>You look at the input and pick <strong>one category</strong> from a fixed set.</p>
-<p>That's classification!</p>
+<table>
+<thead>
+<tr>
+<th>Question</th>
+<th>Possible Answers</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>&quot;Is this mushroom safe to eat?&quot;</td>
+<td>Edible / Poisonous</td>
+</tr>
+<tr>
+<td>&quot;What animal is in this photo?&quot;</td>
+<td>Dog / Cat / Bird / ...</td>
+</tr>
+<tr>
+<td>&quot;Should I trust this email?&quot;</td>
+<td>Legitimate / Spam</td>
+</tr>
+<tr>
+<td>&quot;What number is written here?&quot;</td>
+<td>0, 1, 2, ... 9</td>
+</tr>
+</tbody>
+</table>
+<p>You look at the input and pick <strong>one category</strong> from a fixed set. That's classification!</p>
+<p><img src="examples/cifar10_examples.png" alt="center" style="width:600px;" /></p>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="7" data-paginate="true" data-background-color="#fff" data-theme="default" data-style="section {
   font-family: 'Segoe UI', 'Arial', sans-serif;
@@ -760,7 +791,7 @@ pre {
 table { font-size: 0.9em; width: 100%; }
 th { background: #2E86AB; color: white; padding: 8px; }
 td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-" lang="en-IN" data-marpit-pagination="7" style="--paginate:true;--background-color:#fff;--theme:default;--style:section {
+" lang="C" data-marpit-pagination="7" style="--paginate:true;--background-color:#fff;--theme:default;--style:section {
   font-family: 'Segoe UI', 'Arial', sans-serif;
   font-size: 24px;
   padding: 35px;
@@ -810,7 +841,7 @@ pre {
 table { font-size: 0.9em; width: 100%; }
 th { background: #2E86AB; color: white; padding: 8px; }
 td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-;background-color:#fff;background-image:none;" data-marpit-pagination-total="50">
+;background-color:#fff;background-image:none;" data-marpit-pagination-total="53">
 <h1 id="classification-the-core-idea">Classification: The Core Idea</h1>
 <p><img src="diagrams/svg/classification_pipeline.svg" alt="center" style="width:900px;" /></p>
 <p>The model learns patterns that distinguish categories, then applies those patterns to new inputs.</p>
@@ -865,7 +896,7 @@ pre {
 table { font-size: 0.9em; width: 100%; }
 th { background: #2E86AB; color: white; padding: 8px; }
 td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-" lang="en-IN" data-marpit-pagination="8" style="--paginate:true;--background-color:#fff;--theme:default;--style:section {
+" lang="C" data-marpit-pagination="8" style="--paginate:true;--background-color:#fff;--theme:default;--style:section {
   font-family: 'Segoe UI', 'Arial', sans-serif;
   font-size: 24px;
   padding: 35px;
@@ -915,32 +946,10 @@ pre {
 table { font-size: 0.9em; width: 100%; }
 th { background: #2E86AB; color: white; padding: 8px; }
 td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-;background-color:#fff;background-image:none;" data-marpit-pagination-total="50">
-<h1 id="example-how-does-email-spam-detection-work">Example: How Does Email Spam Detection Work?</h1>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>Step 1: TRAINING (Learning from examples)
-┌─────────────────────────────────────────────────────────────────┐
-│                                                                 │
-│  Email: &quot;Meeting at 3pm tomorrow&quot;              Label: NOT SPAM │
-│  Email: &quot;You won $1,000,000! CLICK NOW!!!&quot;     Label: SPAM     │
-│  Email: &quot;Your Amazon order has shipped&quot;        Label: NOT SPAM │
-│  Email: &quot;Hot singles in your area&quot;             Label: SPAM     │
-│  ... (millions more examples)                                   │
-│                                                                 │
-│  Model learns: ALL CAPS, &quot;won&quot;, &quot;click&quot;, &quot;$$$&quot; → probably SPAM │
-│                Normal sentences, known senders → probably OK    │
-│                                                                 │
-└─────────────────────────────────────────────────────────────────┘
-
-Step 2: INFERENCE (Using the model)
-┌─────────────────────────────────────────────────────────────────┐
-│                                                                 │
-│  New email: &quot;CONGRATULATIONS! You're selected for a FREE gift!&quot;│
-│                                                                 │
-│  Model thinks: ALL CAPS ✓, &quot;FREE&quot; ✓, excitement ✓              │
-│  Prediction: SPAM (95% confident)                               │
-│                                                                 │
-└─────────────────────────────────────────────────────────────────┘
-</code></pre>
+;background-color:#fff;background-image:none;" data-marpit-pagination-total="53">
+<h1 id="classification-in-action-decision-trees">Classification in Action: Decision Trees</h1>
+<p><img src="examples/decision_tree_example.png" alt="center" style="width:1000px;" /></p>
+<p>A decision tree learns <strong>if-then rules</strong> from data: &quot;If sepal length &gt; 5.5 AND sepal width &lt; 3.0, then iris-versicolor&quot;</p>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="9" data-paginate="true" data-background-color="#fff" data-theme="default" data-style="section {
   font-family: 'Segoe UI', 'Arial', sans-serif;
@@ -992,7 +1001,7 @@ pre {
 table { font-size: 0.9em; width: 100%; }
 th { background: #2E86AB; color: white; padding: 8px; }
 td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-" lang="en-IN" data-marpit-pagination="9" style="--paginate:true;--background-color:#fff;--theme:default;--style:section {
+" lang="C" data-marpit-pagination="9" style="--paginate:true;--background-color:#fff;--theme:default;--style:section {
   font-family: 'Segoe UI', 'Arial', sans-serif;
   font-size: 24px;
   padding: 35px;
@@ -1042,51 +1051,32 @@ pre {
 table { font-size: 0.9em; width: 100%; }
 th { background: #2E86AB; color: white; padding: 8px; }
 td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-;background-color:#fff;background-image:none;" data-marpit-pagination-total="50">
-<h1 id="binary-vs-multi-class-classification">Binary vs Multi-Class Classification</h1>
-<div class="columns">
-<div>
-<p><strong>Binary Classification</strong><br />
-<em>Two possible outcomes</em></p>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>Input: Tumor image
-Output:
-  ○ Benign
-  ● Malignant
+;background-color:#fff;background-image:none;" data-marpit-pagination-total="53">
+<h1 id="example-how-does-email-spam-detection-work">Example: How Does Email Spam Detection Work?</h1>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code>Step 1: TRAINING (Learning from examples)
+┌─────────────────────────────────────────────────────────────────┐
+│                                                                 │
+│  Email: &quot;Meeting at 3pm tomorrow&quot;              Label: NOT SPAM │
+│  Email: &quot;You won $1,000,000! CLICK NOW!!!&quot;     Label: SPAM     │
+│  Email: &quot;Your Amazon order has shipped&quot;        Label: NOT SPAM │
+│  Email: &quot;Hot singles in your area&quot;             Label: SPAM     │
+│  ... (millions more examples)                                   │
+│                                                                 │
+│  Model learns: ALL CAPS, &quot;won&quot;, &quot;click&quot;, &quot;$$$&quot; → probably SPAM │
+│                Normal sentences, known senders → probably OK    │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
 
-  (Only 2 choices)
+Step 2: INFERENCE (Using the model)
+┌─────────────────────────────────────────────────────────────────┐
+│                                                                 │
+│  New email: &quot;CONGRATULATIONS! You're selected for a FREE gift!&quot;│
+│                                                                 │
+│  Model thinks: ALL CAPS ✓, &quot;FREE&quot; ✓, excitement ✓              │
+│  Prediction: SPAM (95% confident)                               │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
 </code></pre>
-<p>Examples:</p>
-<ul>
-<li>Spam / Not Spam</li>
-<li>Fraud / Legitimate</li>
-<li>Pass / Fail</li>
-<li>Yes / No</li>
-</ul>
-</div>
-<div>
-<p><strong>Multi-Class Classification</strong><br />
-<em>Many possible outcomes</em></p>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>Input: Animal photo
-Output:
-  ○ Dog
-  ○ Cat
-  ● Bird     ← Winner!
-  ○ Fish
-  ○ Horse
-
-  (Many choices, pick ONE)
-</code></pre>
-<p>Examples:</p>
-<ul>
-<li>Digit recognition (0-9)</li>
-<li>ImageNet (1000 classes)</li>
-<li>Emotion detection (6+)</li>
-</ul>
-</div>
-</div>
-<div class="insight">
-Same algorithm, just different number of outputs!
-</div>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="10" data-paginate="true" data-background-color="#fff" data-theme="default" data-style="section {
   font-family: 'Segoe UI', 'Arial', sans-serif;
@@ -1138,7 +1128,7 @@ pre {
 table { font-size: 0.9em; width: 100%; }
 th { background: #2E86AB; color: white; padding: 8px; }
 td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-" lang="en-IN" data-marpit-pagination="10" style="--paginate:true;--background-color:#fff;--theme:default;--style:section {
+" lang="C" data-marpit-pagination="10" style="--paginate:true;--background-color:#fff;--theme:default;--style:section {
   font-family: 'Segoe UI', 'Arial', sans-serif;
   font-size: 24px;
   padding: 35px;
@@ -1188,30 +1178,50 @@ pre {
 table { font-size: 0.9em; width: 100%; }
 th { background: #2E86AB; color: white; padding: 8px; }
 td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-;background-color:#fff;background-image:none;" data-marpit-pagination-total="50">
-<h1 id="multi-label-classification">Multi-Label Classification</h1>
-<p><strong>Wait, what if something belongs to MULTIPLE categories?</strong></p>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>Movie Classification:
+;background-color:#fff;background-image:none;" data-marpit-pagination-total="53">
+<h1 id="binary-vs-multi-class-classification">Binary vs Multi-Class Classification</h1>
+<div class="columns">
+<div>
+<p><strong>Binary Classification</strong><br />
+<em>Two possible outcomes</em></p>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code>Input: Tumor image
+Output:
+  ○ Benign
+  ● Malignant
 
-Input: &quot;The Avengers&quot;
-
-Binary/Multi-class would say: &quot;Action&quot; (pick one!)
-
-But actually it's: ✓ Action
-                   ✓ Sci-Fi
-                   ✓ Adventure
-                   ○ Romance
-                   ○ Documentary
-
-(Multiple labels can be TRUE at once!)
+  (Only 2 choices)
 </code></pre>
-<div class="realworld">
-<p><strong>Real-world multi-label examples:</strong></p>
+<p>Examples:</p>
 <ul>
-<li>News article topics (Politics AND Economy AND International)</li>
-<li>Product categories (Electronics AND Computers AND Accessories)</li>
-<li>Medical diagnosis (Patient may have multiple conditions)</li>
+<li>Spam / Not Spam</li>
+<li>Fraud / Legitimate</li>
+<li>Pass / Fail</li>
+<li>Yes / No</li>
 </ul>
+</div>
+<div>
+<p><strong>Multi-Class Classification</strong><br />
+<em>Many possible outcomes</em></p>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code>Input: Animal photo
+Output:
+  ○ Dog
+  ○ Cat
+  ● Bird     ← Winner!
+  ○ Fish
+  ○ Horse
+
+  (Many choices, pick ONE)
+</code></pre>
+<p>Examples:</p>
+<ul>
+<li>Digit recognition (0-9)</li>
+<li>ImageNet (1000 classes)</li>
+<li>Emotion detection (6+)</li>
+</ul>
+</div>
+</div>
+<div class="insight">
+Same algorithm, just different number of outputs!
 </div>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="11" data-paginate="true" data-background-color="#fff" data-theme="default" data-style="section {
@@ -1264,7 +1274,7 @@ pre {
 table { font-size: 0.9em; width: 100%; }
 th { background: #2E86AB; color: white; padding: 8px; }
 td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-" lang="en-IN" data-marpit-pagination="11" style="--paginate:true;--background-color:#fff;--theme:default;--style:section {
+" lang="C" data-marpit-pagination="11" style="--paginate:true;--background-color:#fff;--theme:default;--style:section {
   font-family: 'Segoe UI', 'Arial', sans-serif;
   font-size: 24px;
   padding: 35px;
@@ -1314,27 +1324,31 @@ pre {
 table { font-size: 0.9em; width: 100%; }
 th { background: #2E86AB; color: white; padding: 8px; }
 td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-;background-color:#fff;background-image:none;" data-marpit-pagination-total="50">
-<h1 id="the-math-behind-classification">The Math Behind Classification</h1>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>Input x ──► Neural Network ──► Softmax ──► Probabilities
-                                              │
-                                              ▼
-                                    ┌─────────────────┐
-                                    │ Cat:   0.85     │
-                                    │ Dog:   0.10     │
-                                    │ Bird:  0.05     │
-                                    └─────────────────┘
-                                              │
-                                         Sum = 1.0
-                                              │
-                                              ▼
-                                        Pick highest
-                                              │
-                                              ▼
-                                           &quot;Cat&quot;
+;background-color:#fff;background-image:none;" data-marpit-pagination-total="53">
+<h1 id="multi-label-classification">Multi-Label Classification</h1>
+<p><strong>Wait, what if something belongs to MULTIPLE categories?</strong></p>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code>Movie Classification:
+
+Input: &quot;The Avengers&quot;
+
+Binary/Multi-class would say: &quot;Action&quot; (pick one!)
+
+But actually it's: ✓ Action
+                   ✓ Sci-Fi
+                   ✓ Adventure
+                   ○ Romance
+                   ○ Documentary
+
+(Multiple labels can be TRUE at once!)
 </code></pre>
-<p><strong>Softmax</strong> converts raw scores to probabilities that sum to 1.</p>
-<p>The model isn't just saying &quot;Cat&quot; — it's saying &quot;85% sure it's a cat!&quot;</p>
+<div class="realworld">
+<p><strong>Real-world multi-label examples:</strong></p>
+<ul>
+<li>News article topics (Politics AND Economy AND International)</li>
+<li>Product categories (Electronics AND Computers AND Accessories)</li>
+<li>Medical diagnosis (Patient may have multiple conditions)</li>
+</ul>
+</div>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="12" data-paginate="true" data-background-color="#fff" data-theme="default" data-style="section {
   font-family: 'Segoe UI', 'Arial', sans-serif;
@@ -1386,7 +1400,7 @@ pre {
 table { font-size: 0.9em; width: 100%; }
 th { background: #2E86AB; color: white; padding: 8px; }
 td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-" lang="en-IN" data-marpit-pagination="12" style="--paginate:true;--background-color:#fff;--theme:default;--style:section {
+" lang="C" data-marpit-pagination="12" style="--paginate:true;--background-color:#fff;--theme:default;--style:section {
   font-family: 'Segoe UI', 'Arial', sans-serif;
   font-size: 24px;
   padding: 35px;
@@ -1436,7 +1450,113 @@ pre {
 table { font-size: 0.9em; width: 100%; }
 th { background: #2E86AB; color: white; padding: 8px; }
 td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-;background-color:#fff;background-image:none;" data-marpit-pagination-total="50">
+;background-color:#fff;background-image:none;" data-marpit-pagination-total="53">
+<h1 id="the-math-behind-classification-softmax">The Math Behind Classification: Softmax</h1>
+<p><img src="examples/softmax_example.png" alt="center" style="width:900px;" /></p>
+<p><strong>Softmax</strong> converts raw scores (logits) to probabilities that sum to 1.</p>
+<p>The model isn't just saying &quot;Cat&quot; — it's saying &quot;85% sure it's a cat!&quot;</p>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="13" data-paginate="true" data-background-color="#fff" data-theme="default" data-style="section {
+  font-family: 'Segoe UI', 'Arial', sans-serif;
+  font-size: 24px;
+  padding: 35px;
+  color: #333;
+}
+h1 { color: #2E86AB; font-size: 1.7em; margin-bottom: 0.2em; }
+h2 { color: #06A77D; font-size: 1.1em; margin-top: 0; }
+h3 { color: #457B9D; font-size: 1.0em; }
+strong { color: #D62828; }
+code {
+  background: #f4f4f4;
+  color: #2E86AB;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: 'Consolas', 'Monaco', monospace;
+}
+pre {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 15px;
+  font-size: 0.85em;
+  line-height: 1.4;
+  overflow: hidden;
+}
+.example {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-left: 4px solid #06A77D;
+  padding: 12px 15px;
+  margin: 10px 0;
+  border-radius: 0 8px 8px 0;
+}
+.insight {
+  background: #fff3cd;
+  border-left: 4px solid #ffc107;
+  padding: 12px 15px;
+  margin: 10px 0;
+  border-radius: 0 8px 8px 0;
+}
+.realworld {
+  background: #e3f2fd;
+  border-left: 4px solid #2196F3;
+  padding: 12px 15px;
+  margin: 10px 0;
+  border-radius: 0 8px 8px 0;
+}
+.columns { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; }
+table { font-size: 0.9em; width: 100%; }
+th { background: #2E86AB; color: white; padding: 8px; }
+td { padding: 8px; border-bottom: 1px solid #dee2e6; }
+" lang="C" data-marpit-pagination="13" style="--paginate:true;--background-color:#fff;--theme:default;--style:section {
+  font-family: 'Segoe UI', 'Arial', sans-serif;
+  font-size: 24px;
+  padding: 35px;
+  color: #333;
+}
+h1 { color: #2E86AB; font-size: 1.7em; margin-bottom: 0.2em; }
+h2 { color: #06A77D; font-size: 1.1em; margin-top: 0; }
+h3 { color: #457B9D; font-size: 1.0em; }
+strong { color: #D62828; }
+code {
+  background: #f4f4f4;
+  color: #2E86AB;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: 'Consolas', 'Monaco', monospace;
+}
+pre {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 15px;
+  font-size: 0.85em;
+  line-height: 1.4;
+  overflow: hidden;
+}
+.example {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-left: 4px solid #06A77D;
+  padding: 12px 15px;
+  margin: 10px 0;
+  border-radius: 0 8px 8px 0;
+}
+.insight {
+  background: #fff3cd;
+  border-left: 4px solid #ffc107;
+  padding: 12px 15px;
+  margin: 10px 0;
+  border-radius: 0 8px 8px 0;
+}
+.realworld {
+  background: #e3f2fd;
+  border-left: 4px solid #2196F3;
+  padding: 12px 15px;
+  margin: 10px 0;
+  border-radius: 0 8px 8px 0;
+}
+.columns { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; }
+table { font-size: 0.9em; width: 100%; }
+th { background: #2E86AB; color: white; padding: 8px; }
+td { padding: 8px; border-bottom: 1px solid #dee2e6; }
+;background-color:#fff;background-image:none;" data-marpit-pagination-total="53">
 <h1 id="classification-real-world-examples">Classification: Real-World Examples</h1>
 <table>
 <thead>
@@ -1490,110 +1610,6 @@ td { padding: 8px; border-bottom: 1px solid #dee2e6; }
 Classification is everywhere! It's the "Hello World" of machine learning.
 </div>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="13" data-paginate="true" data-background-color="#fff" data-theme="default" data-style="section {
-  font-family: 'Segoe UI', 'Arial', sans-serif;
-  font-size: 24px;
-  padding: 35px;
-  color: #333;
-}
-h1 { color: #2E86AB; font-size: 1.7em; margin-bottom: 0.2em; }
-h2 { color: #06A77D; font-size: 1.1em; margin-top: 0; }
-h3 { color: #457B9D; font-size: 1.0em; }
-strong { color: #D62828; }
-code {
-  background: #f4f4f4;
-  color: #2E86AB;
-  padding: 2px 6px;
-  border-radius: 4px;
-  font-family: 'Consolas', 'Monaco', monospace;
-}
-pre {
-  background: #f8f9fa;
-  border-radius: 8px;
-  padding: 15px;
-  font-size: 0.85em;
-  line-height: 1.4;
-  overflow: hidden;
-}
-.example {
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-  border-left: 4px solid #06A77D;
-  padding: 12px 15px;
-  margin: 10px 0;
-  border-radius: 0 8px 8px 0;
-}
-.insight {
-  background: #fff3cd;
-  border-left: 4px solid #ffc107;
-  padding: 12px 15px;
-  margin: 10px 0;
-  border-radius: 0 8px 8px 0;
-}
-.realworld {
-  background: #e3f2fd;
-  border-left: 4px solid #2196F3;
-  padding: 12px 15px;
-  margin: 10px 0;
-  border-radius: 0 8px 8px 0;
-}
-.columns { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; }
-table { font-size: 0.9em; width: 100%; }
-th { background: #2E86AB; color: white; padding: 8px; }
-td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-" lang="en-IN" data-marpit-pagination="13" style="--paginate:true;--background-color:#fff;--theme:default;--style:section {
-  font-family: 'Segoe UI', 'Arial', sans-serif;
-  font-size: 24px;
-  padding: 35px;
-  color: #333;
-}
-h1 { color: #2E86AB; font-size: 1.7em; margin-bottom: 0.2em; }
-h2 { color: #06A77D; font-size: 1.1em; margin-top: 0; }
-h3 { color: #457B9D; font-size: 1.0em; }
-strong { color: #D62828; }
-code {
-  background: #f4f4f4;
-  color: #2E86AB;
-  padding: 2px 6px;
-  border-radius: 4px;
-  font-family: 'Consolas', 'Monaco', monospace;
-}
-pre {
-  background: #f8f9fa;
-  border-radius: 8px;
-  padding: 15px;
-  font-size: 0.85em;
-  line-height: 1.4;
-  overflow: hidden;
-}
-.example {
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-  border-left: 4px solid #06A77D;
-  padding: 12px 15px;
-  margin: 10px 0;
-  border-radius: 0 8px 8px 0;
-}
-.insight {
-  background: #fff3cd;
-  border-left: 4px solid #ffc107;
-  padding: 12px 15px;
-  margin: 10px 0;
-  border-radius: 0 8px 8px 0;
-}
-.realworld {
-  background: #e3f2fd;
-  border-left: 4px solid #2196F3;
-  padding: 12px 15px;
-  margin: 10px 0;
-  border-radius: 0 8px 8px 0;
-}
-.columns { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; }
-table { font-size: 0.9em; width: 100%; }
-th { background: #2E86AB; color: white; padding: 8px; }
-td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-;background-color:#fff;background-image:none;" data-marpit-pagination-total="50">
-<h1 id="section-2-regression">Section 2: Regression</h1>
-<h2 id="how-much-how-many">&quot;How Much? How Many?&quot;</h2>
-</section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="14" data-paginate="true" data-background-color="#fff" data-theme="default" data-style="section {
   font-family: 'Segoe UI', 'Arial', sans-serif;
   font-size: 24px;
@@ -1644,7 +1660,7 @@ pre {
 table { font-size: 0.9em; width: 100%; }
 th { background: #2E86AB; color: white; padding: 8px; }
 td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-" lang="en-IN" data-marpit-pagination="14" style="--paginate:true;--background-color:#fff;--theme:default;--style:section {
+" lang="C" data-marpit-pagination="14" style="--paginate:true;--background-color:#fff;--theme:default;--style:section {
   font-family: 'Segoe UI', 'Arial', sans-serif;
   font-size: 24px;
   padding: 35px;
@@ -1694,25 +1710,9 @@ pre {
 table { font-size: 0.9em; width: 100%; }
 th { background: #2E86AB; color: white; padding: 8px; }
 td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-;background-color:#fff;background-image:none;" data-marpit-pagination-total="50">
-<h1 id="regression-when-the-answer-is-a-number">Regression: When the Answer is a Number</h1>
-<p>Classification: <em>&quot;Which category?&quot;</em> → Discrete answer<br />
-Regression: <em>&quot;How much?&quot;</em> → Continuous number</p>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>┌────────────────────────────────────────────────────────────────┐
-│                                                                 │
-│   &quot;How old is this person?&quot;           → 27.3 years             │
-│                                                                 │
-│   &quot;What's this house worth?&quot;          → $425,000               │
-│                                                                 │
-│   &quot;How many units will sell?&quot;         → 1,247 units            │
-│                                                                 │
-│   &quot;What temperature tomorrow?&quot;        → 28.5°C                 │
-│                                                                 │
-│   &quot;How long until the bus arrives?&quot;   → 7.2 minutes            │
-│                                                                 │
-└────────────────────────────────────────────────────────────────┘
-</code></pre>
-<p>The output is <strong>any number</strong> on a continuous scale!</p>
+;background-color:#fff;background-image:none;" data-marpit-pagination-total="53">
+<h1 id="section-2-regression">Section 2: Regression</h1>
+<h2 id="how-much-how-many">&quot;How Much? How Many?&quot;</h2>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="15" data-paginate="true" data-background-color="#fff" data-theme="default" data-style="section {
   font-family: 'Segoe UI', 'Arial', sans-serif;
@@ -1764,7 +1764,7 @@ pre {
 table { font-size: 0.9em; width: 100%; }
 th { background: #2E86AB; color: white; padding: 8px; }
 td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-" lang="en-IN" data-marpit-pagination="15" style="--paginate:true;--background-color:#fff;--theme:default;--style:section {
+" lang="C" data-marpit-pagination="15" style="--paginate:true;--background-color:#fff;--theme:default;--style:section {
   font-family: 'Segoe UI', 'Arial', sans-serif;
   font-size: 24px;
   padding: 35px;
@@ -1814,10 +1814,25 @@ pre {
 table { font-size: 0.9em; width: 100%; }
 th { background: #2E86AB; color: white; padding: 8px; }
 td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-;background-color:#fff;background-image:none;" data-marpit-pagination-total="50">
-<h1 id="regression-the-core-idea">Regression: The Core Idea</h1>
-<p><img src="diagrams/svg/regression_pipeline.svg" alt="center" style="width:900px;" /></p>
-<p>Instead of choosing from buckets, we predict a specific point on a number line.</p>
+;background-color:#fff;background-image:none;" data-marpit-pagination-total="53">
+<h1 id="regression-when-the-answer-is-a-number">Regression: When the Answer is a Number</h1>
+<p>Classification: <em>&quot;Which category?&quot;</em> → Discrete answer<br />
+Regression: <em>&quot;How much?&quot;</em> → Continuous number</p>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code>┌────────────────────────────────────────────────────────────────┐
+│                                                                 │
+│   &quot;How old is this person?&quot;           → 27.3 years             │
+│                                                                 │
+│   &quot;What's this house worth?&quot;          → $425,000               │
+│                                                                 │
+│   &quot;How many units will sell?&quot;         → 1,247 units            │
+│                                                                 │
+│   &quot;What temperature tomorrow?&quot;        → 28.5°C                 │
+│                                                                 │
+│   &quot;How long until the bus arrives?&quot;   → 7.2 minutes            │
+│                                                                 │
+└────────────────────────────────────────────────────────────────┘
+</code></pre>
+<p>The output is <strong>any number</strong> on a continuous scale!</p>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="16" data-paginate="true" data-background-color="#fff" data-theme="default" data-style="section {
   font-family: 'Segoe UI', 'Arial', sans-serif;
@@ -1869,7 +1884,7 @@ pre {
 table { font-size: 0.9em; width: 100%; }
 th { background: #2E86AB; color: white; padding: 8px; }
 td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-" lang="en-IN" data-marpit-pagination="16" style="--paginate:true;--background-color:#fff;--theme:default;--style:section {
+" lang="C" data-marpit-pagination="16" style="--paginate:true;--background-color:#fff;--theme:default;--style:section {
   font-family: 'Segoe UI', 'Arial', sans-serif;
   font-size: 24px;
   padding: 35px;
@@ -1919,26 +1934,10 @@ pre {
 table { font-size: 0.9em; width: 100%; }
 th { background: #2E86AB; color: white; padding: 8px; }
 td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-;background-color:#fff;background-image:none;" data-marpit-pagination-total="50">
-<h1 id="example-house-price-prediction">Example: House Price Prediction</h1>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>FEATURES (Input):                         PREDICTION (Output):
-┌──────────────────────────────────┐
-│ Bedrooms:        3               │
-│ Bathrooms:       2               │
-│ Square Feet:     1,500           │     ───────►    $425,000
-│ Year Built:      2005            │
-│ Location Score:  8.5/10          │
-│ Has Pool:        No              │
-└──────────────────────────────────┘
-
-The model learns patterns like:
-  - More bedrooms → higher price (usually)
-  - Better location → higher price (definitely!)
-  - Older house → lower price (sometimes)
-  - Has pool → depends on the climate!
-
-Then combines all these patterns into ONE number.
-</code></pre>
+;background-color:#fff;background-image:none;" data-marpit-pagination-total="53">
+<h1 id="regression-the-core-idea">Regression: The Core Idea</h1>
+<p><img src="diagrams/svg/regression_pipeline.svg" alt="center" style="width:900px;" /></p>
+<p>Instead of choosing from buckets, we predict a specific point on a number line.</p>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="17" data-paginate="true" data-background-color="#fff" data-theme="default" data-style="section {
   font-family: 'Segoe UI', 'Arial', sans-serif;
@@ -1990,7 +1989,7 @@ pre {
 table { font-size: 0.9em; width: 100%; }
 th { background: #2E86AB; color: white; padding: 8px; }
 td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-" lang="en-IN" data-marpit-pagination="17" style="--paginate:true;--background-color:#fff;--theme:default;--style:section {
+" lang="C" data-marpit-pagination="17" style="--paginate:true;--background-color:#fff;--theme:default;--style:section {
   font-family: 'Segoe UI', 'Arial', sans-serif;
   font-size: 24px;
   padding: 35px;
@@ -2040,28 +2039,10 @@ pre {
 table { font-size: 0.9em; width: 100%; }
 th { background: #2E86AB; color: white; padding: 8px; }
 td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-;background-color:#fff;background-image:none;" data-marpit-pagination-total="50">
-<h1 id="regression-is-actually-everywhere">Regression is Actually Everywhere!</h1>
-<p>You might think you're looking at classification, but often it's regression:</p>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>┌────────────────────────────────────────────────────────────────┐
-│ BOUNDING BOX DETECTION                                          │
-│                                                                 │
-│   ┌─────────────────────────────────┐                          │
-│   │   ┌──────────┐                  │                          │
-│   │   │   DOG    │ ← This box needs │                          │
-│   │   │          │   4 numbers:     │                          │
-│   │   └──────────┘                  │                          │
-│   └─────────────────────────────────┘                          │
-│                                                                 │
-│   x = 50 (left edge)      ← Regression!                        │
-│   y = 30 (top edge)       ← Regression!                        │
-│   w = 100 (width)         ← Regression!                        │
-│   h = 80 (height)         ← Regression!                        │
-│                                                                 │
-│   DETECTION = Classification (what?) + Regression (where?)     │
-│                                                                 │
-└────────────────────────────────────────────────────────────────┘
-</code></pre>
+;background-color:#fff;background-image:none;" data-marpit-pagination-total="53">
+<h1 id="regression-in-action-linear-regression">Regression in Action: Linear Regression</h1>
+<p><img src="examples/linear_regression_example.png" alt="center" style="width:1000px;" /></p>
+<p>The model learns: <strong>Price = $50,000 + $150 * (square feet)</strong></p>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="18" data-paginate="true" data-background-color="#fff" data-theme="default" data-style="section {
   font-family: 'Segoe UI', 'Arial', sans-serif;
@@ -2113,7 +2094,7 @@ pre {
 table { font-size: 0.9em; width: 100%; }
 th { background: #2E86AB; color: white; padding: 8px; }
 td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-" lang="en-IN" data-marpit-pagination="18" style="--paginate:true;--background-color:#fff;--theme:default;--style:section {
+" lang="C" data-marpit-pagination="18" style="--paginate:true;--background-color:#fff;--theme:default;--style:section {
   font-family: 'Segoe UI', 'Arial', sans-serif;
   font-size: 24px;
   padding: 35px;
@@ -2163,29 +2144,27 @@ pre {
 table { font-size: 0.9em; width: 100%; }
 th { background: #2E86AB; color: white; padding: 8px; }
 td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-;background-color:#fff;background-image:none;" data-marpit-pagination-total="50">
-<h1 id="classification-vs-regression-side-by-side">Classification vs Regression: Side by Side</h1>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>┌──────────────────────────────────────────────────────────────────┐
-│                      CLASSIFICATION                              │
-│                                                                  │
-│   Input ───► Model ───► [0.1, 0.2, 0.7] ───► Class &quot;C&quot;          │
-│                              ▲                                   │
-│                         Probabilities                            │
-│                         must sum to 1                            │
-│                                                                  │
-│   Loss Function: Cross-Entropy (compares probability dists)     │
-└──────────────────────────────────────────────────────────────────┘
-
-┌──────────────────────────────────────────────────────────────────┐
-│                        REGRESSION                                │
-│                                                                  │
-│   Input ───► Model ───► 425000.00 ───► $425,000                 │
-│                              ▲                                   │
-│                       Any real number                            │
-│                       (no constraints)                           │
-│                                                                  │
-│   Loss Function: MSE / MAE (measures distance from true value)  │
-└──────────────────────────────────────────────────────────────────┘
+;background-color:#fff;background-image:none;" data-marpit-pagination-total="53">
+<h1 id="regression-is-actually-everywhere">Regression is Actually Everywhere!</h1>
+<p>You might think you're looking at classification, but often it's regression:</p>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code>┌────────────────────────────────────────────────────────────────┐
+│ BOUNDING BOX DETECTION                                          │
+│                                                                 │
+│   ┌─────────────────────────────────┐                          │
+│   │   ┌──────────┐                  │                          │
+│   │   │   DOG    │ ← This box needs │                          │
+│   │   │          │   4 numbers:     │                          │
+│   │   └──────────┘                  │                          │
+│   └─────────────────────────────────┘                          │
+│                                                                 │
+│   x = 50 (left edge)      ← Regression!                        │
+│   y = 30 (top edge)       ← Regression!                        │
+│   w = 100 (width)         ← Regression!                        │
+│   h = 80 (height)         ← Regression!                        │
+│                                                                 │
+│   DETECTION = Classification (what?) + Regression (where?)     │
+│                                                                 │
+└────────────────────────────────────────────────────────────────┘
 </code></pre>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="19" data-paginate="true" data-background-color="#fff" data-theme="default" data-style="section {
@@ -2238,7 +2217,7 @@ pre {
 table { font-size: 0.9em; width: 100%; }
 th { background: #2E86AB; color: white; padding: 8px; }
 td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-" lang="en-IN" data-marpit-pagination="19" style="--paginate:true;--background-color:#fff;--theme:default;--style:section {
+" lang="C" data-marpit-pagination="19" style="--paginate:true;--background-color:#fff;--theme:default;--style:section {
   font-family: 'Segoe UI', 'Arial', sans-serif;
   font-size: 24px;
   padding: 35px;
@@ -2288,27 +2267,30 @@ pre {
 table { font-size: 0.9em; width: 100%; }
 th { background: #2E86AB; color: white; padding: 8px; }
 td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-;background-color:#fff;background-image:none;" data-marpit-pagination-total="50">
-<h1 id="the-confusion-age-prediction">The Confusion: Age Prediction</h1>
-<p>Is predicting someone's age classification or regression?</p>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>OPTION A: Classification (Age Groups)
-┌─────────────────────────────┐
-│  ○ Child (0-12)             │
-│  ○ Teenager (13-19)         │    Loses information!
-│  ● Adult (20-59)            │    &quot;25&quot; and &quot;55&quot; are same class
-│  ○ Senior (60+)             │
-└─────────────────────────────┘
+;background-color:#fff;background-image:none;" data-marpit-pagination-total="53">
+<h1 id="classification-vs-regression-side-by-side">Classification vs Regression: Side by Side</h1>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code>┌──────────────────────────────────────────────────────────────────┐
+│                      CLASSIFICATION                              │
+│                                                                  │
+│   Input ───► Model ───► [0.1, 0.2, 0.7] ───► Class &quot;C&quot;          │
+│                              ▲                                   │
+│                         Probabilities                            │
+│                         must sum to 1                            │
+│                                                                  │
+│   Loss Function: Cross-Entropy (compares probability dists)     │
+└──────────────────────────────────────────────────────────────────┘
 
-OPTION B: Regression (Exact Age)
-┌─────────────────────────────┐
-│                             │
-│  Prediction: 27.3 years     │    More precise!
-│                             │    But harder to predict exactly
-└─────────────────────────────┘
+┌──────────────────────────────────────────────────────────────────┐
+│                        REGRESSION                                │
+│                                                                  │
+│   Input ───► Model ───► 425000.00 ───► $425,000                 │
+│                              ▲                                   │
+│                       Any real number                            │
+│                       (no constraints)                           │
+│                                                                  │
+│   Loss Function: MSE / MAE (measures distance from true value)  │
+└──────────────────────────────────────────────────────────────────┘
 </code></pre>
-<div class="insight">
-The choice depends on your application! For ID verification: regression. For marketing segments: classification might be enough.
-</div>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="20" data-paginate="true" data-background-color="#fff" data-theme="default" data-style="section {
   font-family: 'Segoe UI', 'Arial', sans-serif;
@@ -2360,7 +2342,7 @@ pre {
 table { font-size: 0.9em; width: 100%; }
 th { background: #2E86AB; color: white; padding: 8px; }
 td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-" lang="en-IN" data-marpit-pagination="20" style="--paginate:true;--background-color:#fff;--theme:default;--style:section {
+" lang="C" data-marpit-pagination="20" style="--paginate:true;--background-color:#fff;--theme:default;--style:section {
   font-family: 'Segoe UI', 'Arial', sans-serif;
   font-size: 24px;
   padding: 35px;
@@ -2410,9 +2392,27 @@ pre {
 table { font-size: 0.9em; width: 100%; }
 th { background: #2E86AB; color: white; padding: 8px; }
 td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-;background-color:#fff;background-image:none;" data-marpit-pagination-total="50">
-<h1 id="section-3-vision-hierarchy">Section 3: Vision Hierarchy</h1>
-<h2 id="from-labels-to-pixels">From Labels to Pixels</h2>
+;background-color:#fff;background-image:none;" data-marpit-pagination-total="53">
+<h1 id="the-confusion-age-prediction">The Confusion: Age Prediction</h1>
+<p>Is predicting someone's age classification or regression?</p>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code>OPTION A: Classification (Age Groups)
+┌─────────────────────────────┐
+│  ○ Child (0-12)             │
+│  ○ Teenager (13-19)         │    Loses information!
+│  ● Adult (20-59)            │    &quot;25&quot; and &quot;55&quot; are same class
+│  ○ Senior (60+)             │
+└─────────────────────────────┘
+
+OPTION B: Regression (Exact Age)
+┌─────────────────────────────┐
+│                             │
+│  Prediction: 27.3 years     │    More precise!
+│                             │    But harder to predict exactly
+└─────────────────────────────┘
+</code></pre>
+<div class="insight">
+The choice depends on your application! For ID verification: regression. For marketing segments: classification might be enough.
+</div>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="21" data-paginate="true" data-background-color="#fff" data-theme="default" data-style="section {
   font-family: 'Segoe UI', 'Arial', sans-serif;
@@ -2464,7 +2464,7 @@ pre {
 table { font-size: 0.9em; width: 100%; }
 th { background: #2E86AB; color: white; padding: 8px; }
 td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-" lang="en-IN" data-marpit-pagination="21" style="--paginate:true;--background-color:#fff;--theme:default;--style:section {
+" lang="C" data-marpit-pagination="21" style="--paginate:true;--background-color:#fff;--theme:default;--style:section {
   font-family: 'Segoe UI', 'Arial', sans-serif;
   font-size: 24px;
   padding: 35px;
@@ -2514,13 +2514,9 @@ pre {
 table { font-size: 0.9em; width: 100%; }
 th { background: #2E86AB; color: white; padding: 8px; }
 td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-;background-color:#fff;background-image:none;" data-marpit-pagination-total="50">
-<h1 id="the-computer-vision-ladder">The Computer Vision Ladder</h1>
-<p>Each level gives you <strong>more information</strong> about what's in the image:</p>
-<p><img src="diagrams/svg/vision_tasks_hierarchy.svg" alt="center" style="width:900px;" /></p>
-<div class="insight">
-Each level builds on the previous. More precision = More complexity = More data needed.
-</div>
+;background-color:#fff;background-image:none;" data-marpit-pagination-total="53">
+<h1 id="section-3-vision-hierarchy">Section 3: Vision Hierarchy</h1>
+<h2 id="from-labels-to-pixels">From Labels to Pixels</h2>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="22" data-paginate="true" data-background-color="#fff" data-theme="default" data-style="section {
   font-family: 'Segoe UI', 'Arial', sans-serif;
@@ -2572,7 +2568,7 @@ pre {
 table { font-size: 0.9em; width: 100%; }
 th { background: #2E86AB; color: white; padding: 8px; }
 td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-" lang="en-IN" data-marpit-pagination="22" style="--paginate:true;--background-color:#fff;--theme:default;--style:section {
+" lang="C" data-marpit-pagination="22" style="--paginate:true;--background-color:#fff;--theme:default;--style:section {
   font-family: 'Segoe UI', 'Arial', sans-serif;
   font-size: 24px;
   padding: 35px;
@@ -2622,29 +2618,13 @@ pre {
 table { font-size: 0.9em; width: 100%; }
 th { background: #2E86AB; color: white; padding: 8px; }
 td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-;background-color:#fff;background-image:none;" data-marpit-pagination-total="50">
-<h1 id="level-1-image-classification">Level 1: Image Classification</h1>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>┌────────────────────────────────────────────────────────────────┐
-│                                                                 │
-│   ┌──────────────────────────┐                                 │
-│   │                          │                                 │
-│   │      <img class="emoji" draggable="false" alt="🐱" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f431.svg" data-marp-twemoji=""/>                  │    ───────►    &quot;Cat&quot;            │
-│   │   (somewhere in here)    │                                 │
-│   │                          │                                 │
-│   └──────────────────────────┘                                 │
-│        Input Image                      Single Label           │
-│                                                                 │
-│   KNOWS: What's in the image                                   │
-│   DOESN'T KNOW: Where it is                                    │
-│                                                                 │
-└────────────────────────────────────────────────────────────────┘
-</code></pre>
-<p><strong>Use Cases:</strong></p>
-<ul>
-<li>Google Photos: &quot;Show me all photos with dogs&quot;</li>
-<li>Medical: &quot;Is this X-ray normal or abnormal?&quot;</li>
-<li>Quality Control: &quot;Is this product defective?&quot;</li>
-</ul>
+;background-color:#fff;background-image:none;" data-marpit-pagination-total="53">
+<h1 id="the-computer-vision-ladder">The Computer Vision Ladder</h1>
+<p>Each level gives you <strong>more information</strong> about what's in the image:</p>
+<p><img src="diagrams/svg/vision_tasks_hierarchy.svg" alt="center" style="width:900px;" /></p>
+<div class="insight">
+Each level builds on the previous. More precision = More complexity = More data needed.
+</div>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="23" data-paginate="true" data-background-color="#fff" data-theme="default" data-style="section {
   font-family: 'Segoe UI', 'Arial', sans-serif;
@@ -2696,7 +2676,7 @@ pre {
 table { font-size: 0.9em; width: 100%; }
 th { background: #2E86AB; color: white; padding: 8px; }
 td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-" lang="en-IN" data-marpit-pagination="23" style="--paginate:true;--background-color:#fff;--theme:default;--style:section {
+" lang="C" data-marpit-pagination="23" style="--paginate:true;--background-color:#fff;--theme:default;--style:section {
   font-family: 'Segoe UI', 'Arial', sans-serif;
   font-size: 24px;
   padding: 35px;
@@ -2746,25 +2726,29 @@ pre {
 table { font-size: 0.9em; width: 100%; }
 th { background: #2E86AB; color: white; padding: 8px; }
 td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-;background-color:#fff;background-image:none;" data-marpit-pagination-total="50">
-<h1 id="level-2-object-detection">Level 2: Object Detection</h1>
+;background-color:#fff;background-image:none;" data-marpit-pagination-total="53">
+<h1 id="level-1-image-classification">Level 1: Image Classification</h1>
 <pre is="marp-pre" data-auto-scaling="downscale-only"><code>┌────────────────────────────────────────────────────────────────┐
 │                                                                 │
 │   ┌──────────────────────────┐                                 │
-│   │  ┌───────┐               │    ───────►    &quot;Cat&quot; @ (10,20)  │
-│   │  │ CAT   │   ┌───────┐   │                &quot;Dog&quot; @ (80,50)  │
-│   │  │       │   │ DOG   │   │                                 │
-│   │  └───────┘   │       │   │                                 │
-│   │              └───────┘   │                                 │
+│   │                          │                                 │
+│   │      <img class="emoji" draggable="false" alt="🐱" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f431.svg" data-marp-twemoji=""/>                  │    ───────►    &quot;Cat&quot;            │
+│   │   (somewhere in here)    │                                 │
+│   │                          │                                 │
 │   └──────────────────────────┘                                 │
-│        Input Image                   Labels + Bounding Boxes   │
+│        Input Image                      Single Label           │
 │                                                                 │
-│   KNOWS: What's in the image AND where                         │
-│   DOESN'T KNOW: Exact shape of objects                         │
+│   KNOWS: What's in the image                                   │
+│   DOESN'T KNOW: Where it is                                    │
 │                                                                 │
 └────────────────────────────────────────────────────────────────┘
 </code></pre>
-<p><strong>Detection = Classification (what) + Regression (where)</strong></p>
+<p><strong>Use Cases:</strong></p>
+<ul>
+<li>Google Photos: &quot;Show me all photos with dogs&quot;</li>
+<li>Medical: &quot;Is this X-ray normal or abnormal?&quot;</li>
+<li>Quality Control: &quot;Is this product defective?&quot;</li>
+</ul>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="24" data-paginate="true" data-background-color="#fff" data-theme="default" data-style="section {
   font-family: 'Segoe UI', 'Arial', sans-serif;
@@ -2816,7 +2800,7 @@ pre {
 table { font-size: 0.9em; width: 100%; }
 th { background: #2E86AB; color: white; padding: 8px; }
 td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-" lang="en-IN" data-marpit-pagination="24" style="--paginate:true;--background-color:#fff;--theme:default;--style:section {
+" lang="C" data-marpit-pagination="24" style="--paginate:true;--background-color:#fff;--theme:default;--style:section {
   font-family: 'Segoe UI', 'Arial', sans-serif;
   font-size: 24px;
   padding: 35px;
@@ -2866,24 +2850,11 @@ pre {
 table { font-size: 0.9em; width: 100%; }
 th { background: #2E86AB; color: white; padding: 8px; }
 td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-;background-color:#fff;background-image:none;" data-marpit-pagination-total="50">
-<h1 id="level-3-semantic-segmentation">Level 3: Semantic Segmentation</h1>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>┌────────────────────────────────────────────────────────────────┐
-│                                                                 │
-│   Input Image:                   Output Mask:                   │
-│   ┌──────────────────┐          ┌──────────────────┐           │
-│   │  [Sun] Sky       │          │ SSSSSSSSSSSSSSS  │  S = Sky  │
-│   │                  │          │ SSSSSSSSSSSSSSS  │  T = Tree │
-│   │  Tree Car Tree   │   --&gt;    │ TTT CCCCC TTT    │  C = Car  │
-│   │                  │          │ TTT CCCCC TTT    │  R = Road │
-│   │  ═══════════════ │          │ RRRRRRRRRRRRRRR  │           │
-│   └──────────────────┘          └──────────────────┘           │
-│                                                                 │
-│   EVERY pixel gets a class label!                               │
-│   Perfect for self-driving cars, medical imaging               │
-│                                                                 │
-└────────────────────────────────────────────────────────────────┘
-</code></pre>
+;background-color:#fff;background-image:none;" data-marpit-pagination-total="53">
+<h1 id="level-2-object-detection">Level 2: Object Detection</h1>
+<p><strong>Detection = Classification (what) + Regression (where)</strong></p>
+<p><img src="examples/coco_detection_examples.png" alt="center" style="width:900px;" /></p>
+<p>Output: List of <code>(class_name, confidence, x, y, width, height)</code> for each object</p>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="25" data-paginate="true" data-background-color="#fff" data-theme="default" data-style="section {
   font-family: 'Segoe UI', 'Arial', sans-serif;
@@ -2935,7 +2906,7 @@ pre {
 table { font-size: 0.9em; width: 100%; }
 th { background: #2E86AB; color: white; padding: 8px; }
 td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-" lang="en-IN" data-marpit-pagination="25" style="--paginate:true;--background-color:#fff;--theme:default;--style:section {
+" lang="C" data-marpit-pagination="25" style="--paginate:true;--background-color:#fff;--theme:default;--style:section {
   font-family: 'Segoe UI', 'Arial', sans-serif;
   font-size: 24px;
   padding: 35px;
@@ -2985,24 +2956,9 @@ pre {
 table { font-size: 0.9em; width: 100%; }
 th { background: #2E86AB; color: white; padding: 8px; }
 td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-;background-color:#fff;background-image:none;" data-marpit-pagination-total="50">
-<h1 id="level-4-instance-segmentation">Level 4: Instance Segmentation</h1>
-<p><strong>What if there are TWO cars?</strong></p>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>SEMANTIC SEGMENTATION:               INSTANCE SEGMENTATION:
-┌────────────────────┐               ┌────────────────────┐
-│                    │               │                    │
-│   CCCCC    CCCCC   │               │   11111    22222   │
-│   CCCCC    CCCCC   │               │   11111    22222   │
-│                    │               │                    │
-└────────────────────┘               └────────────────────┘
-   Both labeled &quot;Car&quot;                  Car #1 vs Car #2
-
-Semantic: &quot;These pixels are CAR&quot;
-Instance: &quot;These pixels are CAR #1, those are CAR #2&quot;
-</code></pre>
-<div class="insight">
-Self-driving cars need Instance Segmentation — they must track WHICH car is doing what!
-</div>
+;background-color:#fff;background-image:none;" data-marpit-pagination-total="53">
+<h1 id="level-3--4-segmentation">Level 3 &amp; 4: Segmentation</h1>
+<p><img src="examples/segmentation_comparison.png" alt="center" style="width:700px;" /></p>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="26" data-paginate="true" data-background-color="#fff" data-theme="default" data-style="section {
   font-family: 'Segoe UI', 'Arial', sans-serif;
@@ -3054,7 +3010,7 @@ pre {
 table { font-size: 0.9em; width: 100%; }
 th { background: #2E86AB; color: white; padding: 8px; }
 td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-" lang="en-IN" data-marpit-pagination="26" style="--paginate:true;--background-color:#fff;--theme:default;--style:section {
+" lang="C" data-marpit-pagination="26" style="--paginate:true;--background-color:#fff;--theme:default;--style:section {
   font-family: 'Segoe UI', 'Arial', sans-serif;
   font-size: 24px;
   padding: 35px;
@@ -3104,26 +3060,12 @@ pre {
 table { font-size: 0.9em; width: 100%; }
 th { background: #2E86AB; color: white; padding: 8px; }
 td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-;background-color:#fff;background-image:none;" data-marpit-pagination-total="50">
-<h1 id="real-world-vision-hierarchy-example">Real-World Vision Hierarchy Example</h1>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>┌─────────────────────────────────────────────────────────────────┐
-│                    AUTONOMOUS DRIVING                            │
-├─────────────────────────────────────────────────────────────────┤
-│                                                                  │
-│   Classification:  &quot;There are cars and people in this scene&quot;    │
-│                    (Not enough! Where are they?)                 │
-│                                                                  │
-│   Detection:       &quot;Car at (100,200), Person at (300,150)&quot;      │
-│                    (Better! But how close to lane?)              │
-│                                                                  │
-│   Segmentation:    &quot;The drivable road area is these pixels&quot;     │
-│                    (Great! Now I know where to drive)            │
-│                                                                  │
-│   Instance Seg:    &quot;This is Car #1, that is Car #2, tracking...&quot;│
-│                    (Perfect! I can predict each car's movement) │
-│                                                                  │
-└─────────────────────────────────────────────────────────────────┘
-</code></pre>
+;background-color:#fff;background-image:none;" data-marpit-pagination-total="53">
+<h1 id="instance-segmentation-in-action">Instance Segmentation in Action</h1>
+<p><img src="examples/instance_segmentation_example.png" alt="center" style="width:900px;" /></p>
+<div class="insight">
+Self-driving cars need Instance Segmentation — they must track WHICH car is doing what!
+</div>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="27" data-paginate="true" data-background-color="#fff" data-theme="default" data-style="section {
   font-family: 'Segoe UI', 'Arial', sans-serif;
@@ -3175,7 +3117,7 @@ pre {
 table { font-size: 0.9em; width: 100%; }
 th { background: #2E86AB; color: white; padding: 8px; }
 td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-" lang="en-IN" data-marpit-pagination="27" style="--paginate:true;--background-color:#fff;--theme:default;--style:section {
+" lang="C" data-marpit-pagination="27" style="--paginate:true;--background-color:#fff;--theme:default;--style:section {
   font-family: 'Segoe UI', 'Arial', sans-serif;
   font-size: 24px;
   padding: 35px;
@@ -3225,9 +3167,43 @@ pre {
 table { font-size: 0.9em; width: 100%; }
 th { background: #2E86AB; color: white; padding: 8px; }
 td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-;background-color:#fff;background-image:none;" data-marpit-pagination-total="50">
-<h1 id="section-4-sequence-tasks">Section 4: Sequence Tasks</h1>
-<h2 id="when-order-matters">When Order Matters</h2>
+;background-color:#fff;background-image:none;" data-marpit-pagination-total="53">
+<h1 id="real-world-vision-hierarchy-example">Real-World Vision Hierarchy Example</h1>
+<p><strong>Autonomous Driving: Why Each Level Matters</strong></p>
+<table>
+<thead>
+<tr>
+<th>Level</th>
+<th>Task</th>
+<th>What it Tells the Car</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Classification</td>
+<td>&quot;There are cars and people in this scene&quot;</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Detection</td>
+<td>&quot;Car at (100,200), Person at (300,150)&quot;</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Semantic Seg.</td>
+<td>&quot;The drivable road area is these pixels&quot;</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Instance Seg.</td>
+<td>&quot;This is Car #1, that is Car #2&quot; - can track each!</td>
+</tr>
+</tbody>
+</table>
+<div class="insight">
+Higher levels give more precise information but require more data and compute!
+</div>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="28" data-paginate="true" data-background-color="#fff" data-theme="default" data-style="section {
   font-family: 'Segoe UI', 'Arial', sans-serif;
@@ -3279,7 +3255,7 @@ pre {
 table { font-size: 0.9em; width: 100%; }
 th { background: #2E86AB; color: white; padding: 8px; }
 td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-" lang="en-IN" data-marpit-pagination="28" style="--paginate:true;--background-color:#fff;--theme:default;--style:section {
+" lang="C" data-marpit-pagination="28" style="--paginate:true;--background-color:#fff;--theme:default;--style:section {
   font-family: 'Segoe UI', 'Arial', sans-serif;
   font-size: 24px;
   padding: 35px;
@@ -3329,28 +3305,9 @@ pre {
 table { font-size: 0.9em; width: 100%; }
 th { background: #2E86AB; color: white; padding: 8px; }
 td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-;background-color:#fff;background-image:none;" data-marpit-pagination-total="50">
-<h1 id="why-sequences-are-special">Why Sequences Are Special</h1>
-<p>Some data comes in <strong>ordered</strong> form where <strong>position matters</strong>:</p>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>┌────────────────────────────────────────────────────────────────┐
-│                                                                 │
-│   TEXT:   &quot;I love you&quot;   vs   &quot;You love I&quot;                     │
-│            (Sweet)             (Grammatically wrong!)           │
-│                                                                 │
-│   DNA:    ATCGATCG  vs  GATCATCG                               │
-│            (Different gene!)                                    │
-│                                                                 │
-│   AUDIO:  ♪ Do-Re-Mi  vs  ♪ Mi-Re-Do                           │
-│            (Different melody!)                                  │
-│                                                                 │
-│   VIDEO:  Frame1→Frame2→Frame3  vs  Frame3→Frame2→Frame1       │
-│            (Forward vs Backward!)                               │
-│                                                                 │
-└────────────────────────────────────────────────────────────────┘
-</code></pre>
-<div class="insight">
-For sequences, we need models that understand ORDER, not just content!
-</div>
+;background-color:#fff;background-image:none;" data-marpit-pagination-total="53">
+<h1 id="section-4-sequence-tasks">Section 4: Sequence Tasks</h1>
+<h2 id="when-order-matters">When Order Matters</h2>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="29" data-paginate="true" data-background-color="#fff" data-theme="default" data-style="section {
   font-family: 'Segoe UI', 'Arial', sans-serif;
@@ -3402,7 +3359,7 @@ pre {
 table { font-size: 0.9em; width: 100%; }
 th { background: #2E86AB; color: white; padding: 8px; }
 td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-" lang="en-IN" data-marpit-pagination="29" style="--paginate:true;--background-color:#fff;--theme:default;--style:section {
+" lang="C" data-marpit-pagination="29" style="--paginate:true;--background-color:#fff;--theme:default;--style:section {
   font-family: 'Segoe UI', 'Arial', sans-serif;
   font-size: 24px;
   padding: 35px;
@@ -3452,11 +3409,48 @@ pre {
 table { font-size: 0.9em; width: 100%; }
 th { background: #2E86AB; color: white; padding: 8px; }
 td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-;background-color:#fff;background-image:none;" data-marpit-pagination-total="50">
-<h1 id="sequence-to-sequence-seq2seq">Sequence-to-Sequence (Seq2Seq)</h1>
-<p><strong>Input sequence → Model → Output sequence</strong><br />
-(Lengths can be DIFFERENT!)</p>
-<p><img src="diagrams/svg/seq2seq.svg" alt="center" style="width:950px;" /></p>
+;background-color:#fff;background-image:none;" data-marpit-pagination-total="53">
+<h1 id="why-sequences-are-special">Why Sequences Are Special</h1>
+<p>Some data comes in <strong>ordered</strong> form where <strong>position matters</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Data Type</th>
+<th>Original</th>
+<th>Shuffled</th>
+<th>Problem</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Text</td>
+<td>&quot;I love you&quot;</td>
+<td>&quot;You love I&quot;</td>
+<td>Grammatically wrong!</td>
+</tr>
+<tr>
+<td>DNA</td>
+<td>ATCGATCG</td>
+<td>GATCATCG</td>
+<td>Different gene!</td>
+</tr>
+<tr>
+<td>Audio</td>
+<td>Do-Re-Mi</td>
+<td>Mi-Re-Do</td>
+<td>Different melody!</td>
+</tr>
+<tr>
+<td>Video</td>
+<td>Frame 1→2→3</td>
+<td>Frame 3→2→1</td>
+<td>Forward vs Backward!</td>
+</tr>
+</tbody>
+</table>
+<div class="insight">
+For sequences, we need models that understand ORDER, not just content!
+</div>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="30" data-paginate="true" data-background-color="#fff" data-theme="default" data-style="section {
   font-family: 'Segoe UI', 'Arial', sans-serif;
@@ -3508,7 +3502,7 @@ pre {
 table { font-size: 0.9em; width: 100%; }
 th { background: #2E86AB; color: white; padding: 8px; }
 td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-" lang="en-IN" data-marpit-pagination="30" style="--paginate:true;--background-color:#fff;--theme:default;--style:section {
+" lang="C" data-marpit-pagination="30" style="--paginate:true;--background-color:#fff;--theme:default;--style:section {
   font-family: 'Segoe UI', 'Arial', sans-serif;
   font-size: 24px;
   padding: 35px;
@@ -3558,7 +3552,113 @@ pre {
 table { font-size: 0.9em; width: 100%; }
 th { background: #2E86AB; color: white; padding: 8px; }
 td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-;background-color:#fff;background-image:none;" data-marpit-pagination-total="50">
+;background-color:#fff;background-image:none;" data-marpit-pagination-total="53">
+<h1 id="sequence-to-sequence-seq2seq">Sequence-to-Sequence (Seq2Seq)</h1>
+<p><strong>Input sequence → Model → Output sequence</strong><br />
+(Lengths can be DIFFERENT!)</p>
+<p><img src="diagrams/svg/seq2seq.svg" alt="center" style="width:950px;" /></p>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="31" data-paginate="true" data-background-color="#fff" data-theme="default" data-style="section {
+  font-family: 'Segoe UI', 'Arial', sans-serif;
+  font-size: 24px;
+  padding: 35px;
+  color: #333;
+}
+h1 { color: #2E86AB; font-size: 1.7em; margin-bottom: 0.2em; }
+h2 { color: #06A77D; font-size: 1.1em; margin-top: 0; }
+h3 { color: #457B9D; font-size: 1.0em; }
+strong { color: #D62828; }
+code {
+  background: #f4f4f4;
+  color: #2E86AB;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: 'Consolas', 'Monaco', monospace;
+}
+pre {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 15px;
+  font-size: 0.85em;
+  line-height: 1.4;
+  overflow: hidden;
+}
+.example {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-left: 4px solid #06A77D;
+  padding: 12px 15px;
+  margin: 10px 0;
+  border-radius: 0 8px 8px 0;
+}
+.insight {
+  background: #fff3cd;
+  border-left: 4px solid #ffc107;
+  padding: 12px 15px;
+  margin: 10px 0;
+  border-radius: 0 8px 8px 0;
+}
+.realworld {
+  background: #e3f2fd;
+  border-left: 4px solid #2196F3;
+  padding: 12px 15px;
+  margin: 10px 0;
+  border-radius: 0 8px 8px 0;
+}
+.columns { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; }
+table { font-size: 0.9em; width: 100%; }
+th { background: #2E86AB; color: white; padding: 8px; }
+td { padding: 8px; border-bottom: 1px solid #dee2e6; }
+" lang="C" data-marpit-pagination="31" style="--paginate:true;--background-color:#fff;--theme:default;--style:section {
+  font-family: 'Segoe UI', 'Arial', sans-serif;
+  font-size: 24px;
+  padding: 35px;
+  color: #333;
+}
+h1 { color: #2E86AB; font-size: 1.7em; margin-bottom: 0.2em; }
+h2 { color: #06A77D; font-size: 1.1em; margin-top: 0; }
+h3 { color: #457B9D; font-size: 1.0em; }
+strong { color: #D62828; }
+code {
+  background: #f4f4f4;
+  color: #2E86AB;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: 'Consolas', 'Monaco', monospace;
+}
+pre {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 15px;
+  font-size: 0.85em;
+  line-height: 1.4;
+  overflow: hidden;
+}
+.example {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-left: 4px solid #06A77D;
+  padding: 12px 15px;
+  margin: 10px 0;
+  border-radius: 0 8px 8px 0;
+}
+.insight {
+  background: #fff3cd;
+  border-left: 4px solid #ffc107;
+  padding: 12px 15px;
+  margin: 10px 0;
+  border-radius: 0 8px 8px 0;
+}
+.realworld {
+  background: #e3f2fd;
+  border-left: 4px solid #2196F3;
+  padding: 12px 15px;
+  margin: 10px 0;
+  border-radius: 0 8px 8px 0;
+}
+.columns { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; }
+table { font-size: 0.9em; width: 100%; }
+th { background: #2E86AB; color: white; padding: 8px; }
+td { padding: 8px; border-bottom: 1px solid #dee2e6; }
+;background-color:#fff;background-image:none;" data-marpit-pagination-total="53">
 <h1 id="seq2seq-examples">Seq2Seq Examples</h1>
 <table>
 <thead>
@@ -3612,127 +3712,6 @@ td { padding: 8px; border-bottom: 1px solid #dee2e6; }
 Google Translate, Siri, Alexa, ChatGPT — all use Seq2Seq!
 </div>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="31" data-paginate="true" data-background-color="#fff" data-theme="default" data-style="section {
-  font-family: 'Segoe UI', 'Arial', sans-serif;
-  font-size: 24px;
-  padding: 35px;
-  color: #333;
-}
-h1 { color: #2E86AB; font-size: 1.7em; margin-bottom: 0.2em; }
-h2 { color: #06A77D; font-size: 1.1em; margin-top: 0; }
-h3 { color: #457B9D; font-size: 1.0em; }
-strong { color: #D62828; }
-code {
-  background: #f4f4f4;
-  color: #2E86AB;
-  padding: 2px 6px;
-  border-radius: 4px;
-  font-family: 'Consolas', 'Monaco', monospace;
-}
-pre {
-  background: #f8f9fa;
-  border-radius: 8px;
-  padding: 15px;
-  font-size: 0.85em;
-  line-height: 1.4;
-  overflow: hidden;
-}
-.example {
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-  border-left: 4px solid #06A77D;
-  padding: 12px 15px;
-  margin: 10px 0;
-  border-radius: 0 8px 8px 0;
-}
-.insight {
-  background: #fff3cd;
-  border-left: 4px solid #ffc107;
-  padding: 12px 15px;
-  margin: 10px 0;
-  border-radius: 0 8px 8px 0;
-}
-.realworld {
-  background: #e3f2fd;
-  border-left: 4px solid #2196F3;
-  padding: 12px 15px;
-  margin: 10px 0;
-  border-radius: 0 8px 8px 0;
-}
-.columns { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; }
-table { font-size: 0.9em; width: 100%; }
-th { background: #2E86AB; color: white; padding: 8px; }
-td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-" lang="en-IN" data-marpit-pagination="31" style="--paginate:true;--background-color:#fff;--theme:default;--style:section {
-  font-family: 'Segoe UI', 'Arial', sans-serif;
-  font-size: 24px;
-  padding: 35px;
-  color: #333;
-}
-h1 { color: #2E86AB; font-size: 1.7em; margin-bottom: 0.2em; }
-h2 { color: #06A77D; font-size: 1.1em; margin-top: 0; }
-h3 { color: #457B9D; font-size: 1.0em; }
-strong { color: #D62828; }
-code {
-  background: #f4f4f4;
-  color: #2E86AB;
-  padding: 2px 6px;
-  border-radius: 4px;
-  font-family: 'Consolas', 'Monaco', monospace;
-}
-pre {
-  background: #f8f9fa;
-  border-radius: 8px;
-  padding: 15px;
-  font-size: 0.85em;
-  line-height: 1.4;
-  overflow: hidden;
-}
-.example {
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-  border-left: 4px solid #06A77D;
-  padding: 12px 15px;
-  margin: 10px 0;
-  border-radius: 0 8px 8px 0;
-}
-.insight {
-  background: #fff3cd;
-  border-left: 4px solid #ffc107;
-  padding: 12px 15px;
-  margin: 10px 0;
-  border-radius: 0 8px 8px 0;
-}
-.realworld {
-  background: #e3f2fd;
-  border-left: 4px solid #2196F3;
-  padding: 12px 15px;
-  margin: 10px 0;
-  border-radius: 0 8px 8px 0;
-}
-.columns { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; }
-table { font-size: 0.9em; width: 100%; }
-th { background: #2E86AB; color: white; padding: 8px; }
-td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-;background-color:#fff;background-image:none;" data-marpit-pagination-total="50">
-<h1 id="token-level-classification-tagging">Token-Level Classification (Tagging)</h1>
-<p>Sometimes we classify <strong>each element</strong> in the sequence:</p>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>┌────────────────────────────────────────────────────────────────┐
-│                                                                 │
-│   Input:    &quot;Sundar  Pichai   visited  New    York   yesterday&quot; │
-│              │       │        │        │      │      │         │
-│              ▼       ▼        ▼        ▼      ▼      ▼         │
-│   Output:   PER     PER       O       LOC    LOC     O         │
-│                                                                 │
-│   PER = Person Name                                             │
-│   LOC = Location                                                │
-│   O   = Other (not an entity)                                   │
-│                                                                 │
-└────────────────────────────────────────────────────────────────┘
-</code></pre>
-<p>This is <strong>Named Entity Recognition (NER)</strong>.</p>
-<div class="insight">
-Think of it as "semantic segmentation for text" — every word gets a label!
-</div>
-</section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="32" data-paginate="true" data-background-color="#fff" data-theme="default" data-style="section {
   font-family: 'Segoe UI', 'Arial', sans-serif;
   font-size: 24px;
@@ -3783,7 +3762,7 @@ pre {
 table { font-size: 0.9em; width: 100%; }
 th { background: #2E86AB; color: white; padding: 8px; }
 td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-" lang="en-IN" data-marpit-pagination="32" style="--paginate:true;--background-color:#fff;--theme:default;--style:section {
+" lang="C" data-marpit-pagination="32" style="--paginate:true;--background-color:#fff;--theme:default;--style:section {
   font-family: 'Segoe UI', 'Arial', sans-serif;
   font-size: 24px;
   padding: 35px;
@@ -3833,9 +3812,26 @@ pre {
 table { font-size: 0.9em; width: 100%; }
 th { background: #2E86AB; color: white; padding: 8px; }
 td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-;background-color:#fff;background-image:none;" data-marpit-pagination-total="50">
-<h1 id="section-5-unsupervised-learning">Section 5: Unsupervised Learning</h1>
-<h2 id="finding-patterns-without-labels">Finding Patterns Without Labels</h2>
+;background-color:#fff;background-image:none;" data-marpit-pagination-total="53">
+<h1 id="token-level-classification-tagging">Token-Level Classification (Tagging)</h1>
+<p>Sometimes we classify <strong>each element</strong> in the sequence:</p>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code>┌────────────────────────────────────────────────────────────────┐
+│                                                                 │
+│   Input:    &quot;Sundar  Pichai   visited  New    York   yesterday&quot; │
+│              │       │        │        │      │      │         │
+│              ▼       ▼        ▼        ▼      ▼      ▼         │
+│   Output:   PER     PER       O       LOC    LOC     O         │
+│                                                                 │
+│   PER = Person Name                                             │
+│   LOC = Location                                                │
+│   O   = Other (not an entity)                                   │
+│                                                                 │
+└────────────────────────────────────────────────────────────────┘
+</code></pre>
+<p>This is <strong>Named Entity Recognition (NER)</strong>.</p>
+<div class="insight">
+Think of it as "semantic segmentation for text" — every word gets a label!
+</div>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="33" data-paginate="true" data-background-color="#fff" data-theme="default" data-style="section {
   font-family: 'Segoe UI', 'Arial', sans-serif;
@@ -3887,7 +3883,7 @@ pre {
 table { font-size: 0.9em; width: 100%; }
 th { background: #2E86AB; color: white; padding: 8px; }
 td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-" lang="en-IN" data-marpit-pagination="33" style="--paginate:true;--background-color:#fff;--theme:default;--style:section {
+" lang="C" data-marpit-pagination="33" style="--paginate:true;--background-color:#fff;--theme:default;--style:section {
   font-family: 'Segoe UI', 'Arial', sans-serif;
   font-size: 24px;
   padding: 35px;
@@ -3937,21 +3933,9 @@ pre {
 table { font-size: 0.9em; width: 100%; }
 th { background: #2E86AB; color: white; padding: 8px; }
 td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-;background-color:#fff;background-image:none;" data-marpit-pagination-total="50">
-<h1 id="the-unsupervised-setting">The Unsupervised Setting</h1>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>SUPERVISED:                        UNSUPERVISED:
-┌─────────────────────────┐        ┌─────────────────────────┐
-│                         │        │                         │
-│ Data: X (features)      │        │ Data: X (features)      │
-│ Labels: Y (answers)     │        │ Labels: NONE!           │
-│                         │        │                         │
-│ Learn: f(X) → Y         │        │ Find: patterns in X     │
-│                         │        │                         │
-│ &quot;Teach by example&quot;      │        │ &quot;Learn by exploration&quot;  │
-│                         │        │                         │
-└─────────────────────────┘        └─────────────────────────┘
-</code></pre>
-<p><strong>No one tells the model what to look for — it discovers structure on its own!</strong></p>
+;background-color:#fff;background-image:none;" data-marpit-pagination-total="53">
+<h1 id="section-5-unsupervised-learning">Section 5: Unsupervised Learning</h1>
+<h2 id="finding-patterns-without-labels">Finding Patterns Without Labels</h2>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="34" data-paginate="true" data-background-color="#fff" data-theme="default" data-style="section {
   font-family: 'Segoe UI', 'Arial', sans-serif;
@@ -4003,7 +3987,7 @@ pre {
 table { font-size: 0.9em; width: 100%; }
 th { background: #2E86AB; color: white; padding: 8px; }
 td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-" lang="en-IN" data-marpit-pagination="34" style="--paginate:true;--background-color:#fff;--theme:default;--style:section {
+" lang="C" data-marpit-pagination="34" style="--paginate:true;--background-color:#fff;--theme:default;--style:section {
   font-family: 'Segoe UI', 'Arial', sans-serif;
   font-size: 24px;
   padding: 35px;
@@ -4053,29 +4037,21 @@ pre {
 table { font-size: 0.9em; width: 100%; }
 th { background: #2E86AB; color: white; padding: 8px; }
 td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-;background-color:#fff;background-image:none;" data-marpit-pagination-total="50">
-<h1 id="clustering-finding-natural-groups">Clustering: Finding Natural Groups</h1>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>BEFORE (Unlabeled data):           AFTER (Discovered clusters):
-
-    •    ■                              ○    □
-  •   •    ■ ■                        ○   ○    □ □
-    •        ■                          ○        □
-
-        ▲   ▲                              △   △
-    ▲          ▲                       △          △
-      ▲    ▲                             △    △
-
-No one told the algorithm these     The algorithm discovered
-are 3 groups — it figured it out!   3 natural groupings.
+;background-color:#fff;background-image:none;" data-marpit-pagination-total="53">
+<h1 id="the-unsupervised-setting">The Unsupervised Setting</h1>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code>SUPERVISED:                        UNSUPERVISED:
+┌─────────────────────────┐        ┌─────────────────────────┐
+│                         │        │                         │
+│ Data: X (features)      │        │ Data: X (features)      │
+│ Labels: Y (answers)     │        │ Labels: NONE!           │
+│                         │        │                         │
+│ Learn: f(X) → Y         │        │ Find: patterns in X     │
+│                         │        │                         │
+│ &quot;Teach by example&quot;      │        │ &quot;Learn by exploration&quot;  │
+│                         │        │                         │
+└─────────────────────────┘        └─────────────────────────┘
 </code></pre>
-<div class="realworld">
-<p><strong>Real applications:</strong></p>
-<ul>
-<li>Customer segmentation: VIPs vs Bargain hunters vs Occasional buyers</li>
-<li>Gene expression: Which genes behave similarly?</li>
-<li>Document clustering: Group news articles by topic</li>
-</ul>
-</div>
+<p><strong>No one tells the model what to look for — it discovers structure on its own!</strong></p>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="35" data-paginate="true" data-background-color="#fff" data-theme="default" data-style="section {
   font-family: 'Segoe UI', 'Arial', sans-serif;
@@ -4127,7 +4103,7 @@ pre {
 table { font-size: 0.9em; width: 100%; }
 th { background: #2E86AB; color: white; padding: 8px; }
 td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-" lang="en-IN" data-marpit-pagination="35" style="--paginate:true;--background-color:#fff;--theme:default;--style:section {
+" lang="C" data-marpit-pagination="35" style="--paginate:true;--background-color:#fff;--theme:default;--style:section {
   font-family: 'Segoe UI', 'Arial', sans-serif;
   font-size: 24px;
   padding: 35px;
@@ -4177,31 +4153,13 @@ pre {
 table { font-size: 0.9em; width: 100%; }
 th { background: #2E86AB; color: white; padding: 8px; }
 td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-;background-color:#fff;background-image:none;" data-marpit-pagination-total="50">
-<h1 id="dimensionality-reduction">Dimensionality Reduction</h1>
-<p><strong>Problem:</strong> High-dimensional data is hard to visualize and process.</p>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>Original: 1000-dimensional data
-         (Can't visualize 1000 axes!)
-
-         ┌─────────────────────────────────────────────┐
-         │ [0.23, 0.11, 0.87, 0.45, 0.32, ... 1000]    │
-         └──────────────────────┬──────────────────────┘
-                                │
-                           PCA / t-SNE
-                                │
-                                ▼
-         ┌─────────────────────────────────────────────┐
-         │           [0.45, -0.23]  ← Just 2D!         │
-         └─────────────────────────────────────────────┘
-                                │
-                                ▼
-                        Can now plot it!
-
-               •  •  •                ← Cluster 1
-              •    •
-                ▲  ▲  ▲               ← Cluster 2
-                  ■ ■ ■               ← Cluster 3
-</code></pre>
+;background-color:#fff;background-image:none;" data-marpit-pagination-total="53">
+<h1 id="clustering-finding-natural-groups">Clustering: Finding Natural Groups</h1>
+<p><img src="examples/kmeans_example.png" alt="center" style="width:1000px;" /></p>
+<p><strong>K-Means:</strong> No labels needed! The algorithm discovers natural groupings on its own.</p>
+<div class="realworld">
+<p><strong>Real applications:</strong> Customer segmentation, gene expression analysis, document clustering</p>
+</div>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="36" data-paginate="true" data-background-color="#fff" data-theme="default" data-style="section {
   font-family: 'Segoe UI', 'Arial', sans-serif;
@@ -4253,7 +4211,7 @@ pre {
 table { font-size: 0.9em; width: 100%; }
 th { background: #2E86AB; color: white; padding: 8px; }
 td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-" lang="en-IN" data-marpit-pagination="36" style="--paginate:true;--background-color:#fff;--theme:default;--style:section {
+" lang="C" data-marpit-pagination="36" style="--paginate:true;--background-color:#fff;--theme:default;--style:section {
   font-family: 'Segoe UI', 'Arial', sans-serif;
   font-size: 24px;
   padding: 35px;
@@ -4303,27 +4261,31 @@ pre {
 table { font-size: 0.9em; width: 100%; }
 th { background: #2E86AB; color: white; padding: 8px; }
 td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-;background-color:#fff;background-image:none;" data-marpit-pagination-total="50">
-<h1 id="anomaly-detection">Anomaly Detection</h1>
-<p><strong>Find the weird ones.</strong></p>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>Normal Transaction Pattern:
+;background-color:#fff;background-image:none;" data-marpit-pagination-total="53">
+<h1 id="dimensionality-reduction">Dimensionality Reduction</h1>
+<p><strong>Problem:</strong> High-dimensional data is hard to visualize and process.</p>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code>Original: 1000-dimensional data
+         (Can't visualize 1000 axes!)
 
-Amount: $50  $120  $45  $200  $75  $90  $15000  $80  $110
-         ●     ●    ●     ●    ●    ●      ★      ●     ●
-                                           ▲
-                                           │
-                                    ANOMALY DETECTED!
-                                    (Unusual transaction)
+         ┌─────────────────────────────────────────────┐
+         │ [0.23, 0.11, 0.87, 0.45, 0.32, ... 1000]    │
+         └──────────────────────┬──────────────────────┘
+                                │
+                           PCA / t-SNE
+                                │
+                                ▼
+         ┌─────────────────────────────────────────────┐
+         │           [0.45, -0.23]  ← Just 2D!         │
+         └─────────────────────────────────────────────┘
+                                │
+                                ▼
+                        Can now plot it!
+
+               •  •  •                ← Cluster 1
+              •    •
+                ▲  ▲  ▲               ← Cluster 2
+                  ■ ■ ■               ← Cluster 3
 </code></pre>
-<div class="realworld">
-<p><strong>Applications:</strong></p>
-<ul>
-<li>Credit card fraud detection</li>
-<li>Network intrusion detection</li>
-<li>Manufacturing defect detection</li>
-<li>Medical abnormality detection</li>
-</ul>
-</div>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="37" data-paginate="true" data-background-color="#fff" data-theme="default" data-style="section {
   font-family: 'Segoe UI', 'Arial', sans-serif;
@@ -4375,7 +4337,7 @@ pre {
 table { font-size: 0.9em; width: 100%; }
 th { background: #2E86AB; color: white; padding: 8px; }
 td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-" lang="en-IN" data-marpit-pagination="37" style="--paginate:true;--background-color:#fff;--theme:default;--style:section {
+" lang="C" data-marpit-pagination="37" style="--paginate:true;--background-color:#fff;--theme:default;--style:section {
   font-family: 'Segoe UI', 'Arial', sans-serif;
   font-size: 24px;
   padding: 35px;
@@ -4425,9 +4387,27 @@ pre {
 table { font-size: 0.9em; width: 100%; }
 th { background: #2E86AB; color: white; padding: 8px; }
 td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-;background-color:#fff;background-image:none;" data-marpit-pagination-total="50">
-<h1 id="section-6-generative-models">Section 6: Generative Models</h1>
-<h2 id="creating-new-data">Creating New Data</h2>
+;background-color:#fff;background-image:none;" data-marpit-pagination-total="53">
+<h1 id="anomaly-detection">Anomaly Detection</h1>
+<p><strong>Find the weird ones.</strong></p>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code>Normal Transaction Pattern:
+
+Amount: $50  $120  $45  $200  $75  $90  $15000  $80  $110
+         ●     ●    ●     ●    ●    ●      ★      ●     ●
+                                           ▲
+                                           │
+                                    ANOMALY DETECTED!
+                                    (Unusual transaction)
+</code></pre>
+<div class="realworld">
+<p><strong>Applications:</strong></p>
+<ul>
+<li>Credit card fraud detection</li>
+<li>Network intrusion detection</li>
+<li>Manufacturing defect detection</li>
+<li>Medical abnormality detection</li>
+</ul>
+</div>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="38" data-paginate="true" data-background-color="#fff" data-theme="default" data-style="section {
   font-family: 'Segoe UI', 'Arial', sans-serif;
@@ -4479,7 +4459,7 @@ pre {
 table { font-size: 0.9em; width: 100%; }
 th { background: #2E86AB; color: white; padding: 8px; }
 td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-" lang="en-IN" data-marpit-pagination="38" style="--paginate:true;--background-color:#fff;--theme:default;--style:section {
+" lang="C" data-marpit-pagination="38" style="--paginate:true;--background-color:#fff;--theme:default;--style:section {
   font-family: 'Segoe UI', 'Arial', sans-serif;
   font-size: 24px;
   padding: 35px;
@@ -4529,29 +4509,9 @@ pre {
 table { font-size: 0.9em; width: 100%; }
 th { background: #2E86AB; color: white; padding: 8px; }
 td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-;background-color:#fff;background-image:none;" data-marpit-pagination-total="50">
-<h1 id="generative-vs-discriminative">Generative vs Discriminative</h1>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>DISCRIMINATIVE (What we've seen so far):
-┌─────────────────────────────────────────────────────────────────┐
-│                                                                 │
-│   [Image of cat]  ───►  Model  ───►  &quot;Cat&quot; or &quot;Dog&quot;            │
-│                                                                 │
-│   Given X, predict Y (which category)                           │
-│   &quot;What IS this?&quot;                                               │
-│                                                                 │
-└─────────────────────────────────────────────────────────────────┘
-
-GENERATIVE (The magic):
-┌─────────────────────────────────────────────────────────────────┐
-│                                                                 │
-│   &quot;Draw a cat&quot;   ───►  Model  ───►  [NEW image of a cat!]      │
-│   or just noise                                                 │
-│                                                                 │
-│   Create NEW X from scratch                                     │
-│   &quot;Make something that LOOKS LIKE this&quot;                         │
-│                                                                 │
-└─────────────────────────────────────────────────────────────────┘
-</code></pre>
+;background-color:#fff;background-image:none;" data-marpit-pagination-total="53">
+<h1 id="section-6-generative-models">Section 6: Generative Models</h1>
+<h2 id="creating-new-data">Creating New Data</h2>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="39" data-paginate="true" data-background-color="#fff" data-theme="default" data-style="section {
   font-family: 'Segoe UI', 'Arial', sans-serif;
@@ -4603,7 +4563,7 @@ pre {
 table { font-size: 0.9em; width: 100%; }
 th { background: #2E86AB; color: white; padding: 8px; }
 td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-" lang="en-IN" data-marpit-pagination="39" style="--paginate:true;--background-color:#fff;--theme:default;--style:section {
+" lang="C" data-marpit-pagination="39" style="--paginate:true;--background-color:#fff;--theme:default;--style:section {
   font-family: 'Segoe UI', 'Arial', sans-serif;
   font-size: 24px;
   padding: 35px;
@@ -4653,31 +4613,26 @@ pre {
 table { font-size: 0.9em; width: 100%; }
 th { background: #2E86AB; color: white; padding: 8px; }
 td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-;background-color:#fff;background-image:none;" data-marpit-pagination-total="50">
-<h1 id="the-generative-ai-revolution">The Generative AI Revolution</h1>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>┌─────────────────────────────────────────────────────────────────┐
-│ TEXT GENERATION (ChatGPT, Claude)                               │
+;background-color:#fff;background-image:none;" data-marpit-pagination-total="53">
+<h1 id="generative-vs-discriminative">Generative vs Discriminative</h1>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code>DISCRIMINATIVE (What we've seen so far):
+┌─────────────────────────────────────────────────────────────────┐
 │                                                                 │
-│ Prompt: &quot;Write a poem about AI&quot;                                 │
-│ Output: &quot;In silicon dreams, we think and grow...&quot;              │
+│   [Image of cat]  ───►  Model  ───►  &quot;Cat&quot; or &quot;Dog&quot;            │
 │                                                                 │
-├─────────────────────────────────────────────────────────────────┤
-│ IMAGE GENERATION (DALL-E, Midjourney, Stable Diffusion)         │
+│   Given X, predict Y (which category)                           │
+│   &quot;What IS this?&quot;                                               │
 │                                                                 │
-│ Prompt: &quot;A cat wearing a tiny hat, oil painting style&quot;         │
-│ Output: [Beautiful AI-generated artwork!]                       │
+└─────────────────────────────────────────────────────────────────┘
+
+GENERATIVE (The magic):
+┌─────────────────────────────────────────────────────────────────┐
 │                                                                 │
-├─────────────────────────────────────────────────────────────────┤
-│ MUSIC GENERATION (Suno, Udio)                                   │
+│   &quot;Draw a cat&quot;   ───►  Model  ───►  [NEW image of a cat!]      │
+│   or just noise                                                 │
 │                                                                 │
-│ Prompt: &quot;Upbeat pop song about summer&quot;                          │
-│ Output: ♪ [Complete song with lyrics!]                          │
-│                                                                 │
-├─────────────────────────────────────────────────────────────────┤
-│ VIDEO GENERATION (Sora, Runway)                                 │
-│                                                                 │
-│ Prompt: &quot;A dog running through a meadow, slow motion&quot;          │
-│ Output: [Realistic video that never existed!]                   │
+│   Create NEW X from scratch                                     │
+│   &quot;Make something that LOOKS LIKE this&quot;                         │
 │                                                                 │
 └─────────────────────────────────────────────────────────────────┘
 </code></pre>
@@ -4732,7 +4687,7 @@ pre {
 table { font-size: 0.9em; width: 100%; }
 th { background: #2E86AB; color: white; padding: 8px; }
 td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-" lang="en-IN" data-marpit-pagination="40" style="--paginate:true;--background-color:#fff;--theme:default;--style:section {
+" lang="C" data-marpit-pagination="40" style="--paginate:true;--background-color:#fff;--theme:default;--style:section {
   font-family: 'Segoe UI', 'Arial', sans-serif;
   font-size: 24px;
   padding: 35px;
@@ -4782,24 +4737,34 @@ pre {
 table { font-size: 0.9em; width: 100%; }
 th { background: #2E86AB; color: white; padding: 8px; }
 td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-;background-color:#fff;background-image:none;" data-marpit-pagination-total="50">
-<h1 id="image-inpainting-fill-in-the-blanks">Image Inpainting: Fill in the Blanks</h1>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>Original with hole:              AI-filled result:
-┌─────────────────────┐         ┌─────────────────────┐
-│                     │         │                     │
-│  <img class="emoji" draggable="false" alt="🏔" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f3d4.svg" data-marp-twemoji=""/>  ████████       │   ──►   │  <img class="emoji" draggable="false" alt="🏔" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f3d4.svg" data-marp-twemoji=""/>  <img class="emoji" draggable="false" alt="☀" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2600.svg" data-marp-twemoji=""/>  clouds    │
-│     ████████        │         │     beautiful sky   │
-│                     │         │                     │
-│  <img class="emoji" draggable="false" alt="🌲" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f332.svg" data-marp-twemoji=""/>  <img class="emoji" draggable="false" alt="🏠" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f3e0.svg" data-marp-twemoji=""/>  <img class="emoji" draggable="false" alt="🌲" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f332.svg" data-marp-twemoji=""/>         │         │  <img class="emoji" draggable="false" alt="🌲" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f332.svg" data-marp-twemoji=""/>  <img class="emoji" draggable="false" alt="🏠" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f3e0.svg" data-marp-twemoji=""/>  <img class="emoji" draggable="false" alt="🌲" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f332.svg" data-marp-twemoji=""/>         │
-└─────────────────────┘         └─────────────────────┘
-   (hole in image)                 (AI filled it in!)
+;background-color:#fff;background-image:none;" data-marpit-pagination-total="53">
+<h1 id="the-generative-ai-revolution">The Generative AI Revolution</h1>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code>┌─────────────────────────────────────────────────────────────────┐
+│ TEXT GENERATION (ChatGPT, Claude)                               │
+│                                                                 │
+│ Prompt: &quot;Write a poem about AI&quot;                                 │
+│ Output: &quot;In silicon dreams, we think and grow...&quot;              │
+│                                                                 │
+├─────────────────────────────────────────────────────────────────┤
+│ IMAGE GENERATION (DALL-E, Midjourney, Stable Diffusion)         │
+│                                                                 │
+│ Prompt: &quot;A cat wearing a tiny hat, oil painting style&quot;         │
+│ Output: [Beautiful AI-generated artwork!]                       │
+│                                                                 │
+├─────────────────────────────────────────────────────────────────┤
+│ MUSIC GENERATION (Suno, Udio)                                   │
+│                                                                 │
+│ Prompt: &quot;Upbeat pop song about summer&quot;                          │
+│ Output: ♪ [Complete song with lyrics!]                          │
+│                                                                 │
+├─────────────────────────────────────────────────────────────────┤
+│ VIDEO GENERATION (Sora, Runway)                                 │
+│                                                                 │
+│ Prompt: &quot;A dog running through a meadow, slow motion&quot;          │
+│ Output: [Realistic video that never existed!]                   │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
 </code></pre>
-<p><strong>Applications:</strong></p>
-<ul>
-<li>Remove unwanted objects from photos</li>
-<li>Restore damaged/old photographs</li>
-<li>Extend images beyond their borders</li>
-</ul>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="41" data-paginate="true" data-background-color="#fff" data-theme="default" data-style="section {
   font-family: 'Segoe UI', 'Arial', sans-serif;
@@ -4851,7 +4816,7 @@ pre {
 table { font-size: 0.9em; width: 100%; }
 th { background: #2E86AB; color: white; padding: 8px; }
 td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-" lang="en-IN" data-marpit-pagination="41" style="--paginate:true;--background-color:#fff;--theme:default;--style:section {
+" lang="C" data-marpit-pagination="41" style="--paginate:true;--background-color:#fff;--theme:default;--style:section {
   font-family: 'Segoe UI', 'Arial', sans-serif;
   font-size: 24px;
   padding: 35px;
@@ -4901,9 +4866,24 @@ pre {
 table { font-size: 0.9em; width: 100%; }
 th { background: #2E86AB; color: white; padding: 8px; }
 td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-;background-color:#fff;background-image:none;" data-marpit-pagination-total="50">
-<h1 id="section-7-multimodal--complex-tasks">Section 7: Multimodal &amp; Complex Tasks</h1>
-<h2 id="combining-everything">Combining Everything</h2>
+;background-color:#fff;background-image:none;" data-marpit-pagination-total="53">
+<h1 id="image-inpainting-fill-in-the-blanks">Image Inpainting: Fill in the Blanks</h1>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code>Original with hole:              AI-filled result:
+┌─────────────────────┐         ┌─────────────────────┐
+│                     │         │                     │
+│  <img class="emoji" draggable="false" alt="🏔" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f3d4.svg" data-marp-twemoji=""/>  ████████       │   ──►   │  <img class="emoji" draggable="false" alt="🏔" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f3d4.svg" data-marp-twemoji=""/>  <img class="emoji" draggable="false" alt="☀" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2600.svg" data-marp-twemoji=""/>  clouds    │
+│     ████████        │         │     beautiful sky   │
+│                     │         │                     │
+│  <img class="emoji" draggable="false" alt="🌲" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f332.svg" data-marp-twemoji=""/>  <img class="emoji" draggable="false" alt="🏠" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f3e0.svg" data-marp-twemoji=""/>  <img class="emoji" draggable="false" alt="🌲" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f332.svg" data-marp-twemoji=""/>         │         │  <img class="emoji" draggable="false" alt="🌲" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f332.svg" data-marp-twemoji=""/>  <img class="emoji" draggable="false" alt="🏠" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f3e0.svg" data-marp-twemoji=""/>  <img class="emoji" draggable="false" alt="🌲" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f332.svg" data-marp-twemoji=""/>         │
+└─────────────────────┘         └─────────────────────┘
+   (hole in image)                 (AI filled it in!)
+</code></pre>
+<p><strong>Applications:</strong></p>
+<ul>
+<li>Remove unwanted objects from photos</li>
+<li>Restore damaged/old photographs</li>
+<li>Extend images beyond their borders</li>
+</ul>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="42" data-paginate="true" data-background-color="#fff" data-theme="default" data-style="section {
   font-family: 'Segoe UI', 'Arial', sans-serif;
@@ -4955,7 +4935,7 @@ pre {
 table { font-size: 0.9em; width: 100%; }
 th { background: #2E86AB; color: white; padding: 8px; }
 td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-" lang="en-IN" data-marpit-pagination="42" style="--paginate:true;--background-color:#fff;--theme:default;--style:section {
+" lang="C" data-marpit-pagination="42" style="--paginate:true;--background-color:#fff;--theme:default;--style:section {
   font-family: 'Segoe UI', 'Arial', sans-serif;
   font-size: 24px;
   padding: 35px;
@@ -5005,23 +4985,9 @@ pre {
 table { font-size: 0.9em; width: 100%; }
 th { background: #2E86AB; color: white; padding: 8px; }
 td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-;background-color:#fff;background-image:none;" data-marpit-pagination-total="50">
-<h1 id="multimodal--multiple-modalities">Multimodal = Multiple Modalities</h1>
-<p><strong>Modalities:</strong> Text, Image, Audio, Video, etc.</p>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>SINGLE-MODAL:                    MULTI-MODAL:
-┌─────────────────────┐          ┌─────────────────────────────────┐
-│                     │          │                                 │
-│ Image → Model → Cat │          │ Image + Question → Model → Answer│
-│ (just images)       │          │                                 │
-│                     │          │ [Photo of 3 dogs]               │
-│ Text → Model → Sent │          │ &quot;How many dogs?&quot;                │
-│ (just text)         │          │         ↓                       │
-│                     │          │       &quot;Three&quot;                   │
-└─────────────────────┘          └─────────────────────────────────┘
-</code></pre>
-<div class="insight">
-Modern AI (GPT-4, Claude, Gemini) is multimodal — it can see AND read AND hear!
-</div>
+;background-color:#fff;background-image:none;" data-marpit-pagination-total="53">
+<h1 id="section-7-multimodal--complex-tasks">Section 7: Multimodal &amp; Complex Tasks</h1>
+<h2 id="combining-everything">Combining Everything</h2>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="43" data-paginate="true" data-background-color="#fff" data-theme="default" data-style="section {
   font-family: 'Segoe UI', 'Arial', sans-serif;
@@ -5073,7 +5039,7 @@ pre {
 table { font-size: 0.9em; width: 100%; }
 th { background: #2E86AB; color: white; padding: 8px; }
 td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-" lang="en-IN" data-marpit-pagination="43" style="--paginate:true;--background-color:#fff;--theme:default;--style:section {
+" lang="C" data-marpit-pagination="43" style="--paginate:true;--background-color:#fff;--theme:default;--style:section {
   font-family: 'Segoe UI', 'Arial', sans-serif;
   font-size: 24px;
   padding: 35px;
@@ -5123,26 +5089,23 @@ pre {
 table { font-size: 0.9em; width: 100%; }
 th { background: #2E86AB; color: white; padding: 8px; }
 td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-;background-color:#fff;background-image:none;" data-marpit-pagination-total="50">
-<h1 id="visual-question-answering-vqa">Visual Question Answering (VQA)</h1>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>┌─────────────────────────────────────────────────────────────────┐
-│                                                                 │
-│   Image:                      Questions &amp; Answers:              │
-│   ┌───────────────────┐                                         │
-│   │                   │      Q: &quot;What color is the car?&quot;        │
-│   │    [Red car on    │      A: &quot;Red&quot;                           │
-│   │     a road with   │                                         │
-│   │     trees]        │      Q: &quot;Is it daytime or night?&quot;       │
-│   │                   │      A: &quot;Daytime&quot;                       │
-│   └───────────────────┘                                         │
-│                              Q: &quot;How many trees are visible?&quot;   │
-│   Requires BOTH:             A: &quot;Four trees&quot;                    │
-│   - Understanding image                                         │
-│   - Understanding language                                      │
-│   - Reasoning about both!                                       │
-│                                                                 │
-└─────────────────────────────────────────────────────────────────┘
+;background-color:#fff;background-image:none;" data-marpit-pagination-total="53">
+<h1 id="multimodal--multiple-modalities">Multimodal = Multiple Modalities</h1>
+<p><strong>Modalities:</strong> Text, Image, Audio, Video, etc.</p>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code>SINGLE-MODAL:                    MULTI-MODAL:
+┌─────────────────────┐          ┌─────────────────────────────────┐
+│                     │          │                                 │
+│ Image → Model → Cat │          │ Image + Question → Model → Answer│
+│ (just images)       │          │                                 │
+│                     │          │ [Photo of 3 dogs]               │
+│ Text → Model → Sent │          │ &quot;How many dogs?&quot;                │
+│ (just text)         │          │         ↓                       │
+│                     │          │       &quot;Three&quot;                   │
+└─────────────────────┘          └─────────────────────────────────┘
 </code></pre>
+<div class="insight">
+Modern AI (GPT-4, Claude, Gemini) is multimodal — it can see AND read AND hear!
+</div>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="44" data-paginate="true" data-background-color="#fff" data-theme="default" data-style="section {
   font-family: 'Segoe UI', 'Arial', sans-serif;
@@ -5194,7 +5157,7 @@ pre {
 table { font-size: 0.9em; width: 100%; }
 th { background: #2E86AB; color: white; padding: 8px; }
 td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-" lang="en-IN" data-marpit-pagination="44" style="--paginate:true;--background-color:#fff;--theme:default;--style:section {
+" lang="C" data-marpit-pagination="44" style="--paginate:true;--background-color:#fff;--theme:default;--style:section {
   font-family: 'Segoe UI', 'Arial', sans-serif;
   font-size: 24px;
   padding: 35px;
@@ -5244,11 +5207,26 @@ pre {
 table { font-size: 0.9em; width: 100%; }
 th { background: #2E86AB; color: white; padding: 8px; }
 td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-;background-color:#fff;background-image:none;" data-marpit-pagination-total="50">
-<h1 id="reinforcement-learning">Reinforcement Learning</h1>
-<p>A different paradigm: <strong>Learning through interaction</strong>.</p>
-<p><img src="diagrams/svg/rl_loop.svg" alt="center" style="width:900px;" /></p>
-<p><strong>Goal:</strong> Maximize total reward over time through trial and error.</p>
+;background-color:#fff;background-image:none;" data-marpit-pagination-total="53">
+<h1 id="visual-question-answering-vqa">Visual Question Answering (VQA)</h1>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code>┌─────────────────────────────────────────────────────────────────┐
+│                                                                 │
+│   Image:                      Questions &amp; Answers:              │
+│   ┌───────────────────┐                                         │
+│   │                   │      Q: &quot;What color is the car?&quot;        │
+│   │    [Red car on    │      A: &quot;Red&quot;                           │
+│   │     a road with   │                                         │
+│   │     trees]        │      Q: &quot;Is it daytime or night?&quot;       │
+│   │                   │      A: &quot;Daytime&quot;                       │
+│   └───────────────────┘                                         │
+│                              Q: &quot;How many trees are visible?&quot;   │
+│   Requires BOTH:             A: &quot;Four trees&quot;                    │
+│   - Understanding image                                         │
+│   - Understanding language                                      │
+│   - Reasoning about both!                                       │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
+</code></pre>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="45" data-paginate="true" data-background-color="#fff" data-theme="default" data-style="section {
   font-family: 'Segoe UI', 'Arial', sans-serif;
@@ -5300,7 +5278,7 @@ pre {
 table { font-size: 0.9em; width: 100%; }
 th { background: #2E86AB; color: white; padding: 8px; }
 td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-" lang="en-IN" data-marpit-pagination="45" style="--paginate:true;--background-color:#fff;--theme:default;--style:section {
+" lang="C" data-marpit-pagination="45" style="--paginate:true;--background-color:#fff;--theme:default;--style:section {
   font-family: 'Segoe UI', 'Arial', sans-serif;
   font-size: 24px;
   padding: 35px;
@@ -5350,29 +5328,11 @@ pre {
 table { font-size: 0.9em; width: 100%; }
 th { background: #2E86AB; color: white; padding: 8px; }
 td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-;background-color:#fff;background-image:none;" data-marpit-pagination-total="50">
-<h1 id="rl-examples">RL Examples</h1>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>┌─────────────────────────────────────────────────────────────────┐
-│ GAME PLAYING                                                     │
-│ • AlphaGo: Beat world champion at Go                            │
-│ • AlphaStar: Grandmaster level at StarCraft II                  │
-│ • OpenAI Five: Beat pro teams at Dota 2                         │
-│                                                                 │
-├─────────────────────────────────────────────────────────────────┤
-│ ROBOTICS                                                         │
-│ • Boston Dynamics: Learning to walk, run, dance                 │
-│ • Robot arms: Learning to pick up objects                       │
-│ • Drones: Learning to navigate and avoid obstacles              │
-│                                                                 │
-├─────────────────────────────────────────────────────────────────┤
-│ OTHER APPLICATIONS                                               │
-│ • Data center cooling (Google reduced energy 40%)               │
-│ • Chip design (designing better AI chips!)                      │
-│ • Drug discovery (finding new molecules)                        │
-│ • RLHF: Making ChatGPT helpful and safe!                        │
-│                                                                 │
-└─────────────────────────────────────────────────────────────────┘
-</code></pre>
+;background-color:#fff;background-image:none;" data-marpit-pagination-total="53">
+<h1 id="reinforcement-learning">Reinforcement Learning</h1>
+<p>A different paradigm: <strong>Learning through interaction</strong>.</p>
+<p><img src="diagrams/svg/rl_loop.svg" alt="center" style="width:900px;" /></p>
+<p><strong>Goal:</strong> Maximize total reward over time through trial and error.</p>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="46" data-paginate="true" data-background-color="#fff" data-theme="default" data-style="section {
   font-family: 'Segoe UI', 'Arial', sans-serif;
@@ -5424,7 +5384,7 @@ pre {
 table { font-size: 0.9em; width: 100%; }
 th { background: #2E86AB; color: white; padding: 8px; }
 td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-" lang="en-IN" data-marpit-pagination="46" style="--paginate:true;--background-color:#fff;--theme:default;--style:section {
+" lang="C" data-marpit-pagination="46" style="--paginate:true;--background-color:#fff;--theme:default;--style:section {
   font-family: 'Segoe UI', 'Arial', sans-serif;
   font-size: 24px;
   padding: 35px;
@@ -5474,9 +5434,29 @@ pre {
 table { font-size: 0.9em; width: 100%; }
 th { background: #2E86AB; color: white; padding: 8px; }
 td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-;background-color:#fff;background-image:none;" data-marpit-pagination-total="50">
-<h1 id="summary-the-ml-family-tree">Summary: The ML Family Tree</h1>
-<p><img src="diagrams/svg/ml_family_tree.svg" alt="center" style="width:1000px;" /></p>
+;background-color:#fff;background-image:none;" data-marpit-pagination-total="53">
+<h1 id="rl-examples">RL Examples</h1>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code>┌─────────────────────────────────────────────────────────────────┐
+│ GAME PLAYING                                                     │
+│ • AlphaGo: Beat world champion at Go                            │
+│ • AlphaStar: Grandmaster level at StarCraft II                  │
+│ • OpenAI Five: Beat pro teams at Dota 2                         │
+│                                                                 │
+├─────────────────────────────────────────────────────────────────┤
+│ ROBOTICS                                                         │
+│ • Boston Dynamics: Learning to walk, run, dance                 │
+│ • Robot arms: Learning to pick up objects                       │
+│ • Drones: Learning to navigate and avoid obstacles              │
+│                                                                 │
+├─────────────────────────────────────────────────────────────────┤
+│ OTHER APPLICATIONS                                               │
+│ • Data center cooling (Google reduced energy 40%)               │
+│ • Chip design (designing better AI chips!)                      │
+│ • Drug discovery (finding new molecules)                        │
+│ • RLHF: Making ChatGPT helpful and safe!                        │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
+</code></pre>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="47" data-paginate="true" data-background-color="#fff" data-theme="default" data-style="section {
   font-family: 'Segoe UI', 'Arial', sans-serif;
@@ -5528,7 +5508,7 @@ pre {
 table { font-size: 0.9em; width: 100%; }
 th { background: #2E86AB; color: white; padding: 8px; }
 td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-" lang="en-IN" data-marpit-pagination="47" style="--paginate:true;--background-color:#fff;--theme:default;--style:section {
+" lang="C" data-marpit-pagination="47" style="--paginate:true;--background-color:#fff;--theme:default;--style:section {
   font-family: 'Segoe UI', 'Arial', sans-serif;
   font-size: 24px;
   padding: 35px;
@@ -5578,34 +5558,9 @@ pre {
 table { font-size: 0.9em; width: 100%; }
 th { background: #2E86AB; color: white; padding: 8px; }
 td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-;background-color:#fff;background-image:none;" data-marpit-pagination-total="50">
-<h1 id="the-decision-flowchart">The Decision Flowchart</h1>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>START: What do you want to predict?
-            │
-    ┌───────┴───────┐
-    │               │
-Category?       Number?
-    │               │
-    ▼               ▼
-Classification  Regression
-                    │
-    ┌───────────────┤
-    │               │
-Sequence?       Location?
-    │               │
-    ▼               ▼
-Seq2Seq       Detection
-              (Class + Reg)
-                    │
-            Exact pixels?
-                    │
-                    ▼
-              Segmentation
-
-No labels available?  →  Unsupervised (Clustering, etc.)
-Want to create new data?  →  Generative
-Learning from trial/error?  →  Reinforcement Learning
-</code></pre>
+;background-color:#fff;background-image:none;" data-marpit-pagination-total="53">
+<h1 id="summary-the-ml-family-tree">Summary: The ML Family Tree</h1>
+<p><img src="diagrams/svg/ml_family_tree.svg" alt="center" style="width:1000px;" /></p>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="48" data-paginate="true" data-background-color="#fff" data-theme="default" data-style="section {
   font-family: 'Segoe UI', 'Arial', sans-serif;
@@ -5657,7 +5612,7 @@ pre {
 table { font-size: 0.9em; width: 100%; }
 th { background: #2E86AB; color: white; padding: 8px; }
 td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-" lang="en-IN" data-marpit-pagination="48" style="--paginate:true;--background-color:#fff;--theme:default;--style:section {
+" lang="C" data-marpit-pagination="48" style="--paginate:true;--background-color:#fff;--theme:default;--style:section {
   font-family: 'Segoe UI', 'Arial', sans-serif;
   font-size: 24px;
   padding: 35px;
@@ -5707,22 +5662,34 @@ pre {
 table { font-size: 0.9em; width: 100%; }
 th { background: #2E86AB; color: white; padding: 8px; }
 td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-;background-color:#fff;background-image:none;" data-marpit-pagination-total="50">
-<h1 id="key-takeaways">Key Takeaways</h1>
-<ol>
-<li><strong>Classification</strong> → Predict a category (discrete)</li>
-<li><strong>Regression</strong> → Predict a number (continuous)</li>
-<li><strong>Detection</strong> → Classification + Box Regression</li>
-<li><strong>Segmentation</strong> → Classification for every pixel</li>
-<li><strong>Seq2Seq</strong> → Sequence in, sequence out (translation, etc.)</li>
-<li><strong>Unsupervised</strong> → Find patterns without labels</li>
-<li><strong>Generative</strong> → Create new data</li>
-<li><strong>Multimodal</strong> → Combine text, images, audio, etc.</li>
-<li><strong>RL</strong> → Learn from rewards through interaction</li>
-</ol>
-<div class="insight">
-Understanding the output type tells you which family of techniques to use!
-</div>
+;background-color:#fff;background-image:none;" data-marpit-pagination-total="53">
+<h1 id="the-decision-flowchart">The Decision Flowchart</h1>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code>START: What do you want to predict?
+            │
+    ┌───────┴───────┐
+    │               │
+Category?       Number?
+    │               │
+    ▼               ▼
+Classification  Regression
+                    │
+    ┌───────────────┤
+    │               │
+Sequence?       Location?
+    │               │
+    ▼               ▼
+Seq2Seq       Detection
+              (Class + Reg)
+                    │
+            Exact pixels?
+                    │
+                    ▼
+              Segmentation
+
+No labels available?  →  Unsupervised (Clustering, etc.)
+Want to create new data?  →  Generative
+Learning from trial/error?  →  Reinforcement Learning
+</code></pre>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="49" data-paginate="true" data-background-color="#fff" data-theme="default" data-style="section {
   font-family: 'Segoe UI', 'Arial', sans-serif;
@@ -5774,7 +5741,7 @@ pre {
 table { font-size: 0.9em; width: 100%; }
 th { background: #2E86AB; color: white; padding: 8px; }
 td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-" lang="en-IN" data-marpit-pagination="49" style="--paginate:true;--background-color:#fff;--theme:default;--style:section {
+" lang="C" data-marpit-pagination="49" style="--paginate:true;--background-color:#fff;--theme:default;--style:section {
   font-family: 'Segoe UI', 'Arial', sans-serif;
   font-size: 24px;
   padding: 35px;
@@ -5824,16 +5791,10 @@ pre {
 table { font-size: 0.9em; width: 100%; }
 th { background: #2E86AB; color: white; padding: 8px; }
 td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-;background-color:#fff;background-image:none;" data-marpit-pagination-total="50">
-<h1 id="whats-next">What's Next?</h1>
-<p>In the <strong>ML Tasks Zoo</strong> lecture, we'll dive deeper into:</p>
-<ul>
-<li>40+ specific tasks across all domains</li>
-<li>Computer Vision tasks in detail</li>
-<li>NLP tasks explained</li>
-<li>Audio processing</li>
-<li>And much more!</li>
-</ul>
+;background-color:#fff;background-image:none;" data-marpit-pagination-total="53">
+<h1 id="the-common-thread-neural-networks">The Common Thread: Neural Networks</h1>
+<p><img src="examples/neural_network_diagram.png" alt="center" style="width:900px;" /></p>
+<p><strong>All these tasks use the same fundamental building block:</strong> Neural networks!</p>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="50" data-paginate="true" data-background-color="#fff" data-theme="default" data-style="section {
   font-family: 'Segoe UI', 'Arial', sans-serif;
@@ -5885,7 +5846,7 @@ pre {
 table { font-size: 0.9em; width: 100%; }
 th { background: #2E86AB; color: white; padding: 8px; }
 td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-" lang="en-IN" data-marpit-pagination="50" style="--paginate:true;--background-color:#fff;--theme:default;--style:section {
+" lang="C" data-marpit-pagination="50" style="--paginate:true;--background-color:#fff;--theme:default;--style:section {
   font-family: 'Segoe UI', 'Arial', sans-serif;
   font-size: 24px;
   padding: 35px;
@@ -5935,7 +5896,334 @@ pre {
 table { font-size: 0.9em; width: 100%; }
 th { background: #2E86AB; color: white; padding: 8px; }
 td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-;background-color:#fff;background-image:none;" data-marpit-pagination-total="50">
+;background-color:#fff;background-image:none;" data-marpit-pagination-total="53">
+<h1 id="how-neural-networks-learn-gradient-descent">How Neural Networks Learn: Gradient Descent</h1>
+<p><img src="examples/gradient_descent.png" alt="center" style="width:1000px;" /></p>
+<p><strong>Training = Finding the weights that minimize the loss function</strong></p>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="51" data-paginate="true" data-background-color="#fff" data-theme="default" data-style="section {
+  font-family: 'Segoe UI', 'Arial', sans-serif;
+  font-size: 24px;
+  padding: 35px;
+  color: #333;
+}
+h1 { color: #2E86AB; font-size: 1.7em; margin-bottom: 0.2em; }
+h2 { color: #06A77D; font-size: 1.1em; margin-top: 0; }
+h3 { color: #457B9D; font-size: 1.0em; }
+strong { color: #D62828; }
+code {
+  background: #f4f4f4;
+  color: #2E86AB;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: 'Consolas', 'Monaco', monospace;
+}
+pre {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 15px;
+  font-size: 0.85em;
+  line-height: 1.4;
+  overflow: hidden;
+}
+.example {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-left: 4px solid #06A77D;
+  padding: 12px 15px;
+  margin: 10px 0;
+  border-radius: 0 8px 8px 0;
+}
+.insight {
+  background: #fff3cd;
+  border-left: 4px solid #ffc107;
+  padding: 12px 15px;
+  margin: 10px 0;
+  border-radius: 0 8px 8px 0;
+}
+.realworld {
+  background: #e3f2fd;
+  border-left: 4px solid #2196F3;
+  padding: 12px 15px;
+  margin: 10px 0;
+  border-radius: 0 8px 8px 0;
+}
+.columns { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; }
+table { font-size: 0.9em; width: 100%; }
+th { background: #2E86AB; color: white; padding: 8px; }
+td { padding: 8px; border-bottom: 1px solid #dee2e6; }
+" lang="C" data-marpit-pagination="51" style="--paginate:true;--background-color:#fff;--theme:default;--style:section {
+  font-family: 'Segoe UI', 'Arial', sans-serif;
+  font-size: 24px;
+  padding: 35px;
+  color: #333;
+}
+h1 { color: #2E86AB; font-size: 1.7em; margin-bottom: 0.2em; }
+h2 { color: #06A77D; font-size: 1.1em; margin-top: 0; }
+h3 { color: #457B9D; font-size: 1.0em; }
+strong { color: #D62828; }
+code {
+  background: #f4f4f4;
+  color: #2E86AB;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: 'Consolas', 'Monaco', monospace;
+}
+pre {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 15px;
+  font-size: 0.85em;
+  line-height: 1.4;
+  overflow: hidden;
+}
+.example {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-left: 4px solid #06A77D;
+  padding: 12px 15px;
+  margin: 10px 0;
+  border-radius: 0 8px 8px 0;
+}
+.insight {
+  background: #fff3cd;
+  border-left: 4px solid #ffc107;
+  padding: 12px 15px;
+  margin: 10px 0;
+  border-radius: 0 8px 8px 0;
+}
+.realworld {
+  background: #e3f2fd;
+  border-left: 4px solid #2196F3;
+  padding: 12px 15px;
+  margin: 10px 0;
+  border-radius: 0 8px 8px 0;
+}
+.columns { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; }
+table { font-size: 0.9em; width: 100%; }
+th { background: #2E86AB; color: white; padding: 8px; }
+td { padding: 8px; border-bottom: 1px solid #dee2e6; }
+;background-color:#fff;background-image:none;" data-marpit-pagination-total="53">
+<h1 id="key-takeaways">Key Takeaways</h1>
+<ol>
+<li><strong>Classification</strong> → Predict a category (discrete)</li>
+<li><strong>Regression</strong> → Predict a number (continuous)</li>
+<li><strong>Detection</strong> → Classification + Box Regression</li>
+<li><strong>Segmentation</strong> → Classification for every pixel</li>
+<li><strong>Seq2Seq</strong> → Sequence in, sequence out (translation, etc.)</li>
+<li><strong>Unsupervised</strong> → Find patterns without labels</li>
+<li><strong>Generative</strong> → Create new data</li>
+<li><strong>Multimodal</strong> → Combine text, images, audio, etc.</li>
+<li><strong>RL</strong> → Learn from rewards through interaction</li>
+</ol>
+<div class="insight">
+Understanding the output type tells you which family of techniques to use!
+</div>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="52" data-paginate="true" data-background-color="#fff" data-theme="default" data-style="section {
+  font-family: 'Segoe UI', 'Arial', sans-serif;
+  font-size: 24px;
+  padding: 35px;
+  color: #333;
+}
+h1 { color: #2E86AB; font-size: 1.7em; margin-bottom: 0.2em; }
+h2 { color: #06A77D; font-size: 1.1em; margin-top: 0; }
+h3 { color: #457B9D; font-size: 1.0em; }
+strong { color: #D62828; }
+code {
+  background: #f4f4f4;
+  color: #2E86AB;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: 'Consolas', 'Monaco', monospace;
+}
+pre {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 15px;
+  font-size: 0.85em;
+  line-height: 1.4;
+  overflow: hidden;
+}
+.example {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-left: 4px solid #06A77D;
+  padding: 12px 15px;
+  margin: 10px 0;
+  border-radius: 0 8px 8px 0;
+}
+.insight {
+  background: #fff3cd;
+  border-left: 4px solid #ffc107;
+  padding: 12px 15px;
+  margin: 10px 0;
+  border-radius: 0 8px 8px 0;
+}
+.realworld {
+  background: #e3f2fd;
+  border-left: 4px solid #2196F3;
+  padding: 12px 15px;
+  margin: 10px 0;
+  border-radius: 0 8px 8px 0;
+}
+.columns { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; }
+table { font-size: 0.9em; width: 100%; }
+th { background: #2E86AB; color: white; padding: 8px; }
+td { padding: 8px; border-bottom: 1px solid #dee2e6; }
+" lang="C" data-marpit-pagination="52" style="--paginate:true;--background-color:#fff;--theme:default;--style:section {
+  font-family: 'Segoe UI', 'Arial', sans-serif;
+  font-size: 24px;
+  padding: 35px;
+  color: #333;
+}
+h1 { color: #2E86AB; font-size: 1.7em; margin-bottom: 0.2em; }
+h2 { color: #06A77D; font-size: 1.1em; margin-top: 0; }
+h3 { color: #457B9D; font-size: 1.0em; }
+strong { color: #D62828; }
+code {
+  background: #f4f4f4;
+  color: #2E86AB;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: 'Consolas', 'Monaco', monospace;
+}
+pre {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 15px;
+  font-size: 0.85em;
+  line-height: 1.4;
+  overflow: hidden;
+}
+.example {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-left: 4px solid #06A77D;
+  padding: 12px 15px;
+  margin: 10px 0;
+  border-radius: 0 8px 8px 0;
+}
+.insight {
+  background: #fff3cd;
+  border-left: 4px solid #ffc107;
+  padding: 12px 15px;
+  margin: 10px 0;
+  border-radius: 0 8px 8px 0;
+}
+.realworld {
+  background: #e3f2fd;
+  border-left: 4px solid #2196F3;
+  padding: 12px 15px;
+  margin: 10px 0;
+  border-radius: 0 8px 8px 0;
+}
+.columns { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; }
+table { font-size: 0.9em; width: 100%; }
+th { background: #2E86AB; color: white; padding: 8px; }
+td { padding: 8px; border-bottom: 1px solid #dee2e6; }
+;background-color:#fff;background-image:none;" data-marpit-pagination-total="53">
+<h1 id="coming-up-deep-dives">Coming Up: Deep Dives</h1>
+<p><strong>Lecture 3:</strong> Language Models (Next Token Prediction → ChatGPT)<br />
+<strong>Lecture 4:</strong> Object Detection (YOLO and beyond)</p>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="53" data-paginate="true" data-background-color="#fff" data-theme="default" data-style="section {
+  font-family: 'Segoe UI', 'Arial', sans-serif;
+  font-size: 24px;
+  padding: 35px;
+  color: #333;
+}
+h1 { color: #2E86AB; font-size: 1.7em; margin-bottom: 0.2em; }
+h2 { color: #06A77D; font-size: 1.1em; margin-top: 0; }
+h3 { color: #457B9D; font-size: 1.0em; }
+strong { color: #D62828; }
+code {
+  background: #f4f4f4;
+  color: #2E86AB;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: 'Consolas', 'Monaco', monospace;
+}
+pre {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 15px;
+  font-size: 0.85em;
+  line-height: 1.4;
+  overflow: hidden;
+}
+.example {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-left: 4px solid #06A77D;
+  padding: 12px 15px;
+  margin: 10px 0;
+  border-radius: 0 8px 8px 0;
+}
+.insight {
+  background: #fff3cd;
+  border-left: 4px solid #ffc107;
+  padding: 12px 15px;
+  margin: 10px 0;
+  border-radius: 0 8px 8px 0;
+}
+.realworld {
+  background: #e3f2fd;
+  border-left: 4px solid #2196F3;
+  padding: 12px 15px;
+  margin: 10px 0;
+  border-radius: 0 8px 8px 0;
+}
+.columns { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; }
+table { font-size: 0.9em; width: 100%; }
+th { background: #2E86AB; color: white; padding: 8px; }
+td { padding: 8px; border-bottom: 1px solid #dee2e6; }
+" lang="C" data-marpit-pagination="53" style="--paginate:true;--background-color:#fff;--theme:default;--style:section {
+  font-family: 'Segoe UI', 'Arial', sans-serif;
+  font-size: 24px;
+  padding: 35px;
+  color: #333;
+}
+h1 { color: #2E86AB; font-size: 1.7em; margin-bottom: 0.2em; }
+h2 { color: #06A77D; font-size: 1.1em; margin-top: 0; }
+h3 { color: #457B9D; font-size: 1.0em; }
+strong { color: #D62828; }
+code {
+  background: #f4f4f4;
+  color: #2E86AB;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: 'Consolas', 'Monaco', monospace;
+}
+pre {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 15px;
+  font-size: 0.85em;
+  line-height: 1.4;
+  overflow: hidden;
+}
+.example {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-left: 4px solid #06A77D;
+  padding: 12px 15px;
+  margin: 10px 0;
+  border-radius: 0 8px 8px 0;
+}
+.insight {
+  background: #fff3cd;
+  border-left: 4px solid #ffc107;
+  padding: 12px 15px;
+  margin: 10px 0;
+  border-radius: 0 8px 8px 0;
+}
+.realworld {
+  background: #e3f2fd;
+  border-left: 4px solid #2196F3;
+  padding: 12px 15px;
+  margin: 10px 0;
+  border-radius: 0 8px 8px 0;
+}
+.columns { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; }
+table { font-size: 0.9em; width: 100%; }
+th { background: #2E86AB; color: white; padding: 8px; }
+td { padding: 8px; border-bottom: 1px solid #dee2e6; }
+;background-color:#fff;background-image:none;" data-marpit-pagination-total="53">
 <h1 id="thank-you">Thank You!</h1>
 <p><strong>&quot;All models are wrong, but some are useful.&quot;</strong> — George Box</p>
 <p>The key is matching the right model to the right task!</p>

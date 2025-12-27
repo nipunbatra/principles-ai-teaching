@@ -1,0 +1,105 @@
+# LLM Training Pipeline: From GPT to ChatGPT
+
+direction: right
+
+title: {
+  label: From Raw Text to Helpful AI
+  near: top-center
+  shape: text
+  style.font-size: 24
+  style.bold: true
+}
+
+# Stage 1: Pre-training
+stage1: {
+  label: "Stage 1: Pre-Training\nLearn Language"
+  style.fill: "#E3F2FD"
+  style.stroke: "#2196F3"
+  style.stroke-width: 3
+  style.font-size: 16
+
+  data: {
+    label: "Data\nInternet text\n~Trillions of tokens"
+    shape: cylinder
+    style.fill: "#BBDEFB"
+  }
+
+  objective: {
+    label: "Objective\nNext Token Prediction\nP(next | context)"
+    style.fill: "#90CAF9"
+  }
+
+  result: {
+    label: "Result\nBase Model (GPT)\nCan complete text"
+    style.fill: "#64B5F6"
+  }
+
+  data -> objective: "Self-supervised"
+  objective -> result: "~1000s GPU-hrs"
+}
+
+# Stage 2: SFT
+stage2: {
+  label: "Stage 2: SFT\nLearn Instructions"
+  style.fill: "#E8F5E9"
+  style.stroke: "#4CAF50"
+  style.stroke-width: 3
+  style.font-size: 16
+
+  data: {
+    label: "Data\nHuman examples\n~100K Q&A pairs"
+    shape: cylinder
+    style.fill: "#C8E6C9"
+  }
+
+  objective: {
+    label: "Objective\nImitate good responses\nUser -> Assistant"
+    style.fill: "#A5D6A7"
+  }
+
+  result: {
+    label: "Result\nInstruction-tuned\nFollows directions"
+    style.fill: "#81C784"
+  }
+
+  data -> objective: "Supervised"
+  objective -> result: "~10s GPU-hrs"
+}
+
+# Stage 3: RLHF
+stage3: {
+  label: "Stage 3: RLHF\nLearn Values"
+  style.fill: "#FFF3E0"
+  style.stroke: "#FF9800"
+  style.stroke-width: 3
+  style.font-size: 16
+
+  data: {
+    label: "Data\nHuman preferences\n~50K comparisons"
+    shape: cylinder
+    style.fill: "#FFE0B2"
+  }
+
+  reward: {
+    label: "Reward Model\nScore(response)\nGood > Bad"
+    style.fill: "#FFCC80"
+  }
+
+  result: {
+    label: "Result\nChatGPT!\nHelpful & Safe"
+    style.fill: "#FFA726"
+  }
+
+  data -> reward: "Train reward"
+  reward -> result: "PPO training"
+}
+
+# Flow
+stage1 -> stage2: "Fine-tune" {
+  style.stroke-width: 3
+  style.stroke: "#9C27B0"
+}
+stage2 -> stage3: "Align" {
+  style.stroke-width: 3
+  style.stroke: "#9C27B0"
+}

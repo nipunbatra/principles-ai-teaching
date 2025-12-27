@@ -1,0 +1,96 @@
+# Computer Vision Task Progression
+
+direction: right
+
+title: {
+  label: Computer Vision: From Simple to Complex
+  near: top-center
+  shape: text
+  style.font-size: 24
+  style.bold: true
+}
+
+# Classification
+cls: {
+  label: |md
+    ## Classification
+
+    **Question:** "What is in this image?"
+    **Output:** Single label
+
+    Example:
+    Image -> "Dog"
+  |
+  shape: rectangle
+  style.fill: "#E8F5E9"
+  style.stroke: "#4CAF50"
+  style.stroke-width: 2
+}
+
+# Detection
+det: {
+  label: |md
+    ## Detection
+
+    **Question:** "What + Where?"
+    **Output:** Boxes + labels
+
+    Example:
+    Image -> Dog at (x,y,w,h)
+           -> Cat at (x,y,w,h)
+  |
+  shape: rectangle
+  style.fill: "#E3F2FD"
+  style.stroke: "#2196F3"
+  style.stroke-width: 2
+}
+
+# Semantic Segmentation
+sem: {
+  label: |md
+    ## Semantic Seg.
+
+    **Question:** "Which class per pixel?"
+    **Output:** Pixel mask
+
+    Every pixel labeled:
+    Sky/Road/Car/Person
+  |
+  shape: rectangle
+  style.fill: "#FFF3E0"
+  style.stroke: "#FF9800"
+  style.stroke-width: 2
+}
+
+# Instance Segmentation
+inst: {
+  label: |md
+    ## Instance Seg.
+
+    **Question:** "Which object per pixel?"
+    **Output:** Pixel mask + IDs
+
+    Car #1 vs Car #2
+    Each object tracked
+  |
+  shape: rectangle
+  style.fill: "#FCE4EC"
+  style.stroke: "#E91E63"
+  style.stroke-width: 2
+}
+
+cls -> det: "+ Location" {style.stroke-width: 2}
+det -> sem: "+ Pixels" {style.stroke-width: 2}
+sem -> inst: "+ Instances" {style.stroke-width: 2}
+
+# Complexity arrow
+complexity: {
+  label: |md
+    **More data needed ->**
+    **More compute needed ->**
+    **More precision gained ->**
+  |
+  shape: text
+  style.font-size: 14
+  near: bottom-center
+}
