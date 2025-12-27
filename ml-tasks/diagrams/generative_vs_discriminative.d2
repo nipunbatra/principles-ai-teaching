@@ -1,0 +1,69 @@
+# Generative vs Discriminative
+
+direction: down
+
+discriminative: {
+  label: DISCRIMINATIVE
+  style.fill: "#E3F2FD"
+  style.stroke: "#2E86AB"
+  style.stroke-width: 2
+
+  flow: {
+    direction: right
+    input: {
+      label: Image
+      shape: rectangle
+      style.fill: "#BBDEFB"
+    }
+    model: {
+      label: Model
+      shape: rectangle
+      style.fill: "#90CAF9"
+    }
+    output: {
+      label: Cat or Dog
+      shape: rectangle
+      style.fill: "#64B5F6"
+    }
+    input -> model -> output
+  }
+
+  desc: {
+    label: Given X, predict Y
+    shape: text
+    style.font-size: 14
+  }
+}
+
+generative: {
+  label: GENERATIVE
+  style.fill: "#E8F5E9"
+  style.stroke: "#4CAF50"
+  style.stroke-width: 2
+
+  flow: {
+    direction: right
+    input: {
+      label: Draw a cat
+      shape: rectangle
+      style.fill: "#C8E6C9"
+    }
+    model: {
+      label: Model
+      shape: rectangle
+      style.fill: "#A5D6A7"
+    }
+    output: {
+      label: NEW image!
+      shape: rectangle
+      style.fill: "#81C784"
+    }
+    input -> model -> output
+  }
+
+  desc: {
+    label: Create NEW X from scratch
+    shape: text
+    style.font-size: 14
+  }
+}

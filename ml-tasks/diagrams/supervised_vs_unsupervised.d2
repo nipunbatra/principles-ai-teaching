@@ -1,0 +1,32 @@
+# Supervised vs Unsupervised Learning
+
+direction: right
+
+supervised: {
+  label: SUPERVISED\n\nData: X + Y (labels)\nLearn: f(X) → Y\n\n"Teach by example"
+  shape: rectangle
+  style.fill: "#E8F5E9"
+  style.stroke: "#4CAF50"
+  style.stroke-width: 2
+  style.font-size: 16
+}
+
+unsupervised: {
+  label: UNSUPERVISED\n\nData: X only (no labels!)\nFind: patterns in X\n\n"Learn by exploration"
+  shape: rectangle
+  style.fill: "#FFF8E1"
+  style.stroke: "#FF9800"
+  style.stroke-width: 2
+  style.font-size: 16
+}
+
+vs: {
+  label: vs
+  shape: circle
+  style.fill: "#FAFAFA"
+  style.stroke: "#9E9E9E"
+  style.font-size: 14
+}
+
+supervised -- vs
+vs -- unsupervised

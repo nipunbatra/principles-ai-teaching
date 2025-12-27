@@ -139,6 +139,28 @@ style: |
 
 ---
 
+# ML Notation: The Basics
+
+| Symbol | Meaning | Example |
+|--------|---------|---------|
+| **X** | Input features | Image pixels, text, numbers |
+| **Y** | Output/Target | Label, price, category |
+| **f(X)** | Model prediction | Y_hat = f(X) |
+| **Train set** | Data to learn from | 80% of your data |
+| **Test set** | Data to evaluate on | 20% (never seen during training!) |
+
+<div class="example">
+
+**Example:** Spam detection
+- **X** = email text ("Buy now! Limited offer!")
+- **Y** = label (spam / not spam)
+- **Train:** Learn patterns from 10,000 labeled emails
+- **Test:** Check accuracy on 2,000 new emails
+
+</div>
+
+---
+
 # The Big Question
 
 Every ML task boils down to **one question**:
@@ -306,19 +328,7 @@ The model learns: **Price = $50,000 + $150 * (square feet)**
 
 Bounding box detection is actually **regression**:
 
-```
-   ┌──────────┐
-   │   DOG    │  This box needs 4 numbers:
-   │          │
-   └──────────┘
-
-   x = 50 (left edge)      ← Regression!
-   y = 30 (top edge)       ← Regression!
-   w = 100 (width)         ← Regression!
-   h = 80 (height)         ← Regression!
-
-   DETECTION = Classification (what?) + Regression (where?)
-```
+![w:700 center](diagrams/svg/bbox_regression.svg)
 
 ---
 
@@ -437,19 +447,7 @@ Think of it as "semantic segmentation for text" - every word gets a label!
 
 # Supervised vs Unsupervised
 
-```
-SUPERVISED:                        UNSUPERVISED:
-┌─────────────────────────┐        ┌─────────────────────────┐
-│                         │        │                         │
-│ Data: X (features)      │        │ Data: X (features)      │
-│ Labels: Y (answers)     │        │ Labels: NONE!           │
-│                         │        │                         │
-│ Learn: f(X) → Y         │        │ Find: patterns in X     │
-│                         │        │                         │
-│ "Teach by example"      │        │ "Learn by exploration"  │
-│                         │        │                         │
-└─────────────────────────┘        └─────────────────────────┘
-```
+![w:900 center](diagrams/svg/supervised_vs_unsupervised.svg)
 
 **No one tells the model what to look for - it discovers structure on its own!**
 
@@ -499,19 +497,7 @@ Original: 1000-dimensional data
 
 # Generative vs Discriminative
 
-```
-DISCRIMINATIVE (Classification):
-┌─────────────────────────────────────────────────────────────────┐
-│   [Image of cat]  ───►  Model  ───►  "Cat" or "Dog"            │
-│   Given X, predict Y. "What IS this?"                           │
-└─────────────────────────────────────────────────────────────────┘
-
-GENERATIVE (Creation):
-┌─────────────────────────────────────────────────────────────────┐
-│   "Draw a cat"   ───►  Model  ───►  [NEW image of a cat!]      │
-│   Create NEW X from scratch. "Make something like this"         │
-└─────────────────────────────────────────────────────────────────┘
-```
+![w:800 center](diagrams/svg/generative_vs_discriminative.svg)
 
 ---
 
@@ -542,18 +528,7 @@ All of these generate NEW content that never existed before!
 
 **Modalities:** Text, Image, Audio, Video, etc.
 
-```
-SINGLE-MODAL:                    MULTI-MODAL:
-┌─────────────────────┐          ┌─────────────────────────────────┐
-│                     │          │                                 │
-│ Image → Model → Cat │          │ Image + Question → Model → Answer│
-│ (just images)       │          │                                 │
-│                     │          │ [Photo of 3 dogs]               │
-│ Text → Model → Sent │          │ "How many dogs?"                │
-│ (just text)         │          │         ↓                       │
-│                     │          │       "Three"                   │
-└─────────────────────┘          └─────────────────────────────────┘
-```
+![w:900 center](diagrams/svg/multimodal.svg)
 
 <div class="insight">
 Modern AI (GPT-4, Claude, Gemini) is multimodal - it can see AND read AND hear!
@@ -619,7 +594,7 @@ RLHF (Reinforcement Learning from Human Feedback) is how ChatGPT learns to be he
 
 # Neural Networks: The Universal Tool
 
-![w:900 center](examples/neural_network_diagram.png)
+![w:700 center](examples/neural_network_diagram.png)
 
 **All these tasks use the same fundamental building block:** Neural networks!
 
@@ -627,7 +602,7 @@ RLHF (Reinforcement Learning from Human Feedback) is how ChatGPT learns to be he
 
 # How Neural Networks Learn: Gradient Descent
 
-![w:1000 center](examples/gradient_descent.png)
+![w:800 center](examples/gradient_descent.png)
 
 **Training = Finding the weights that minimize the loss function**
 
@@ -635,24 +610,7 @@ RLHF (Reinforcement Learning from Human Feedback) is how ChatGPT learns to be he
 
 # The Deep Learning Revolution
 
-```
-WHY "DEEP" LEARNING?
-
-Traditional ML:
-┌────────────┐     ┌──────────────┐     ┌────────┐
-│ Raw Input  │ ──► │ Hand-crafted │ ──► │ Simple │ ──► Output
-│ (image)    │     │  Features    │     │ Model  │
-└────────────┘     └──────────────┘     └────────┘
-                   (SIFT, HOG, etc.)
-
-Deep Learning:
-┌────────────┐     ┌───────────────────────────────┐
-│ Raw Input  │ ──► │    Many Neural Network        │ ──► Output
-│ (image)    │     │    Layers (Deep!)             │
-└────────────┘     │    [Features learned          │
-                   │     automatically!]           │
-                   └───────────────────────────────┘
-```
+![w:900 center](diagrams/svg/deep_learning_revolution.svg)
 
 <div class="insight">
 Deep learning learns the features automatically - no hand-engineering needed!
@@ -662,33 +620,7 @@ Deep learning learns the features automatically - no hand-engineering needed!
 
 # The Decision Flowchart
 
-```
-START: What do you want to predict?
-            │
-    ┌───────┴───────┐
-    │               │
-Category?       Number?
-    │               │
-    ▼               ▼
-Classification  Regression
-                    │
-    ┌───────────────┤
-    │               │
-Sequence?       Location?
-    │               │
-    ▼               ▼
-Seq2Seq       Detection
-              (Class + Reg)
-                    │
-            Exact pixels?
-                    │
-                    ▼
-              Segmentation
-
-No labels available?  →  Unsupervised (Clustering, etc.)
-Want to create new data?  →  Generative
-Learning from trial/error?  →  Reinforcement Learning
-```
+![w:800 center](diagrams/svg/ml_decision_flowchart.svg)
 
 ---
 

@@ -1,0 +1,65 @@
+# Traditional ML vs Deep Learning
+
+direction: down
+
+traditional: {
+  label: Traditional ML
+  style.fill: "#FAFAFA"
+  style.stroke: "#9E9E9E"
+  style.stroke-width: 2
+
+  flow: {
+    direction: right
+    input: {
+      label: Raw Input
+      shape: rectangle
+      style.fill: "#E0E0E0"
+    }
+    features: {
+      label: Hand-crafted\nFeatures\n(SIFT, HOG)
+      shape: rectangle
+      style.fill: "#BDBDBD"
+    }
+    model: {
+      label: Simple\nModel
+      shape: rectangle
+      style.fill: "#9E9E9E"
+    }
+    output: {
+      label: Output
+      shape: rectangle
+      style.fill: "#757575"
+      style.font-color: white
+    }
+    input -> features -> model -> output
+  }
+}
+
+deep: {
+  label: Deep Learning
+  style.fill: "#E8F5E9"
+  style.stroke: "#4CAF50"
+  style.stroke-width: 2
+
+  flow: {
+    direction: right
+    input: {
+      label: Raw Input
+      shape: rectangle
+      style.fill: "#C8E6C9"
+    }
+    nn: {
+      label: Neural Network\n(Many Layers)\n\nFeatures learned\nautomatically!
+      shape: rectangle
+      style.fill: "#81C784"
+      width: 200
+    }
+    output: {
+      label: Output
+      shape: rectangle
+      style.fill: "#4CAF50"
+      style.font-color: white
+    }
+    input -> nn -> output
+  }
+}

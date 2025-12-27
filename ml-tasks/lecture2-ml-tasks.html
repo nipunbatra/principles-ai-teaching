@@ -226,7 +226,7 @@ section.section-divider h2 {
   border: none;
   font-size: 1.3em;
 }
-;background-color:#fff;background-image:none;" data-marpit-pagination-total="46">
+;background-color:#fff;background-image:none;" data-marpit-pagination-total="47">
 <h1 id="machine-learning-tasks-taxonomy--beyond">Machine Learning: Tasks, Taxonomy &amp; Beyond</h1>
 <h2 id="from-classification-to-deep-learning">From Classification to Deep Learning</h2>
 <p><strong>Nipun Batra</strong> | IIT Gandhinagar</p>
@@ -449,7 +449,7 @@ section.section-divider h2 {
   border: none;
   font-size: 1.3em;
 }
-;background-color:#fff;background-image:none;" data-marpit-pagination-total="46">
+;background-color:#fff;background-image:none;" data-marpit-pagination-total="47">
 <h1 id="ml-is-everywhere-in-your-daily-life">ML is Everywhere in Your Daily Life</h1>
 <table>
 <thead>
@@ -722,30 +722,52 @@ section.section-divider h2 {
   border: none;
   font-size: 1.3em;
 }
-;background-color:#fff;background-image:none;" data-marpit-pagination-total="46">
-<h1 id="the-big-question">The Big Question</h1>
-<p>Every ML task boils down to <strong>one question</strong>:</p>
-<h2 id="what-are-you-trying-to-predict">&quot;What are you trying to PREDICT?&quot;</h2>
-<div class="columns">
-<div>
-<p><strong>Predicting a Category?</strong><br />
-Classification<br />
-<em>&quot;Is this email spam?&quot;</em></p>
-<p><strong>Predicting a Number?</strong><br />
-Regression<br />
-<em>&quot;What will be the price?&quot;</em></p>
-</div>
-<div>
-<p><strong>Predicting a Sequence?</strong><br />
-Seq2Seq<br />
-<em>&quot;How do you say this in French?&quot;</em></p>
-<p><strong>Creating Something New?</strong><br />
-Generative<br />
-<em>&quot;Draw me a cat in space&quot;</em></p>
-</div>
-</div>
-<div class="insight">
-Once you know the "output type", you know which family the task belongs to!
+;background-color:#fff;background-image:none;" data-marpit-pagination-total="47">
+<h1 id="ml-notation-the-basics">ML Notation: The Basics</h1>
+<table>
+<thead>
+<tr>
+<th>Symbol</th>
+<th>Meaning</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>X</strong></td>
+<td>Input features</td>
+<td>Image pixels, text, numbers</td>
+</tr>
+<tr>
+<td><strong>Y</strong></td>
+<td>Output/Target</td>
+<td>Label, price, category</td>
+</tr>
+<tr>
+<td><strong>f(X)</strong></td>
+<td>Model prediction</td>
+<td>Y_hat = f(X)</td>
+</tr>
+<tr>
+<td><strong>Train set</strong></td>
+<td>Data to learn from</td>
+<td>80% of your data</td>
+</tr>
+<tr>
+<td><strong>Test set</strong></td>
+<td>Data to evaluate on</td>
+<td>20% (never seen during training!)</td>
+</tr>
+</tbody>
+</table>
+<div class="example">
+<p><strong>Example:</strong> Spam detection</p>
+<ul>
+<li><strong>X</strong> = email text (&quot;Buy now! Limited offer!&quot;)</li>
+<li><strong>Y</strong> = label (spam / not spam)</li>
+<li><strong>Train:</strong> Learn patterns from 10,000 labeled emails</li>
+<li><strong>Test:</strong> Check accuracy on 2,000 new emails</li>
+</ul>
 </div>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="4" data-paginate="true" data-background-color="#fff" data-theme="default" data-style="/* PowerPoint-like slide layout with fixed title area */
@@ -966,9 +988,31 @@ section.section-divider h2 {
   border: none;
   font-size: 1.3em;
 }
-;background-color:#fff;background-image:none;" data-marpit-pagination-total="46">
-<h1 id="the-three-learning-paradigms">The Three Learning Paradigms</h1>
-<p><img src="diagrams/svg/learning_paradigms.svg" alt="center" style="width:1000px;" /></p>
+;background-color:#fff;background-image:none;" data-marpit-pagination-total="47">
+<h1 id="the-big-question">The Big Question</h1>
+<p>Every ML task boils down to <strong>one question</strong>:</p>
+<h2 id="what-are-you-trying-to-predict">&quot;What are you trying to PREDICT?&quot;</h2>
+<div class="columns">
+<div>
+<p><strong>Predicting a Category?</strong><br />
+Classification<br />
+<em>&quot;Is this email spam?&quot;</em></p>
+<p><strong>Predicting a Number?</strong><br />
+Regression<br />
+<em>&quot;What will be the price?&quot;</em></p>
+</div>
+<div>
+<p><strong>Predicting a Sequence?</strong><br />
+Seq2Seq<br />
+<em>&quot;How do you say this in French?&quot;</em></p>
+<p><strong>Creating Something New?</strong><br />
+Generative<br />
+<em>&quot;Draw me a cat in space&quot;</em></p>
+</div>
+</div>
+<div class="insight">
+Once you know the "output type", you know which family the task belongs to!
+</div>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="5" data-paginate="true" data-background-color="#fff" data-theme="default" data-style="/* PowerPoint-like slide layout with fixed title area */
 section {
@@ -1188,7 +1232,229 @@ section.section-divider h2 {
   border: none;
   font-size: 1.3em;
 }
-;background-color:#fff;background-image:none;" data-marpit-pagination-total="46">
+;background-color:#fff;background-image:none;" data-marpit-pagination-total="47">
+<h1 id="the-three-learning-paradigms">The Three Learning Paradigms</h1>
+<p><img src="diagrams/svg/learning_paradigms.svg" alt="center" style="width:1000px;" /></p>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="6" data-paginate="true" data-background-color="#fff" data-theme="default" data-style="/* PowerPoint-like slide layout with fixed title area */
+section {
+  font-family: 'Segoe UI', 'Arial', sans-serif;
+  font-size: 22px;
+  padding: 0;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+/* Fixed title area at top */
+section h1 {
+  color: #2E86AB;
+  font-size: 1.6em;
+  margin: 0;
+  padding: 25px 40px 15px 40px;
+  border-bottom: 3px solid #2E86AB;
+  background: linear-gradient(180deg, #f8fbfd 0%, #fff 100%);
+  flex-shrink: 0;
+}
+section h2 {
+  color: #06A77D;
+  font-size: 1.0em;
+  margin: -10px 0 0 0;
+  padding: 0 40px 15px 40px;
+  background: linear-gradient(180deg, #fff 0%, #fff 100%);
+  border-bottom: 3px solid #2E86AB;
+  flex-shrink: 0;
+}
+/* When h1 followed by h2, remove h1 border */
+section h1:has(+ h2) {
+  border-bottom: none;
+  padding-bottom: 5px;
+}
+section h3 { color: #457B9D; font-size: 1.0em; margin-top: 15px; }
+/* Content area */
+section &gt; *:not(h1):not(h2) {
+  padding-left: 40px;
+  padding-right: 40px;
+}
+section &gt; p:first-of-type, section &gt; ul:first-of-type,
+section &gt; ol:first-of-type, section &gt; table:first-of-type,
+section &gt; div:first-of-type, section &gt; pre:first-of-type {
+  margin-top: 20px;
+}
+strong { color: #D62828; }
+code {
+  background: #f4f4f4;
+  color: #2E86AB;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: 'Consolas', 'Monaco', monospace;
+}
+pre {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 15px;
+  font-size: 0.8em;
+  line-height: 1.3;
+  overflow: hidden;
+  margin: 10px 40px;
+}
+.example {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-left: 4px solid #06A77D;
+  padding: 12px 15px;
+  margin: 10px 40px;
+  border-radius: 0 8px 8px 0;
+}
+.insight {
+  background: #fff3cd;
+  border-left: 4px solid #ffc107;
+  padding: 12px 15px;
+  margin: 10px 40px;
+  border-radius: 0 8px 8px 0;
+}
+.realworld {
+  background: #e3f2fd;
+  border-left: 4px solid #2196F3;
+  padding: 12px 15px;
+  margin: 10px 40px;
+  border-radius: 0 8px 8px 0;
+}
+.columns { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin: 0 40px; }
+.columns3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; margin: 0 40px; }
+table { font-size: 0.85em; width: calc(100% - 80px); margin: 10px 40px; }
+th { background: #2E86AB; color: white; padding: 8px; }
+td { padding: 8px; border-bottom: 1px solid #dee2e6; }
+img { margin: 10px auto; display: block; }
+/* Section divider slides */
+section.section-divider {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: linear-gradient(135deg, #2E86AB 0%, #1a5276 100%);
+}
+section.section-divider h1 {
+  color: white;
+  border: none;
+  background: transparent;
+  font-size: 2.2em;
+  padding: 20px;
+}
+section.section-divider h2 {
+  color: #a8d8ea;
+  background: transparent;
+  border: none;
+  font-size: 1.3em;
+}
+" lang="C" data-marpit-pagination="6" style="--paginate:true;--background-color:#fff;--theme:default;--style:/* PowerPoint-like slide layout with fixed title area */
+section {
+  font-family: 'Segoe UI', 'Arial', sans-serif;
+  font-size: 22px;
+  padding: 0;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+/* Fixed title area at top */
+section h1 {
+  color: #2E86AB;
+  font-size: 1.6em;
+  margin: 0;
+  padding: 25px 40px 15px 40px;
+  border-bottom: 3px solid #2E86AB;
+  background: linear-gradient(180deg, #f8fbfd 0%, #fff 100%);
+  flex-shrink: 0;
+}
+section h2 {
+  color: #06A77D;
+  font-size: 1.0em;
+  margin: -10px 0 0 0;
+  padding: 0 40px 15px 40px;
+  background: linear-gradient(180deg, #fff 0%, #fff 100%);
+  border-bottom: 3px solid #2E86AB;
+  flex-shrink: 0;
+}
+/* When h1 followed by h2, remove h1 border */
+section h1:has(+ h2) {
+  border-bottom: none;
+  padding-bottom: 5px;
+}
+section h3 { color: #457B9D; font-size: 1.0em; margin-top: 15px; }
+/* Content area */
+section &gt; *:not(h1):not(h2) {
+  padding-left: 40px;
+  padding-right: 40px;
+}
+section &gt; p:first-of-type, section &gt; ul:first-of-type,
+section &gt; ol:first-of-type, section &gt; table:first-of-type,
+section &gt; div:first-of-type, section &gt; pre:first-of-type {
+  margin-top: 20px;
+}
+strong { color: #D62828; }
+code {
+  background: #f4f4f4;
+  color: #2E86AB;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: 'Consolas', 'Monaco', monospace;
+}
+pre {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 15px;
+  font-size: 0.8em;
+  line-height: 1.3;
+  overflow: hidden;
+  margin: 10px 40px;
+}
+.example {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-left: 4px solid #06A77D;
+  padding: 12px 15px;
+  margin: 10px 40px;
+  border-radius: 0 8px 8px 0;
+}
+.insight {
+  background: #fff3cd;
+  border-left: 4px solid #ffc107;
+  padding: 12px 15px;
+  margin: 10px 40px;
+  border-radius: 0 8px 8px 0;
+}
+.realworld {
+  background: #e3f2fd;
+  border-left: 4px solid #2196F3;
+  padding: 12px 15px;
+  margin: 10px 40px;
+  border-radius: 0 8px 8px 0;
+}
+.columns { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin: 0 40px; }
+.columns3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; margin: 0 40px; }
+table { font-size: 0.85em; width: calc(100% - 80px); margin: 10px 40px; }
+th { background: #2E86AB; color: white; padding: 8px; }
+td { padding: 8px; border-bottom: 1px solid #dee2e6; }
+img { margin: 10px auto; display: block; }
+/* Section divider slides */
+section.section-divider {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: linear-gradient(135deg, #2E86AB 0%, #1a5276 100%);
+}
+section.section-divider h1 {
+  color: white;
+  border: none;
+  background: transparent;
+  font-size: 2.2em;
+  padding: 20px;
+}
+section.section-divider h2 {
+  color: #a8d8ea;
+  background: transparent;
+  border: none;
+  font-size: 1.3em;
+}
+;background-color:#fff;background-image:none;" data-marpit-pagination-total="47">
 <h1 id="the-universal-ml-recipe">The Universal ML Recipe</h1>
 <p><img src="diagrams/svg/ml_recipe.svg" alt="center" style="width:900px;" /></p>
 <p>What changes between tasks:</p>
@@ -1201,7 +1467,7 @@ section.section-divider h2 {
 The same Transformer architecture powers ChatGPT, DALL-E, and self-driving cars!
 </div>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="6" data-paginate="true" data-background-color="#fff" data-class="section-divider" data-theme="default" data-style="/* PowerPoint-like slide layout with fixed title area */
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="7" data-paginate="true" data-background-color="#fff" data-class="section-divider" data-theme="default" data-style="/* PowerPoint-like slide layout with fixed title area */
 section {
   font-family: 'Segoe UI', 'Arial', sans-serif;
   font-size: 22px;
@@ -1310,7 +1576,7 @@ section.section-divider h2 {
   border: none;
   font-size: 1.3em;
 }
-" lang="C" class="section-divider" data-marpit-pagination="6" style="--paginate:true;--background-color:#fff;--class:section-divider;--theme:default;--style:/* PowerPoint-like slide layout with fixed title area */
+" lang="C" class="section-divider" data-marpit-pagination="7" style="--paginate:true;--background-color:#fff;--class:section-divider;--theme:default;--style:/* PowerPoint-like slide layout with fixed title area */
 section {
   font-family: 'Segoe UI', 'Arial', sans-serif;
   font-size: 22px;
@@ -1419,232 +1685,9 @@ section.section-divider h2 {
   border: none;
   font-size: 1.3em;
 }
-;background-color:#fff;background-image:none;" data-marpit-pagination-total="46">
+;background-color:#fff;background-image:none;" data-marpit-pagination-total="47">
 <h1 id="part-1-classification">Part 1: Classification</h1>
 <h2 id="which-bucket-does-this-belong-to">&quot;Which Bucket Does This Belong To?&quot;</h2>
-</section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="7" data-paginate="true" data-background-color="#fff" data-theme="default" data-style="/* PowerPoint-like slide layout with fixed title area */
-section {
-  font-family: 'Segoe UI', 'Arial', sans-serif;
-  font-size: 22px;
-  padding: 0;
-  color: #333;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-}
-/* Fixed title area at top */
-section h1 {
-  color: #2E86AB;
-  font-size: 1.6em;
-  margin: 0;
-  padding: 25px 40px 15px 40px;
-  border-bottom: 3px solid #2E86AB;
-  background: linear-gradient(180deg, #f8fbfd 0%, #fff 100%);
-  flex-shrink: 0;
-}
-section h2 {
-  color: #06A77D;
-  font-size: 1.0em;
-  margin: -10px 0 0 0;
-  padding: 0 40px 15px 40px;
-  background: linear-gradient(180deg, #fff 0%, #fff 100%);
-  border-bottom: 3px solid #2E86AB;
-  flex-shrink: 0;
-}
-/* When h1 followed by h2, remove h1 border */
-section h1:has(+ h2) {
-  border-bottom: none;
-  padding-bottom: 5px;
-}
-section h3 { color: #457B9D; font-size: 1.0em; margin-top: 15px; }
-/* Content area */
-section &gt; *:not(h1):not(h2) {
-  padding-left: 40px;
-  padding-right: 40px;
-}
-section &gt; p:first-of-type, section &gt; ul:first-of-type,
-section &gt; ol:first-of-type, section &gt; table:first-of-type,
-section &gt; div:first-of-type, section &gt; pre:first-of-type {
-  margin-top: 20px;
-}
-strong { color: #D62828; }
-code {
-  background: #f4f4f4;
-  color: #2E86AB;
-  padding: 2px 6px;
-  border-radius: 4px;
-  font-family: 'Consolas', 'Monaco', monospace;
-}
-pre {
-  background: #f8f9fa;
-  border-radius: 8px;
-  padding: 15px;
-  font-size: 0.8em;
-  line-height: 1.3;
-  overflow: hidden;
-  margin: 10px 40px;
-}
-.example {
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-  border-left: 4px solid #06A77D;
-  padding: 12px 15px;
-  margin: 10px 40px;
-  border-radius: 0 8px 8px 0;
-}
-.insight {
-  background: #fff3cd;
-  border-left: 4px solid #ffc107;
-  padding: 12px 15px;
-  margin: 10px 40px;
-  border-radius: 0 8px 8px 0;
-}
-.realworld {
-  background: #e3f2fd;
-  border-left: 4px solid #2196F3;
-  padding: 12px 15px;
-  margin: 10px 40px;
-  border-radius: 0 8px 8px 0;
-}
-.columns { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin: 0 40px; }
-.columns3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; margin: 0 40px; }
-table { font-size: 0.85em; width: calc(100% - 80px); margin: 10px 40px; }
-th { background: #2E86AB; color: white; padding: 8px; }
-td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-img { margin: 10px auto; display: block; }
-/* Section divider slides */
-section.section-divider {
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  background: linear-gradient(135deg, #2E86AB 0%, #1a5276 100%);
-}
-section.section-divider h1 {
-  color: white;
-  border: none;
-  background: transparent;
-  font-size: 2.2em;
-  padding: 20px;
-}
-section.section-divider h2 {
-  color: #a8d8ea;
-  background: transparent;
-  border: none;
-  font-size: 1.3em;
-}
-" lang="C" data-marpit-pagination="7" style="--paginate:true;--background-color:#fff;--theme:default;--style:/* PowerPoint-like slide layout with fixed title area */
-section {
-  font-family: 'Segoe UI', 'Arial', sans-serif;
-  font-size: 22px;
-  padding: 0;
-  color: #333;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-}
-/* Fixed title area at top */
-section h1 {
-  color: #2E86AB;
-  font-size: 1.6em;
-  margin: 0;
-  padding: 25px 40px 15px 40px;
-  border-bottom: 3px solid #2E86AB;
-  background: linear-gradient(180deg, #f8fbfd 0%, #fff 100%);
-  flex-shrink: 0;
-}
-section h2 {
-  color: #06A77D;
-  font-size: 1.0em;
-  margin: -10px 0 0 0;
-  padding: 0 40px 15px 40px;
-  background: linear-gradient(180deg, #fff 0%, #fff 100%);
-  border-bottom: 3px solid #2E86AB;
-  flex-shrink: 0;
-}
-/* When h1 followed by h2, remove h1 border */
-section h1:has(+ h2) {
-  border-bottom: none;
-  padding-bottom: 5px;
-}
-section h3 { color: #457B9D; font-size: 1.0em; margin-top: 15px; }
-/* Content area */
-section &gt; *:not(h1):not(h2) {
-  padding-left: 40px;
-  padding-right: 40px;
-}
-section &gt; p:first-of-type, section &gt; ul:first-of-type,
-section &gt; ol:first-of-type, section &gt; table:first-of-type,
-section &gt; div:first-of-type, section &gt; pre:first-of-type {
-  margin-top: 20px;
-}
-strong { color: #D62828; }
-code {
-  background: #f4f4f4;
-  color: #2E86AB;
-  padding: 2px 6px;
-  border-radius: 4px;
-  font-family: 'Consolas', 'Monaco', monospace;
-}
-pre {
-  background: #f8f9fa;
-  border-radius: 8px;
-  padding: 15px;
-  font-size: 0.8em;
-  line-height: 1.3;
-  overflow: hidden;
-  margin: 10px 40px;
-}
-.example {
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-  border-left: 4px solid #06A77D;
-  padding: 12px 15px;
-  margin: 10px 40px;
-  border-radius: 0 8px 8px 0;
-}
-.insight {
-  background: #fff3cd;
-  border-left: 4px solid #ffc107;
-  padding: 12px 15px;
-  margin: 10px 40px;
-  border-radius: 0 8px 8px 0;
-}
-.realworld {
-  background: #e3f2fd;
-  border-left: 4px solid #2196F3;
-  padding: 12px 15px;
-  margin: 10px 40px;
-  border-radius: 0 8px 8px 0;
-}
-.columns { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin: 0 40px; }
-.columns3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; margin: 0 40px; }
-table { font-size: 0.85em; width: calc(100% - 80px); margin: 10px 40px; }
-th { background: #2E86AB; color: white; padding: 8px; }
-td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-img { margin: 10px auto; display: block; }
-/* Section divider slides */
-section.section-divider {
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  background: linear-gradient(135deg, #2E86AB 0%, #1a5276 100%);
-}
-section.section-divider h1 {
-  color: white;
-  border: none;
-  background: transparent;
-  font-size: 2.2em;
-  padding: 20px;
-}
-section.section-divider h2 {
-  color: #a8d8ea;
-  background: transparent;
-  border: none;
-  font-size: 1.3em;
-}
-;background-color:#fff;background-image:none;" data-marpit-pagination-total="46">
-<h1 id="classification-real-examples-from-cifar-10">Classification: Real Examples from CIFAR-10</h1>
-<p><img src="examples/cifar10_examples.png" alt="center" style="width:800px;" /></p>
-<p>You look at the input and pick <strong>one category</strong> from a fixed set. That's classification!</p>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="8" data-paginate="true" data-background-color="#fff" data-theme="default" data-style="/* PowerPoint-like slide layout with fixed title area */
 section {
@@ -1864,11 +1907,10 @@ section.section-divider h2 {
   border: none;
   font-size: 1.3em;
 }
-;background-color:#fff;background-image:none;" data-marpit-pagination-total="46">
-<h1 id="classification-how-a-decision-tree-learns">Classification: How a Decision Tree Learns</h1>
-<p><img src="examples/decision_tree_example.png" alt="center" style="width:1000px;" /></p>
-<p>A decision tree learns <strong>if-then rules</strong> from data:<br />
-&quot;If sepal length &gt; 5.5 AND sepal width &lt; 3.0, then iris-versicolor&quot;</p>
+;background-color:#fff;background-image:none;" data-marpit-pagination-total="47">
+<h1 id="classification-real-examples-from-cifar-10">Classification: Real Examples from CIFAR-10</h1>
+<p><img src="examples/cifar10_examples.png" alt="center" style="width:800px;" /></p>
+<p>You look at the input and pick <strong>one category</strong> from a fixed set. That's classification!</p>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="9" data-paginate="true" data-background-color="#fff" data-theme="default" data-style="/* PowerPoint-like slide layout with fixed title area */
 section {
@@ -2088,10 +2130,11 @@ section.section-divider h2 {
   border: none;
   font-size: 1.3em;
 }
-;background-color:#fff;background-image:none;" data-marpit-pagination-total="46">
-<h1 id="classification-logistic-regression">Classification: Logistic Regression</h1>
-<p><img src="examples/logistic_regression_example.png" alt="center" style="width:900px;" /></p>
-<p>Logistic regression learns a <strong>decision boundary</strong> that separates classes.</p>
+;background-color:#fff;background-image:none;" data-marpit-pagination-total="47">
+<h1 id="classification-how-a-decision-tree-learns">Classification: How a Decision Tree Learns</h1>
+<p><img src="examples/decision_tree_example.png" alt="center" style="width:1000px;" /></p>
+<p>A decision tree learns <strong>if-then rules</strong> from data:<br />
+&quot;If sepal length &gt; 5.5 AND sepal width &lt; 3.0, then iris-versicolor&quot;</p>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="10" data-paginate="true" data-background-color="#fff" data-theme="default" data-style="/* PowerPoint-like slide layout with fixed title area */
 section {
@@ -2311,33 +2354,10 @@ section.section-divider h2 {
   border: none;
   font-size: 1.3em;
 }
-;background-color:#fff;background-image:none;" data-marpit-pagination-total="46">
-<h1 id="binary-vs-multi-class-classification">Binary vs Multi-Class Classification</h1>
-<div class="columns">
-<div>
-<p><strong>Binary Classification</strong><br />
-<em>Two possible outcomes</em></p>
-<ul>
-<li>Spam / Not Spam</li>
-<li>Fraud / Legitimate</li>
-<li>Pass / Fail</li>
-<li>Tumor: Benign / Malignant</li>
-</ul>
-</div>
-<div>
-<p><strong>Multi-Class Classification</strong><br />
-<em>Many possible outcomes</em></p>
-<ul>
-<li>Digit recognition (0-9)</li>
-<li>ImageNet (1000 classes)</li>
-<li>Emotion detection (6+ emotions)</li>
-<li>Animal species identification</li>
-</ul>
-</div>
-</div>
-<div class="insight">
-Same algorithm, just different number of outputs!
-</div>
+;background-color:#fff;background-image:none;" data-marpit-pagination-total="47">
+<h1 id="classification-logistic-regression">Classification: Logistic Regression</h1>
+<p><img src="examples/logistic_regression_example.png" alt="center" style="width:900px;" /></p>
+<p>Logistic regression learns a <strong>decision boundary</strong> that separates classes.</p>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="11" data-paginate="true" data-background-color="#fff" data-theme="default" data-style="/* PowerPoint-like slide layout with fixed title area */
 section {
@@ -2557,13 +2577,259 @@ section.section-divider h2 {
   border: none;
   font-size: 1.3em;
 }
-;background-color:#fff;background-image:none;" data-marpit-pagination-total="46">
+;background-color:#fff;background-image:none;" data-marpit-pagination-total="47">
+<h1 id="binary-vs-multi-class-classification">Binary vs Multi-Class Classification</h1>
+<div class="columns">
+<div>
+<p><strong>Binary Classification</strong><br />
+<em>Two possible outcomes</em></p>
+<ul>
+<li>Spam / Not Spam</li>
+<li>Fraud / Legitimate</li>
+<li>Pass / Fail</li>
+<li>Tumor: Benign / Malignant</li>
+</ul>
+</div>
+<div>
+<p><strong>Multi-Class Classification</strong><br />
+<em>Many possible outcomes</em></p>
+<ul>
+<li>Digit recognition (0-9)</li>
+<li>ImageNet (1000 classes)</li>
+<li>Emotion detection (6+ emotions)</li>
+<li>Animal species identification</li>
+</ul>
+</div>
+</div>
+<div class="insight">
+Same algorithm, just different number of outputs!
+</div>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="12" data-paginate="true" data-background-color="#fff" data-theme="default" data-style="/* PowerPoint-like slide layout with fixed title area */
+section {
+  font-family: 'Segoe UI', 'Arial', sans-serif;
+  font-size: 22px;
+  padding: 0;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+/* Fixed title area at top */
+section h1 {
+  color: #2E86AB;
+  font-size: 1.6em;
+  margin: 0;
+  padding: 25px 40px 15px 40px;
+  border-bottom: 3px solid #2E86AB;
+  background: linear-gradient(180deg, #f8fbfd 0%, #fff 100%);
+  flex-shrink: 0;
+}
+section h2 {
+  color: #06A77D;
+  font-size: 1.0em;
+  margin: -10px 0 0 0;
+  padding: 0 40px 15px 40px;
+  background: linear-gradient(180deg, #fff 0%, #fff 100%);
+  border-bottom: 3px solid #2E86AB;
+  flex-shrink: 0;
+}
+/* When h1 followed by h2, remove h1 border */
+section h1:has(+ h2) {
+  border-bottom: none;
+  padding-bottom: 5px;
+}
+section h3 { color: #457B9D; font-size: 1.0em; margin-top: 15px; }
+/* Content area */
+section &gt; *:not(h1):not(h2) {
+  padding-left: 40px;
+  padding-right: 40px;
+}
+section &gt; p:first-of-type, section &gt; ul:first-of-type,
+section &gt; ol:first-of-type, section &gt; table:first-of-type,
+section &gt; div:first-of-type, section &gt; pre:first-of-type {
+  margin-top: 20px;
+}
+strong { color: #D62828; }
+code {
+  background: #f4f4f4;
+  color: #2E86AB;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: 'Consolas', 'Monaco', monospace;
+}
+pre {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 15px;
+  font-size: 0.8em;
+  line-height: 1.3;
+  overflow: hidden;
+  margin: 10px 40px;
+}
+.example {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-left: 4px solid #06A77D;
+  padding: 12px 15px;
+  margin: 10px 40px;
+  border-radius: 0 8px 8px 0;
+}
+.insight {
+  background: #fff3cd;
+  border-left: 4px solid #ffc107;
+  padding: 12px 15px;
+  margin: 10px 40px;
+  border-radius: 0 8px 8px 0;
+}
+.realworld {
+  background: #e3f2fd;
+  border-left: 4px solid #2196F3;
+  padding: 12px 15px;
+  margin: 10px 40px;
+  border-radius: 0 8px 8px 0;
+}
+.columns { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin: 0 40px; }
+.columns3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; margin: 0 40px; }
+table { font-size: 0.85em; width: calc(100% - 80px); margin: 10px 40px; }
+th { background: #2E86AB; color: white; padding: 8px; }
+td { padding: 8px; border-bottom: 1px solid #dee2e6; }
+img { margin: 10px auto; display: block; }
+/* Section divider slides */
+section.section-divider {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: linear-gradient(135deg, #2E86AB 0%, #1a5276 100%);
+}
+section.section-divider h1 {
+  color: white;
+  border: none;
+  background: transparent;
+  font-size: 2.2em;
+  padding: 20px;
+}
+section.section-divider h2 {
+  color: #a8d8ea;
+  background: transparent;
+  border: none;
+  font-size: 1.3em;
+}
+" lang="C" data-marpit-pagination="12" style="--paginate:true;--background-color:#fff;--theme:default;--style:/* PowerPoint-like slide layout with fixed title area */
+section {
+  font-family: 'Segoe UI', 'Arial', sans-serif;
+  font-size: 22px;
+  padding: 0;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+/* Fixed title area at top */
+section h1 {
+  color: #2E86AB;
+  font-size: 1.6em;
+  margin: 0;
+  padding: 25px 40px 15px 40px;
+  border-bottom: 3px solid #2E86AB;
+  background: linear-gradient(180deg, #f8fbfd 0%, #fff 100%);
+  flex-shrink: 0;
+}
+section h2 {
+  color: #06A77D;
+  font-size: 1.0em;
+  margin: -10px 0 0 0;
+  padding: 0 40px 15px 40px;
+  background: linear-gradient(180deg, #fff 0%, #fff 100%);
+  border-bottom: 3px solid #2E86AB;
+  flex-shrink: 0;
+}
+/* When h1 followed by h2, remove h1 border */
+section h1:has(+ h2) {
+  border-bottom: none;
+  padding-bottom: 5px;
+}
+section h3 { color: #457B9D; font-size: 1.0em; margin-top: 15px; }
+/* Content area */
+section &gt; *:not(h1):not(h2) {
+  padding-left: 40px;
+  padding-right: 40px;
+}
+section &gt; p:first-of-type, section &gt; ul:first-of-type,
+section &gt; ol:first-of-type, section &gt; table:first-of-type,
+section &gt; div:first-of-type, section &gt; pre:first-of-type {
+  margin-top: 20px;
+}
+strong { color: #D62828; }
+code {
+  background: #f4f4f4;
+  color: #2E86AB;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: 'Consolas', 'Monaco', monospace;
+}
+pre {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 15px;
+  font-size: 0.8em;
+  line-height: 1.3;
+  overflow: hidden;
+  margin: 10px 40px;
+}
+.example {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-left: 4px solid #06A77D;
+  padding: 12px 15px;
+  margin: 10px 40px;
+  border-radius: 0 8px 8px 0;
+}
+.insight {
+  background: #fff3cd;
+  border-left: 4px solid #ffc107;
+  padding: 12px 15px;
+  margin: 10px 40px;
+  border-radius: 0 8px 8px 0;
+}
+.realworld {
+  background: #e3f2fd;
+  border-left: 4px solid #2196F3;
+  padding: 12px 15px;
+  margin: 10px 40px;
+  border-radius: 0 8px 8px 0;
+}
+.columns { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin: 0 40px; }
+.columns3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; margin: 0 40px; }
+table { font-size: 0.85em; width: calc(100% - 80px); margin: 10px 40px; }
+th { background: #2E86AB; color: white; padding: 8px; }
+td { padding: 8px; border-bottom: 1px solid #dee2e6; }
+img { margin: 10px auto; display: block; }
+/* Section divider slides */
+section.section-divider {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: linear-gradient(135deg, #2E86AB 0%, #1a5276 100%);
+}
+section.section-divider h1 {
+  color: white;
+  border: none;
+  background: transparent;
+  font-size: 2.2em;
+  padding: 20px;
+}
+section.section-divider h2 {
+  color: #a8d8ea;
+  background: transparent;
+  border: none;
+  font-size: 1.3em;
+}
+;background-color:#fff;background-image:none;" data-marpit-pagination-total="47">
 <h1 id="the-math-softmax-turns-scores-into-probabilities">The Math: Softmax Turns Scores into Probabilities</h1>
 <p><img src="examples/softmax_example.png" alt="center" style="width:900px;" /></p>
 <p><strong>Softmax</strong> converts raw scores (logits) to probabilities that sum to 1.</p>
 <p>The model isn't just saying &quot;Cat&quot; - it's saying &quot;85% sure it's a cat!&quot;</p>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="12" data-paginate="true" data-background-color="#fff" data-class="section-divider" data-theme="default" data-style="/* PowerPoint-like slide layout with fixed title area */
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="13" data-paginate="true" data-background-color="#fff" data-class="section-divider" data-theme="default" data-style="/* PowerPoint-like slide layout with fixed title area */
 section {
   font-family: 'Segoe UI', 'Arial', sans-serif;
   font-size: 22px;
@@ -2672,7 +2938,7 @@ section.section-divider h2 {
   border: none;
   font-size: 1.3em;
 }
-" lang="C" class="section-divider" data-marpit-pagination="12" style="--paginate:true;--background-color:#fff;--class:section-divider;--theme:default;--style:/* PowerPoint-like slide layout with fixed title area */
+" lang="C" class="section-divider" data-marpit-pagination="13" style="--paginate:true;--background-color:#fff;--class:section-divider;--theme:default;--style:/* PowerPoint-like slide layout with fixed title area */
 section {
   font-family: 'Segoe UI', 'Arial', sans-serif;
   font-size: 22px;
@@ -2781,263 +3047,9 @@ section.section-divider h2 {
   border: none;
   font-size: 1.3em;
 }
-;background-color:#fff;background-image:none;" data-marpit-pagination-total="46">
+;background-color:#fff;background-image:none;" data-marpit-pagination-total="47">
 <h1 id="part-2-regression">Part 2: Regression</h1>
 <h2 id="how-much-how-many">&quot;How Much? How Many?&quot;</h2>
-</section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="13" data-paginate="true" data-background-color="#fff" data-theme="default" data-style="/* PowerPoint-like slide layout with fixed title area */
-section {
-  font-family: 'Segoe UI', 'Arial', sans-serif;
-  font-size: 22px;
-  padding: 0;
-  color: #333;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-}
-/* Fixed title area at top */
-section h1 {
-  color: #2E86AB;
-  font-size: 1.6em;
-  margin: 0;
-  padding: 25px 40px 15px 40px;
-  border-bottom: 3px solid #2E86AB;
-  background: linear-gradient(180deg, #f8fbfd 0%, #fff 100%);
-  flex-shrink: 0;
-}
-section h2 {
-  color: #06A77D;
-  font-size: 1.0em;
-  margin: -10px 0 0 0;
-  padding: 0 40px 15px 40px;
-  background: linear-gradient(180deg, #fff 0%, #fff 100%);
-  border-bottom: 3px solid #2E86AB;
-  flex-shrink: 0;
-}
-/* When h1 followed by h2, remove h1 border */
-section h1:has(+ h2) {
-  border-bottom: none;
-  padding-bottom: 5px;
-}
-section h3 { color: #457B9D; font-size: 1.0em; margin-top: 15px; }
-/* Content area */
-section &gt; *:not(h1):not(h2) {
-  padding-left: 40px;
-  padding-right: 40px;
-}
-section &gt; p:first-of-type, section &gt; ul:first-of-type,
-section &gt; ol:first-of-type, section &gt; table:first-of-type,
-section &gt; div:first-of-type, section &gt; pre:first-of-type {
-  margin-top: 20px;
-}
-strong { color: #D62828; }
-code {
-  background: #f4f4f4;
-  color: #2E86AB;
-  padding: 2px 6px;
-  border-radius: 4px;
-  font-family: 'Consolas', 'Monaco', monospace;
-}
-pre {
-  background: #f8f9fa;
-  border-radius: 8px;
-  padding: 15px;
-  font-size: 0.8em;
-  line-height: 1.3;
-  overflow: hidden;
-  margin: 10px 40px;
-}
-.example {
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-  border-left: 4px solid #06A77D;
-  padding: 12px 15px;
-  margin: 10px 40px;
-  border-radius: 0 8px 8px 0;
-}
-.insight {
-  background: #fff3cd;
-  border-left: 4px solid #ffc107;
-  padding: 12px 15px;
-  margin: 10px 40px;
-  border-radius: 0 8px 8px 0;
-}
-.realworld {
-  background: #e3f2fd;
-  border-left: 4px solid #2196F3;
-  padding: 12px 15px;
-  margin: 10px 40px;
-  border-radius: 0 8px 8px 0;
-}
-.columns { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin: 0 40px; }
-.columns3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; margin: 0 40px; }
-table { font-size: 0.85em; width: calc(100% - 80px); margin: 10px 40px; }
-th { background: #2E86AB; color: white; padding: 8px; }
-td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-img { margin: 10px auto; display: block; }
-/* Section divider slides */
-section.section-divider {
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  background: linear-gradient(135deg, #2E86AB 0%, #1a5276 100%);
-}
-section.section-divider h1 {
-  color: white;
-  border: none;
-  background: transparent;
-  font-size: 2.2em;
-  padding: 20px;
-}
-section.section-divider h2 {
-  color: #a8d8ea;
-  background: transparent;
-  border: none;
-  font-size: 1.3em;
-}
-" lang="C" data-marpit-pagination="13" style="--paginate:true;--background-color:#fff;--theme:default;--style:/* PowerPoint-like slide layout with fixed title area */
-section {
-  font-family: 'Segoe UI', 'Arial', sans-serif;
-  font-size: 22px;
-  padding: 0;
-  color: #333;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-}
-/* Fixed title area at top */
-section h1 {
-  color: #2E86AB;
-  font-size: 1.6em;
-  margin: 0;
-  padding: 25px 40px 15px 40px;
-  border-bottom: 3px solid #2E86AB;
-  background: linear-gradient(180deg, #f8fbfd 0%, #fff 100%);
-  flex-shrink: 0;
-}
-section h2 {
-  color: #06A77D;
-  font-size: 1.0em;
-  margin: -10px 0 0 0;
-  padding: 0 40px 15px 40px;
-  background: linear-gradient(180deg, #fff 0%, #fff 100%);
-  border-bottom: 3px solid #2E86AB;
-  flex-shrink: 0;
-}
-/* When h1 followed by h2, remove h1 border */
-section h1:has(+ h2) {
-  border-bottom: none;
-  padding-bottom: 5px;
-}
-section h3 { color: #457B9D; font-size: 1.0em; margin-top: 15px; }
-/* Content area */
-section &gt; *:not(h1):not(h2) {
-  padding-left: 40px;
-  padding-right: 40px;
-}
-section &gt; p:first-of-type, section &gt; ul:first-of-type,
-section &gt; ol:first-of-type, section &gt; table:first-of-type,
-section &gt; div:first-of-type, section &gt; pre:first-of-type {
-  margin-top: 20px;
-}
-strong { color: #D62828; }
-code {
-  background: #f4f4f4;
-  color: #2E86AB;
-  padding: 2px 6px;
-  border-radius: 4px;
-  font-family: 'Consolas', 'Monaco', monospace;
-}
-pre {
-  background: #f8f9fa;
-  border-radius: 8px;
-  padding: 15px;
-  font-size: 0.8em;
-  line-height: 1.3;
-  overflow: hidden;
-  margin: 10px 40px;
-}
-.example {
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-  border-left: 4px solid #06A77D;
-  padding: 12px 15px;
-  margin: 10px 40px;
-  border-radius: 0 8px 8px 0;
-}
-.insight {
-  background: #fff3cd;
-  border-left: 4px solid #ffc107;
-  padding: 12px 15px;
-  margin: 10px 40px;
-  border-radius: 0 8px 8px 0;
-}
-.realworld {
-  background: #e3f2fd;
-  border-left: 4px solid #2196F3;
-  padding: 12px 15px;
-  margin: 10px 40px;
-  border-radius: 0 8px 8px 0;
-}
-.columns { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin: 0 40px; }
-.columns3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; margin: 0 40px; }
-table { font-size: 0.85em; width: calc(100% - 80px); margin: 10px 40px; }
-th { background: #2E86AB; color: white; padding: 8px; }
-td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-img { margin: 10px auto; display: block; }
-/* Section divider slides */
-section.section-divider {
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  background: linear-gradient(135deg, #2E86AB 0%, #1a5276 100%);
-}
-section.section-divider h1 {
-  color: white;
-  border: none;
-  background: transparent;
-  font-size: 2.2em;
-  padding: 20px;
-}
-section.section-divider h2 {
-  color: #a8d8ea;
-  background: transparent;
-  border: none;
-  font-size: 1.3em;
-}
-;background-color:#fff;background-image:none;" data-marpit-pagination-total="46">
-<h1 id="regression-when-the-answer-is-a-number">Regression: When the Answer is a Number</h1>
-<p>Classification: <em>&quot;Which category?&quot;</em> - Discrete answer<br />
-Regression: <em>&quot;How much?&quot;</em> - Continuous number</p>
-<table>
-<thead>
-<tr>
-<th>Question</th>
-<th>Answer</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>&quot;How old is this person?&quot;</td>
-<td>27.3 years</td>
-</tr>
-<tr>
-<td>&quot;What's this house worth?&quot;</td>
-<td>$425,000</td>
-</tr>
-<tr>
-<td>&quot;How many units will sell?&quot;</td>
-<td>1,247 units</td>
-</tr>
-<tr>
-<td>&quot;What temperature tomorrow?&quot;</td>
-<td>28.5 C</td>
-</tr>
-<tr>
-<td>&quot;How long until the bus arrives?&quot;</td>
-<td>7.2 minutes</td>
-</tr>
-</tbody>
-</table>
-<p>The output is <strong>any number</strong> on a continuous scale!</p>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="14" data-paginate="true" data-background-color="#fff" data-theme="default" data-style="/* PowerPoint-like slide layout with fixed title area */
 section {
@@ -3257,10 +3269,41 @@ section.section-divider h2 {
   border: none;
   font-size: 1.3em;
 }
-;background-color:#fff;background-image:none;" data-marpit-pagination-total="46">
-<h1 id="regression-in-action-linear-regression">Regression in Action: Linear Regression</h1>
-<p><img src="examples/linear_regression_example.png" alt="center" style="width:1000px;" /></p>
-<p>The model learns: <strong>Price = $50,000 + $150 * (square feet)</strong></p>
+;background-color:#fff;background-image:none;" data-marpit-pagination-total="47">
+<h1 id="regression-when-the-answer-is-a-number">Regression: When the Answer is a Number</h1>
+<p>Classification: <em>&quot;Which category?&quot;</em> - Discrete answer<br />
+Regression: <em>&quot;How much?&quot;</em> - Continuous number</p>
+<table>
+<thead>
+<tr>
+<th>Question</th>
+<th>Answer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>&quot;How old is this person?&quot;</td>
+<td>27.3 years</td>
+</tr>
+<tr>
+<td>&quot;What's this house worth?&quot;</td>
+<td>$425,000</td>
+</tr>
+<tr>
+<td>&quot;How many units will sell?&quot;</td>
+<td>1,247 units</td>
+</tr>
+<tr>
+<td>&quot;What temperature tomorrow?&quot;</td>
+<td>28.5 C</td>
+</tr>
+<tr>
+<td>&quot;How long until the bus arrives?&quot;</td>
+<td>7.2 minutes</td>
+</tr>
+</tbody>
+</table>
+<p>The output is <strong>any number</strong> on a continuous scale!</p>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="15" data-paginate="true" data-background-color="#fff" data-theme="default" data-style="/* PowerPoint-like slide layout with fixed title area */
 section {
@@ -3480,23 +3523,235 @@ section.section-divider h2 {
   border: none;
   font-size: 1.3em;
 }
-;background-color:#fff;background-image:none;" data-marpit-pagination-total="46">
+;background-color:#fff;background-image:none;" data-marpit-pagination-total="47">
+<h1 id="regression-in-action-linear-regression">Regression in Action: Linear Regression</h1>
+<p><img src="examples/linear_regression_example.png" alt="center" style="width:1000px;" /></p>
+<p>The model learns: <strong>Price = $50,000 + $150 * (square feet)</strong></p>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="16" data-paginate="true" data-background-color="#fff" data-theme="default" data-style="/* PowerPoint-like slide layout with fixed title area */
+section {
+  font-family: 'Segoe UI', 'Arial', sans-serif;
+  font-size: 22px;
+  padding: 0;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+/* Fixed title area at top */
+section h1 {
+  color: #2E86AB;
+  font-size: 1.6em;
+  margin: 0;
+  padding: 25px 40px 15px 40px;
+  border-bottom: 3px solid #2E86AB;
+  background: linear-gradient(180deg, #f8fbfd 0%, #fff 100%);
+  flex-shrink: 0;
+}
+section h2 {
+  color: #06A77D;
+  font-size: 1.0em;
+  margin: -10px 0 0 0;
+  padding: 0 40px 15px 40px;
+  background: linear-gradient(180deg, #fff 0%, #fff 100%);
+  border-bottom: 3px solid #2E86AB;
+  flex-shrink: 0;
+}
+/* When h1 followed by h2, remove h1 border */
+section h1:has(+ h2) {
+  border-bottom: none;
+  padding-bottom: 5px;
+}
+section h3 { color: #457B9D; font-size: 1.0em; margin-top: 15px; }
+/* Content area */
+section &gt; *:not(h1):not(h2) {
+  padding-left: 40px;
+  padding-right: 40px;
+}
+section &gt; p:first-of-type, section &gt; ul:first-of-type,
+section &gt; ol:first-of-type, section &gt; table:first-of-type,
+section &gt; div:first-of-type, section &gt; pre:first-of-type {
+  margin-top: 20px;
+}
+strong { color: #D62828; }
+code {
+  background: #f4f4f4;
+  color: #2E86AB;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: 'Consolas', 'Monaco', monospace;
+}
+pre {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 15px;
+  font-size: 0.8em;
+  line-height: 1.3;
+  overflow: hidden;
+  margin: 10px 40px;
+}
+.example {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-left: 4px solid #06A77D;
+  padding: 12px 15px;
+  margin: 10px 40px;
+  border-radius: 0 8px 8px 0;
+}
+.insight {
+  background: #fff3cd;
+  border-left: 4px solid #ffc107;
+  padding: 12px 15px;
+  margin: 10px 40px;
+  border-radius: 0 8px 8px 0;
+}
+.realworld {
+  background: #e3f2fd;
+  border-left: 4px solid #2196F3;
+  padding: 12px 15px;
+  margin: 10px 40px;
+  border-radius: 0 8px 8px 0;
+}
+.columns { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin: 0 40px; }
+.columns3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; margin: 0 40px; }
+table { font-size: 0.85em; width: calc(100% - 80px); margin: 10px 40px; }
+th { background: #2E86AB; color: white; padding: 8px; }
+td { padding: 8px; border-bottom: 1px solid #dee2e6; }
+img { margin: 10px auto; display: block; }
+/* Section divider slides */
+section.section-divider {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: linear-gradient(135deg, #2E86AB 0%, #1a5276 100%);
+}
+section.section-divider h1 {
+  color: white;
+  border: none;
+  background: transparent;
+  font-size: 2.2em;
+  padding: 20px;
+}
+section.section-divider h2 {
+  color: #a8d8ea;
+  background: transparent;
+  border: none;
+  font-size: 1.3em;
+}
+" lang="C" data-marpit-pagination="16" style="--paginate:true;--background-color:#fff;--theme:default;--style:/* PowerPoint-like slide layout with fixed title area */
+section {
+  font-family: 'Segoe UI', 'Arial', sans-serif;
+  font-size: 22px;
+  padding: 0;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+/* Fixed title area at top */
+section h1 {
+  color: #2E86AB;
+  font-size: 1.6em;
+  margin: 0;
+  padding: 25px 40px 15px 40px;
+  border-bottom: 3px solid #2E86AB;
+  background: linear-gradient(180deg, #f8fbfd 0%, #fff 100%);
+  flex-shrink: 0;
+}
+section h2 {
+  color: #06A77D;
+  font-size: 1.0em;
+  margin: -10px 0 0 0;
+  padding: 0 40px 15px 40px;
+  background: linear-gradient(180deg, #fff 0%, #fff 100%);
+  border-bottom: 3px solid #2E86AB;
+  flex-shrink: 0;
+}
+/* When h1 followed by h2, remove h1 border */
+section h1:has(+ h2) {
+  border-bottom: none;
+  padding-bottom: 5px;
+}
+section h3 { color: #457B9D; font-size: 1.0em; margin-top: 15px; }
+/* Content area */
+section &gt; *:not(h1):not(h2) {
+  padding-left: 40px;
+  padding-right: 40px;
+}
+section &gt; p:first-of-type, section &gt; ul:first-of-type,
+section &gt; ol:first-of-type, section &gt; table:first-of-type,
+section &gt; div:first-of-type, section &gt; pre:first-of-type {
+  margin-top: 20px;
+}
+strong { color: #D62828; }
+code {
+  background: #f4f4f4;
+  color: #2E86AB;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: 'Consolas', 'Monaco', monospace;
+}
+pre {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 15px;
+  font-size: 0.8em;
+  line-height: 1.3;
+  overflow: hidden;
+  margin: 10px 40px;
+}
+.example {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-left: 4px solid #06A77D;
+  padding: 12px 15px;
+  margin: 10px 40px;
+  border-radius: 0 8px 8px 0;
+}
+.insight {
+  background: #fff3cd;
+  border-left: 4px solid #ffc107;
+  padding: 12px 15px;
+  margin: 10px 40px;
+  border-radius: 0 8px 8px 0;
+}
+.realworld {
+  background: #e3f2fd;
+  border-left: 4px solid #2196F3;
+  padding: 12px 15px;
+  margin: 10px 40px;
+  border-radius: 0 8px 8px 0;
+}
+.columns { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin: 0 40px; }
+.columns3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; margin: 0 40px; }
+table { font-size: 0.85em; width: calc(100% - 80px); margin: 10px 40px; }
+th { background: #2E86AB; color: white; padding: 8px; }
+td { padding: 8px; border-bottom: 1px solid #dee2e6; }
+img { margin: 10px auto; display: block; }
+/* Section divider slides */
+section.section-divider {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: linear-gradient(135deg, #2E86AB 0%, #1a5276 100%);
+}
+section.section-divider h1 {
+  color: white;
+  border: none;
+  background: transparent;
+  font-size: 2.2em;
+  padding: 20px;
+}
+section.section-divider h2 {
+  color: #a8d8ea;
+  background: transparent;
+  border: none;
+  font-size: 1.3em;
+}
+;background-color:#fff;background-image:none;" data-marpit-pagination-total="47">
 <h1 id="regression-is-hidden-everywhere">Regression is Hidden Everywhere!</h1>
 <p>Bounding box detection is actually <strong>regression</strong>:</p>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>   ┌──────────┐
-   │   DOG    │  This box needs 4 numbers:
-   │          │
-   └──────────┘
-
-   x = 50 (left edge)      ← Regression!
-   y = 30 (top edge)       ← Regression!
-   w = 100 (width)         ← Regression!
-   h = 80 (height)         ← Regression!
-
-   DETECTION = Classification (what?) + Regression (where?)
-</code></pre>
+<p><img src="diagrams/svg/bbox_regression.svg" alt="center" style="width:700px;" /></p>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="16" data-paginate="true" data-background-color="#fff" data-class="section-divider" data-theme="default" data-style="/* PowerPoint-like slide layout with fixed title area */
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="17" data-paginate="true" data-background-color="#fff" data-class="section-divider" data-theme="default" data-style="/* PowerPoint-like slide layout with fixed title area */
 section {
   font-family: 'Segoe UI', 'Arial', sans-serif;
   font-size: 22px;
@@ -3605,7 +3860,7 @@ section.section-divider h2 {
   border: none;
   font-size: 1.3em;
 }
-" lang="C" class="section-divider" data-marpit-pagination="16" style="--paginate:true;--background-color:#fff;--class:section-divider;--theme:default;--style:/* PowerPoint-like slide layout with fixed title area */
+" lang="C" class="section-divider" data-marpit-pagination="17" style="--paginate:true;--background-color:#fff;--class:section-divider;--theme:default;--style:/* PowerPoint-like slide layout with fixed title area */
 section {
   font-family: 'Segoe UI', 'Arial', sans-serif;
   font-size: 22px;
@@ -3714,232 +3969,9 @@ section.section-divider h2 {
   border: none;
   font-size: 1.3em;
 }
-;background-color:#fff;background-image:none;" data-marpit-pagination-total="46">
+;background-color:#fff;background-image:none;" data-marpit-pagination-total="47">
 <h1 id="part-3-computer-vision-hierarchy">Part 3: Computer Vision Hierarchy</h1>
 <h2 id="from-labels-to-pixels">From Labels to Pixels</h2>
-</section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="17" data-paginate="true" data-background-color="#fff" data-theme="default" data-style="/* PowerPoint-like slide layout with fixed title area */
-section {
-  font-family: 'Segoe UI', 'Arial', sans-serif;
-  font-size: 22px;
-  padding: 0;
-  color: #333;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-}
-/* Fixed title area at top */
-section h1 {
-  color: #2E86AB;
-  font-size: 1.6em;
-  margin: 0;
-  padding: 25px 40px 15px 40px;
-  border-bottom: 3px solid #2E86AB;
-  background: linear-gradient(180deg, #f8fbfd 0%, #fff 100%);
-  flex-shrink: 0;
-}
-section h2 {
-  color: #06A77D;
-  font-size: 1.0em;
-  margin: -10px 0 0 0;
-  padding: 0 40px 15px 40px;
-  background: linear-gradient(180deg, #fff 0%, #fff 100%);
-  border-bottom: 3px solid #2E86AB;
-  flex-shrink: 0;
-}
-/* When h1 followed by h2, remove h1 border */
-section h1:has(+ h2) {
-  border-bottom: none;
-  padding-bottom: 5px;
-}
-section h3 { color: #457B9D; font-size: 1.0em; margin-top: 15px; }
-/* Content area */
-section &gt; *:not(h1):not(h2) {
-  padding-left: 40px;
-  padding-right: 40px;
-}
-section &gt; p:first-of-type, section &gt; ul:first-of-type,
-section &gt; ol:first-of-type, section &gt; table:first-of-type,
-section &gt; div:first-of-type, section &gt; pre:first-of-type {
-  margin-top: 20px;
-}
-strong { color: #D62828; }
-code {
-  background: #f4f4f4;
-  color: #2E86AB;
-  padding: 2px 6px;
-  border-radius: 4px;
-  font-family: 'Consolas', 'Monaco', monospace;
-}
-pre {
-  background: #f8f9fa;
-  border-radius: 8px;
-  padding: 15px;
-  font-size: 0.8em;
-  line-height: 1.3;
-  overflow: hidden;
-  margin: 10px 40px;
-}
-.example {
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-  border-left: 4px solid #06A77D;
-  padding: 12px 15px;
-  margin: 10px 40px;
-  border-radius: 0 8px 8px 0;
-}
-.insight {
-  background: #fff3cd;
-  border-left: 4px solid #ffc107;
-  padding: 12px 15px;
-  margin: 10px 40px;
-  border-radius: 0 8px 8px 0;
-}
-.realworld {
-  background: #e3f2fd;
-  border-left: 4px solid #2196F3;
-  padding: 12px 15px;
-  margin: 10px 40px;
-  border-radius: 0 8px 8px 0;
-}
-.columns { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin: 0 40px; }
-.columns3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; margin: 0 40px; }
-table { font-size: 0.85em; width: calc(100% - 80px); margin: 10px 40px; }
-th { background: #2E86AB; color: white; padding: 8px; }
-td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-img { margin: 10px auto; display: block; }
-/* Section divider slides */
-section.section-divider {
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  background: linear-gradient(135deg, #2E86AB 0%, #1a5276 100%);
-}
-section.section-divider h1 {
-  color: white;
-  border: none;
-  background: transparent;
-  font-size: 2.2em;
-  padding: 20px;
-}
-section.section-divider h2 {
-  color: #a8d8ea;
-  background: transparent;
-  border: none;
-  font-size: 1.3em;
-}
-" lang="C" data-marpit-pagination="17" style="--paginate:true;--background-color:#fff;--theme:default;--style:/* PowerPoint-like slide layout with fixed title area */
-section {
-  font-family: 'Segoe UI', 'Arial', sans-serif;
-  font-size: 22px;
-  padding: 0;
-  color: #333;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-}
-/* Fixed title area at top */
-section h1 {
-  color: #2E86AB;
-  font-size: 1.6em;
-  margin: 0;
-  padding: 25px 40px 15px 40px;
-  border-bottom: 3px solid #2E86AB;
-  background: linear-gradient(180deg, #f8fbfd 0%, #fff 100%);
-  flex-shrink: 0;
-}
-section h2 {
-  color: #06A77D;
-  font-size: 1.0em;
-  margin: -10px 0 0 0;
-  padding: 0 40px 15px 40px;
-  background: linear-gradient(180deg, #fff 0%, #fff 100%);
-  border-bottom: 3px solid #2E86AB;
-  flex-shrink: 0;
-}
-/* When h1 followed by h2, remove h1 border */
-section h1:has(+ h2) {
-  border-bottom: none;
-  padding-bottom: 5px;
-}
-section h3 { color: #457B9D; font-size: 1.0em; margin-top: 15px; }
-/* Content area */
-section &gt; *:not(h1):not(h2) {
-  padding-left: 40px;
-  padding-right: 40px;
-}
-section &gt; p:first-of-type, section &gt; ul:first-of-type,
-section &gt; ol:first-of-type, section &gt; table:first-of-type,
-section &gt; div:first-of-type, section &gt; pre:first-of-type {
-  margin-top: 20px;
-}
-strong { color: #D62828; }
-code {
-  background: #f4f4f4;
-  color: #2E86AB;
-  padding: 2px 6px;
-  border-radius: 4px;
-  font-family: 'Consolas', 'Monaco', monospace;
-}
-pre {
-  background: #f8f9fa;
-  border-radius: 8px;
-  padding: 15px;
-  font-size: 0.8em;
-  line-height: 1.3;
-  overflow: hidden;
-  margin: 10px 40px;
-}
-.example {
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-  border-left: 4px solid #06A77D;
-  padding: 12px 15px;
-  margin: 10px 40px;
-  border-radius: 0 8px 8px 0;
-}
-.insight {
-  background: #fff3cd;
-  border-left: 4px solid #ffc107;
-  padding: 12px 15px;
-  margin: 10px 40px;
-  border-radius: 0 8px 8px 0;
-}
-.realworld {
-  background: #e3f2fd;
-  border-left: 4px solid #2196F3;
-  padding: 12px 15px;
-  margin: 10px 40px;
-  border-radius: 0 8px 8px 0;
-}
-.columns { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin: 0 40px; }
-.columns3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; margin: 0 40px; }
-table { font-size: 0.85em; width: calc(100% - 80px); margin: 10px 40px; }
-th { background: #2E86AB; color: white; padding: 8px; }
-td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-img { margin: 10px auto; display: block; }
-/* Section divider slides */
-section.section-divider {
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  background: linear-gradient(135deg, #2E86AB 0%, #1a5276 100%);
-}
-section.section-divider h1 {
-  color: white;
-  border: none;
-  background: transparent;
-  font-size: 2.2em;
-  padding: 20px;
-}
-section.section-divider h2 {
-  color: #a8d8ea;
-  background: transparent;
-  border: none;
-  font-size: 1.3em;
-}
-;background-color:#fff;background-image:none;" data-marpit-pagination-total="46">
-<h1 id="the-vision-task-ladder">The Vision Task Ladder</h1>
-<p><img src="diagrams/svg/vision_tasks_hierarchy.svg" alt="center" style="width:900px;" /></p>
-<p>Each level gives you <strong>more information</strong> but requires <strong>more data and compute</strong>!</p>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="18" data-paginate="true" data-background-color="#fff" data-theme="default" data-style="/* PowerPoint-like slide layout with fixed title area */
 section {
@@ -4159,16 +4191,10 @@ section.section-divider h2 {
   border: none;
   font-size: 1.3em;
 }
-;background-color:#fff;background-image:none;" data-marpit-pagination-total="46">
-<h1 id="level-1-image-classification">Level 1: Image Classification</h1>
-<p><strong>What:</strong> Assign one label to an image.</p>
-<p><img src="examples/cifar10_examples.png" alt="center" style="width:600px;" /></p>
-<p><strong>Use Cases:</strong></p>
-<ul>
-<li>Google Photos: &quot;Show me all photos with dogs&quot;</li>
-<li>Medical: &quot;Is this X-ray normal or abnormal?&quot;</li>
-<li>Quality Control: &quot;Is this product defective?&quot;</li>
-</ul>
+;background-color:#fff;background-image:none;" data-marpit-pagination-total="47">
+<h1 id="the-vision-task-ladder">The Vision Task Ladder</h1>
+<p><img src="diagrams/svg/vision_tasks_hierarchy.svg" alt="center" style="width:900px;" /></p>
+<p>Each level gives you <strong>more information</strong> but requires <strong>more data and compute</strong>!</p>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="19" data-paginate="true" data-background-color="#fff" data-theme="default" data-style="/* PowerPoint-like slide layout with fixed title area */
 section {
@@ -4388,11 +4414,16 @@ section.section-divider h2 {
   border: none;
   font-size: 1.3em;
 }
-;background-color:#fff;background-image:none;" data-marpit-pagination-total="46">
-<h1 id="level-2-object-detection">Level 2: Object Detection</h1>
-<p><strong>Detection = Classification (what) + Regression (where)</strong></p>
-<p><img src="examples/coco_detection_examples.png" alt="center" style="width:900px;" /></p>
-<p>Output: List of <code>(class_name, confidence, x, y, width, height)</code> for each object</p>
+;background-color:#fff;background-image:none;" data-marpit-pagination-total="47">
+<h1 id="level-1-image-classification">Level 1: Image Classification</h1>
+<p><strong>What:</strong> Assign one label to an image.</p>
+<p><img src="examples/cifar10_examples.png" alt="center" style="width:600px;" /></p>
+<p><strong>Use Cases:</strong></p>
+<ul>
+<li>Google Photos: &quot;Show me all photos with dogs&quot;</li>
+<li>Medical: &quot;Is this X-ray normal or abnormal?&quot;</li>
+<li>Quality Control: &quot;Is this product defective?&quot;</li>
+</ul>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="20" data-paginate="true" data-background-color="#fff" data-theme="default" data-style="/* PowerPoint-like slide layout with fixed title area */
 section {
@@ -4612,9 +4643,11 @@ section.section-divider h2 {
   border: none;
   font-size: 1.3em;
 }
-;background-color:#fff;background-image:none;" data-marpit-pagination-total="46">
-<h1 id="level-3--4-segmentation">Level 3 &amp; 4: Segmentation</h1>
-<p><img src="examples/segmentation_comparison.png" alt="center" style="width:700px;" /></p>
+;background-color:#fff;background-image:none;" data-marpit-pagination-total="47">
+<h1 id="level-2-object-detection">Level 2: Object Detection</h1>
+<p><strong>Detection = Classification (what) + Regression (where)</strong></p>
+<p><img src="examples/coco_detection_examples.png" alt="center" style="width:900px;" /></p>
+<p>Output: List of <code>(class_name, confidence, x, y, width, height)</code> for each object</p>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="21" data-paginate="true" data-background-color="#fff" data-theme="default" data-style="/* PowerPoint-like slide layout with fixed title area */
 section {
@@ -4834,12 +4867,9 @@ section.section-divider h2 {
   border: none;
   font-size: 1.3em;
 }
-;background-color:#fff;background-image:none;" data-marpit-pagination-total="46">
-<h1 id="instance-segmentation-in-action">Instance Segmentation in Action</h1>
-<p><img src="examples/instance_segmentation_example.png" alt="center" style="width:900px;" /></p>
-<div class="insight">
-Self-driving cars need Instance Segmentation - they must track WHICH car is doing what!
-</div>
+;background-color:#fff;background-image:none;" data-marpit-pagination-total="47">
+<h1 id="level-3--4-segmentation">Level 3 &amp; 4: Segmentation</h1>
+<p><img src="examples/segmentation_comparison.png" alt="center" style="width:700px;" /></p>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="22" data-paginate="true" data-background-color="#fff" data-theme="default" data-style="/* PowerPoint-like slide layout with fixed title area */
 section {
@@ -5059,13 +5089,238 @@ section.section-divider h2 {
   border: none;
   font-size: 1.3em;
 }
-;background-color:#fff;background-image:none;" data-marpit-pagination-total="46">
+;background-color:#fff;background-image:none;" data-marpit-pagination-total="47">
+<h1 id="instance-segmentation-in-action">Instance Segmentation in Action</h1>
+<p><img src="examples/instance_segmentation_example.png" alt="center" style="width:900px;" /></p>
+<div class="insight">
+Self-driving cars need Instance Segmentation - they must track WHICH car is doing what!
+</div>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="23" data-paginate="true" data-background-color="#fff" data-theme="default" data-style="/* PowerPoint-like slide layout with fixed title area */
+section {
+  font-family: 'Segoe UI', 'Arial', sans-serif;
+  font-size: 22px;
+  padding: 0;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+/* Fixed title area at top */
+section h1 {
+  color: #2E86AB;
+  font-size: 1.6em;
+  margin: 0;
+  padding: 25px 40px 15px 40px;
+  border-bottom: 3px solid #2E86AB;
+  background: linear-gradient(180deg, #f8fbfd 0%, #fff 100%);
+  flex-shrink: 0;
+}
+section h2 {
+  color: #06A77D;
+  font-size: 1.0em;
+  margin: -10px 0 0 0;
+  padding: 0 40px 15px 40px;
+  background: linear-gradient(180deg, #fff 0%, #fff 100%);
+  border-bottom: 3px solid #2E86AB;
+  flex-shrink: 0;
+}
+/* When h1 followed by h2, remove h1 border */
+section h1:has(+ h2) {
+  border-bottom: none;
+  padding-bottom: 5px;
+}
+section h3 { color: #457B9D; font-size: 1.0em; margin-top: 15px; }
+/* Content area */
+section &gt; *:not(h1):not(h2) {
+  padding-left: 40px;
+  padding-right: 40px;
+}
+section &gt; p:first-of-type, section &gt; ul:first-of-type,
+section &gt; ol:first-of-type, section &gt; table:first-of-type,
+section &gt; div:first-of-type, section &gt; pre:first-of-type {
+  margin-top: 20px;
+}
+strong { color: #D62828; }
+code {
+  background: #f4f4f4;
+  color: #2E86AB;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: 'Consolas', 'Monaco', monospace;
+}
+pre {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 15px;
+  font-size: 0.8em;
+  line-height: 1.3;
+  overflow: hidden;
+  margin: 10px 40px;
+}
+.example {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-left: 4px solid #06A77D;
+  padding: 12px 15px;
+  margin: 10px 40px;
+  border-radius: 0 8px 8px 0;
+}
+.insight {
+  background: #fff3cd;
+  border-left: 4px solid #ffc107;
+  padding: 12px 15px;
+  margin: 10px 40px;
+  border-radius: 0 8px 8px 0;
+}
+.realworld {
+  background: #e3f2fd;
+  border-left: 4px solid #2196F3;
+  padding: 12px 15px;
+  margin: 10px 40px;
+  border-radius: 0 8px 8px 0;
+}
+.columns { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin: 0 40px; }
+.columns3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; margin: 0 40px; }
+table { font-size: 0.85em; width: calc(100% - 80px); margin: 10px 40px; }
+th { background: #2E86AB; color: white; padding: 8px; }
+td { padding: 8px; border-bottom: 1px solid #dee2e6; }
+img { margin: 10px auto; display: block; }
+/* Section divider slides */
+section.section-divider {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: linear-gradient(135deg, #2E86AB 0%, #1a5276 100%);
+}
+section.section-divider h1 {
+  color: white;
+  border: none;
+  background: transparent;
+  font-size: 2.2em;
+  padding: 20px;
+}
+section.section-divider h2 {
+  color: #a8d8ea;
+  background: transparent;
+  border: none;
+  font-size: 1.3em;
+}
+" lang="C" data-marpit-pagination="23" style="--paginate:true;--background-color:#fff;--theme:default;--style:/* PowerPoint-like slide layout with fixed title area */
+section {
+  font-family: 'Segoe UI', 'Arial', sans-serif;
+  font-size: 22px;
+  padding: 0;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+/* Fixed title area at top */
+section h1 {
+  color: #2E86AB;
+  font-size: 1.6em;
+  margin: 0;
+  padding: 25px 40px 15px 40px;
+  border-bottom: 3px solid #2E86AB;
+  background: linear-gradient(180deg, #f8fbfd 0%, #fff 100%);
+  flex-shrink: 0;
+}
+section h2 {
+  color: #06A77D;
+  font-size: 1.0em;
+  margin: -10px 0 0 0;
+  padding: 0 40px 15px 40px;
+  background: linear-gradient(180deg, #fff 0%, #fff 100%);
+  border-bottom: 3px solid #2E86AB;
+  flex-shrink: 0;
+}
+/* When h1 followed by h2, remove h1 border */
+section h1:has(+ h2) {
+  border-bottom: none;
+  padding-bottom: 5px;
+}
+section h3 { color: #457B9D; font-size: 1.0em; margin-top: 15px; }
+/* Content area */
+section &gt; *:not(h1):not(h2) {
+  padding-left: 40px;
+  padding-right: 40px;
+}
+section &gt; p:first-of-type, section &gt; ul:first-of-type,
+section &gt; ol:first-of-type, section &gt; table:first-of-type,
+section &gt; div:first-of-type, section &gt; pre:first-of-type {
+  margin-top: 20px;
+}
+strong { color: #D62828; }
+code {
+  background: #f4f4f4;
+  color: #2E86AB;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: 'Consolas', 'Monaco', monospace;
+}
+pre {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 15px;
+  font-size: 0.8em;
+  line-height: 1.3;
+  overflow: hidden;
+  margin: 10px 40px;
+}
+.example {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-left: 4px solid #06A77D;
+  padding: 12px 15px;
+  margin: 10px 40px;
+  border-radius: 0 8px 8px 0;
+}
+.insight {
+  background: #fff3cd;
+  border-left: 4px solid #ffc107;
+  padding: 12px 15px;
+  margin: 10px 40px;
+  border-radius: 0 8px 8px 0;
+}
+.realworld {
+  background: #e3f2fd;
+  border-left: 4px solid #2196F3;
+  padding: 12px 15px;
+  margin: 10px 40px;
+  border-radius: 0 8px 8px 0;
+}
+.columns { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin: 0 40px; }
+.columns3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; margin: 0 40px; }
+table { font-size: 0.85em; width: calc(100% - 80px); margin: 10px 40px; }
+th { background: #2E86AB; color: white; padding: 8px; }
+td { padding: 8px; border-bottom: 1px solid #dee2e6; }
+img { margin: 10px auto; display: block; }
+/* Section divider slides */
+section.section-divider {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: linear-gradient(135deg, #2E86AB 0%, #1a5276 100%);
+}
+section.section-divider h1 {
+  color: white;
+  border: none;
+  background: transparent;
+  font-size: 2.2em;
+  padding: 20px;
+}
+section.section-divider h2 {
+  color: #a8d8ea;
+  background: transparent;
+  border: none;
+  font-size: 1.3em;
+}
+;background-color:#fff;background-image:none;" data-marpit-pagination-total="47">
 <h1 id="pose-estimation-finding-body-keypoints">Pose Estimation: Finding Body Keypoints</h1>
 <p><strong>What:</strong> Find skeleton keypoints of humans or animals.</p>
 <p><img src="examples/pose_estimation_example.png" alt="center" style="width:800px;" /></p>
 <p><strong>Applications:</strong> Fitness apps, motion capture, sign language, fall detection</p>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="23" data-paginate="true" data-background-color="#fff" data-class="section-divider" data-theme="default" data-style="/* PowerPoint-like slide layout with fixed title area */
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="24" data-paginate="true" data-background-color="#fff" data-class="section-divider" data-theme="default" data-style="/* PowerPoint-like slide layout with fixed title area */
 section {
   font-family: 'Segoe UI', 'Arial', sans-serif;
   font-size: 22px;
@@ -5174,7 +5429,7 @@ section.section-divider h2 {
   border: none;
   font-size: 1.3em;
 }
-" lang="C" class="section-divider" data-marpit-pagination="23" style="--paginate:true;--background-color:#fff;--class:section-divider;--theme:default;--style:/* PowerPoint-like slide layout with fixed title area */
+" lang="C" class="section-divider" data-marpit-pagination="24" style="--paginate:true;--background-color:#fff;--class:section-divider;--theme:default;--style:/* PowerPoint-like slide layout with fixed title area */
 section {
   font-family: 'Segoe UI', 'Arial', sans-serif;
   font-size: 22px;
@@ -5283,274 +5538,9 @@ section.section-divider h2 {
   border: none;
   font-size: 1.3em;
 }
-;background-color:#fff;background-image:none;" data-marpit-pagination-total="46">
+;background-color:#fff;background-image:none;" data-marpit-pagination-total="47">
 <h1 id="part-4-natural-language-processing">Part 4: Natural Language Processing</h1>
 <h2 id="teaching-machines-to-read--write">Teaching Machines to Read &amp; Write</h2>
-</section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="24" data-paginate="true" data-background-color="#fff" data-theme="default" data-style="/* PowerPoint-like slide layout with fixed title area */
-section {
-  font-family: 'Segoe UI', 'Arial', sans-serif;
-  font-size: 22px;
-  padding: 0;
-  color: #333;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-}
-/* Fixed title area at top */
-section h1 {
-  color: #2E86AB;
-  font-size: 1.6em;
-  margin: 0;
-  padding: 25px 40px 15px 40px;
-  border-bottom: 3px solid #2E86AB;
-  background: linear-gradient(180deg, #f8fbfd 0%, #fff 100%);
-  flex-shrink: 0;
-}
-section h2 {
-  color: #06A77D;
-  font-size: 1.0em;
-  margin: -10px 0 0 0;
-  padding: 0 40px 15px 40px;
-  background: linear-gradient(180deg, #fff 0%, #fff 100%);
-  border-bottom: 3px solid #2E86AB;
-  flex-shrink: 0;
-}
-/* When h1 followed by h2, remove h1 border */
-section h1:has(+ h2) {
-  border-bottom: none;
-  padding-bottom: 5px;
-}
-section h3 { color: #457B9D; font-size: 1.0em; margin-top: 15px; }
-/* Content area */
-section &gt; *:not(h1):not(h2) {
-  padding-left: 40px;
-  padding-right: 40px;
-}
-section &gt; p:first-of-type, section &gt; ul:first-of-type,
-section &gt; ol:first-of-type, section &gt; table:first-of-type,
-section &gt; div:first-of-type, section &gt; pre:first-of-type {
-  margin-top: 20px;
-}
-strong { color: #D62828; }
-code {
-  background: #f4f4f4;
-  color: #2E86AB;
-  padding: 2px 6px;
-  border-radius: 4px;
-  font-family: 'Consolas', 'Monaco', monospace;
-}
-pre {
-  background: #f8f9fa;
-  border-radius: 8px;
-  padding: 15px;
-  font-size: 0.8em;
-  line-height: 1.3;
-  overflow: hidden;
-  margin: 10px 40px;
-}
-.example {
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-  border-left: 4px solid #06A77D;
-  padding: 12px 15px;
-  margin: 10px 40px;
-  border-radius: 0 8px 8px 0;
-}
-.insight {
-  background: #fff3cd;
-  border-left: 4px solid #ffc107;
-  padding: 12px 15px;
-  margin: 10px 40px;
-  border-radius: 0 8px 8px 0;
-}
-.realworld {
-  background: #e3f2fd;
-  border-left: 4px solid #2196F3;
-  padding: 12px 15px;
-  margin: 10px 40px;
-  border-radius: 0 8px 8px 0;
-}
-.columns { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin: 0 40px; }
-.columns3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; margin: 0 40px; }
-table { font-size: 0.85em; width: calc(100% - 80px); margin: 10px 40px; }
-th { background: #2E86AB; color: white; padding: 8px; }
-td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-img { margin: 10px auto; display: block; }
-/* Section divider slides */
-section.section-divider {
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  background: linear-gradient(135deg, #2E86AB 0%, #1a5276 100%);
-}
-section.section-divider h1 {
-  color: white;
-  border: none;
-  background: transparent;
-  font-size: 2.2em;
-  padding: 20px;
-}
-section.section-divider h2 {
-  color: #a8d8ea;
-  background: transparent;
-  border: none;
-  font-size: 1.3em;
-}
-" lang="C" data-marpit-pagination="24" style="--paginate:true;--background-color:#fff;--theme:default;--style:/* PowerPoint-like slide layout with fixed title area */
-section {
-  font-family: 'Segoe UI', 'Arial', sans-serif;
-  font-size: 22px;
-  padding: 0;
-  color: #333;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-}
-/* Fixed title area at top */
-section h1 {
-  color: #2E86AB;
-  font-size: 1.6em;
-  margin: 0;
-  padding: 25px 40px 15px 40px;
-  border-bottom: 3px solid #2E86AB;
-  background: linear-gradient(180deg, #f8fbfd 0%, #fff 100%);
-  flex-shrink: 0;
-}
-section h2 {
-  color: #06A77D;
-  font-size: 1.0em;
-  margin: -10px 0 0 0;
-  padding: 0 40px 15px 40px;
-  background: linear-gradient(180deg, #fff 0%, #fff 100%);
-  border-bottom: 3px solid #2E86AB;
-  flex-shrink: 0;
-}
-/* When h1 followed by h2, remove h1 border */
-section h1:has(+ h2) {
-  border-bottom: none;
-  padding-bottom: 5px;
-}
-section h3 { color: #457B9D; font-size: 1.0em; margin-top: 15px; }
-/* Content area */
-section &gt; *:not(h1):not(h2) {
-  padding-left: 40px;
-  padding-right: 40px;
-}
-section &gt; p:first-of-type, section &gt; ul:first-of-type,
-section &gt; ol:first-of-type, section &gt; table:first-of-type,
-section &gt; div:first-of-type, section &gt; pre:first-of-type {
-  margin-top: 20px;
-}
-strong { color: #D62828; }
-code {
-  background: #f4f4f4;
-  color: #2E86AB;
-  padding: 2px 6px;
-  border-radius: 4px;
-  font-family: 'Consolas', 'Monaco', monospace;
-}
-pre {
-  background: #f8f9fa;
-  border-radius: 8px;
-  padding: 15px;
-  font-size: 0.8em;
-  line-height: 1.3;
-  overflow: hidden;
-  margin: 10px 40px;
-}
-.example {
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-  border-left: 4px solid #06A77D;
-  padding: 12px 15px;
-  margin: 10px 40px;
-  border-radius: 0 8px 8px 0;
-}
-.insight {
-  background: #fff3cd;
-  border-left: 4px solid #ffc107;
-  padding: 12px 15px;
-  margin: 10px 40px;
-  border-radius: 0 8px 8px 0;
-}
-.realworld {
-  background: #e3f2fd;
-  border-left: 4px solid #2196F3;
-  padding: 12px 15px;
-  margin: 10px 40px;
-  border-radius: 0 8px 8px 0;
-}
-.columns { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin: 0 40px; }
-.columns3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; margin: 0 40px; }
-table { font-size: 0.85em; width: calc(100% - 80px); margin: 10px 40px; }
-th { background: #2E86AB; color: white; padding: 8px; }
-td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-img { margin: 10px auto; display: block; }
-/* Section divider slides */
-section.section-divider {
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  background: linear-gradient(135deg, #2E86AB 0%, #1a5276 100%);
-}
-section.section-divider h1 {
-  color: white;
-  border: none;
-  background: transparent;
-  font-size: 2.2em;
-  padding: 20px;
-}
-section.section-divider h2 {
-  color: #a8d8ea;
-  background: transparent;
-  border: none;
-  font-size: 1.3em;
-}
-;background-color:#fff;background-image:none;" data-marpit-pagination-total="46">
-<h1 id="the-nlp-task-landscape">The NLP Task Landscape</h1>
-<table>
-<thead>
-<tr>
-<th>Task Type</th>
-<th>What It Does</th>
-<th>Example</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Sentiment Analysis</strong></td>
-<td>Classify emotion</td>
-<td>&quot;Great movie!&quot; → Positive</td>
-</tr>
-<tr>
-<td><strong>Named Entity Recognition</strong></td>
-<td>Find names, places, dates</td>
-<td>&quot;Sundar Pichai visited NYC&quot;</td>
-</tr>
-<tr>
-<td><strong>Question Answering</strong></td>
-<td>Find answers in text</td>
-<td>&quot;When was Einstein born?&quot;</td>
-</tr>
-<tr>
-<td><strong>Translation</strong></td>
-<td>Convert between languages</td>
-<td>English → Hindi</td>
-</tr>
-<tr>
-<td><strong>Summarization</strong></td>
-<td>Shorten long text</td>
-<td>1000 words → 50 words</td>
-</tr>
-<tr>
-<td><strong>Text Generation</strong></td>
-<td>Create new text</td>
-<td>ChatGPT, Claude</td>
-</tr>
-</tbody>
-</table>
-<div class="realworld">
-Modern LLMs (GPT-4, Claude) can do ALL of these with a single model!
-</div>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="25" data-paginate="true" data-background-color="#fff" data-theme="default" data-style="/* PowerPoint-like slide layout with fixed title area */
 section {
@@ -5770,7 +5760,272 @@ section.section-divider h2 {
   border: none;
   font-size: 1.3em;
 }
-;background-color:#fff;background-image:none;" data-marpit-pagination-total="46">
+;background-color:#fff;background-image:none;" data-marpit-pagination-total="47">
+<h1 id="the-nlp-task-landscape">The NLP Task Landscape</h1>
+<table>
+<thead>
+<tr>
+<th>Task Type</th>
+<th>What It Does</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Sentiment Analysis</strong></td>
+<td>Classify emotion</td>
+<td>&quot;Great movie!&quot; → Positive</td>
+</tr>
+<tr>
+<td><strong>Named Entity Recognition</strong></td>
+<td>Find names, places, dates</td>
+<td>&quot;Sundar Pichai visited NYC&quot;</td>
+</tr>
+<tr>
+<td><strong>Question Answering</strong></td>
+<td>Find answers in text</td>
+<td>&quot;When was Einstein born?&quot;</td>
+</tr>
+<tr>
+<td><strong>Translation</strong></td>
+<td>Convert between languages</td>
+<td>English → Hindi</td>
+</tr>
+<tr>
+<td><strong>Summarization</strong></td>
+<td>Shorten long text</td>
+<td>1000 words → 50 words</td>
+</tr>
+<tr>
+<td><strong>Text Generation</strong></td>
+<td>Create new text</td>
+<td>ChatGPT, Claude</td>
+</tr>
+</tbody>
+</table>
+<div class="realworld">
+Modern LLMs (GPT-4, Claude) can do ALL of these with a single model!
+</div>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="26" data-paginate="true" data-background-color="#fff" data-theme="default" data-style="/* PowerPoint-like slide layout with fixed title area */
+section {
+  font-family: 'Segoe UI', 'Arial', sans-serif;
+  font-size: 22px;
+  padding: 0;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+/* Fixed title area at top */
+section h1 {
+  color: #2E86AB;
+  font-size: 1.6em;
+  margin: 0;
+  padding: 25px 40px 15px 40px;
+  border-bottom: 3px solid #2E86AB;
+  background: linear-gradient(180deg, #f8fbfd 0%, #fff 100%);
+  flex-shrink: 0;
+}
+section h2 {
+  color: #06A77D;
+  font-size: 1.0em;
+  margin: -10px 0 0 0;
+  padding: 0 40px 15px 40px;
+  background: linear-gradient(180deg, #fff 0%, #fff 100%);
+  border-bottom: 3px solid #2E86AB;
+  flex-shrink: 0;
+}
+/* When h1 followed by h2, remove h1 border */
+section h1:has(+ h2) {
+  border-bottom: none;
+  padding-bottom: 5px;
+}
+section h3 { color: #457B9D; font-size: 1.0em; margin-top: 15px; }
+/* Content area */
+section &gt; *:not(h1):not(h2) {
+  padding-left: 40px;
+  padding-right: 40px;
+}
+section &gt; p:first-of-type, section &gt; ul:first-of-type,
+section &gt; ol:first-of-type, section &gt; table:first-of-type,
+section &gt; div:first-of-type, section &gt; pre:first-of-type {
+  margin-top: 20px;
+}
+strong { color: #D62828; }
+code {
+  background: #f4f4f4;
+  color: #2E86AB;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: 'Consolas', 'Monaco', monospace;
+}
+pre {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 15px;
+  font-size: 0.8em;
+  line-height: 1.3;
+  overflow: hidden;
+  margin: 10px 40px;
+}
+.example {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-left: 4px solid #06A77D;
+  padding: 12px 15px;
+  margin: 10px 40px;
+  border-radius: 0 8px 8px 0;
+}
+.insight {
+  background: #fff3cd;
+  border-left: 4px solid #ffc107;
+  padding: 12px 15px;
+  margin: 10px 40px;
+  border-radius: 0 8px 8px 0;
+}
+.realworld {
+  background: #e3f2fd;
+  border-left: 4px solid #2196F3;
+  padding: 12px 15px;
+  margin: 10px 40px;
+  border-radius: 0 8px 8px 0;
+}
+.columns { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin: 0 40px; }
+.columns3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; margin: 0 40px; }
+table { font-size: 0.85em; width: calc(100% - 80px); margin: 10px 40px; }
+th { background: #2E86AB; color: white; padding: 8px; }
+td { padding: 8px; border-bottom: 1px solid #dee2e6; }
+img { margin: 10px auto; display: block; }
+/* Section divider slides */
+section.section-divider {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: linear-gradient(135deg, #2E86AB 0%, #1a5276 100%);
+}
+section.section-divider h1 {
+  color: white;
+  border: none;
+  background: transparent;
+  font-size: 2.2em;
+  padding: 20px;
+}
+section.section-divider h2 {
+  color: #a8d8ea;
+  background: transparent;
+  border: none;
+  font-size: 1.3em;
+}
+" lang="C" data-marpit-pagination="26" style="--paginate:true;--background-color:#fff;--theme:default;--style:/* PowerPoint-like slide layout with fixed title area */
+section {
+  font-family: 'Segoe UI', 'Arial', sans-serif;
+  font-size: 22px;
+  padding: 0;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+/* Fixed title area at top */
+section h1 {
+  color: #2E86AB;
+  font-size: 1.6em;
+  margin: 0;
+  padding: 25px 40px 15px 40px;
+  border-bottom: 3px solid #2E86AB;
+  background: linear-gradient(180deg, #f8fbfd 0%, #fff 100%);
+  flex-shrink: 0;
+}
+section h2 {
+  color: #06A77D;
+  font-size: 1.0em;
+  margin: -10px 0 0 0;
+  padding: 0 40px 15px 40px;
+  background: linear-gradient(180deg, #fff 0%, #fff 100%);
+  border-bottom: 3px solid #2E86AB;
+  flex-shrink: 0;
+}
+/* When h1 followed by h2, remove h1 border */
+section h1:has(+ h2) {
+  border-bottom: none;
+  padding-bottom: 5px;
+}
+section h3 { color: #457B9D; font-size: 1.0em; margin-top: 15px; }
+/* Content area */
+section &gt; *:not(h1):not(h2) {
+  padding-left: 40px;
+  padding-right: 40px;
+}
+section &gt; p:first-of-type, section &gt; ul:first-of-type,
+section &gt; ol:first-of-type, section &gt; table:first-of-type,
+section &gt; div:first-of-type, section &gt; pre:first-of-type {
+  margin-top: 20px;
+}
+strong { color: #D62828; }
+code {
+  background: #f4f4f4;
+  color: #2E86AB;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: 'Consolas', 'Monaco', monospace;
+}
+pre {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 15px;
+  font-size: 0.8em;
+  line-height: 1.3;
+  overflow: hidden;
+  margin: 10px 40px;
+}
+.example {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-left: 4px solid #06A77D;
+  padding: 12px 15px;
+  margin: 10px 40px;
+  border-radius: 0 8px 8px 0;
+}
+.insight {
+  background: #fff3cd;
+  border-left: 4px solid #ffc107;
+  padding: 12px 15px;
+  margin: 10px 40px;
+  border-radius: 0 8px 8px 0;
+}
+.realworld {
+  background: #e3f2fd;
+  border-left: 4px solid #2196F3;
+  padding: 12px 15px;
+  margin: 10px 40px;
+  border-radius: 0 8px 8px 0;
+}
+.columns { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin: 0 40px; }
+.columns3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; margin: 0 40px; }
+table { font-size: 0.85em; width: calc(100% - 80px); margin: 10px 40px; }
+th { background: #2E86AB; color: white; padding: 8px; }
+td { padding: 8px; border-bottom: 1px solid #dee2e6; }
+img { margin: 10px auto; display: block; }
+/* Section divider slides */
+section.section-divider {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: linear-gradient(135deg, #2E86AB 0%, #1a5276 100%);
+}
+section.section-divider h1 {
+  color: white;
+  border: none;
+  background: transparent;
+  font-size: 2.2em;
+  padding: 20px;
+}
+section.section-divider h2 {
+  color: #a8d8ea;
+  background: transparent;
+  border: none;
+  font-size: 1.3em;
+}
+;background-color:#fff;background-image:none;" data-marpit-pagination-total="47">
 <h1 id="named-entity-recognition-ner">Named Entity Recognition (NER)</h1>
 <p>Classify <strong>each word</strong> in the sequence:</p>
 <pre is="marp-pre" data-auto-scaling="downscale-only"><code>   Input:    &quot;Sundar  Pichai   visited  New    York   yesterday&quot;
@@ -5786,7 +6041,7 @@ section.section-divider h2 {
 Think of it as "semantic segmentation for text" - every word gets a label!
 </div>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="26" data-paginate="true" data-background-color="#fff" data-class="section-divider" data-theme="default" data-style="/* PowerPoint-like slide layout with fixed title area */
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="27" data-paginate="true" data-background-color="#fff" data-class="section-divider" data-theme="default" data-style="/* PowerPoint-like slide layout with fixed title area */
 section {
   font-family: 'Segoe UI', 'Arial', sans-serif;
   font-size: 22px;
@@ -5895,7 +6150,7 @@ section.section-divider h2 {
   border: none;
   font-size: 1.3em;
 }
-" lang="C" class="section-divider" data-marpit-pagination="26" style="--paginate:true;--background-color:#fff;--class:section-divider;--theme:default;--style:/* PowerPoint-like slide layout with fixed title area */
+" lang="C" class="section-divider" data-marpit-pagination="27" style="--paginate:true;--background-color:#fff;--class:section-divider;--theme:default;--style:/* PowerPoint-like slide layout with fixed title area */
 section {
   font-family: 'Segoe UI', 'Arial', sans-serif;
   font-size: 22px;
@@ -6004,243 +6259,9 @@ section.section-divider h2 {
   border: none;
   font-size: 1.3em;
 }
-;background-color:#fff;background-image:none;" data-marpit-pagination-total="46">
+;background-color:#fff;background-image:none;" data-marpit-pagination-total="47">
 <h1 id="part-5-unsupervised-learning">Part 5: Unsupervised Learning</h1>
 <h2 id="finding-patterns-without-labels">Finding Patterns Without Labels</h2>
-</section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="27" data-paginate="true" data-background-color="#fff" data-theme="default" data-style="/* PowerPoint-like slide layout with fixed title area */
-section {
-  font-family: 'Segoe UI', 'Arial', sans-serif;
-  font-size: 22px;
-  padding: 0;
-  color: #333;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-}
-/* Fixed title area at top */
-section h1 {
-  color: #2E86AB;
-  font-size: 1.6em;
-  margin: 0;
-  padding: 25px 40px 15px 40px;
-  border-bottom: 3px solid #2E86AB;
-  background: linear-gradient(180deg, #f8fbfd 0%, #fff 100%);
-  flex-shrink: 0;
-}
-section h2 {
-  color: #06A77D;
-  font-size: 1.0em;
-  margin: -10px 0 0 0;
-  padding: 0 40px 15px 40px;
-  background: linear-gradient(180deg, #fff 0%, #fff 100%);
-  border-bottom: 3px solid #2E86AB;
-  flex-shrink: 0;
-}
-/* When h1 followed by h2, remove h1 border */
-section h1:has(+ h2) {
-  border-bottom: none;
-  padding-bottom: 5px;
-}
-section h3 { color: #457B9D; font-size: 1.0em; margin-top: 15px; }
-/* Content area */
-section &gt; *:not(h1):not(h2) {
-  padding-left: 40px;
-  padding-right: 40px;
-}
-section &gt; p:first-of-type, section &gt; ul:first-of-type,
-section &gt; ol:first-of-type, section &gt; table:first-of-type,
-section &gt; div:first-of-type, section &gt; pre:first-of-type {
-  margin-top: 20px;
-}
-strong { color: #D62828; }
-code {
-  background: #f4f4f4;
-  color: #2E86AB;
-  padding: 2px 6px;
-  border-radius: 4px;
-  font-family: 'Consolas', 'Monaco', monospace;
-}
-pre {
-  background: #f8f9fa;
-  border-radius: 8px;
-  padding: 15px;
-  font-size: 0.8em;
-  line-height: 1.3;
-  overflow: hidden;
-  margin: 10px 40px;
-}
-.example {
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-  border-left: 4px solid #06A77D;
-  padding: 12px 15px;
-  margin: 10px 40px;
-  border-radius: 0 8px 8px 0;
-}
-.insight {
-  background: #fff3cd;
-  border-left: 4px solid #ffc107;
-  padding: 12px 15px;
-  margin: 10px 40px;
-  border-radius: 0 8px 8px 0;
-}
-.realworld {
-  background: #e3f2fd;
-  border-left: 4px solid #2196F3;
-  padding: 12px 15px;
-  margin: 10px 40px;
-  border-radius: 0 8px 8px 0;
-}
-.columns { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin: 0 40px; }
-.columns3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; margin: 0 40px; }
-table { font-size: 0.85em; width: calc(100% - 80px); margin: 10px 40px; }
-th { background: #2E86AB; color: white; padding: 8px; }
-td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-img { margin: 10px auto; display: block; }
-/* Section divider slides */
-section.section-divider {
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  background: linear-gradient(135deg, #2E86AB 0%, #1a5276 100%);
-}
-section.section-divider h1 {
-  color: white;
-  border: none;
-  background: transparent;
-  font-size: 2.2em;
-  padding: 20px;
-}
-section.section-divider h2 {
-  color: #a8d8ea;
-  background: transparent;
-  border: none;
-  font-size: 1.3em;
-}
-" lang="C" data-marpit-pagination="27" style="--paginate:true;--background-color:#fff;--theme:default;--style:/* PowerPoint-like slide layout with fixed title area */
-section {
-  font-family: 'Segoe UI', 'Arial', sans-serif;
-  font-size: 22px;
-  padding: 0;
-  color: #333;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-}
-/* Fixed title area at top */
-section h1 {
-  color: #2E86AB;
-  font-size: 1.6em;
-  margin: 0;
-  padding: 25px 40px 15px 40px;
-  border-bottom: 3px solid #2E86AB;
-  background: linear-gradient(180deg, #f8fbfd 0%, #fff 100%);
-  flex-shrink: 0;
-}
-section h2 {
-  color: #06A77D;
-  font-size: 1.0em;
-  margin: -10px 0 0 0;
-  padding: 0 40px 15px 40px;
-  background: linear-gradient(180deg, #fff 0%, #fff 100%);
-  border-bottom: 3px solid #2E86AB;
-  flex-shrink: 0;
-}
-/* When h1 followed by h2, remove h1 border */
-section h1:has(+ h2) {
-  border-bottom: none;
-  padding-bottom: 5px;
-}
-section h3 { color: #457B9D; font-size: 1.0em; margin-top: 15px; }
-/* Content area */
-section &gt; *:not(h1):not(h2) {
-  padding-left: 40px;
-  padding-right: 40px;
-}
-section &gt; p:first-of-type, section &gt; ul:first-of-type,
-section &gt; ol:first-of-type, section &gt; table:first-of-type,
-section &gt; div:first-of-type, section &gt; pre:first-of-type {
-  margin-top: 20px;
-}
-strong { color: #D62828; }
-code {
-  background: #f4f4f4;
-  color: #2E86AB;
-  padding: 2px 6px;
-  border-radius: 4px;
-  font-family: 'Consolas', 'Monaco', monospace;
-}
-pre {
-  background: #f8f9fa;
-  border-radius: 8px;
-  padding: 15px;
-  font-size: 0.8em;
-  line-height: 1.3;
-  overflow: hidden;
-  margin: 10px 40px;
-}
-.example {
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-  border-left: 4px solid #06A77D;
-  padding: 12px 15px;
-  margin: 10px 40px;
-  border-radius: 0 8px 8px 0;
-}
-.insight {
-  background: #fff3cd;
-  border-left: 4px solid #ffc107;
-  padding: 12px 15px;
-  margin: 10px 40px;
-  border-radius: 0 8px 8px 0;
-}
-.realworld {
-  background: #e3f2fd;
-  border-left: 4px solid #2196F3;
-  padding: 12px 15px;
-  margin: 10px 40px;
-  border-radius: 0 8px 8px 0;
-}
-.columns { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin: 0 40px; }
-.columns3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; margin: 0 40px; }
-table { font-size: 0.85em; width: calc(100% - 80px); margin: 10px 40px; }
-th { background: #2E86AB; color: white; padding: 8px; }
-td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-img { margin: 10px auto; display: block; }
-/* Section divider slides */
-section.section-divider {
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  background: linear-gradient(135deg, #2E86AB 0%, #1a5276 100%);
-}
-section.section-divider h1 {
-  color: white;
-  border: none;
-  background: transparent;
-  font-size: 2.2em;
-  padding: 20px;
-}
-section.section-divider h2 {
-  color: #a8d8ea;
-  background: transparent;
-  border: none;
-  font-size: 1.3em;
-}
-;background-color:#fff;background-image:none;" data-marpit-pagination-total="46">
-<h1 id="supervised-vs-unsupervised">Supervised vs Unsupervised</h1>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>SUPERVISED:                        UNSUPERVISED:
-┌─────────────────────────┐        ┌─────────────────────────┐
-│                         │        │                         │
-│ Data: X (features)      │        │ Data: X (features)      │
-│ Labels: Y (answers)     │        │ Labels: NONE!           │
-│                         │        │                         │
-│ Learn: f(X) → Y         │        │ Find: patterns in X     │
-│                         │        │                         │
-│ &quot;Teach by example&quot;      │        │ &quot;Learn by exploration&quot;  │
-│                         │        │                         │
-└─────────────────────────┘        └─────────────────────────┘
-</code></pre>
-<p><strong>No one tells the model what to look for - it discovers structure on its own!</strong></p>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="28" data-paginate="true" data-background-color="#fff" data-theme="default" data-style="/* PowerPoint-like slide layout with fixed title area */
 section {
@@ -6460,13 +6481,10 @@ section.section-divider h2 {
   border: none;
   font-size: 1.3em;
 }
-;background-color:#fff;background-image:none;" data-marpit-pagination-total="46">
-<h1 id="clustering-k-means-in-action">Clustering: K-Means in Action</h1>
-<p><img src="examples/kmeans_example.png" alt="center" style="width:1000px;" /></p>
-<p><strong>K-Means:</strong> No labels needed! The algorithm discovers natural groupings.</p>
-<div class="realworld">
-**Applications:** Customer segmentation, gene expression analysis, document clustering
-</div>
+;background-color:#fff;background-image:none;" data-marpit-pagination-total="47">
+<h1 id="supervised-vs-unsupervised">Supervised vs Unsupervised</h1>
+<p><img src="diagrams/svg/supervised_vs_unsupervised.svg" alt="center" style="width:900px;" /></p>
+<p><strong>No one tells the model what to look for - it discovers structure on its own!</strong></p>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="29" data-paginate="true" data-background-color="#fff" data-theme="default" data-style="/* PowerPoint-like slide layout with fixed title area */
 section {
@@ -6686,7 +6704,233 @@ section.section-divider h2 {
   border: none;
   font-size: 1.3em;
 }
-;background-color:#fff;background-image:none;" data-marpit-pagination-total="46">
+;background-color:#fff;background-image:none;" data-marpit-pagination-total="47">
+<h1 id="clustering-k-means-in-action">Clustering: K-Means in Action</h1>
+<p><img src="examples/kmeans_example.png" alt="center" style="width:1000px;" /></p>
+<p><strong>K-Means:</strong> No labels needed! The algorithm discovers natural groupings.</p>
+<div class="realworld">
+**Applications:** Customer segmentation, gene expression analysis, document clustering
+</div>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="30" data-paginate="true" data-background-color="#fff" data-theme="default" data-style="/* PowerPoint-like slide layout with fixed title area */
+section {
+  font-family: 'Segoe UI', 'Arial', sans-serif;
+  font-size: 22px;
+  padding: 0;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+/* Fixed title area at top */
+section h1 {
+  color: #2E86AB;
+  font-size: 1.6em;
+  margin: 0;
+  padding: 25px 40px 15px 40px;
+  border-bottom: 3px solid #2E86AB;
+  background: linear-gradient(180deg, #f8fbfd 0%, #fff 100%);
+  flex-shrink: 0;
+}
+section h2 {
+  color: #06A77D;
+  font-size: 1.0em;
+  margin: -10px 0 0 0;
+  padding: 0 40px 15px 40px;
+  background: linear-gradient(180deg, #fff 0%, #fff 100%);
+  border-bottom: 3px solid #2E86AB;
+  flex-shrink: 0;
+}
+/* When h1 followed by h2, remove h1 border */
+section h1:has(+ h2) {
+  border-bottom: none;
+  padding-bottom: 5px;
+}
+section h3 { color: #457B9D; font-size: 1.0em; margin-top: 15px; }
+/* Content area */
+section &gt; *:not(h1):not(h2) {
+  padding-left: 40px;
+  padding-right: 40px;
+}
+section &gt; p:first-of-type, section &gt; ul:first-of-type,
+section &gt; ol:first-of-type, section &gt; table:first-of-type,
+section &gt; div:first-of-type, section &gt; pre:first-of-type {
+  margin-top: 20px;
+}
+strong { color: #D62828; }
+code {
+  background: #f4f4f4;
+  color: #2E86AB;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: 'Consolas', 'Monaco', monospace;
+}
+pre {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 15px;
+  font-size: 0.8em;
+  line-height: 1.3;
+  overflow: hidden;
+  margin: 10px 40px;
+}
+.example {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-left: 4px solid #06A77D;
+  padding: 12px 15px;
+  margin: 10px 40px;
+  border-radius: 0 8px 8px 0;
+}
+.insight {
+  background: #fff3cd;
+  border-left: 4px solid #ffc107;
+  padding: 12px 15px;
+  margin: 10px 40px;
+  border-radius: 0 8px 8px 0;
+}
+.realworld {
+  background: #e3f2fd;
+  border-left: 4px solid #2196F3;
+  padding: 12px 15px;
+  margin: 10px 40px;
+  border-radius: 0 8px 8px 0;
+}
+.columns { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin: 0 40px; }
+.columns3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; margin: 0 40px; }
+table { font-size: 0.85em; width: calc(100% - 80px); margin: 10px 40px; }
+th { background: #2E86AB; color: white; padding: 8px; }
+td { padding: 8px; border-bottom: 1px solid #dee2e6; }
+img { margin: 10px auto; display: block; }
+/* Section divider slides */
+section.section-divider {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: linear-gradient(135deg, #2E86AB 0%, #1a5276 100%);
+}
+section.section-divider h1 {
+  color: white;
+  border: none;
+  background: transparent;
+  font-size: 2.2em;
+  padding: 20px;
+}
+section.section-divider h2 {
+  color: #a8d8ea;
+  background: transparent;
+  border: none;
+  font-size: 1.3em;
+}
+" lang="C" data-marpit-pagination="30" style="--paginate:true;--background-color:#fff;--theme:default;--style:/* PowerPoint-like slide layout with fixed title area */
+section {
+  font-family: 'Segoe UI', 'Arial', sans-serif;
+  font-size: 22px;
+  padding: 0;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+/* Fixed title area at top */
+section h1 {
+  color: #2E86AB;
+  font-size: 1.6em;
+  margin: 0;
+  padding: 25px 40px 15px 40px;
+  border-bottom: 3px solid #2E86AB;
+  background: linear-gradient(180deg, #f8fbfd 0%, #fff 100%);
+  flex-shrink: 0;
+}
+section h2 {
+  color: #06A77D;
+  font-size: 1.0em;
+  margin: -10px 0 0 0;
+  padding: 0 40px 15px 40px;
+  background: linear-gradient(180deg, #fff 0%, #fff 100%);
+  border-bottom: 3px solid #2E86AB;
+  flex-shrink: 0;
+}
+/* When h1 followed by h2, remove h1 border */
+section h1:has(+ h2) {
+  border-bottom: none;
+  padding-bottom: 5px;
+}
+section h3 { color: #457B9D; font-size: 1.0em; margin-top: 15px; }
+/* Content area */
+section &gt; *:not(h1):not(h2) {
+  padding-left: 40px;
+  padding-right: 40px;
+}
+section &gt; p:first-of-type, section &gt; ul:first-of-type,
+section &gt; ol:first-of-type, section &gt; table:first-of-type,
+section &gt; div:first-of-type, section &gt; pre:first-of-type {
+  margin-top: 20px;
+}
+strong { color: #D62828; }
+code {
+  background: #f4f4f4;
+  color: #2E86AB;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: 'Consolas', 'Monaco', monospace;
+}
+pre {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 15px;
+  font-size: 0.8em;
+  line-height: 1.3;
+  overflow: hidden;
+  margin: 10px 40px;
+}
+.example {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-left: 4px solid #06A77D;
+  padding: 12px 15px;
+  margin: 10px 40px;
+  border-radius: 0 8px 8px 0;
+}
+.insight {
+  background: #fff3cd;
+  border-left: 4px solid #ffc107;
+  padding: 12px 15px;
+  margin: 10px 40px;
+  border-radius: 0 8px 8px 0;
+}
+.realworld {
+  background: #e3f2fd;
+  border-left: 4px solid #2196F3;
+  padding: 12px 15px;
+  margin: 10px 40px;
+  border-radius: 0 8px 8px 0;
+}
+.columns { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin: 0 40px; }
+.columns3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; margin: 0 40px; }
+table { font-size: 0.85em; width: calc(100% - 80px); margin: 10px 40px; }
+th { background: #2E86AB; color: white; padding: 8px; }
+td { padding: 8px; border-bottom: 1px solid #dee2e6; }
+img { margin: 10px auto; display: block; }
+/* Section divider slides */
+section.section-divider {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: linear-gradient(135deg, #2E86AB 0%, #1a5276 100%);
+}
+section.section-divider h1 {
+  color: white;
+  border: none;
+  background: transparent;
+  font-size: 2.2em;
+  padding: 20px;
+}
+section.section-divider h2 {
+  color: #a8d8ea;
+  background: transparent;
+  border: none;
+  font-size: 1.3em;
+}
+;background-color:#fff;background-image:none;" data-marpit-pagination-total="47">
 <h1 id="dimensionality-reduction">Dimensionality Reduction</h1>
 <p><strong>Problem:</strong> High-dimensional data is hard to visualize.</p>
 <pre is="marp-pre" data-auto-scaling="downscale-only"><code>Original: 1000-dimensional data
@@ -6706,7 +6950,7 @@ section.section-divider h2 {
               ■ ■ ■        ← Cluster 3
 </code></pre>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="30" data-paginate="true" data-background-color="#fff" data-class="section-divider" data-theme="default" data-style="/* PowerPoint-like slide layout with fixed title area */
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="31" data-paginate="true" data-background-color="#fff" data-class="section-divider" data-theme="default" data-style="/* PowerPoint-like slide layout with fixed title area */
 section {
   font-family: 'Segoe UI', 'Arial', sans-serif;
   font-size: 22px;
@@ -6815,7 +7059,7 @@ section.section-divider h2 {
   border: none;
   font-size: 1.3em;
 }
-" lang="C" class="section-divider" data-marpit-pagination="30" style="--paginate:true;--background-color:#fff;--class:section-divider;--theme:default;--style:/* PowerPoint-like slide layout with fixed title area */
+" lang="C" class="section-divider" data-marpit-pagination="31" style="--paginate:true;--background-color:#fff;--class:section-divider;--theme:default;--style:/* PowerPoint-like slide layout with fixed title area */
 section {
   font-family: 'Segoe UI', 'Arial', sans-serif;
   font-size: 22px;
@@ -6924,242 +7168,9 @@ section.section-divider h2 {
   border: none;
   font-size: 1.3em;
 }
-;background-color:#fff;background-image:none;" data-marpit-pagination-total="46">
+;background-color:#fff;background-image:none;" data-marpit-pagination-total="47">
 <h1 id="part-6-generative-models">Part 6: Generative Models</h1>
 <h2 id="creating-new-data">Creating New Data</h2>
-</section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="31" data-paginate="true" data-background-color="#fff" data-theme="default" data-style="/* PowerPoint-like slide layout with fixed title area */
-section {
-  font-family: 'Segoe UI', 'Arial', sans-serif;
-  font-size: 22px;
-  padding: 0;
-  color: #333;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-}
-/* Fixed title area at top */
-section h1 {
-  color: #2E86AB;
-  font-size: 1.6em;
-  margin: 0;
-  padding: 25px 40px 15px 40px;
-  border-bottom: 3px solid #2E86AB;
-  background: linear-gradient(180deg, #f8fbfd 0%, #fff 100%);
-  flex-shrink: 0;
-}
-section h2 {
-  color: #06A77D;
-  font-size: 1.0em;
-  margin: -10px 0 0 0;
-  padding: 0 40px 15px 40px;
-  background: linear-gradient(180deg, #fff 0%, #fff 100%);
-  border-bottom: 3px solid #2E86AB;
-  flex-shrink: 0;
-}
-/* When h1 followed by h2, remove h1 border */
-section h1:has(+ h2) {
-  border-bottom: none;
-  padding-bottom: 5px;
-}
-section h3 { color: #457B9D; font-size: 1.0em; margin-top: 15px; }
-/* Content area */
-section &gt; *:not(h1):not(h2) {
-  padding-left: 40px;
-  padding-right: 40px;
-}
-section &gt; p:first-of-type, section &gt; ul:first-of-type,
-section &gt; ol:first-of-type, section &gt; table:first-of-type,
-section &gt; div:first-of-type, section &gt; pre:first-of-type {
-  margin-top: 20px;
-}
-strong { color: #D62828; }
-code {
-  background: #f4f4f4;
-  color: #2E86AB;
-  padding: 2px 6px;
-  border-radius: 4px;
-  font-family: 'Consolas', 'Monaco', monospace;
-}
-pre {
-  background: #f8f9fa;
-  border-radius: 8px;
-  padding: 15px;
-  font-size: 0.8em;
-  line-height: 1.3;
-  overflow: hidden;
-  margin: 10px 40px;
-}
-.example {
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-  border-left: 4px solid #06A77D;
-  padding: 12px 15px;
-  margin: 10px 40px;
-  border-radius: 0 8px 8px 0;
-}
-.insight {
-  background: #fff3cd;
-  border-left: 4px solid #ffc107;
-  padding: 12px 15px;
-  margin: 10px 40px;
-  border-radius: 0 8px 8px 0;
-}
-.realworld {
-  background: #e3f2fd;
-  border-left: 4px solid #2196F3;
-  padding: 12px 15px;
-  margin: 10px 40px;
-  border-radius: 0 8px 8px 0;
-}
-.columns { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin: 0 40px; }
-.columns3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; margin: 0 40px; }
-table { font-size: 0.85em; width: calc(100% - 80px); margin: 10px 40px; }
-th { background: #2E86AB; color: white; padding: 8px; }
-td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-img { margin: 10px auto; display: block; }
-/* Section divider slides */
-section.section-divider {
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  background: linear-gradient(135deg, #2E86AB 0%, #1a5276 100%);
-}
-section.section-divider h1 {
-  color: white;
-  border: none;
-  background: transparent;
-  font-size: 2.2em;
-  padding: 20px;
-}
-section.section-divider h2 {
-  color: #a8d8ea;
-  background: transparent;
-  border: none;
-  font-size: 1.3em;
-}
-" lang="C" data-marpit-pagination="31" style="--paginate:true;--background-color:#fff;--theme:default;--style:/* PowerPoint-like slide layout with fixed title area */
-section {
-  font-family: 'Segoe UI', 'Arial', sans-serif;
-  font-size: 22px;
-  padding: 0;
-  color: #333;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-}
-/* Fixed title area at top */
-section h1 {
-  color: #2E86AB;
-  font-size: 1.6em;
-  margin: 0;
-  padding: 25px 40px 15px 40px;
-  border-bottom: 3px solid #2E86AB;
-  background: linear-gradient(180deg, #f8fbfd 0%, #fff 100%);
-  flex-shrink: 0;
-}
-section h2 {
-  color: #06A77D;
-  font-size: 1.0em;
-  margin: -10px 0 0 0;
-  padding: 0 40px 15px 40px;
-  background: linear-gradient(180deg, #fff 0%, #fff 100%);
-  border-bottom: 3px solid #2E86AB;
-  flex-shrink: 0;
-}
-/* When h1 followed by h2, remove h1 border */
-section h1:has(+ h2) {
-  border-bottom: none;
-  padding-bottom: 5px;
-}
-section h3 { color: #457B9D; font-size: 1.0em; margin-top: 15px; }
-/* Content area */
-section &gt; *:not(h1):not(h2) {
-  padding-left: 40px;
-  padding-right: 40px;
-}
-section &gt; p:first-of-type, section &gt; ul:first-of-type,
-section &gt; ol:first-of-type, section &gt; table:first-of-type,
-section &gt; div:first-of-type, section &gt; pre:first-of-type {
-  margin-top: 20px;
-}
-strong { color: #D62828; }
-code {
-  background: #f4f4f4;
-  color: #2E86AB;
-  padding: 2px 6px;
-  border-radius: 4px;
-  font-family: 'Consolas', 'Monaco', monospace;
-}
-pre {
-  background: #f8f9fa;
-  border-radius: 8px;
-  padding: 15px;
-  font-size: 0.8em;
-  line-height: 1.3;
-  overflow: hidden;
-  margin: 10px 40px;
-}
-.example {
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-  border-left: 4px solid #06A77D;
-  padding: 12px 15px;
-  margin: 10px 40px;
-  border-radius: 0 8px 8px 0;
-}
-.insight {
-  background: #fff3cd;
-  border-left: 4px solid #ffc107;
-  padding: 12px 15px;
-  margin: 10px 40px;
-  border-radius: 0 8px 8px 0;
-}
-.realworld {
-  background: #e3f2fd;
-  border-left: 4px solid #2196F3;
-  padding: 12px 15px;
-  margin: 10px 40px;
-  border-radius: 0 8px 8px 0;
-}
-.columns { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin: 0 40px; }
-.columns3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; margin: 0 40px; }
-table { font-size: 0.85em; width: calc(100% - 80px); margin: 10px 40px; }
-th { background: #2E86AB; color: white; padding: 8px; }
-td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-img { margin: 10px auto; display: block; }
-/* Section divider slides */
-section.section-divider {
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  background: linear-gradient(135deg, #2E86AB 0%, #1a5276 100%);
-}
-section.section-divider h1 {
-  color: white;
-  border: none;
-  background: transparent;
-  font-size: 2.2em;
-  padding: 20px;
-}
-section.section-divider h2 {
-  color: #a8d8ea;
-  background: transparent;
-  border: none;
-  font-size: 1.3em;
-}
-;background-color:#fff;background-image:none;" data-marpit-pagination-total="46">
-<h1 id="generative-vs-discriminative">Generative vs Discriminative</h1>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>DISCRIMINATIVE (Classification):
-┌─────────────────────────────────────────────────────────────────┐
-│   [Image of cat]  ───►  Model  ───►  &quot;Cat&quot; or &quot;Dog&quot;            │
-│   Given X, predict Y. &quot;What IS this?&quot;                           │
-└─────────────────────────────────────────────────────────────────┘
-
-GENERATIVE (Creation):
-┌─────────────────────────────────────────────────────────────────┐
-│   &quot;Draw a cat&quot;   ───►  Model  ───►  [NEW image of a cat!]      │
-│   Create NEW X from scratch. &quot;Make something like this&quot;         │
-└─────────────────────────────────────────────────────────────────┘
-</code></pre>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="32" data-paginate="true" data-background-color="#fff" data-theme="default" data-style="/* PowerPoint-like slide layout with fixed title area */
 section {
@@ -7379,7 +7390,229 @@ section.section-divider h2 {
   border: none;
   font-size: 1.3em;
 }
-;background-color:#fff;background-image:none;" data-marpit-pagination-total="46">
+;background-color:#fff;background-image:none;" data-marpit-pagination-total="47">
+<h1 id="generative-vs-discriminative">Generative vs Discriminative</h1>
+<p><img src="diagrams/svg/generative_vs_discriminative.svg" alt="center" style="width:800px;" /></p>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="33" data-paginate="true" data-background-color="#fff" data-theme="default" data-style="/* PowerPoint-like slide layout with fixed title area */
+section {
+  font-family: 'Segoe UI', 'Arial', sans-serif;
+  font-size: 22px;
+  padding: 0;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+/* Fixed title area at top */
+section h1 {
+  color: #2E86AB;
+  font-size: 1.6em;
+  margin: 0;
+  padding: 25px 40px 15px 40px;
+  border-bottom: 3px solid #2E86AB;
+  background: linear-gradient(180deg, #f8fbfd 0%, #fff 100%);
+  flex-shrink: 0;
+}
+section h2 {
+  color: #06A77D;
+  font-size: 1.0em;
+  margin: -10px 0 0 0;
+  padding: 0 40px 15px 40px;
+  background: linear-gradient(180deg, #fff 0%, #fff 100%);
+  border-bottom: 3px solid #2E86AB;
+  flex-shrink: 0;
+}
+/* When h1 followed by h2, remove h1 border */
+section h1:has(+ h2) {
+  border-bottom: none;
+  padding-bottom: 5px;
+}
+section h3 { color: #457B9D; font-size: 1.0em; margin-top: 15px; }
+/* Content area */
+section &gt; *:not(h1):not(h2) {
+  padding-left: 40px;
+  padding-right: 40px;
+}
+section &gt; p:first-of-type, section &gt; ul:first-of-type,
+section &gt; ol:first-of-type, section &gt; table:first-of-type,
+section &gt; div:first-of-type, section &gt; pre:first-of-type {
+  margin-top: 20px;
+}
+strong { color: #D62828; }
+code {
+  background: #f4f4f4;
+  color: #2E86AB;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: 'Consolas', 'Monaco', monospace;
+}
+pre {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 15px;
+  font-size: 0.8em;
+  line-height: 1.3;
+  overflow: hidden;
+  margin: 10px 40px;
+}
+.example {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-left: 4px solid #06A77D;
+  padding: 12px 15px;
+  margin: 10px 40px;
+  border-radius: 0 8px 8px 0;
+}
+.insight {
+  background: #fff3cd;
+  border-left: 4px solid #ffc107;
+  padding: 12px 15px;
+  margin: 10px 40px;
+  border-radius: 0 8px 8px 0;
+}
+.realworld {
+  background: #e3f2fd;
+  border-left: 4px solid #2196F3;
+  padding: 12px 15px;
+  margin: 10px 40px;
+  border-radius: 0 8px 8px 0;
+}
+.columns { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin: 0 40px; }
+.columns3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; margin: 0 40px; }
+table { font-size: 0.85em; width: calc(100% - 80px); margin: 10px 40px; }
+th { background: #2E86AB; color: white; padding: 8px; }
+td { padding: 8px; border-bottom: 1px solid #dee2e6; }
+img { margin: 10px auto; display: block; }
+/* Section divider slides */
+section.section-divider {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: linear-gradient(135deg, #2E86AB 0%, #1a5276 100%);
+}
+section.section-divider h1 {
+  color: white;
+  border: none;
+  background: transparent;
+  font-size: 2.2em;
+  padding: 20px;
+}
+section.section-divider h2 {
+  color: #a8d8ea;
+  background: transparent;
+  border: none;
+  font-size: 1.3em;
+}
+" lang="C" data-marpit-pagination="33" style="--paginate:true;--background-color:#fff;--theme:default;--style:/* PowerPoint-like slide layout with fixed title area */
+section {
+  font-family: 'Segoe UI', 'Arial', sans-serif;
+  font-size: 22px;
+  padding: 0;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+/* Fixed title area at top */
+section h1 {
+  color: #2E86AB;
+  font-size: 1.6em;
+  margin: 0;
+  padding: 25px 40px 15px 40px;
+  border-bottom: 3px solid #2E86AB;
+  background: linear-gradient(180deg, #f8fbfd 0%, #fff 100%);
+  flex-shrink: 0;
+}
+section h2 {
+  color: #06A77D;
+  font-size: 1.0em;
+  margin: -10px 0 0 0;
+  padding: 0 40px 15px 40px;
+  background: linear-gradient(180deg, #fff 0%, #fff 100%);
+  border-bottom: 3px solid #2E86AB;
+  flex-shrink: 0;
+}
+/* When h1 followed by h2, remove h1 border */
+section h1:has(+ h2) {
+  border-bottom: none;
+  padding-bottom: 5px;
+}
+section h3 { color: #457B9D; font-size: 1.0em; margin-top: 15px; }
+/* Content area */
+section &gt; *:not(h1):not(h2) {
+  padding-left: 40px;
+  padding-right: 40px;
+}
+section &gt; p:first-of-type, section &gt; ul:first-of-type,
+section &gt; ol:first-of-type, section &gt; table:first-of-type,
+section &gt; div:first-of-type, section &gt; pre:first-of-type {
+  margin-top: 20px;
+}
+strong { color: #D62828; }
+code {
+  background: #f4f4f4;
+  color: #2E86AB;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: 'Consolas', 'Monaco', monospace;
+}
+pre {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 15px;
+  font-size: 0.8em;
+  line-height: 1.3;
+  overflow: hidden;
+  margin: 10px 40px;
+}
+.example {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-left: 4px solid #06A77D;
+  padding: 12px 15px;
+  margin: 10px 40px;
+  border-radius: 0 8px 8px 0;
+}
+.insight {
+  background: #fff3cd;
+  border-left: 4px solid #ffc107;
+  padding: 12px 15px;
+  margin: 10px 40px;
+  border-radius: 0 8px 8px 0;
+}
+.realworld {
+  background: #e3f2fd;
+  border-left: 4px solid #2196F3;
+  padding: 12px 15px;
+  margin: 10px 40px;
+  border-radius: 0 8px 8px 0;
+}
+.columns { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin: 0 40px; }
+.columns3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; margin: 0 40px; }
+table { font-size: 0.85em; width: calc(100% - 80px); margin: 10px 40px; }
+th { background: #2E86AB; color: white; padding: 8px; }
+td { padding: 8px; border-bottom: 1px solid #dee2e6; }
+img { margin: 10px auto; display: block; }
+/* Section divider slides */
+section.section-divider {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: linear-gradient(135deg, #2E86AB 0%, #1a5276 100%);
+}
+section.section-divider h1 {
+  color: white;
+  border: none;
+  background: transparent;
+  font-size: 2.2em;
+  padding: 20px;
+}
+section.section-divider h2 {
+  color: #a8d8ea;
+  background: transparent;
+  border: none;
+  font-size: 1.3em;
+}
+;background-color:#fff;background-image:none;" data-marpit-pagination-total="47">
 <h1 id="the-generative-ai-revolution">The Generative AI Revolution</h1>
 <table>
 <thead>
@@ -7426,7 +7659,7 @@ section.section-divider h2 {
 All of these generate NEW content that never existed before!
 </div>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="33" data-paginate="true" data-background-color="#fff" data-class="section-divider" data-theme="default" data-style="/* PowerPoint-like slide layout with fixed title area */
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="34" data-paginate="true" data-background-color="#fff" data-class="section-divider" data-theme="default" data-style="/* PowerPoint-like slide layout with fixed title area */
 section {
   font-family: 'Segoe UI', 'Arial', sans-serif;
   font-size: 22px;
@@ -7535,7 +7768,7 @@ section.section-divider h2 {
   border: none;
   font-size: 1.3em;
 }
-" lang="C" class="section-divider" data-marpit-pagination="33" style="--paginate:true;--background-color:#fff;--class:section-divider;--theme:default;--style:/* PowerPoint-like slide layout with fixed title area */
+" lang="C" class="section-divider" data-marpit-pagination="34" style="--paginate:true;--background-color:#fff;--class:section-divider;--theme:default;--style:/* PowerPoint-like slide layout with fixed title area */
 section {
   font-family: 'Segoe UI', 'Arial', sans-serif;
   font-size: 22px;
@@ -7644,245 +7877,9 @@ section.section-divider h2 {
   border: none;
   font-size: 1.3em;
 }
-;background-color:#fff;background-image:none;" data-marpit-pagination-total="46">
+;background-color:#fff;background-image:none;" data-marpit-pagination-total="47">
 <h1 id="part-7-multimodal-ai">Part 7: Multimodal AI</h1>
 <h2 id="combining-everything">Combining Everything</h2>
-</section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="34" data-paginate="true" data-background-color="#fff" data-theme="default" data-style="/* PowerPoint-like slide layout with fixed title area */
-section {
-  font-family: 'Segoe UI', 'Arial', sans-serif;
-  font-size: 22px;
-  padding: 0;
-  color: #333;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-}
-/* Fixed title area at top */
-section h1 {
-  color: #2E86AB;
-  font-size: 1.6em;
-  margin: 0;
-  padding: 25px 40px 15px 40px;
-  border-bottom: 3px solid #2E86AB;
-  background: linear-gradient(180deg, #f8fbfd 0%, #fff 100%);
-  flex-shrink: 0;
-}
-section h2 {
-  color: #06A77D;
-  font-size: 1.0em;
-  margin: -10px 0 0 0;
-  padding: 0 40px 15px 40px;
-  background: linear-gradient(180deg, #fff 0%, #fff 100%);
-  border-bottom: 3px solid #2E86AB;
-  flex-shrink: 0;
-}
-/* When h1 followed by h2, remove h1 border */
-section h1:has(+ h2) {
-  border-bottom: none;
-  padding-bottom: 5px;
-}
-section h3 { color: #457B9D; font-size: 1.0em; margin-top: 15px; }
-/* Content area */
-section &gt; *:not(h1):not(h2) {
-  padding-left: 40px;
-  padding-right: 40px;
-}
-section &gt; p:first-of-type, section &gt; ul:first-of-type,
-section &gt; ol:first-of-type, section &gt; table:first-of-type,
-section &gt; div:first-of-type, section &gt; pre:first-of-type {
-  margin-top: 20px;
-}
-strong { color: #D62828; }
-code {
-  background: #f4f4f4;
-  color: #2E86AB;
-  padding: 2px 6px;
-  border-radius: 4px;
-  font-family: 'Consolas', 'Monaco', monospace;
-}
-pre {
-  background: #f8f9fa;
-  border-radius: 8px;
-  padding: 15px;
-  font-size: 0.8em;
-  line-height: 1.3;
-  overflow: hidden;
-  margin: 10px 40px;
-}
-.example {
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-  border-left: 4px solid #06A77D;
-  padding: 12px 15px;
-  margin: 10px 40px;
-  border-radius: 0 8px 8px 0;
-}
-.insight {
-  background: #fff3cd;
-  border-left: 4px solid #ffc107;
-  padding: 12px 15px;
-  margin: 10px 40px;
-  border-radius: 0 8px 8px 0;
-}
-.realworld {
-  background: #e3f2fd;
-  border-left: 4px solid #2196F3;
-  padding: 12px 15px;
-  margin: 10px 40px;
-  border-radius: 0 8px 8px 0;
-}
-.columns { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin: 0 40px; }
-.columns3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; margin: 0 40px; }
-table { font-size: 0.85em; width: calc(100% - 80px); margin: 10px 40px; }
-th { background: #2E86AB; color: white; padding: 8px; }
-td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-img { margin: 10px auto; display: block; }
-/* Section divider slides */
-section.section-divider {
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  background: linear-gradient(135deg, #2E86AB 0%, #1a5276 100%);
-}
-section.section-divider h1 {
-  color: white;
-  border: none;
-  background: transparent;
-  font-size: 2.2em;
-  padding: 20px;
-}
-section.section-divider h2 {
-  color: #a8d8ea;
-  background: transparent;
-  border: none;
-  font-size: 1.3em;
-}
-" lang="C" data-marpit-pagination="34" style="--paginate:true;--background-color:#fff;--theme:default;--style:/* PowerPoint-like slide layout with fixed title area */
-section {
-  font-family: 'Segoe UI', 'Arial', sans-serif;
-  font-size: 22px;
-  padding: 0;
-  color: #333;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-}
-/* Fixed title area at top */
-section h1 {
-  color: #2E86AB;
-  font-size: 1.6em;
-  margin: 0;
-  padding: 25px 40px 15px 40px;
-  border-bottom: 3px solid #2E86AB;
-  background: linear-gradient(180deg, #f8fbfd 0%, #fff 100%);
-  flex-shrink: 0;
-}
-section h2 {
-  color: #06A77D;
-  font-size: 1.0em;
-  margin: -10px 0 0 0;
-  padding: 0 40px 15px 40px;
-  background: linear-gradient(180deg, #fff 0%, #fff 100%);
-  border-bottom: 3px solid #2E86AB;
-  flex-shrink: 0;
-}
-/* When h1 followed by h2, remove h1 border */
-section h1:has(+ h2) {
-  border-bottom: none;
-  padding-bottom: 5px;
-}
-section h3 { color: #457B9D; font-size: 1.0em; margin-top: 15px; }
-/* Content area */
-section &gt; *:not(h1):not(h2) {
-  padding-left: 40px;
-  padding-right: 40px;
-}
-section &gt; p:first-of-type, section &gt; ul:first-of-type,
-section &gt; ol:first-of-type, section &gt; table:first-of-type,
-section &gt; div:first-of-type, section &gt; pre:first-of-type {
-  margin-top: 20px;
-}
-strong { color: #D62828; }
-code {
-  background: #f4f4f4;
-  color: #2E86AB;
-  padding: 2px 6px;
-  border-radius: 4px;
-  font-family: 'Consolas', 'Monaco', monospace;
-}
-pre {
-  background: #f8f9fa;
-  border-radius: 8px;
-  padding: 15px;
-  font-size: 0.8em;
-  line-height: 1.3;
-  overflow: hidden;
-  margin: 10px 40px;
-}
-.example {
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-  border-left: 4px solid #06A77D;
-  padding: 12px 15px;
-  margin: 10px 40px;
-  border-radius: 0 8px 8px 0;
-}
-.insight {
-  background: #fff3cd;
-  border-left: 4px solid #ffc107;
-  padding: 12px 15px;
-  margin: 10px 40px;
-  border-radius: 0 8px 8px 0;
-}
-.realworld {
-  background: #e3f2fd;
-  border-left: 4px solid #2196F3;
-  padding: 12px 15px;
-  margin: 10px 40px;
-  border-radius: 0 8px 8px 0;
-}
-.columns { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin: 0 40px; }
-.columns3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; margin: 0 40px; }
-table { font-size: 0.85em; width: calc(100% - 80px); margin: 10px 40px; }
-th { background: #2E86AB; color: white; padding: 8px; }
-td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-img { margin: 10px auto; display: block; }
-/* Section divider slides */
-section.section-divider {
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  background: linear-gradient(135deg, #2E86AB 0%, #1a5276 100%);
-}
-section.section-divider h1 {
-  color: white;
-  border: none;
-  background: transparent;
-  font-size: 2.2em;
-  padding: 20px;
-}
-section.section-divider h2 {
-  color: #a8d8ea;
-  background: transparent;
-  border: none;
-  font-size: 1.3em;
-}
-;background-color:#fff;background-image:none;" data-marpit-pagination-total="46">
-<h1 id="multimodal--multiple-modalities">Multimodal = Multiple Modalities</h1>
-<p><strong>Modalities:</strong> Text, Image, Audio, Video, etc.</p>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>SINGLE-MODAL:                    MULTI-MODAL:
-┌─────────────────────┐          ┌─────────────────────────────────┐
-│                     │          │                                 │
-│ Image → Model → Cat │          │ Image + Question → Model → Answer│
-│ (just images)       │          │                                 │
-│                     │          │ [Photo of 3 dogs]               │
-│ Text → Model → Sent │          │ &quot;How many dogs?&quot;                │
-│ (just text)         │          │         ↓                       │
-│                     │          │       &quot;Three&quot;                   │
-└─────────────────────┘          └─────────────────────────────────┘
-</code></pre>
-<div class="insight">
-Modern AI (GPT-4, Claude, Gemini) is multimodal - it can see AND read AND hear!
-</div>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="35" data-paginate="true" data-background-color="#fff" data-theme="default" data-style="/* PowerPoint-like slide layout with fixed title area */
 section {
@@ -8102,7 +8099,233 @@ section.section-divider h2 {
   border: none;
   font-size: 1.3em;
 }
-;background-color:#fff;background-image:none;" data-marpit-pagination-total="46">
+;background-color:#fff;background-image:none;" data-marpit-pagination-total="47">
+<h1 id="multimodal--multiple-modalities">Multimodal = Multiple Modalities</h1>
+<p><strong>Modalities:</strong> Text, Image, Audio, Video, etc.</p>
+<p><img src="diagrams/svg/multimodal.svg" alt="center" style="width:900px;" /></p>
+<div class="insight">
+Modern AI (GPT-4, Claude, Gemini) is multimodal - it can see AND read AND hear!
+</div>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="36" data-paginate="true" data-background-color="#fff" data-theme="default" data-style="/* PowerPoint-like slide layout with fixed title area */
+section {
+  font-family: 'Segoe UI', 'Arial', sans-serif;
+  font-size: 22px;
+  padding: 0;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+/* Fixed title area at top */
+section h1 {
+  color: #2E86AB;
+  font-size: 1.6em;
+  margin: 0;
+  padding: 25px 40px 15px 40px;
+  border-bottom: 3px solid #2E86AB;
+  background: linear-gradient(180deg, #f8fbfd 0%, #fff 100%);
+  flex-shrink: 0;
+}
+section h2 {
+  color: #06A77D;
+  font-size: 1.0em;
+  margin: -10px 0 0 0;
+  padding: 0 40px 15px 40px;
+  background: linear-gradient(180deg, #fff 0%, #fff 100%);
+  border-bottom: 3px solid #2E86AB;
+  flex-shrink: 0;
+}
+/* When h1 followed by h2, remove h1 border */
+section h1:has(+ h2) {
+  border-bottom: none;
+  padding-bottom: 5px;
+}
+section h3 { color: #457B9D; font-size: 1.0em; margin-top: 15px; }
+/* Content area */
+section &gt; *:not(h1):not(h2) {
+  padding-left: 40px;
+  padding-right: 40px;
+}
+section &gt; p:first-of-type, section &gt; ul:first-of-type,
+section &gt; ol:first-of-type, section &gt; table:first-of-type,
+section &gt; div:first-of-type, section &gt; pre:first-of-type {
+  margin-top: 20px;
+}
+strong { color: #D62828; }
+code {
+  background: #f4f4f4;
+  color: #2E86AB;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: 'Consolas', 'Monaco', monospace;
+}
+pre {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 15px;
+  font-size: 0.8em;
+  line-height: 1.3;
+  overflow: hidden;
+  margin: 10px 40px;
+}
+.example {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-left: 4px solid #06A77D;
+  padding: 12px 15px;
+  margin: 10px 40px;
+  border-radius: 0 8px 8px 0;
+}
+.insight {
+  background: #fff3cd;
+  border-left: 4px solid #ffc107;
+  padding: 12px 15px;
+  margin: 10px 40px;
+  border-radius: 0 8px 8px 0;
+}
+.realworld {
+  background: #e3f2fd;
+  border-left: 4px solid #2196F3;
+  padding: 12px 15px;
+  margin: 10px 40px;
+  border-radius: 0 8px 8px 0;
+}
+.columns { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin: 0 40px; }
+.columns3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; margin: 0 40px; }
+table { font-size: 0.85em; width: calc(100% - 80px); margin: 10px 40px; }
+th { background: #2E86AB; color: white; padding: 8px; }
+td { padding: 8px; border-bottom: 1px solid #dee2e6; }
+img { margin: 10px auto; display: block; }
+/* Section divider slides */
+section.section-divider {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: linear-gradient(135deg, #2E86AB 0%, #1a5276 100%);
+}
+section.section-divider h1 {
+  color: white;
+  border: none;
+  background: transparent;
+  font-size: 2.2em;
+  padding: 20px;
+}
+section.section-divider h2 {
+  color: #a8d8ea;
+  background: transparent;
+  border: none;
+  font-size: 1.3em;
+}
+" lang="C" data-marpit-pagination="36" style="--paginate:true;--background-color:#fff;--theme:default;--style:/* PowerPoint-like slide layout with fixed title area */
+section {
+  font-family: 'Segoe UI', 'Arial', sans-serif;
+  font-size: 22px;
+  padding: 0;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+/* Fixed title area at top */
+section h1 {
+  color: #2E86AB;
+  font-size: 1.6em;
+  margin: 0;
+  padding: 25px 40px 15px 40px;
+  border-bottom: 3px solid #2E86AB;
+  background: linear-gradient(180deg, #f8fbfd 0%, #fff 100%);
+  flex-shrink: 0;
+}
+section h2 {
+  color: #06A77D;
+  font-size: 1.0em;
+  margin: -10px 0 0 0;
+  padding: 0 40px 15px 40px;
+  background: linear-gradient(180deg, #fff 0%, #fff 100%);
+  border-bottom: 3px solid #2E86AB;
+  flex-shrink: 0;
+}
+/* When h1 followed by h2, remove h1 border */
+section h1:has(+ h2) {
+  border-bottom: none;
+  padding-bottom: 5px;
+}
+section h3 { color: #457B9D; font-size: 1.0em; margin-top: 15px; }
+/* Content area */
+section &gt; *:not(h1):not(h2) {
+  padding-left: 40px;
+  padding-right: 40px;
+}
+section &gt; p:first-of-type, section &gt; ul:first-of-type,
+section &gt; ol:first-of-type, section &gt; table:first-of-type,
+section &gt; div:first-of-type, section &gt; pre:first-of-type {
+  margin-top: 20px;
+}
+strong { color: #D62828; }
+code {
+  background: #f4f4f4;
+  color: #2E86AB;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: 'Consolas', 'Monaco', monospace;
+}
+pre {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 15px;
+  font-size: 0.8em;
+  line-height: 1.3;
+  overflow: hidden;
+  margin: 10px 40px;
+}
+.example {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-left: 4px solid #06A77D;
+  padding: 12px 15px;
+  margin: 10px 40px;
+  border-radius: 0 8px 8px 0;
+}
+.insight {
+  background: #fff3cd;
+  border-left: 4px solid #ffc107;
+  padding: 12px 15px;
+  margin: 10px 40px;
+  border-radius: 0 8px 8px 0;
+}
+.realworld {
+  background: #e3f2fd;
+  border-left: 4px solid #2196F3;
+  padding: 12px 15px;
+  margin: 10px 40px;
+  border-radius: 0 8px 8px 0;
+}
+.columns { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin: 0 40px; }
+.columns3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; margin: 0 40px; }
+table { font-size: 0.85em; width: calc(100% - 80px); margin: 10px 40px; }
+th { background: #2E86AB; color: white; padding: 8px; }
+td { padding: 8px; border-bottom: 1px solid #dee2e6; }
+img { margin: 10px auto; display: block; }
+/* Section divider slides */
+section.section-divider {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: linear-gradient(135deg, #2E86AB 0%, #1a5276 100%);
+}
+section.section-divider h1 {
+  color: white;
+  border: none;
+  background: transparent;
+  font-size: 2.2em;
+  padding: 20px;
+}
+section.section-divider h2 {
+  color: #a8d8ea;
+  background: transparent;
+  border: none;
+  font-size: 1.3em;
+}
+;background-color:#fff;background-image:none;" data-marpit-pagination-total="47">
 <h1 id="visual-question-answering-vqa">Visual Question Answering (VQA)</h1>
 <pre is="marp-pre" data-auto-scaling="downscale-only"><code>   Image:                      Questions &amp; Answers:
    ┌───────────────────┐
@@ -8119,7 +8342,7 @@ section.section-divider h2 {
    - Reasoning about both!
 </code></pre>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="36" data-paginate="true" data-background-color="#fff" data-class="section-divider" data-theme="default" data-style="/* PowerPoint-like slide layout with fixed title area */
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="37" data-paginate="true" data-background-color="#fff" data-class="section-divider" data-theme="default" data-style="/* PowerPoint-like slide layout with fixed title area */
 section {
   font-family: 'Segoe UI', 'Arial', sans-serif;
   font-size: 22px;
@@ -8228,7 +8451,7 @@ section.section-divider h2 {
   border: none;
   font-size: 1.3em;
 }
-" lang="C" class="section-divider" data-marpit-pagination="36" style="--paginate:true;--background-color:#fff;--class:section-divider;--theme:default;--style:/* PowerPoint-like slide layout with fixed title area */
+" lang="C" class="section-divider" data-marpit-pagination="37" style="--paginate:true;--background-color:#fff;--class:section-divider;--theme:default;--style:/* PowerPoint-like slide layout with fixed title area */
 section {
   font-family: 'Segoe UI', 'Arial', sans-serif;
   font-size: 22px;
@@ -8337,232 +8560,9 @@ section.section-divider h2 {
   border: none;
   font-size: 1.3em;
 }
-;background-color:#fff;background-image:none;" data-marpit-pagination-total="46">
+;background-color:#fff;background-image:none;" data-marpit-pagination-total="47">
 <h1 id="part-8-reinforcement-learning">Part 8: Reinforcement Learning</h1>
 <h2 id="learning-through-interaction">Learning Through Interaction</h2>
-</section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="37" data-paginate="true" data-background-color="#fff" data-theme="default" data-style="/* PowerPoint-like slide layout with fixed title area */
-section {
-  font-family: 'Segoe UI', 'Arial', sans-serif;
-  font-size: 22px;
-  padding: 0;
-  color: #333;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-}
-/* Fixed title area at top */
-section h1 {
-  color: #2E86AB;
-  font-size: 1.6em;
-  margin: 0;
-  padding: 25px 40px 15px 40px;
-  border-bottom: 3px solid #2E86AB;
-  background: linear-gradient(180deg, #f8fbfd 0%, #fff 100%);
-  flex-shrink: 0;
-}
-section h2 {
-  color: #06A77D;
-  font-size: 1.0em;
-  margin: -10px 0 0 0;
-  padding: 0 40px 15px 40px;
-  background: linear-gradient(180deg, #fff 0%, #fff 100%);
-  border-bottom: 3px solid #2E86AB;
-  flex-shrink: 0;
-}
-/* When h1 followed by h2, remove h1 border */
-section h1:has(+ h2) {
-  border-bottom: none;
-  padding-bottom: 5px;
-}
-section h3 { color: #457B9D; font-size: 1.0em; margin-top: 15px; }
-/* Content area */
-section &gt; *:not(h1):not(h2) {
-  padding-left: 40px;
-  padding-right: 40px;
-}
-section &gt; p:first-of-type, section &gt; ul:first-of-type,
-section &gt; ol:first-of-type, section &gt; table:first-of-type,
-section &gt; div:first-of-type, section &gt; pre:first-of-type {
-  margin-top: 20px;
-}
-strong { color: #D62828; }
-code {
-  background: #f4f4f4;
-  color: #2E86AB;
-  padding: 2px 6px;
-  border-radius: 4px;
-  font-family: 'Consolas', 'Monaco', monospace;
-}
-pre {
-  background: #f8f9fa;
-  border-radius: 8px;
-  padding: 15px;
-  font-size: 0.8em;
-  line-height: 1.3;
-  overflow: hidden;
-  margin: 10px 40px;
-}
-.example {
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-  border-left: 4px solid #06A77D;
-  padding: 12px 15px;
-  margin: 10px 40px;
-  border-radius: 0 8px 8px 0;
-}
-.insight {
-  background: #fff3cd;
-  border-left: 4px solid #ffc107;
-  padding: 12px 15px;
-  margin: 10px 40px;
-  border-radius: 0 8px 8px 0;
-}
-.realworld {
-  background: #e3f2fd;
-  border-left: 4px solid #2196F3;
-  padding: 12px 15px;
-  margin: 10px 40px;
-  border-radius: 0 8px 8px 0;
-}
-.columns { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin: 0 40px; }
-.columns3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; margin: 0 40px; }
-table { font-size: 0.85em; width: calc(100% - 80px); margin: 10px 40px; }
-th { background: #2E86AB; color: white; padding: 8px; }
-td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-img { margin: 10px auto; display: block; }
-/* Section divider slides */
-section.section-divider {
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  background: linear-gradient(135deg, #2E86AB 0%, #1a5276 100%);
-}
-section.section-divider h1 {
-  color: white;
-  border: none;
-  background: transparent;
-  font-size: 2.2em;
-  padding: 20px;
-}
-section.section-divider h2 {
-  color: #a8d8ea;
-  background: transparent;
-  border: none;
-  font-size: 1.3em;
-}
-" lang="C" data-marpit-pagination="37" style="--paginate:true;--background-color:#fff;--theme:default;--style:/* PowerPoint-like slide layout with fixed title area */
-section {
-  font-family: 'Segoe UI', 'Arial', sans-serif;
-  font-size: 22px;
-  padding: 0;
-  color: #333;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-}
-/* Fixed title area at top */
-section h1 {
-  color: #2E86AB;
-  font-size: 1.6em;
-  margin: 0;
-  padding: 25px 40px 15px 40px;
-  border-bottom: 3px solid #2E86AB;
-  background: linear-gradient(180deg, #f8fbfd 0%, #fff 100%);
-  flex-shrink: 0;
-}
-section h2 {
-  color: #06A77D;
-  font-size: 1.0em;
-  margin: -10px 0 0 0;
-  padding: 0 40px 15px 40px;
-  background: linear-gradient(180deg, #fff 0%, #fff 100%);
-  border-bottom: 3px solid #2E86AB;
-  flex-shrink: 0;
-}
-/* When h1 followed by h2, remove h1 border */
-section h1:has(+ h2) {
-  border-bottom: none;
-  padding-bottom: 5px;
-}
-section h3 { color: #457B9D; font-size: 1.0em; margin-top: 15px; }
-/* Content area */
-section &gt; *:not(h1):not(h2) {
-  padding-left: 40px;
-  padding-right: 40px;
-}
-section &gt; p:first-of-type, section &gt; ul:first-of-type,
-section &gt; ol:first-of-type, section &gt; table:first-of-type,
-section &gt; div:first-of-type, section &gt; pre:first-of-type {
-  margin-top: 20px;
-}
-strong { color: #D62828; }
-code {
-  background: #f4f4f4;
-  color: #2E86AB;
-  padding: 2px 6px;
-  border-radius: 4px;
-  font-family: 'Consolas', 'Monaco', monospace;
-}
-pre {
-  background: #f8f9fa;
-  border-radius: 8px;
-  padding: 15px;
-  font-size: 0.8em;
-  line-height: 1.3;
-  overflow: hidden;
-  margin: 10px 40px;
-}
-.example {
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-  border-left: 4px solid #06A77D;
-  padding: 12px 15px;
-  margin: 10px 40px;
-  border-radius: 0 8px 8px 0;
-}
-.insight {
-  background: #fff3cd;
-  border-left: 4px solid #ffc107;
-  padding: 12px 15px;
-  margin: 10px 40px;
-  border-radius: 0 8px 8px 0;
-}
-.realworld {
-  background: #e3f2fd;
-  border-left: 4px solid #2196F3;
-  padding: 12px 15px;
-  margin: 10px 40px;
-  border-radius: 0 8px 8px 0;
-}
-.columns { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin: 0 40px; }
-.columns3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; margin: 0 40px; }
-table { font-size: 0.85em; width: calc(100% - 80px); margin: 10px 40px; }
-th { background: #2E86AB; color: white; padding: 8px; }
-td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-img { margin: 10px auto; display: block; }
-/* Section divider slides */
-section.section-divider {
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  background: linear-gradient(135deg, #2E86AB 0%, #1a5276 100%);
-}
-section.section-divider h1 {
-  color: white;
-  border: none;
-  background: transparent;
-  font-size: 2.2em;
-  padding: 20px;
-}
-section.section-divider h2 {
-  color: #a8d8ea;
-  background: transparent;
-  border: none;
-  font-size: 1.3em;
-}
-;background-color:#fff;background-image:none;" data-marpit-pagination-total="46">
-<h1 id="rl-a-different-paradigm">RL: A Different Paradigm</h1>
-<p><img src="diagrams/svg/rl_loop.svg" alt="center" style="width:900px;" /></p>
-<p><strong>Goal:</strong> Maximize total reward over time through trial and error.</p>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="38" data-paginate="true" data-background-color="#fff" data-theme="default" data-style="/* PowerPoint-like slide layout with fixed title area */
 section {
@@ -8782,7 +8782,230 @@ section.section-divider h2 {
   border: none;
   font-size: 1.3em;
 }
-;background-color:#fff;background-image:none;" data-marpit-pagination-total="46">
+;background-color:#fff;background-image:none;" data-marpit-pagination-total="47">
+<h1 id="rl-a-different-paradigm">RL: A Different Paradigm</h1>
+<p><img src="diagrams/svg/rl_loop.svg" alt="center" style="width:900px;" /></p>
+<p><strong>Goal:</strong> Maximize total reward over time through trial and error.</p>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="39" data-paginate="true" data-background-color="#fff" data-theme="default" data-style="/* PowerPoint-like slide layout with fixed title area */
+section {
+  font-family: 'Segoe UI', 'Arial', sans-serif;
+  font-size: 22px;
+  padding: 0;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+/* Fixed title area at top */
+section h1 {
+  color: #2E86AB;
+  font-size: 1.6em;
+  margin: 0;
+  padding: 25px 40px 15px 40px;
+  border-bottom: 3px solid #2E86AB;
+  background: linear-gradient(180deg, #f8fbfd 0%, #fff 100%);
+  flex-shrink: 0;
+}
+section h2 {
+  color: #06A77D;
+  font-size: 1.0em;
+  margin: -10px 0 0 0;
+  padding: 0 40px 15px 40px;
+  background: linear-gradient(180deg, #fff 0%, #fff 100%);
+  border-bottom: 3px solid #2E86AB;
+  flex-shrink: 0;
+}
+/* When h1 followed by h2, remove h1 border */
+section h1:has(+ h2) {
+  border-bottom: none;
+  padding-bottom: 5px;
+}
+section h3 { color: #457B9D; font-size: 1.0em; margin-top: 15px; }
+/* Content area */
+section &gt; *:not(h1):not(h2) {
+  padding-left: 40px;
+  padding-right: 40px;
+}
+section &gt; p:first-of-type, section &gt; ul:first-of-type,
+section &gt; ol:first-of-type, section &gt; table:first-of-type,
+section &gt; div:first-of-type, section &gt; pre:first-of-type {
+  margin-top: 20px;
+}
+strong { color: #D62828; }
+code {
+  background: #f4f4f4;
+  color: #2E86AB;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: 'Consolas', 'Monaco', monospace;
+}
+pre {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 15px;
+  font-size: 0.8em;
+  line-height: 1.3;
+  overflow: hidden;
+  margin: 10px 40px;
+}
+.example {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-left: 4px solid #06A77D;
+  padding: 12px 15px;
+  margin: 10px 40px;
+  border-radius: 0 8px 8px 0;
+}
+.insight {
+  background: #fff3cd;
+  border-left: 4px solid #ffc107;
+  padding: 12px 15px;
+  margin: 10px 40px;
+  border-radius: 0 8px 8px 0;
+}
+.realworld {
+  background: #e3f2fd;
+  border-left: 4px solid #2196F3;
+  padding: 12px 15px;
+  margin: 10px 40px;
+  border-radius: 0 8px 8px 0;
+}
+.columns { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin: 0 40px; }
+.columns3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; margin: 0 40px; }
+table { font-size: 0.85em; width: calc(100% - 80px); margin: 10px 40px; }
+th { background: #2E86AB; color: white; padding: 8px; }
+td { padding: 8px; border-bottom: 1px solid #dee2e6; }
+img { margin: 10px auto; display: block; }
+/* Section divider slides */
+section.section-divider {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: linear-gradient(135deg, #2E86AB 0%, #1a5276 100%);
+}
+section.section-divider h1 {
+  color: white;
+  border: none;
+  background: transparent;
+  font-size: 2.2em;
+  padding: 20px;
+}
+section.section-divider h2 {
+  color: #a8d8ea;
+  background: transparent;
+  border: none;
+  font-size: 1.3em;
+}
+" lang="C" data-marpit-pagination="39" style="--paginate:true;--background-color:#fff;--theme:default;--style:/* PowerPoint-like slide layout with fixed title area */
+section {
+  font-family: 'Segoe UI', 'Arial', sans-serif;
+  font-size: 22px;
+  padding: 0;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+/* Fixed title area at top */
+section h1 {
+  color: #2E86AB;
+  font-size: 1.6em;
+  margin: 0;
+  padding: 25px 40px 15px 40px;
+  border-bottom: 3px solid #2E86AB;
+  background: linear-gradient(180deg, #f8fbfd 0%, #fff 100%);
+  flex-shrink: 0;
+}
+section h2 {
+  color: #06A77D;
+  font-size: 1.0em;
+  margin: -10px 0 0 0;
+  padding: 0 40px 15px 40px;
+  background: linear-gradient(180deg, #fff 0%, #fff 100%);
+  border-bottom: 3px solid #2E86AB;
+  flex-shrink: 0;
+}
+/* When h1 followed by h2, remove h1 border */
+section h1:has(+ h2) {
+  border-bottom: none;
+  padding-bottom: 5px;
+}
+section h3 { color: #457B9D; font-size: 1.0em; margin-top: 15px; }
+/* Content area */
+section &gt; *:not(h1):not(h2) {
+  padding-left: 40px;
+  padding-right: 40px;
+}
+section &gt; p:first-of-type, section &gt; ul:first-of-type,
+section &gt; ol:first-of-type, section &gt; table:first-of-type,
+section &gt; div:first-of-type, section &gt; pre:first-of-type {
+  margin-top: 20px;
+}
+strong { color: #D62828; }
+code {
+  background: #f4f4f4;
+  color: #2E86AB;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: 'Consolas', 'Monaco', monospace;
+}
+pre {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 15px;
+  font-size: 0.8em;
+  line-height: 1.3;
+  overflow: hidden;
+  margin: 10px 40px;
+}
+.example {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-left: 4px solid #06A77D;
+  padding: 12px 15px;
+  margin: 10px 40px;
+  border-radius: 0 8px 8px 0;
+}
+.insight {
+  background: #fff3cd;
+  border-left: 4px solid #ffc107;
+  padding: 12px 15px;
+  margin: 10px 40px;
+  border-radius: 0 8px 8px 0;
+}
+.realworld {
+  background: #e3f2fd;
+  border-left: 4px solid #2196F3;
+  padding: 12px 15px;
+  margin: 10px 40px;
+  border-radius: 0 8px 8px 0;
+}
+.columns { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin: 0 40px; }
+.columns3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; margin: 0 40px; }
+table { font-size: 0.85em; width: calc(100% - 80px); margin: 10px 40px; }
+th { background: #2E86AB; color: white; padding: 8px; }
+td { padding: 8px; border-bottom: 1px solid #dee2e6; }
+img { margin: 10px auto; display: block; }
+/* Section divider slides */
+section.section-divider {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: linear-gradient(135deg, #2E86AB 0%, #1a5276 100%);
+}
+section.section-divider h1 {
+  color: white;
+  border: none;
+  background: transparent;
+  font-size: 2.2em;
+  padding: 20px;
+}
+section.section-divider h2 {
+  color: #a8d8ea;
+  background: transparent;
+  border: none;
+  font-size: 1.3em;
+}
+;background-color:#fff;background-image:none;" data-marpit-pagination-total="47">
 <h1 id="rl-examples">RL Examples</h1>
 <table>
 <thead>
@@ -8824,7 +9047,7 @@ section.section-divider h2 {
 RLHF (Reinforcement Learning from Human Feedback) is how ChatGPT learns to be helpful!
 </div>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="39" data-paginate="true" data-background-color="#fff" data-class="section-divider" data-theme="default" data-style="/* PowerPoint-like slide layout with fixed title area */
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="40" data-paginate="true" data-background-color="#fff" data-class="section-divider" data-theme="default" data-style="/* PowerPoint-like slide layout with fixed title area */
 section {
   font-family: 'Segoe UI', 'Arial', sans-serif;
   font-size: 22px;
@@ -8933,7 +9156,7 @@ section.section-divider h2 {
   border: none;
   font-size: 1.3em;
 }
-" lang="C" class="section-divider" data-marpit-pagination="39" style="--paginate:true;--background-color:#fff;--class:section-divider;--theme:default;--style:/* PowerPoint-like slide layout with fixed title area */
+" lang="C" class="section-divider" data-marpit-pagination="40" style="--paginate:true;--background-color:#fff;--class:section-divider;--theme:default;--style:/* PowerPoint-like slide layout with fixed title area */
 section {
   font-family: 'Segoe UI', 'Arial', sans-serif;
   font-size: 22px;
@@ -9042,232 +9265,9 @@ section.section-divider h2 {
   border: none;
   font-size: 1.3em;
 }
-;background-color:#fff;background-image:none;" data-marpit-pagination-total="46">
+;background-color:#fff;background-image:none;" data-marpit-pagination-total="47">
 <h1 id="part-9-the-common-thread">Part 9: The Common Thread</h1>
 <h2 id="neural-networks--deep-learning">Neural Networks &amp; Deep Learning</h2>
-</section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="40" data-paginate="true" data-background-color="#fff" data-theme="default" data-style="/* PowerPoint-like slide layout with fixed title area */
-section {
-  font-family: 'Segoe UI', 'Arial', sans-serif;
-  font-size: 22px;
-  padding: 0;
-  color: #333;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-}
-/* Fixed title area at top */
-section h1 {
-  color: #2E86AB;
-  font-size: 1.6em;
-  margin: 0;
-  padding: 25px 40px 15px 40px;
-  border-bottom: 3px solid #2E86AB;
-  background: linear-gradient(180deg, #f8fbfd 0%, #fff 100%);
-  flex-shrink: 0;
-}
-section h2 {
-  color: #06A77D;
-  font-size: 1.0em;
-  margin: -10px 0 0 0;
-  padding: 0 40px 15px 40px;
-  background: linear-gradient(180deg, #fff 0%, #fff 100%);
-  border-bottom: 3px solid #2E86AB;
-  flex-shrink: 0;
-}
-/* When h1 followed by h2, remove h1 border */
-section h1:has(+ h2) {
-  border-bottom: none;
-  padding-bottom: 5px;
-}
-section h3 { color: #457B9D; font-size: 1.0em; margin-top: 15px; }
-/* Content area */
-section &gt; *:not(h1):not(h2) {
-  padding-left: 40px;
-  padding-right: 40px;
-}
-section &gt; p:first-of-type, section &gt; ul:first-of-type,
-section &gt; ol:first-of-type, section &gt; table:first-of-type,
-section &gt; div:first-of-type, section &gt; pre:first-of-type {
-  margin-top: 20px;
-}
-strong { color: #D62828; }
-code {
-  background: #f4f4f4;
-  color: #2E86AB;
-  padding: 2px 6px;
-  border-radius: 4px;
-  font-family: 'Consolas', 'Monaco', monospace;
-}
-pre {
-  background: #f8f9fa;
-  border-radius: 8px;
-  padding: 15px;
-  font-size: 0.8em;
-  line-height: 1.3;
-  overflow: hidden;
-  margin: 10px 40px;
-}
-.example {
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-  border-left: 4px solid #06A77D;
-  padding: 12px 15px;
-  margin: 10px 40px;
-  border-radius: 0 8px 8px 0;
-}
-.insight {
-  background: #fff3cd;
-  border-left: 4px solid #ffc107;
-  padding: 12px 15px;
-  margin: 10px 40px;
-  border-radius: 0 8px 8px 0;
-}
-.realworld {
-  background: #e3f2fd;
-  border-left: 4px solid #2196F3;
-  padding: 12px 15px;
-  margin: 10px 40px;
-  border-radius: 0 8px 8px 0;
-}
-.columns { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin: 0 40px; }
-.columns3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; margin: 0 40px; }
-table { font-size: 0.85em; width: calc(100% - 80px); margin: 10px 40px; }
-th { background: #2E86AB; color: white; padding: 8px; }
-td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-img { margin: 10px auto; display: block; }
-/* Section divider slides */
-section.section-divider {
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  background: linear-gradient(135deg, #2E86AB 0%, #1a5276 100%);
-}
-section.section-divider h1 {
-  color: white;
-  border: none;
-  background: transparent;
-  font-size: 2.2em;
-  padding: 20px;
-}
-section.section-divider h2 {
-  color: #a8d8ea;
-  background: transparent;
-  border: none;
-  font-size: 1.3em;
-}
-" lang="C" data-marpit-pagination="40" style="--paginate:true;--background-color:#fff;--theme:default;--style:/* PowerPoint-like slide layout with fixed title area */
-section {
-  font-family: 'Segoe UI', 'Arial', sans-serif;
-  font-size: 22px;
-  padding: 0;
-  color: #333;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-}
-/* Fixed title area at top */
-section h1 {
-  color: #2E86AB;
-  font-size: 1.6em;
-  margin: 0;
-  padding: 25px 40px 15px 40px;
-  border-bottom: 3px solid #2E86AB;
-  background: linear-gradient(180deg, #f8fbfd 0%, #fff 100%);
-  flex-shrink: 0;
-}
-section h2 {
-  color: #06A77D;
-  font-size: 1.0em;
-  margin: -10px 0 0 0;
-  padding: 0 40px 15px 40px;
-  background: linear-gradient(180deg, #fff 0%, #fff 100%);
-  border-bottom: 3px solid #2E86AB;
-  flex-shrink: 0;
-}
-/* When h1 followed by h2, remove h1 border */
-section h1:has(+ h2) {
-  border-bottom: none;
-  padding-bottom: 5px;
-}
-section h3 { color: #457B9D; font-size: 1.0em; margin-top: 15px; }
-/* Content area */
-section &gt; *:not(h1):not(h2) {
-  padding-left: 40px;
-  padding-right: 40px;
-}
-section &gt; p:first-of-type, section &gt; ul:first-of-type,
-section &gt; ol:first-of-type, section &gt; table:first-of-type,
-section &gt; div:first-of-type, section &gt; pre:first-of-type {
-  margin-top: 20px;
-}
-strong { color: #D62828; }
-code {
-  background: #f4f4f4;
-  color: #2E86AB;
-  padding: 2px 6px;
-  border-radius: 4px;
-  font-family: 'Consolas', 'Monaco', monospace;
-}
-pre {
-  background: #f8f9fa;
-  border-radius: 8px;
-  padding: 15px;
-  font-size: 0.8em;
-  line-height: 1.3;
-  overflow: hidden;
-  margin: 10px 40px;
-}
-.example {
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-  border-left: 4px solid #06A77D;
-  padding: 12px 15px;
-  margin: 10px 40px;
-  border-radius: 0 8px 8px 0;
-}
-.insight {
-  background: #fff3cd;
-  border-left: 4px solid #ffc107;
-  padding: 12px 15px;
-  margin: 10px 40px;
-  border-radius: 0 8px 8px 0;
-}
-.realworld {
-  background: #e3f2fd;
-  border-left: 4px solid #2196F3;
-  padding: 12px 15px;
-  margin: 10px 40px;
-  border-radius: 0 8px 8px 0;
-}
-.columns { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin: 0 40px; }
-.columns3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; margin: 0 40px; }
-table { font-size: 0.85em; width: calc(100% - 80px); margin: 10px 40px; }
-th { background: #2E86AB; color: white; padding: 8px; }
-td { padding: 8px; border-bottom: 1px solid #dee2e6; }
-img { margin: 10px auto; display: block; }
-/* Section divider slides */
-section.section-divider {
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  background: linear-gradient(135deg, #2E86AB 0%, #1a5276 100%);
-}
-section.section-divider h1 {
-  color: white;
-  border: none;
-  background: transparent;
-  font-size: 2.2em;
-  padding: 20px;
-}
-section.section-divider h2 {
-  color: #a8d8ea;
-  background: transparent;
-  border: none;
-  font-size: 1.3em;
-}
-;background-color:#fff;background-image:none;" data-marpit-pagination-total="46">
-<h1 id="neural-networks-the-universal-tool">Neural Networks: The Universal Tool</h1>
-<p><img src="examples/neural_network_diagram.png" alt="center" style="width:900px;" /></p>
-<p><strong>All these tasks use the same fundamental building block:</strong> Neural networks!</p>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="41" data-paginate="true" data-background-color="#fff" data-theme="default" data-style="/* PowerPoint-like slide layout with fixed title area */
 section {
@@ -9487,10 +9487,10 @@ section.section-divider h2 {
   border: none;
   font-size: 1.3em;
 }
-;background-color:#fff;background-image:none;" data-marpit-pagination-total="46">
-<h1 id="how-neural-networks-learn-gradient-descent">How Neural Networks Learn: Gradient Descent</h1>
-<p><img src="examples/gradient_descent.png" alt="center" style="width:1000px;" /></p>
-<p><strong>Training = Finding the weights that minimize the loss function</strong></p>
+;background-color:#fff;background-image:none;" data-marpit-pagination-total="47">
+<h1 id="neural-networks-the-universal-tool">Neural Networks: The Universal Tool</h1>
+<p><img src="examples/neural_network_diagram.png" alt="center" style="width:700px;" /></p>
+<p><strong>All these tasks use the same fundamental building block:</strong> Neural networks!</p>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="42" data-paginate="true" data-background-color="#fff" data-theme="default" data-style="/* PowerPoint-like slide layout with fixed title area */
 section {
@@ -9710,28 +9710,10 @@ section.section-divider h2 {
   border: none;
   font-size: 1.3em;
 }
-;background-color:#fff;background-image:none;" data-marpit-pagination-total="46">
-<h1 id="the-deep-learning-revolution">The Deep Learning Revolution</h1>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>WHY &quot;DEEP&quot; LEARNING?
-
-Traditional ML:
-┌────────────┐     ┌──────────────┐     ┌────────┐
-│ Raw Input  │ ──► │ Hand-crafted │ ──► │ Simple │ ──► Output
-│ (image)    │     │  Features    │     │ Model  │
-└────────────┘     └──────────────┘     └────────┘
-                   (SIFT, HOG, etc.)
-
-Deep Learning:
-┌────────────┐     ┌───────────────────────────────┐
-│ Raw Input  │ ──► │    Many Neural Network        │ ──► Output
-│ (image)    │     │    Layers (Deep!)             │
-└────────────┘     │    [Features learned          │
-                   │     automatically!]           │
-                   └───────────────────────────────┘
-</code></pre>
-<div class="insight">
-Deep learning learns the features automatically - no hand-engineering needed!
-</div>
+;background-color:#fff;background-image:none;" data-marpit-pagination-total="47">
+<h1 id="how-neural-networks-learn-gradient-descent">How Neural Networks Learn: Gradient Descent</h1>
+<p><img src="examples/gradient_descent.png" alt="center" style="width:800px;" /></p>
+<p><strong>Training = Finding the weights that minimize the loss function</strong></p>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="43" data-paginate="true" data-background-color="#fff" data-theme="default" data-style="/* PowerPoint-like slide layout with fixed title area */
 section {
@@ -9951,34 +9933,12 @@ section.section-divider h2 {
   border: none;
   font-size: 1.3em;
 }
-;background-color:#fff;background-image:none;" data-marpit-pagination-total="46">
-<h1 id="the-decision-flowchart">The Decision Flowchart</h1>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>START: What do you want to predict?
-            │
-    ┌───────┴───────┐
-    │               │
-Category?       Number?
-    │               │
-    ▼               ▼
-Classification  Regression
-                    │
-    ┌───────────────┤
-    │               │
-Sequence?       Location?
-    │               │
-    ▼               ▼
-Seq2Seq       Detection
-              (Class + Reg)
-                    │
-            Exact pixels?
-                    │
-                    ▼
-              Segmentation
-
-No labels available?  →  Unsupervised (Clustering, etc.)
-Want to create new data?  →  Generative
-Learning from trial/error?  →  Reinforcement Learning
-</code></pre>
+;background-color:#fff;background-image:none;" data-marpit-pagination-total="47">
+<h1 id="the-deep-learning-revolution">The Deep Learning Revolution</h1>
+<p><img src="diagrams/svg/deep_learning_revolution.svg" alt="center" style="width:900px;" /></p>
+<div class="insight">
+Deep learning learns the features automatically - no hand-engineering needed!
+</div>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="44" data-paginate="true" data-background-color="#fff" data-theme="default" data-style="/* PowerPoint-like slide layout with fixed title area */
 section {
@@ -10198,22 +10158,9 @@ section.section-divider h2 {
   border: none;
   font-size: 1.3em;
 }
-;background-color:#fff;background-image:none;" data-marpit-pagination-total="46">
-<h1 id="key-takeaways">Key Takeaways</h1>
-<ol>
-<li><strong>Classification</strong> - Predict a category (discrete)</li>
-<li><strong>Regression</strong> - Predict a number (continuous)</li>
-<li><strong>Detection</strong> - Classification + Box Regression</li>
-<li><strong>Segmentation</strong> - Classification for every pixel</li>
-<li><strong>Seq2Seq</strong> - Sequence in, sequence out</li>
-<li><strong>Unsupervised</strong> - Find patterns without labels</li>
-<li><strong>Generative</strong> - Create new data</li>
-<li><strong>Multimodal</strong> - Combine text, images, audio</li>
-<li><strong>RL</strong> - Learn from rewards through interaction</li>
-</ol>
-<div class="insight">
-Understanding the output type tells you which family of techniques to use!
-</div>
+;background-color:#fff;background-image:none;" data-marpit-pagination-total="47">
+<h1 id="the-decision-flowchart">The Decision Flowchart</h1>
+<p><img src="diagrams/svg/ml_decision_flowchart.svg" alt="center" style="width:800px;" /></p>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="45" data-paginate="true" data-background-color="#fff" data-theme="default" data-style="/* PowerPoint-like slide layout with fixed title area */
 section {
@@ -10433,19 +10380,22 @@ section.section-divider h2 {
   border: none;
   font-size: 1.3em;
 }
-;background-color:#fff;background-image:none;" data-marpit-pagination-total="46">
-<h1 id="coming-up-next">Coming Up Next</h1>
-<p><strong>Lecture 3:</strong> Language Models</p>
-<ul>
-<li>Next Token Prediction</li>
-<li>Pre-training, SFT, RLHF</li>
-<li>From GPT to ChatGPT</li>
-</ul>
-<p><strong>Lecture 4:</strong> Object Detection</p>
-<ul>
-<li>YOLO and beyond</li>
-<li>Real-time detection</li>
-</ul>
+;background-color:#fff;background-image:none;" data-marpit-pagination-total="47">
+<h1 id="key-takeaways">Key Takeaways</h1>
+<ol>
+<li><strong>Classification</strong> - Predict a category (discrete)</li>
+<li><strong>Regression</strong> - Predict a number (continuous)</li>
+<li><strong>Detection</strong> - Classification + Box Regression</li>
+<li><strong>Segmentation</strong> - Classification for every pixel</li>
+<li><strong>Seq2Seq</strong> - Sequence in, sequence out</li>
+<li><strong>Unsupervised</strong> - Find patterns without labels</li>
+<li><strong>Generative</strong> - Create new data</li>
+<li><strong>Multimodal</strong> - Combine text, images, audio</li>
+<li><strong>RL</strong> - Learn from rewards through interaction</li>
+</ol>
+<div class="insight">
+Understanding the output type tells you which family of techniques to use!
+</div>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="46" data-paginate="true" data-background-color="#fff" data-theme="default" data-style="/* PowerPoint-like slide layout with fixed title area */
 section {
@@ -10665,7 +10615,239 @@ section.section-divider h2 {
   border: none;
   font-size: 1.3em;
 }
-;background-color:#fff;background-image:none;" data-marpit-pagination-total="46">
+;background-color:#fff;background-image:none;" data-marpit-pagination-total="47">
+<h1 id="coming-up-next">Coming Up Next</h1>
+<p><strong>Lecture 3:</strong> Language Models</p>
+<ul>
+<li>Next Token Prediction</li>
+<li>Pre-training, SFT, RLHF</li>
+<li>From GPT to ChatGPT</li>
+</ul>
+<p><strong>Lecture 4:</strong> Object Detection</p>
+<ul>
+<li>YOLO and beyond</li>
+<li>Real-time detection</li>
+</ul>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="47" data-paginate="true" data-background-color="#fff" data-theme="default" data-style="/* PowerPoint-like slide layout with fixed title area */
+section {
+  font-family: 'Segoe UI', 'Arial', sans-serif;
+  font-size: 22px;
+  padding: 0;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+/* Fixed title area at top */
+section h1 {
+  color: #2E86AB;
+  font-size: 1.6em;
+  margin: 0;
+  padding: 25px 40px 15px 40px;
+  border-bottom: 3px solid #2E86AB;
+  background: linear-gradient(180deg, #f8fbfd 0%, #fff 100%);
+  flex-shrink: 0;
+}
+section h2 {
+  color: #06A77D;
+  font-size: 1.0em;
+  margin: -10px 0 0 0;
+  padding: 0 40px 15px 40px;
+  background: linear-gradient(180deg, #fff 0%, #fff 100%);
+  border-bottom: 3px solid #2E86AB;
+  flex-shrink: 0;
+}
+/* When h1 followed by h2, remove h1 border */
+section h1:has(+ h2) {
+  border-bottom: none;
+  padding-bottom: 5px;
+}
+section h3 { color: #457B9D; font-size: 1.0em; margin-top: 15px; }
+/* Content area */
+section &gt; *:not(h1):not(h2) {
+  padding-left: 40px;
+  padding-right: 40px;
+}
+section &gt; p:first-of-type, section &gt; ul:first-of-type,
+section &gt; ol:first-of-type, section &gt; table:first-of-type,
+section &gt; div:first-of-type, section &gt; pre:first-of-type {
+  margin-top: 20px;
+}
+strong { color: #D62828; }
+code {
+  background: #f4f4f4;
+  color: #2E86AB;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: 'Consolas', 'Monaco', monospace;
+}
+pre {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 15px;
+  font-size: 0.8em;
+  line-height: 1.3;
+  overflow: hidden;
+  margin: 10px 40px;
+}
+.example {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-left: 4px solid #06A77D;
+  padding: 12px 15px;
+  margin: 10px 40px;
+  border-radius: 0 8px 8px 0;
+}
+.insight {
+  background: #fff3cd;
+  border-left: 4px solid #ffc107;
+  padding: 12px 15px;
+  margin: 10px 40px;
+  border-radius: 0 8px 8px 0;
+}
+.realworld {
+  background: #e3f2fd;
+  border-left: 4px solid #2196F3;
+  padding: 12px 15px;
+  margin: 10px 40px;
+  border-radius: 0 8px 8px 0;
+}
+.columns { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin: 0 40px; }
+.columns3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; margin: 0 40px; }
+table { font-size: 0.85em; width: calc(100% - 80px); margin: 10px 40px; }
+th { background: #2E86AB; color: white; padding: 8px; }
+td { padding: 8px; border-bottom: 1px solid #dee2e6; }
+img { margin: 10px auto; display: block; }
+/* Section divider slides */
+section.section-divider {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: linear-gradient(135deg, #2E86AB 0%, #1a5276 100%);
+}
+section.section-divider h1 {
+  color: white;
+  border: none;
+  background: transparent;
+  font-size: 2.2em;
+  padding: 20px;
+}
+section.section-divider h2 {
+  color: #a8d8ea;
+  background: transparent;
+  border: none;
+  font-size: 1.3em;
+}
+" lang="C" data-marpit-pagination="47" style="--paginate:true;--background-color:#fff;--theme:default;--style:/* PowerPoint-like slide layout with fixed title area */
+section {
+  font-family: 'Segoe UI', 'Arial', sans-serif;
+  font-size: 22px;
+  padding: 0;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+/* Fixed title area at top */
+section h1 {
+  color: #2E86AB;
+  font-size: 1.6em;
+  margin: 0;
+  padding: 25px 40px 15px 40px;
+  border-bottom: 3px solid #2E86AB;
+  background: linear-gradient(180deg, #f8fbfd 0%, #fff 100%);
+  flex-shrink: 0;
+}
+section h2 {
+  color: #06A77D;
+  font-size: 1.0em;
+  margin: -10px 0 0 0;
+  padding: 0 40px 15px 40px;
+  background: linear-gradient(180deg, #fff 0%, #fff 100%);
+  border-bottom: 3px solid #2E86AB;
+  flex-shrink: 0;
+}
+/* When h1 followed by h2, remove h1 border */
+section h1:has(+ h2) {
+  border-bottom: none;
+  padding-bottom: 5px;
+}
+section h3 { color: #457B9D; font-size: 1.0em; margin-top: 15px; }
+/* Content area */
+section &gt; *:not(h1):not(h2) {
+  padding-left: 40px;
+  padding-right: 40px;
+}
+section &gt; p:first-of-type, section &gt; ul:first-of-type,
+section &gt; ol:first-of-type, section &gt; table:first-of-type,
+section &gt; div:first-of-type, section &gt; pre:first-of-type {
+  margin-top: 20px;
+}
+strong { color: #D62828; }
+code {
+  background: #f4f4f4;
+  color: #2E86AB;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: 'Consolas', 'Monaco', monospace;
+}
+pre {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 15px;
+  font-size: 0.8em;
+  line-height: 1.3;
+  overflow: hidden;
+  margin: 10px 40px;
+}
+.example {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-left: 4px solid #06A77D;
+  padding: 12px 15px;
+  margin: 10px 40px;
+  border-radius: 0 8px 8px 0;
+}
+.insight {
+  background: #fff3cd;
+  border-left: 4px solid #ffc107;
+  padding: 12px 15px;
+  margin: 10px 40px;
+  border-radius: 0 8px 8px 0;
+}
+.realworld {
+  background: #e3f2fd;
+  border-left: 4px solid #2196F3;
+  padding: 12px 15px;
+  margin: 10px 40px;
+  border-radius: 0 8px 8px 0;
+}
+.columns { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin: 0 40px; }
+.columns3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; margin: 0 40px; }
+table { font-size: 0.85em; width: calc(100% - 80px); margin: 10px 40px; }
+th { background: #2E86AB; color: white; padding: 8px; }
+td { padding: 8px; border-bottom: 1px solid #dee2e6; }
+img { margin: 10px auto; display: block; }
+/* Section divider slides */
+section.section-divider {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: linear-gradient(135deg, #2E86AB 0%, #1a5276 100%);
+}
+section.section-divider h1 {
+  color: white;
+  border: none;
+  background: transparent;
+  font-size: 2.2em;
+  padding: 20px;
+}
+section.section-divider h2 {
+  color: #a8d8ea;
+  background: transparent;
+  border: none;
+  font-size: 1.3em;
+}
+;background-color:#fff;background-image:none;" data-marpit-pagination-total="47">
 <h1 id="thank-you">Thank You!</h1>
 <p><strong>&quot;All models are wrong, but some are useful.&quot;</strong> - George Box</p>
 <p>The key is matching the right model to the right task!</p>

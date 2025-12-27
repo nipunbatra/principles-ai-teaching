@@ -1,0 +1,56 @@
+# Bounding Box = Regression
+
+direction: down
+
+box: {
+  label: Bounding Box
+  shape: rectangle
+  style.fill: "#E3F2FD"
+  style.stroke: "#2E86AB"
+  style.stroke-width: 3
+  width: 200
+  height: 120
+}
+
+coords: {
+  grid-columns: 2
+  grid-gap: 20
+
+  x: {
+    label: x = 50\n(left)
+    shape: rectangle
+    style.fill: "#FFF3E0"
+    style.stroke: "#FF9800"
+  }
+  y: {
+    label: y = 30\n(top)
+    shape: rectangle
+    style.fill: "#FFF3E0"
+    style.stroke: "#FF9800"
+  }
+  w: {
+    label: w = 100\n(width)
+    shape: rectangle
+    style.fill: "#FFF3E0"
+    style.stroke: "#FF9800"
+  }
+  h: {
+    label: h = 80\n(height)
+    shape: rectangle
+    style.fill: "#FFF3E0"
+    style.stroke: "#FF9800"
+  }
+}
+
+box -> coords: 4 numbers\n(all regression!)
+
+result: {
+  label: Detection = Classification + Regression
+  shape: rectangle
+  style.fill: "#E8F5E9"
+  style.stroke: "#4CAF50"
+  style.font-size: 16
+  style.bold: true
+}
+
+coords -> result

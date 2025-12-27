@@ -1,0 +1,93 @@
+# ML Task Decision Flowchart
+
+direction: down
+
+start: {
+  label: What do you want to predict?
+  shape: oval
+  style.fill: "#E3F2FD"
+  style.stroke: "#2E86AB"
+  style.stroke-width: 2
+  style.font-size: 16
+}
+
+category: {
+  label: Category?
+  shape: diamond
+  style.fill: "#FFF8E1"
+  style.stroke: "#FF9800"
+}
+
+number: {
+  label: Number?
+  shape: diamond
+  style.fill: "#FFF8E1"
+  style.stroke: "#FF9800"
+}
+
+classification: {
+  label: Classification
+  shape: rectangle
+  style.fill: "#E8F5E9"
+  style.stroke: "#4CAF50"
+  style.stroke-width: 2
+}
+
+regression: {
+  label: Regression
+  shape: rectangle
+  style.fill: "#E8F5E9"
+  style.stroke: "#4CAF50"
+  style.stroke-width: 2
+}
+
+sequence: {
+  label: Sequence?
+  shape: diamond
+  style.fill: "#FFF8E1"
+  style.stroke: "#FF9800"
+}
+
+location: {
+  label: Location?
+  shape: diamond
+  style.fill: "#FFF8E1"
+  style.stroke: "#FF9800"
+}
+
+seq2seq: {
+  label: Seq2Seq
+  shape: rectangle
+  style.fill: "#E8F5E9"
+  style.stroke: "#4CAF50"
+  style.stroke-width: 2
+}
+
+detection: {
+  label: Detection
+  shape: rectangle
+  style.fill: "#E8F5E9"
+  style.stroke: "#4CAF50"
+  style.stroke-width: 2
+}
+
+segmentation: {
+  label: Segmentation
+  shape: rectangle
+  style.fill: "#E8F5E9"
+  style.stroke: "#4CAF50"
+  style.stroke-width: 2
+}
+
+start -> category: Yes
+start -> number: No
+
+category -> classification: Yes
+category -> sequence: No
+
+number -> regression: Yes
+number -> location: No
+
+sequence -> seq2seq: Yes
+location -> detection: Yes
+detection -> segmentation: Exact pixels?

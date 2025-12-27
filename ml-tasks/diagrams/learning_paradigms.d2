@@ -1,30 +1,31 @@
-# Three Learning Paradigms - Clean horizontal layout
+# Three Learning Paradigms - Compact 3-column layout
 
-direction: right
+grid-columns: 3
+grid-gap: 30
 
 supervised: {
-  label: Supervised\n\n"Learn from examples"\n\nData: X + Y (labels)\nTasks: Classification,\nRegression, Detection
+  label: Supervised\n\nLearn from examples\n\nData: X + Y\nTasks: Classification\nRegression, Detection
   shape: rectangle
   style.fill: "#E8F5E9"
   style.stroke: "#4CAF50"
   style.stroke-width: 2
-  style.font-size: 16
+  style.font-size: 14
 }
 
 unsupervised: {
-  label: Unsupervised\n\n"Find patterns"\n\nData: X only (no labels)\nTasks: Clustering,\nDim Reduction, Anomaly
+  label: Unsupervised\n\nFind patterns\n\nData: X only\nTasks: Clustering\nDim Reduction
   shape: rectangle
   style.fill: "#FFF8E1"
   style.stroke: "#FF9800"
   style.stroke-width: 2
-  style.font-size: 16
+  style.font-size: 14
 }
 
 self_supervised: {
-  label: Self-Supervised\n\n"Create own labels"\n\nData: X creates Y\nTasks: Next Token (GPT),\nMasked LM (BERT)
+  label: Self-Supervised\n\nCreate own labels\n\nData: X creates Y\nTasks: Next Token\nMasked LM
   shape: rectangle
   style.fill: "#E3F2FD"
   style.stroke: "#2196F3"
   style.stroke-width: 2
-  style.font-size: 16
+  style.font-size: 14
 }

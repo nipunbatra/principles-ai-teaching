@@ -1,0 +1,39 @@
+# Single-Modal vs Multi-Modal
+
+direction: right
+
+single: {
+  label: SINGLE-MODAL
+  style.fill: "#FAFAFA"
+  style.stroke: "#9E9E9E"
+  style.stroke-width: 2
+
+  img: {
+    label: Image → Model → "Cat"
+    shape: rectangle
+    style.fill: "#E3F2FD"
+    style.font-size: 14
+  }
+  txt: {
+    label: Text → Model → Sentiment
+    shape: rectangle
+    style.fill: "#E3F2FD"
+    style.font-size: 14
+  }
+}
+
+multi: {
+  label: MULTI-MODAL
+  style.fill: "#E8F5E9"
+  style.stroke: "#4CAF50"
+  style.stroke-width: 2
+
+  combined: {
+    label: Image + "How many dogs?"\n↓\nModel\n↓\n"Three"
+    shape: rectangle
+    style.fill: "#C8E6C9"
+    style.font-size: 14
+  }
+}
+
+single -> multi: Combine\nmodalities
