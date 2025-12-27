@@ -184,17 +184,7 @@ Once you know the "output type", you know which family the task belongs to!
 
 # The Universal ML Recipe
 
-```
-                    ┌─────────────────────────────────────┐
-                    │          EVERY ML TASK              │
-                    └─────────────────────────────────────┘
-                                    │
-                                    ▼
-┌─────────────┐         ┌─────────────────┐         ┌─────────────┐
-│   INPUT     │   ───►  │     MODEL       │   ───►  │   OUTPUT    │
-│   (X)       │         │    f(X; θ)      │         │    (Y)      │
-└─────────────┘         └─────────────────┘         └─────────────┘
-```
+![w:900 center](diagrams/svg/ml_recipe.svg)
 
 What changes between tasks:
 - What **X** looks like (image, text, audio, numbers)

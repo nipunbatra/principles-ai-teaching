@@ -1,0 +1,35 @@
+# The Universal ML Recipe - Simple flow diagram
+
+direction: right
+
+input: {
+  label: INPUT\n(X)
+  shape: rectangle
+  style.fill: "#E3F2FD"
+  style.stroke: "#2E86AB"
+  style.stroke-width: 2
+  style.font-size: 20
+  style.bold: true
+}
+
+model: {
+  label: MODEL\nf(X; θ)
+  shape: rectangle
+  style.fill: "#FFF3E0"
+  style.stroke: "#FF9800"
+  style.stroke-width: 2
+  style.font-size: 20
+  style.bold: true
+}
+
+output: {
+  label: OUTPUT\n(Y)
+  shape: rectangle
+  style.fill: "#E8F5E9"
+  style.stroke: "#4CAF50"
+  style.stroke-width: 2
+  style.font-size: 20
+  style.bold: true
+}
+
+input -> model -> output

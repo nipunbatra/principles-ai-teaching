@@ -1,121 +1,30 @@
-# Machine Learning Paradigms
+# Three Learning Paradigms - Clean horizontal layout
 
-direction: down
+direction: right
 
-title: {
-  label: The Three Learning Paradigms
-  near: top-center
-  shape: text
-  style.font-size: 26
-  style.bold: true
+supervised: {
+  label: Supervised\n\n"Learn from examples"\n\nData: X + Y (labels)\nTasks: Classification,\nRegression, Detection
+  shape: rectangle
+  style.fill: "#E8F5E9"
+  style.stroke: "#4CAF50"
+  style.stroke-width: 2
+  style.font-size: 16
 }
 
-container: {
-  grid-columns: 3
-  grid-gap: 40
+unsupervised: {
+  label: Unsupervised\n\n"Find patterns"\n\nData: X only (no labels)\nTasks: Clustering,\nDim Reduction, Anomaly
+  shape: rectangle
+  style.fill: "#FFF8E1"
+  style.stroke: "#FF9800"
+  style.stroke-width: 2
+  style.font-size: 16
+}
 
-  supervised: {
-    label: |md
-      # Supervised Learning
-      **"Learn from examples"**
-    |
-    style.fill: "#E8F5E9"
-    style.stroke: "#4CAF50"
-    style.stroke-width: 3
-
-    data: {
-      label: |md
-        **Data**
-        X (features) + Y (labels)
-
-        Image -> "Cat"
-        Email -> "Spam"
-        House -> $500K
-      |
-      style.fill: "#C8E6C9"
-    }
-
-    tasks: {
-      label: |md
-        **Tasks**
-        - Classification
-        - Regression
-        - Detection
-        - Segmentation
-      |
-      style.fill: "#A5D6A7"
-    }
-
-    data -> tasks
-  }
-
-  unsupervised: {
-    label: |md
-      # Unsupervised Learning
-      **"Find patterns"**
-    |
-    style.fill: "#FFF8E1"
-    style.stroke: "#FF9800"
-    style.stroke-width: 3
-
-    data: {
-      label: |md
-        **Data**
-        X only (no labels!)
-
-        Just images
-        Just customer data
-        Just documents
-      |
-      style.fill: "#FFECB3"
-    }
-
-    tasks: {
-      label: |md
-        **Tasks**
-        - Clustering
-        - Dim. Reduction
-        - Anomaly Detection
-        - Association
-      |
-      style.fill: "#FFE082"
-    }
-
-    data -> tasks
-  }
-
-  self_supervised: {
-    label: |md
-      # Self-Supervised
-      **"Create own labels"**
-    |
-    style.fill: "#E3F2FD"
-    style.stroke: "#2196F3"
-    style.stroke-width: 3
-
-    data: {
-      label: |md
-        **Data**
-        X creates Y from itself
-
-        "The cat sat" -> "on"
-        Mask word -> Predict
-        Next frame -> Predict
-      |
-      style.fill: "#BBDEFB"
-    }
-
-    tasks: {
-      label: |md
-        **Tasks**
-        - Next Token (GPT)
-        - Masked LM (BERT)
-        - Contrastive (CLIP)
-        - Autoencoders
-      |
-      style.fill: "#90CAF9"
-    }
-
-    data -> tasks
-  }
+self_supervised: {
+  label: Self-Supervised\n\n"Create own labels"\n\nData: X creates Y\nTasks: Next Token (GPT),\nMasked LM (BERT)
+  shape: rectangle
+  style.fill: "#E3F2FD"
+  style.stroke: "#2196F3"
+  style.stroke-width: 2
+  style.font-size: 16
 }
