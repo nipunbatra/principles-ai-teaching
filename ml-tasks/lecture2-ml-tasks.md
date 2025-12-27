@@ -4,15 +4,51 @@ theme: default
 paginate: true
 backgroundColor: #fff
 style: |
+  /* PowerPoint-like slide layout with fixed title area */
   section {
     font-family: 'Segoe UI', 'Arial', sans-serif;
-    font-size: 24px;
-    padding: 35px;
+    font-size: 22px;
+    padding: 0;
     color: #333;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
   }
-  h1 { color: #2E86AB; font-size: 1.7em; margin-bottom: 0.2em; }
-  h2 { color: #06A77D; font-size: 1.1em; margin-top: 0; }
-  h3 { color: #457B9D; font-size: 1.0em; }
+  /* Fixed title area at top */
+  section h1 {
+    color: #2E86AB;
+    font-size: 1.6em;
+    margin: 0;
+    padding: 25px 40px 15px 40px;
+    border-bottom: 3px solid #2E86AB;
+    background: linear-gradient(180deg, #f8fbfd 0%, #fff 100%);
+    flex-shrink: 0;
+  }
+  section h2 {
+    color: #06A77D;
+    font-size: 1.0em;
+    margin: -10px 0 0 0;
+    padding: 0 40px 15px 40px;
+    background: linear-gradient(180deg, #fff 0%, #fff 100%);
+    border-bottom: 3px solid #2E86AB;
+    flex-shrink: 0;
+  }
+  /* When h1 followed by h2, remove h1 border */
+  section h1:has(+ h2) {
+    border-bottom: none;
+    padding-bottom: 5px;
+  }
+  section h3 { color: #457B9D; font-size: 1.0em; margin-top: 15px; }
+  /* Content area */
+  section > *:not(h1):not(h2) {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+  section > p:first-of-type, section > ul:first-of-type,
+  section > ol:first-of-type, section > table:first-of-type,
+  section > div:first-of-type, section > pre:first-of-type {
+    margin-top: 20px;
+  }
   strong { color: #D62828; }
   code {
     background: #f4f4f4;
@@ -25,36 +61,58 @@ style: |
     background: #f8f9fa;
     border-radius: 8px;
     padding: 15px;
-    font-size: 0.85em;
-    line-height: 1.4;
+    font-size: 0.8em;
+    line-height: 1.3;
     overflow: hidden;
+    margin: 10px 40px;
   }
   .example {
     background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
     border-left: 4px solid #06A77D;
     padding: 12px 15px;
-    margin: 10px 0;
+    margin: 10px 40px;
     border-radius: 0 8px 8px 0;
   }
   .insight {
     background: #fff3cd;
     border-left: 4px solid #ffc107;
     padding: 12px 15px;
-    margin: 10px 0;
+    margin: 10px 40px;
     border-radius: 0 8px 8px 0;
   }
   .realworld {
     background: #e3f2fd;
     border-left: 4px solid #2196F3;
     padding: 12px 15px;
-    margin: 10px 0;
+    margin: 10px 40px;
     border-radius: 0 8px 8px 0;
   }
-  .columns { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; }
-  .columns3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; }
-  table { font-size: 0.9em; width: 100%; }
+  .columns { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin: 0 40px; }
+  .columns3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; margin: 0 40px; }
+  table { font-size: 0.85em; width: calc(100% - 80px); margin: 10px 40px; }
   th { background: #2E86AB; color: white; padding: 8px; }
   td { padding: 8px; border-bottom: 1px solid #dee2e6; }
+  img { margin: 10px auto; display: block; }
+  /* Section divider slides */
+  section.section-divider {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: linear-gradient(135deg, #2E86AB 0%, #1a5276 100%);
+  }
+  section.section-divider h1 {
+    color: white;
+    border: none;
+    background: transparent;
+    font-size: 2.2em;
+    padding: 20px;
+  }
+  section.section-divider h2 {
+    color: #a8d8ea;
+    background: transparent;
+    border: none;
+    font-size: 1.3em;
+  }
 ---
 
 # Machine Learning: Tasks, Taxonomy & Beyond
@@ -149,6 +207,7 @@ The same Transformer architecture powers ChatGPT, DALL-E, and self-driving cars!
 
 ---
 
+<!-- _class: section-divider -->
 # Part 1: Classification
 ## "Which Bucket Does This Belong To?"
 
@@ -222,6 +281,7 @@ The model isn't just saying "Cat" - it's saying "85% sure it's a cat!"
 
 ---
 
+<!-- _class: section-divider -->
 # Part 2: Regression
 ## "How Much? How Many?"
 
@@ -272,6 +332,7 @@ Bounding box detection is actually **regression**:
 
 ---
 
+<!-- _class: section-divider -->
 # Part 3: Computer Vision Hierarchy
 ## From Labels to Pixels
 
@@ -334,6 +395,7 @@ Self-driving cars need Instance Segmentation - they must track WHICH car is doin
 
 ---
 
+<!-- _class: section-divider -->
 # Part 4: Natural Language Processing
 ## Teaching Machines to Read & Write
 
@@ -377,6 +439,7 @@ Think of it as "semantic segmentation for text" - every word gets a label!
 
 ---
 
+<!-- _class: section-divider -->
 # Part 5: Unsupervised Learning
 ## Finding Patterns Without Labels
 
@@ -438,6 +501,7 @@ Original: 1000-dimensional data
 
 ---
 
+<!-- _class: section-divider -->
 # Part 6: Generative Models
 ## Creating New Data
 
@@ -478,6 +542,7 @@ All of these generate NEW content that never existed before!
 
 ---
 
+<!-- _class: section-divider -->
 # Part 7: Multimodal AI
 ## Combining Everything
 
@@ -526,6 +591,7 @@ Modern AI (GPT-4, Claude, Gemini) is multimodal - it can see AND read AND hear!
 
 ---
 
+<!-- _class: section-divider -->
 # Part 8: Reinforcement Learning
 ## Learning Through Interaction
 
@@ -555,6 +621,7 @@ RLHF (Reinforcement Learning from Human Feedback) is how ChatGPT learns to be he
 
 ---
 
+<!-- _class: section-divider -->
 # Part 9: The Common Thread
 ## Neural Networks & Deep Learning
 
