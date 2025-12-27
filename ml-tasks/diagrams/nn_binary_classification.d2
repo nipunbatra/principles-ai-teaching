@@ -1,0 +1,43 @@
+# Neural Network for Binary Classification
+
+direction: right
+
+input: {
+  label: INPUT\n\nPatient Data
+  shape: rectangle
+  style.fill: "#E3F2FD"
+  style.stroke: "#1e3a5f"
+  style.stroke-width: 2
+  style.font-size: 14
+}
+
+hidden: {
+  label: HIDDEN\nLAYERS\n\nLearn patterns
+  shape: rectangle
+  style.fill: "#FFF8E1"
+  style.stroke: "#FF9800"
+  style.stroke-width: 2
+  style.font-size: 14
+}
+
+output: {
+  label: OUTPUT\n\n1 neuron\nSigmoid
+  shape: rectangle
+  style.fill: "#E8F5E9"
+  style.stroke: "#4CAF50"
+  style.stroke-width: 2
+  style.font-size: 14
+}
+
+result: {
+  label: p = 0.87\n\nDisease?\nYes (87%)
+  shape: rectangle
+  style.fill: "#FFEBEE"
+  style.stroke: "#e85a4f"
+  style.stroke-width: 2
+  style.font-size: 14
+}
+
+input -> hidden: Features
+hidden -> output: Activations
+output -> result: Probability

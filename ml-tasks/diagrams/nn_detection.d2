@@ -1,0 +1,57 @@
+# Neural Network for Object Detection (Multi-task)
+
+direction: right
+
+input: {
+  label: INPUT\n\nImage\n416x416
+  shape: rectangle
+  style.fill: "#E3F2FD"
+  style.stroke: "#1e3a5f"
+  style.stroke-width: 2
+  style.font-size: 14
+}
+
+backbone: {
+  label: CNN\nBACKBONE\n\nExtract\nfeatures
+  shape: rectangle
+  style.fill: "#FFF8E1"
+  style.stroke: "#FF9800"
+  style.stroke-width: 2
+  style.font-size: 14
+}
+
+head: {
+  label: DETECTION\nHEAD
+  style.fill: "#E8F5E9"
+  style.stroke: "#4CAF50"
+  style.stroke-width: 2
+
+  box: {
+    label: Box\nx,y,w,h
+    shape: rectangle
+    style.fill: "#C8E6C9"
+  }
+  obj: {
+    label: Objectness\nsigmoid
+    shape: rectangle
+    style.fill: "#C8E6C9"
+  }
+  cls: {
+    label: Classes\nsoftmax
+    shape: rectangle
+    style.fill: "#C8E6C9"
+  }
+}
+
+result: {
+  label: "Dog: 95%\nBox coords"
+  shape: rectangle
+  style.fill: "#FFEBEE"
+  style.stroke: "#e85a4f"
+  style.stroke-width: 2
+  style.font-size: 14
+}
+
+input -> backbone
+backbone -> head
+head -> result

@@ -795,109 +795,56 @@ RLHF (Reinforcement Learning from Human Feedback) is how ChatGPT learns to be he
 
 # NN Output: Binary Classification
 
-```
-Input: Patient data (age, blood pressure, cholesterol, ...)
+![w:900 center](diagrams/svg/nn_binary_classification.svg)
 
-       ┌──────────────────────────────────────────────────────────────┐
-       │  INPUT           HIDDEN LAYERS            OUTPUT             │
-       │  LAYER                                    LAYER              │
-       │                                                              │
-       │   [x₁] ─────╲                                                │
-       │              ╲                                               │
-       │   [x₂] ───────●────●────●                                   │
-       │              ╱       ╲      ╲                                │
-       │   [x₃] ─────╱         ●────●────→ [σ] → p ∈ [0, 1]          │
-       │            ╲         ╱      ╱                                │
-       │   [x₄] ─────●────●────●                                     │
-       │            ╱                                                 │
-       │   [x₅] ───╱                         SIGMOID                  │
-       │                                     activation               │
-       └──────────────────────────────────────────────────────────────┘
+**Output:** 1 neuron with **Sigmoid** activation → probability p ∈ [0, 1]
 
-Output: Single neuron with SIGMOID → probability of disease
-Loss: Binary Cross-Entropy = -[y·log(p) + (1-y)·log(1-p)]
-```
+**Loss:** Binary Cross-Entropy = -[y·log(p) + (1-y)·log(1-p)]
+
+<div class="example">
+Example: Disease prediction, spam detection, fraud detection
+</div>
 
 ---
 
 # NN Output: Multi-class Classification
 
-```
-Input: Image of a digit (0-9)
+![w:900 center](diagrams/svg/nn_multiclass.svg)
 
-       ┌──────────────────────────────────────────────────────────────┐
-       │  INPUT           HIDDEN LAYERS            OUTPUT             │
-       │  (784 pixels)                             (10 classes)       │
-       │                                                              │
-       │   [p₁]                                   → [0.01] class 0    │
-       │   [p₂] ──╲                              → [0.02] class 1    │
-       │   [p₃] ───●────●────●─────╱             → [0.01] class 2    │
-       │    ⋮      ╲       ╲      ╱─→ SOFTMAX ─→ [0.89] class 3 ★   │
-       │    ⋮   ────●────●────●──╱               → [0.02] class 4    │
-       │    ⋮      ╱       ╱      ╲               → [0.01] class 5    │
-       │   [pₙ] ──╱────●─────╲     ╲             → [0.01] class 6    │
-       │                                         → [0.01] class 7    │
-       │                                         → [0.01] class 8    │
-       │                                         → [0.01] class 9    │
-       └──────────────────────────────────────────────────────────────┘
+**Output:** C neurons with **Softmax** → probabilities sum to 1.0
 
-Output: 10 neurons with SOFTMAX → probabilities sum to 1.0
-Loss: Categorical Cross-Entropy = -Σ yᵢ·log(pᵢ)
-```
+**Loss:** Categorical Cross-Entropy = -Σ yᵢ·log(pᵢ)
+
+<div class="example">
+Example: Digit recognition (10 classes), ImageNet (1000 classes)
+</div>
 
 ---
 
 # NN Output: Regression
 
-```
-Input: House features (sqft, bedrooms, location, ...)
+![w:900 center](diagrams/svg/nn_regression.svg)
 
-       ┌──────────────────────────────────────────────────────────────┐
-       │  INPUT           HIDDEN LAYERS            OUTPUT             │
-       │  LAYER                                    LAYER              │
-       │                                                              │
-       │   [sqft] ─────╲                                              │
-       │                ╲                                             │
-       │   [beds] ───────●────●────●                                 │
-       │                ╱       ╲      ╲                              │
-       │   [baths] ────╱         ●────●────→ [$450,000]              │
-       │              ╲         ╱      ╱                              │
-       │   [loc] ──────●────●────●           NO activation           │
-       │              ╱                       (linear output)         │
-       │   [age] ────╱                                                │
-       │                                                              │
-       └──────────────────────────────────────────────────────────────┘
+**Output:** 1 neuron with **No activation** (linear) → any real number
 
-Output: Single neuron with NO activation (or linear) → any real number
-Loss: Mean Squared Error (MSE) = (1/n)Σ(yᵢ - ŷᵢ)²
-```
+**Loss:** Mean Squared Error (MSE) = (1/n)Σ(yᵢ - ŷᵢ)²
+
+<div class="example">
+Example: House prices, stock prediction, age estimation
+</div>
 
 ---
 
 # NN Output: Object Detection (Multi-task)
 
-```
-Input: Image (e.g., 416 × 416 × 3)
+![w:900 center](diagrams/svg/nn_detection.svg)
 
-       ┌──────────────────────────────────────────────────────────────┐
-       │  INPUT           CNN BACKBONE            DETECTION HEAD      │
-       │  IMAGE                                                       │
-       │                                                              │
-       │   ┌───────┐     ┌─────┐                 → [x, y, w, h]      │
-       │   │       │     │     │                   (box regression)   │
-       │   │ Image │ ──→ │ CNN │ ──→ Feature ──→ → [0.95]            │
-       │   │       │     │     │      Map          (objectness)       │
-       │   └───────┘     └─────┘                 → [dog: 0.9, ...]   │
-       │                                           (class probs)      │
-       └──────────────────────────────────────────────────────────────┘
+**Output per detection:**
+- 4 values: Box coordinates (x, y, w, h) - *regression*
+- 1 value: Objectness score - *sigmoid*
+- C values: Class probabilities - *softmax*
 
-Output per detection:
-  • 4 values: Bounding box coordinates (regression)
-  • 1 value: Objectness score (sigmoid)
-  • C values: Class probabilities (softmax over C classes)
-
-Loss: L = λ₁·L_box + λ₂·L_obj + λ₃·L_class
-```
+**Loss:** L = λ₁·L_box + λ₂·L_obj + λ₃·L_class
 
 ---
 
@@ -972,11 +919,15 @@ Understanding the output type tells you which family of techniques to use!
 
 ---
 
+<!-- _class: section-divider -->
+
 # Thank You!
 
-**"All models are wrong, but some are useful."** - George Box
+**"All models are wrong, but some are useful."**
+*— George Box*
 
-The key is matching the right model to the right task!
+### Key Takeaway
+Match the **output type** to the right **task formulation**
 
-## Questions?
+Questions?
 
