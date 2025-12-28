@@ -33,28 +33,40 @@ math: mathjax
 
 ---
 
-# ML Notation: The Basics
+# ML Notation: A Concrete Example
 
-| Symbol | Meaning | Example |
-|--------|---------|---------|
-| $\mathbf{X}$ | Input features (matrix) | All training images |
-| $\mathbf{x}$ | Single input sample | One image |
-| $\mathbf{y}$ | Output/Target | Label, price, category |
+**House Price Dataset** (what we give to the model):
+
+| $i$ | sqft ($x_1$) | beds ($x_2$) | age ($x_3$) | price ($y$) |
+|-----|--------------|--------------|-------------|-------------|
+| 1 | 1200 | 2 | 5 | $250K |
+| 2 | 1800 | 3 | 10 | $350K |
+| 3 | 2400 | 4 | 2 | $500K |
+| ... | ... | ... | ... | ... |
+| $n$ | 1500 | 2 | 15 | $280K |
+
+- Each row $i$ is one **sample**: $(\mathbf{x}_i, y_i)$
+- $\mathbf{x}_i = [x_{i1}, x_{i2}, x_{i3}]$ = features for sample $i$
+- $y_i$ = target/label for sample $i$
+- All samples together: $\mathbf{X}$ (matrix), $\mathbf{y}$ (vector)
+
+---
+
+# ML Notation: The Symbols
+
+| Symbol | What it means | In our example |
+|--------|---------------|----------------|
+| $n$ | Number of samples | 1000 houses |
+| $\mathbf{x}_i$ | Features of sample $i$ | $[1200, 2, 5]$ |
+| $y_i$ | Target of sample $i$ | $250K |
+| $\mathbf{X}$ | All features (matrix) | $n \times 3$ matrix |
+| $\mathbf{y}$ | All targets (vector) | $n \times 1$ vector |
 | $f(\mathbf{x}; \theta)$ | Model with parameters | Neural network |
-| $\hat{y}$ | Model prediction | $\hat{y} = f(\mathbf{x})$ |
+| $\hat{y}_i$ | Prediction for sample $i$ | $f(\mathbf{x}_i) = 245K$ |
 
-| Dataset Term | What it is | Typical Split |
-|--------------|-----------|---------------|
-| **Training set** | Data to learn from | ~70-80% |
-| **Validation set** | Data to tune hyperparameters | ~10-15% |
-| **Test set** | Final evaluation (never peek!) | ~10-15% |
+<div class="insight">
 
-<div class="example">
-
-**Example:** Spam detection
-- $\mathbf{x}$ = email text ("Buy now! Limited offer!")
-- $y$ = label (spam=1, not spam=0)
-- Model learns: $f(\mathbf{x}) \rightarrow \hat{y}$ (predicted probability)
+**Train/Test Split:** Use ~80% to train, ~20% to test (never peek at test during training!)
 
 </div>
 
