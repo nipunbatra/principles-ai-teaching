@@ -170,33 +170,23 @@ section table {
   font-size: 0.85em;
   width: calc(100% - 90px);
   margin: 15px 45px;
-  border-collapse: separate;
-  border-spacing: 0;
-  border-radius: 8px;
-  overflow: hidden;
-  border: 1px solid #e2e8f0;
+  border-collapse: collapse;
+  border: none;
 }
 
 section th {
-  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+  background: var(--primary);
   color: white;
   padding: 12px 10px;
   font-weight: 600;
   text-align: left;
+  border: 1px solid var(--primary);
 }
 
 section td {
   padding: 10px;
-  border-bottom: 1px solid #e2e8f0;
+  border: 1px solid #e2e8f0;
   background: white;
-}
-
-section tr:last-child td {
-  border-bottom: none;
-}
-
-section tr:hover td {
-  background: #f7fafc;
 }
 
 /* Images */
