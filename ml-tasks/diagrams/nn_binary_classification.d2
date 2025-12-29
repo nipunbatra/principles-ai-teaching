@@ -2,42 +2,115 @@
 
 direction: right
 
-input: {
-  label: INPUT\n\nPatient Data
-  shape: rectangle
-  style.fill: "#E3F2FD"
-  style.stroke: "#1e3a5f"
-  style.stroke-width: 2
-  style.font-size: 14
+vars: {
+  primary: "#1e3a5f"
+  success: "#2a9d8f"
+  warning: "#FF9800"
+  accent: "#e85a4f"
+  fill-primary: "#E3F2FD"
+  fill-success: "#E8F5E9"
+  fill-warning: "#FFF8E1"
+  fill-accent: "#FFEBEE"
 }
 
-hidden: {
-  label: HIDDEN\nLAYERS\n\nLearn patterns
-  shape: rectangle
-  style.fill: "#FFF8E1"
-  style.stroke: "#FF9800"
-  style.stroke-width: 2
-  style.font-size: 14
-}
+# Stage containers with nested text + formula
+stages: {
+  direction: right
 
-output: {
-  label: OUTPUT\n\n1 neuron\nSigmoid
-  shape: rectangle
-  style.fill: "#E8F5E9"
-  style.stroke: "#4CAF50"
-  style.stroke-width: 2
-  style.font-size: 14
-}
+  input: {
+    style.fill: ${fill-primary}
+    style.stroke: ${primary}
+    style.stroke-width: 2
 
-result: {
-  label: p = 0.87\n\nDisease?\nYes (87%)
-  shape: rectangle
-  style.fill: "#FFEBEE"
-  style.stroke: "#e85a4f"
-  style.stroke-width: 2
-  style.font-size: 14
-}
+    header: "INPUT" {
+      shape: text
+      style.bold: true
+      style.font-size: 16
+    }
+    desc: "Patient Data" {
+      shape: text
+      style.font-size: 13
+    }
+    formula: {
+      label: |latex
+        \\mathbf{x} \\in \\mathbb{R}^d
+      |
+    }
+  }
 
-input -> hidden: Features
-hidden -> output: Activations
-output -> result: Probability
+  hidden: {
+    style.fill: ${fill-warning}
+    style.stroke: ${warning}
+    style.stroke-width: 2
+
+    header: "HIDDEN LAYERS" {
+      shape: text
+      style.bold: true
+      style.font-size: 16
+    }
+    desc: "Learn patterns" {
+      shape: text
+      style.font-size: 13
+    }
+    formula: {
+      label: |latex
+        \\mathbf{h} = \\sigma(\\mathbf{Wx} + \\mathbf{b})
+      |
+    }
+  }
+
+  output: {
+    style.fill: ${fill-success}
+    style.stroke: ${success}
+    style.stroke-width: 2
+
+    header: "OUTPUT" {
+      shape: text
+      style.bold: true
+      style.font-size: 16
+    }
+    desc: "1 neuron (Sigmoid)" {
+      shape: text
+      style.font-size: 13
+    }
+    formula: {
+      label: |latex
+        \\sigma(z) = \\frac{1}{1+e^{-z}}
+      |
+    }
+  }
+
+  result: {
+    style.fill: ${fill-accent}
+    style.stroke: ${accent}
+    style.stroke-width: 2
+
+    header: "PREDICTION" {
+      shape: text
+      style.bold: true
+      style.font-size: 16
+    }
+    formula: {
+      label: |latex
+        p = 0.87
+      |
+    }
+    desc: "Disease? Yes (87%)" {
+      shape: text
+      style.font-size: 13
+    }
+  }
+
+  input -> hidden: Features {
+    style.stroke: ${primary}
+    style.font-size: 12
+  }
+  hidden -> output: Activations {
+    style.stroke: ${warning}
+    style.font-size: 12
+  }
+  output -> result: Probability {
+    style.stroke: ${success}
+    style.font-size: 12
+  }
+}
