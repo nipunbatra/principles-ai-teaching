@@ -34,8 +34,11 @@ jobs:
         run: |
           mkdir -p _site/ml-tasks _site/next-token-prediction _site/object-detection
           cp ml-tasks/ml-tasks.html ml-tasks/ml-tasks.pdf _site/ml-tasks/
+          cp -r ml-tasks/diagrams ml-tasks/examples _site/ml-tasks/ 2>/dev/null || true
           cp next-token-prediction/next-token-prediction.html next-token-prediction/next-token-prediction.pdf _site/next-token-prediction/
+          cp -r next-token-prediction/diagrams _site/next-token-prediction/ 2>/dev/null || true
           cp object-detection/object-detection-basics.html object-detection/object-detection-basics.pdf _site/object-detection/
+          cp -r object-detection/diagrams object-detection/examples _site/object-detection/ 2>/dev/null || true
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
