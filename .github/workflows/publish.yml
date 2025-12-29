@@ -22,22 +22,8 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
-
-      - name: Install Python dependencies
-        run: pip install matplotlib numpy
-
       - name: Install Marp CLI
         run: npm install -g @marp-team/marp-cli
-
-      - name: Generate diagrams
-        run: |
-          (cd ml-tasks && python generate_ml_diagrams.py)
-          (cd next-token-prediction && python generate_ntp_diagrams.py)
-          (cd object-detection && python generate_objdet_diagrams.py)
 
       - name: Build Marp slides
         run: |
