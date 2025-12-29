@@ -1217,26 +1217,16 @@ from autocomplete to ChatGPT to Claude. Now you understand how!
 
 ---
 
-# Thank You!
-
 <!-- _class: title-slide -->
 
-<div style="text-align: center; margin-top: 2em;">
+# Thank You!
 
-### The Big Reveal
+## The Big Reveal
 
 **All of ChatGPT, Claude, Gemini...**
 
 **...is just predicting the next token, really well.**
 
-</div>
-
-<div class="insight" style="margin-top: 2em;">
-<strong>One simple idea, scaled massively:</strong> Given context, what comes next?
-</div>
-
-<div style="text-align: center; margin-top: 2em; font-size: 1.5em;">
+*One simple idea, scaled massively: Given context, what comes next?*
 
 **Questions?**
-
-</div>
