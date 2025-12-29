@@ -22,6 +22,19 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Install Marp CLI
+        run: npm install -g @marp-team/marp-cli
+
+      - name: Build Marp slides
+        run: |
+          THEME=themes/iitgn-modern.css
+          marp ml-tasks/ml-tasks.md --theme-set $THEME --allow-local-files --html -o ml-tasks/ml-tasks.html
+          marp ml-tasks/ml-tasks.md --theme-set $THEME --allow-local-files --html --pdf -o ml-tasks/ml-tasks.pdf
+          marp next-token-prediction/next-token-prediction.md --theme-set $THEME --allow-local-files --html -o next-token-prediction/next-token-prediction.html
+          marp next-token-prediction/next-token-prediction.md --theme-set $THEME --allow-local-files --html --pdf -o next-token-prediction/next-token-prediction.pdf
+          marp object-detection/object-detection-basics.md --theme-set $THEME --allow-local-files --html -o object-detection/object-detection-basics.html
+          marp object-detection/object-detection-basics.md --theme-set $THEME --allow-local-files --html --pdf -o object-detection/object-detection-basics.pdf
+
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
         with:
@@ -30,18 +43,11 @@ jobs:
       - name: Render Quarto website
         run: quarto render
 
-      - name: Install Marp CLI
-        run: npm install -g @marp-team/marp-cli
-
-      - name: Build Marp slides
+      - name: Copy Marp slides to _site
         run: |
-          THEME=themes/iitgn-modern.css
-          marp ml-tasks/ml-tasks.md --theme-set $THEME --allow-local-files --html -o _site/ml-tasks/ml-tasks.html
-          marp ml-tasks/ml-tasks.md --theme-set $THEME --allow-local-files --html --pdf -o _site/ml-tasks/ml-tasks.pdf
-          marp next-token-prediction/next-token-prediction.md --theme-set $THEME --allow-local-files --html -o _site/next-token-prediction/next-token-prediction.html
-          marp next-token-prediction/next-token-prediction.md --theme-set $THEME --allow-local-files --html --pdf -o _site/next-token-prediction/next-token-prediction.pdf
-          marp object-detection/object-detection-basics.md --theme-set $THEME --allow-local-files --html -o _site/object-detection/object-detection-basics.html
-          marp object-detection/object-detection-basics.md --theme-set $THEME --allow-local-files --html --pdf -o _site/object-detection/object-detection-basics.pdf
+          cp ml-tasks/ml-tasks.html ml-tasks/ml-tasks.pdf _site/ml-tasks/
+          cp next-token-prediction/next-token-prediction.html next-token-prediction/next-token-prediction.pdf _site/next-token-prediction/
+          cp object-detection/object-detection-basics.html object-detection/object-detection-basics.pdf _site/object-detection/
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
