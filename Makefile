@@ -1,25 +1,32 @@
 # Makefile for building Marp slides with custom theme
-# Usage: make all     - build all slides
-#        make lecture2 - build just lecture2
+# Usage: make all      - build all slides
+#        make ml-tasks - build ML Tasks slides
+#        make ntp      - build Next Token Prediction slides
+#        make objdet   - build Object Detection slides
 #        make clean    - remove built files
 
 THEME = themes/iitgn-modern.css
 
-.PHONY: all clean lecture2 ntp objdet
+.PHONY: all clean ml-tasks ntp objdet diagrams
 
-all: lecture2 ntp objdet
+all: diagrams ml-tasks ntp objdet
 
-lecture2:
-	cd ml-tasks && marp lecture2-ml-tasks.md --theme-set ../$(THEME) --allow-local-files --pdf -o lecture2-ml-tasks.pdf
-	cd ml-tasks && marp lecture2-ml-tasks.md --theme-set ../$(THEME) --allow-local-files -o lecture2-ml-tasks.html
+diagrams:
+	cd ml-tasks && python generate_ml_diagrams.py
+	cd next-token-prediction && python generate_ntp_diagrams.py
+	cd object-detection && python generate_objdet_diagrams.py
+
+ml-tasks:
+	cd ml-tasks && marp ml-tasks.md --theme-set ../$(THEME) --allow-local-files --html --pdf -o ml-tasks.pdf
+	cd ml-tasks && marp ml-tasks.md --theme-set ../$(THEME) --allow-local-files --html -o ml-tasks.html
 
 ntp:
-	cd next-token-prediction && marp next-token-prediction.md --theme-set ../$(THEME) --allow-local-files --pdf -o next-token-prediction.pdf
-	cd next-token-prediction && marp next-token-prediction.md --theme-set ../$(THEME) --allow-local-files -o next-token-prediction.html
+	cd next-token-prediction && marp next-token-prediction.md --theme-set ../$(THEME) --allow-local-files --html --pdf -o next-token-prediction.pdf
+	cd next-token-prediction && marp next-token-prediction.md --theme-set ../$(THEME) --allow-local-files --html -o next-token-prediction.html
 
 objdet:
-	cd object-detection && marp object-detection-basics.md --theme-set ../$(THEME) --allow-local-files --pdf -o object-detection-basics.pdf
-	cd object-detection && marp object-detection-basics.md --theme-set ../$(THEME) --allow-local-files -o object-detection-basics.html
+	cd object-detection && marp object-detection-basics.md --theme-set ../$(THEME) --allow-local-files --html --pdf -o object-detection-basics.pdf
+	cd object-detection && marp object-detection-basics.md --theme-set ../$(THEME) --allow-local-files --html -o object-detection-basics.html
 
 clean:
 	rm -f ml-tasks/*.pdf ml-tasks/*.html
