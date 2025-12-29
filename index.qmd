@@ -37,8 +37,7 @@ Each topic combines intuitive explanations with hands-on coding. Labs use real d
 
 | Topic | Materials |
 |-------|:---------:|
-| ML Tasks Taxonomy | [HTML](ml-tasks/ml-tasks-taxonomy.html) ∙ [PDF](ml-tasks/ml-tasks-taxonomy.pdf) |
-| ML Tasks Zoo | [HTML](ml-tasks/ml-tasks-zoo.html) ∙ [PDF](ml-tasks/ml-tasks-zoo.pdf) |
+| ML Tasks & Taxonomy | [HTML](ml-tasks/ml-tasks.html) ∙ [PDF](ml-tasks/ml-tasks.pdf) |
 | Next Token Prediction | [HTML](next-token-prediction/next-token-prediction.html) ∙ [PDF](next-token-prediction/next-token-prediction.pdf) |
 | Object Detection | [HTML](object-detection/object-detection-basics.html) ∙ [PDF](object-detection/object-detection-basics.pdf) |
 
@@ -62,41 +61,26 @@ Each topic combines intuitive explanations with hands-on coding. Labs use real d
 **Learning Goal:** Understand the landscape of ML tasks and build intuition with classical algorithms.
 :::
 
-### ML Tasks Taxonomy
+### ML Tasks & Taxonomy
 
-Understanding different types of machine learning problems and when to use each.
+A comprehensive introduction to machine learning: learning paradigms, task types, and practical examples with sklearn and neural networks.
 
-**Key Concepts:** Supervised vs Unsupervised, Classification vs Regression, Structured vs Unstructured Data
+**Key Concepts:** Supervised vs Unsupervised vs RL, Classification vs Regression, Vision tasks, NLP tasks, Generative AI, sklearn basics, Neural Networks
 
 | | Materials |
 |--|:--|
-| **Lecture** | [HTML](ml-tasks/ml-tasks-taxonomy.html) ∙ [PDF](ml-tasks/ml-tasks-taxonomy.pdf) ∙ [Source](https://github.com/nipunbatra/principles-ai-teaching/blob/main/ml-tasks/ml-tasks-taxonomy.md) |
+| **Lecture** | [HTML](ml-tasks/ml-tasks.html) ∙ [PDF](ml-tasks/ml-tasks.pdf) ∙ [Source](https://github.com/nipunbatra/principles-ai-teaching/blob/main/ml-tasks/ml-tasks.md) |
 
 **Topics Covered:**
 
-- The AI/ML landscape
+- Learning paradigms (Supervised, Unsupervised, Reinforcement Learning)
 - Supervised learning (classification, regression)
 - Unsupervised learning (clustering, dimensionality reduction)
-- When to use what approach
-
----
-
-### ML Tasks Zoo
-
-A comprehensive tour of 30+ ML tasks across vision, NLP, audio, and genertic AI.
-
-**Key Concepts:** Task hierarchies, real-world applications, model selection
-
-| | Materials |
-|--|:--|
-| **Lecture** | [HTML](ml-tasks/ml-tasks-zoo.html) ∙ [PDF](ml-tasks/ml-tasks-zoo.pdf) ∙ [Source](https://github.com/nipunbatra/principles-ai-teaching/blob/main/ml-tasks/ml-tasks-zoo.md) |
-
-**Topics Covered:**
-
-- Computer Vision tasks (classification, detection, segmentation, pose)
-- NLP tasks (sentiment, NER, translation, QA, summarization)
-- Audio tasks (speech recognition, synthesis, music generation)
-- Generative AI (image generation, LLMs, video synthesis)
+- Computer Vision tasks (classification, detection, segmentation)
+- NLP tasks (text classification, NER, seq2seq, generation)
+- Generative AI and Multimodal models
+- Hands-on sklearn examples
+- Introduction to Neural Networks
 
 ---
 

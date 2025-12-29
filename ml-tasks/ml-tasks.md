@@ -9,66 +9,25 @@ math: mathjax
 <!-- _paginate: false -->
 
 # Machine Learning
-# Tasks, Taxonomy & Beyond
+# Tasks & Taxonomy
+
 ## From Classification to Deep Learning
 
 **Nipun Batra** | IIT Gandhinagar
 
 ---
 
-# ML is Everywhere in Your Daily Life
+# ML is Everywhere in Your Life
 
 | Time | What You Do | ML Behind It |
 |------|-------------|--------------|
 | Morning | Phone unlocks with your face | Face Recognition |
 | Commute | Google Maps predicts traffic | Time Series Prediction |
-| Email | Gmail filters spam, suggests replies | Text Classification + Generation |
-| Music | Spotify recommends songs | Recommendation Systems |
-| Shopping | Amazon shows "You might also like..." | Collaborative Filtering |
-| Photos | Google Photos groups by faces | Clustering + Image Classification |
-| Evening | Netflix suggests what to watch | Recommendation Systems |
-| Chat | You ask ChatGPT a question | Language Models (Generative AI) |
-
-**Each of these is a different ML task!**
-
----
-
-# ML Notation: A Concrete Example
-
-**House Price Dataset** (what we give to the model):
-
-| $i$ | sqft ($x_1$) | beds ($x_2$) | age ($x_3$) | price ($y$) |
-|-----|--------------|--------------|-------------|-------------|
-| 1 | 1200 | 2 | 5 | $250K |
-| 2 | 1800 | 3 | 10 | $350K |
-| 3 | 2400 | 4 | 2 | $500K |
-| ... | ... | ... | ... | ... |
-| $n$ | 1500 | 2 | 15 | $280K |
-
-- Each row $i$ is one **sample**: $(\mathbf{x}_i, y_i)$
-- $\mathbf{x}_i = [x_{i1}, x_{i2}, x_{i3}]$ = features for sample $i$
-- $y_i$ = target/label for sample $i$
-- All samples together: $\mathbf{X}$ (matrix), $\mathbf{y}$ (vector)
-
----
-
-# ML Notation: The Symbols
-
-| Symbol | What it means | In our example |
-|--------|---------------|----------------|
-| $n$ | Number of samples | 1000 houses |
-| $\mathbf{x}_i$ | Features of sample $i$ | $[1200, 2, 5]$ |
-| $y_i$ | Target of sample $i$ | $250K |
-| $\mathbf{X}$ | All features (matrix) | $n \times 3$ matrix |
-| $\mathbf{y}$ | All targets (vector) | $n \times 1$ vector |
-| $f(\mathbf{x}; \theta)$ | Model with parameters | Neural network |
-| $\hat{y}_i$ | Prediction for sample $i$ | $f(\mathbf{x}_i) = 245K$ |
-
-<div class="insight">
-
-**Train/Test Split:** Use ~80% to train, ~20% to test (never peek at test during training!)
-
-</div>
+| Email | Gmail filters spam | Text Classification |
+| Music | Spotify recommends songs | Recommendation |
+| Photos | Google Photos groups by faces | Clustering |
+| Evening | Netflix suggests what to watch | Collaborative Filtering |
+| Chat | You ask ChatGPT a question | Language Models |
 
 ---
 
@@ -76,283 +35,175 @@ math: mathjax
 
 Every ML task boils down to **one question**:
 
-## "What are you trying to PREDICT?"
+## What are you trying to PREDICT?
 
-<div class="columns">
-<div>
+---
 
-**Predicting a Category?**
-Classification
-*"Is this email spam?"*
+# What Are You Predicting?
 
-**Predicting a Number?**
-Regression
-*"What will be the price?"*
+| If you're predicting... | It's called... | Example |
+|------------------------|----------------|---------|
+| A **category** | Classification | "Is this spam?" |
+| A **number** | Regression | "What's the price?" |
+| A **sequence** | Seq2Seq | "Translate to French" |
+| **Something new** | Generation | "Draw a cat" |
 
-</div>
-<div>
+---
 
-**Predicting a Sequence?**
-Seq2Seq
-*"How do you say this in French?"*
+# But There's Another Question...
 
-**Creating Something New?**
-Generative
-*"Draw me a cat in space"*
+## Do you have labeled examples?
 
-</div>
-</div>
+This determines your **learning paradigm**.
 
-<div class="insight">
-Once you know the "output type", you know which family the task belongs to!
-</div>
+---
+
+<!-- _class: section-divider -->
+
+# Part 1: Learning Paradigms
+
+## Supervised, Unsupervised, & Reinforcement
 
 ---
 
 # The Three Learning Paradigms
 
-![w:1000 center](diagrams/svg/learning_paradigms.svg)
+![w:950 center](diagrams/svg/learning_paradigms.svg)
 
 ---
 
-# The Universal ML Recipe
+# Paradigm 1: Supervised Learning
 
-![w:900 center](diagrams/svg/ml_recipe.svg)
+**"Learning with a teacher"**
 
-What changes between tasks:
-- What **X** looks like (image, text, audio, numbers)
-- What **Y** looks like (label, number, sequence, image)
-- How we **measure success** (accuracy, MSE, IoU, BLEU)
+You have:
+- **Input data** (X): features describing each example
+- **Labels** (Y): the correct answer for each example
 
-<div class="insight">
-The same Transformer architecture powers ChatGPT, DALL-E, and self-driving cars!
-</div>
+The model learns to map X → Y
 
 ---
 
-<!-- _class: section-divider -->
-# Part 1: Classification
-## "Which Bucket Does This Belong To?"
-
----
-
-# Classification: Real Examples from CIFAR-10
-
-![w:800 center](examples/cifar10_examples.png)
-
-You look at the input and pick **one category** from a fixed set. That's classification!
-
----
-
-# Classification: How a Decision Tree Learns
-
-![w:1000 center](examples/decision_tree_example.png)
-
-A decision tree learns **if-then rules** from data:
-"If sepal length > 5.5 AND sepal width < 3.0, then iris-versicolor"
-
----
-
-# Classification: Logistic Regression
-
-![w:900 center](examples/logistic_regression_example.png)
-
-Logistic regression learns a **decision boundary** that separates classes.
-
----
-
-# Binary vs Multi-Class Classification
-
-<div class="columns">
-<div>
-
-**Binary Classification**
-*Two possible outcomes*
-
-- Spam / Not Spam
-- Fraud / Legitimate
-- Pass / Fail
-- Tumor: Benign / Malignant
-
-</div>
-<div>
-
-**Multi-Class Classification**
-*Many possible outcomes*
-
-- Digit recognition (0-9)
-- ImageNet (1000 classes)
-- Emotion detection (6+ emotions)
-- Animal species identification
-
-</div>
-</div>
-
-<div class="insight">
-Same algorithm, just different number of outputs!
-</div>
-
----
-
-# The Math: Softmax Turns Scores into Probabilities
-
-![w:900 center](examples/softmax_example.png)
-
-**Softmax** converts raw scores (logits) to probabilities that sum to 1.
-
-The model isn't just saying "Cat" - it's saying "85% sure it's a cat!"
-
----
-
-<!-- _class: section-divider -->
-# Part 2: Regression
-## "How Much? How Many?"
-
----
-
-# Regression: When the Answer is a Number
-
-Classification: *"Which category?"* - Discrete answer
-Regression: *"How much?"* - Continuous number
-
-| Question | Answer |
-|----------|--------|
-| "How old is this person?" | 27.3 years |
-| "What's this house worth?" | $425,000 |
-| "How many units will sell?" | 1,247 units |
-| "What temperature tomorrow?" | 28.5 C |
-| "How long until the bus arrives?" | 7.2 minutes |
-
-The output is **any number** on a continuous scale!
-
----
-
-# Regression in Action: Linear Regression
-
-![w:1000 center](examples/linear_regression_example.png)
-
-The model learns: **Price = $50,000 + $150 * (square feet)**
-
----
-
-# Regression is Hidden Everywhere!
-
-Bounding box detection is actually **regression**:
-
-![w:700 center](diagrams/svg/bbox_regression.svg)
-
----
-
-<!-- _class: section-divider -->
-# Part 3: Computer Vision Hierarchy
-## From Labels to Pixels
-
----
-
-# The Vision Task Ladder
-
-![w:900 center](diagrams/svg/vision_tasks_hierarchy.svg)
-
-Each level gives you **more information** but requires **more data and compute**!
-
----
-
-# Level 1: Image Classification
-
-**What:** Assign one label to an image.
-
-![w:600 center](examples/cifar10_examples.png)
-
-**Use Cases:**
-- Google Photos: "Show me all photos with dogs"
-- Medical: "Is this X-ray normal or abnormal?"
-- Quality Control: "Is this product defective?"
-
----
-
-# Level 2: Object Detection
-
-**Detection = Classification (what) + Regression (where)**
-
-![w:900 center](examples/coco_detection_examples.png)
-
-Output: List of `(class_name, confidence, x, y, width, height)` for each object
-
----
-
-# Level 3 & 4: Segmentation
-
-![w:700 center](examples/segmentation_comparison.png)
-
----
-
-# Instance Segmentation in Action
-
-![w:900 center](examples/instance_segmentation_example.png)
-
-<div class="insight">
-Self-driving cars need Instance Segmentation - they must track WHICH car is doing what!
-</div>
-
----
-
-# Pose Estimation: Finding Body Keypoints
-
-**What:** Find skeleton keypoints of humans or animals.
-
-![w:800 center](examples/pose_estimation_example.png)
-
-**Applications:** Fitness apps, motion capture, sign language, fall detection
-
----
-
-<!-- _class: section-divider -->
-# Part 4: Natural Language Processing
-## Teaching Machines to Read & Write
-
----
-
-# The NLP Task Landscape
-
-| Task Type | What It Does | Example |
-|-----------|--------------|---------|
-| **Sentiment Analysis** | Classify emotion | "Great movie!" → Positive |
-| **Named Entity Recognition** | Find names, places, dates | "Sundar Pichai visited NYC" |
-| **Question Answering** | Find answers in text | "When was Einstein born?" |
-| **Translation** | Convert between languages | English → Hindi |
-| **Summarization** | Shorten long text | 1000 words → 50 words |
-| **Text Generation** | Create new text | ChatGPT, Claude |
-
-<div class="realworld">
-Modern LLMs (GPT-4, Claude) can do ALL of these with a single model!
-</div>
-
----
-
-# Named Entity Recognition (NER)
-
-Classify **each word** in the sequence:
+# Supervised Learning: The Setup
 
 ```
-   Input:    "Sundar  Pichai   visited  New    York   yesterday"
-              │       │        │        │      │      │
-              ▼       ▼        ▼        ▼      ▼      ▼
-   Output:   PER     PER       O       LOC    LOC     O
-
-   PER = Person Name
-   LOC = Location
-   O   = Other (not an entity)
+Training Data:
+┌─────────────────────────────────────────────────┐
+│  Features (X)                    │  Label (Y)  │
+├─────────────────────────────────────────────────┤
+│  Email text: "You won $1000..."  │  Spam       │
+│  Email text: "Meeting at 3pm"    │  Not Spam   │
+│  Email text: "Buy now! Sale!"    │  Spam       │
+│  Email text: "Your order shipped"│  Not Spam   │
+│  ...                             │  ...        │
+└─────────────────────────────────────────────────┘
 ```
-
-<div class="insight">
-Think of it as "semantic segmentation for text" - every word gets a label!
-</div>
 
 ---
 
-<!-- _class: section-divider -->
-# Part 5: Unsupervised Learning
-## Finding Patterns Without Labels
+# Supervised Learning: The Goal
+
+Learn a function **f** such that:
+
+$$\hat{y} = f(x)$$
+
+where $\hat{y}$ is close to the true label $y$
+
+---
+
+# Supervised Learning: Examples
+
+| Task | Input (X) | Output (Y) |
+|------|-----------|------------|
+| Spam Detection | Email text | Spam / Not Spam |
+| House Pricing | Size, location, rooms | Price in $ |
+| Medical Diagnosis | Symptoms, tests | Disease / Healthy |
+| Image Classification | Pixel values | Cat / Dog / Bird |
+| Stock Prediction | Historical prices | Future price |
+
+---
+
+# Paradigm 2: Unsupervised Learning
+
+**"Learning without a teacher"**
+
+You have:
+- **Input data** (X): features describing each example
+- **No labels!**
+
+The model finds **patterns** and **structure** in the data
+
+---
+
+# Unsupervised Learning: The Setup
+
+```
+Training Data:
+┌─────────────────────────────────────────────────┐
+│  Features (X)                    │  Label (Y)  │
+├─────────────────────────────────────────────────┤
+│  Customer: age=25, spent=$500    │     ?       │
+│  Customer: age=45, spent=$2000   │     ?       │
+│  Customer: age=22, spent=$300    │     ?       │
+│  Customer: age=50, spent=$1800   │     ?       │
+│  ...                             │     ?       │
+└─────────────────────────────────────────────────┘
+
+No one tells you the groups - you discover them!
+```
+
+---
+
+# Unsupervised Learning: Examples
+
+| Task | Input (X) | What it Discovers |
+|------|-----------|-------------------|
+| Customer Segmentation | Purchase history | Groups of similar customers |
+| Topic Modeling | Documents | Topics in text corpus |
+| Anomaly Detection | Transactions | Unusual/fraudulent behavior |
+| Dimensionality Reduction | High-dim data | Lower-dim representation |
+
+---
+
+# Paradigm 3: Reinforcement Learning
+
+**"Learning from trial and error"**
+
+You have:
+- An **agent** that takes actions
+- An **environment** that responds
+- **Rewards** that tell if actions were good
+
+The agent learns to maximize cumulative reward
+
+---
+
+# Reinforcement Learning: The Loop
+
+![w:850 center](diagrams/svg/rl_loop.svg)
+
+---
+
+# Reinforcement Learning: Key Concepts
+
+| Concept | Meaning | Example (Game) |
+|---------|---------|----------------|
+| Agent | The learner | Game-playing AI |
+| Environment | The world | The game itself |
+| State | Current situation | Game screen |
+| Action | What agent does | Move left, jump |
+| Reward | Feedback signal | +1 for coin, -1 for death |
+
+---
+
+# Reinforcement Learning: Examples
+
+| Domain | Agent | Reward |
+|--------|-------|--------|
+| Games | AlphaGo | Win = +1, Lose = -1 |
+| Robotics | Robot arm | Task completed = +1 |
+| Finance | Trading bot | Profit = reward |
+| RLHF | ChatGPT | Human preference = reward |
 
 ---
 
@@ -360,267 +211,911 @@ Think of it as "semantic segmentation for text" - every word gets a label!
 
 ![w:900 center](diagrams/svg/supervised_vs_unsupervised.svg)
 
-**No one tells the model what to look for - it discovers structure on its own!**
+---
+
+# Summary: Learning Paradigms
+
+| Paradigm | Has Labels? | Goal |
+|----------|-------------|------|
+| **Supervised** | ✓ Yes | Predict labels for new data |
+| **Unsupervised** | ✗ No | Find patterns/structure |
+| **Reinforcement** | Rewards | Maximize cumulative reward |
 
 ---
 
-# Clustering: K-Means in Action
+<!-- _class: section-divider -->
 
-![w:1000 center](examples/kmeans_example.png)
+# Part 2: Supervised Learning
 
-**K-Means:** No labels needed! The algorithm discovers natural groupings.
+## Classification & Regression
 
-<div class="realworld">
-**Applications:** Customer segmentation, gene expression analysis, document clustering
-</div>
+---
+
+# Two Types of Supervised Learning
+
+It depends on what you're predicting:
+
+| If Y is... | Task Type | Example |
+|------------|-----------|---------|
+| **Discrete** (categories) | Classification | Cat or Dog? |
+| **Continuous** (numbers) | Regression | Price = $350,000 |
+
+---
+
+# Classification: The Idea
+
+**Goal:** Assign input to one of several categories
+
+```
+Input: [Image of animal]
+       ↓
+   Classifier
+       ↓
+Output: "Cat" (from set: {Cat, Dog, Bird, Fish})
+```
+
+---
+
+# Binary Classification
+
+Only **two** possible outcomes:
+
+| Example | Class 0 | Class 1 |
+|---------|---------|---------|
+| Email filtering | Not Spam | Spam |
+| Medical test | Healthy | Disease |
+| Fraud detection | Legitimate | Fraud |
+| Loan approval | Reject | Approve |
+
+---
+
+# Multi-class Classification
+
+**More than two** possible outcomes:
+
+| Example | Classes |
+|---------|---------|
+| Digit recognition | 0, 1, 2, ..., 9 (10 classes) |
+| Animal classification | Cat, Dog, Bird, ... |
+| Emotion detection | Happy, Sad, Angry, ... |
+| ImageNet | 1000 different objects |
+
+---
+
+# Classification in Pictures
+
+![w:800 center](examples/cifar10_examples.png)
+
+Each image gets exactly **one label** from the set of possibilities.
+
+---
+
+# Regression: The Idea
+
+**Goal:** Predict a continuous numerical value
+
+```
+Input: [House features: 1500 sqft, 3 beds, ...]
+       ↓
+   Regressor
+       ↓
+Output: $425,000 (any number!)
+```
+
+---
+
+# Regression Examples
+
+| Input (X) | Output (Y) |
+|-----------|------------|
+| House features | Price ($) |
+| Person's photo | Age (years) |
+| Stock history | Tomorrow's price |
+| Weather data | Temperature (°C) |
+| Car specs | Fuel efficiency (mpg) |
+
+---
+
+# Regression in Pictures
+
+![w:950 center](examples/linear_regression_example.png)
+
+---
+
+# Key Difference: Classification vs Regression
+
+| Aspect | Classification | Regression |
+|--------|---------------|------------|
+| Output type | Category (discrete) | Number (continuous) |
+| Example output | "Cat" | 27.5 |
+| Loss function | Cross-entropy | Mean Squared Error |
+| Metric | Accuracy | R², MAE, RMSE |
+
+---
+
+# A Hidden Surprise: Bounding Boxes
+
+Object detection predicts **where** objects are...
+
+![w:700 center](diagrams/svg/bbox_regression.svg)
+
+**Detection = Classification + Regression!**
+
+---
+
+<!-- _class: section-divider -->
+
+# Part 3: Unsupervised Learning
+
+## Clustering & Dimensionality Reduction
+
+---
+
+# When You Don't Have Labels
+
+Sometimes you just have data, no labels:
+
+- Customer transactions (who are similar customers?)
+- News articles (what topics are discussed?)
+- Sensor readings (what's normal vs abnormal?)
+
+---
+
+# Clustering: Find Natural Groups
+
+**Goal:** Group similar data points together
+
+```
+       •  •                    Cluster 1: •  •
+    •     •                              •     •
+                    →
+         ▲  ▲  ▲               Cluster 2: ▲  ▲  ▲
+
+No labels given, but natural groups emerge!
+```
+
+---
+
+# K-Means Clustering
+
+![w:950 center](examples/kmeans_example.png)
+
+---
+
+# Clustering Applications
+
+| Application | Data | Clusters Found |
+|-------------|------|----------------|
+| Marketing | Customer purchases | Customer segments |
+| Biology | Gene expression | Cell types |
+| Image | Pixels | Regions/segments |
+| Document | News articles | Topics |
 
 ---
 
 # Dimensionality Reduction
 
-**Problem:** High-dimensional data is hard to visualize.
+**Problem:** Data has too many features to visualize
+
+**Solution:** Compress to 2-3 dimensions while preserving structure
 
 ```
-Original: 1000-dimensional data
-         (Can't visualize 1000 axes!)
-                    │
-               PCA / t-SNE
-                    │
-                    ▼
-         Just 2D: [0.45, -0.23]
-                    │
-                    ▼
-            Can now plot it!
-
-           •  •  •         ← Cluster 1
-          •    •
-            ▲  ▲  ▲        ← Cluster 2
-              ■ ■ ■        ← Cluster 3
+Original: 1000 features → Can't visualize
+              ↓ PCA / t-SNE
+Reduced: 2 features → Can plot!
 ```
+
+---
+
+# Why Reduce Dimensions?
+
+1. **Visualization** - See patterns in high-dim data
+2. **Speed** - Faster training with fewer features
+3. **Noise removal** - Keep important dimensions
+4. **Storage** - Less memory needed
+
+---
+
+# Anomaly Detection
+
+**Goal:** Find the "odd one out"
+
+- Normal transactions look similar
+- Fraud looks **different**
+
+No labels needed - just find what's unusual!
 
 ---
 
 <!-- _class: section-divider -->
-# Part 6: Generative Models
+
+# Part 4: Computer Vision Tasks
+
+## From Classification to Segmentation
+
+---
+
+# The Vision Task Ladder
+
+![w:900 center](diagrams/svg/vision_tasks_hierarchy.svg)
+
+Each level gives more information, but costs more!
+
+---
+
+# Level 1: Image Classification
+
+**What:** One label for the entire image
+
+```
+[Image of a cat]  →  "Cat"
+```
+
+**Use cases:**
+- Photo organization ("Show me all dog photos")
+- Medical imaging ("Normal or abnormal?")
+- Quality control ("Defective or OK?")
+
+---
+
+# Level 2: Object Detection
+
+**What:** Find objects AND their locations
+
+```
+[Image with multiple objects]
+    ↓
+"Cat" at (x=120, y=85, w=200, h=180)
+"Dog" at (x=400, y=100, w=150, h=160)
+```
+
+---
+
+# Detection in Action
+
+![w:900 center](examples/coco_detection_examples.png)
+
+---
+
+# Level 3: Semantic Segmentation
+
+**What:** Label every single pixel
+
+```
+Each pixel gets a class:
+- Sky pixels → "sky"
+- Road pixels → "road"
+- Car pixels → "car"
+```
+
+---
+
+# Level 4: Instance Segmentation
+
+**What:** Separate each individual object
+
+```
+Not just "car" pixels, but:
+- Car 1 pixels
+- Car 2 pixels
+- Car 3 pixels
+```
+
+Critical for self-driving cars!
+
+---
+
+# Segmentation Comparison
+
+![w:700 center](examples/segmentation_comparison.png)
+
+---
+
+# Pose Estimation
+
+**What:** Find body keypoints (skeleton)
+
+![w:800 center](examples/pose_estimation_example.png)
+
+**Uses:** Fitness apps, motion capture, sign language
+
+---
+
+# Vision Tasks Summary
+
+| Task | Output | Example Use |
+|------|--------|-------------|
+| Classification | 1 label | Photo tagging |
+| Detection | Labels + boxes | Self-driving |
+| Semantic Seg. | Per-pixel class | Scene understanding |
+| Instance Seg. | Per-pixel instance | Counting objects |
+| Pose Est. | Keypoint coords | Motion tracking |
+
+---
+
+<!-- _class: section-divider -->
+
+# Part 5: NLP Tasks
+
+## Text Classification to Generation
+
+---
+
+# Text Classification
+
+Same as image classification, but with text:
+
+| Task | Input | Output |
+|------|-------|--------|
+| Sentiment | "Great movie!" | Positive |
+| Spam | "You won $1M!" | Spam |
+| Topic | "The stock market fell..." | Finance |
+
+---
+
+# Named Entity Recognition (NER)
+
+**Classify each word** in a sentence:
+
+```
+"Sundar Pichai visited New York yesterday"
+   PER    PER    O       LOC  LOC    O
+
+PER = Person, LOC = Location, O = Other
+```
+
+It's like **semantic segmentation for text**!
+
+---
+
+# Sequence-to-Sequence Tasks
+
+**Input:** A sequence
+**Output:** Another sequence
+
+| Task | Input | Output |
+|------|-------|--------|
+| Translation | "Hello, how are you?" | "Bonjour, comment allez-vous?" |
+| Summarization | [Long article] | [Short summary] |
+| Question Answering | "What is the capital?" | "Paris" |
+
+---
+
+# Text Generation
+
+**Create new text** from a prompt:
+
+```
+Prompt: "Write a poem about AI"
+        ↓
+    Language Model
+        ↓
+"In circuits deep and networks wide,
+ Where silicon dreams reside..."
+```
+
+This is what ChatGPT/Claude do!
+
+---
+
+<!-- _class: section-divider -->
+
+# Part 6: Generative AI
+
 ## Creating New Data
 
 ---
 
-# Generative vs Discriminative
+# Discriminative vs Generative
 
 ![w:800 center](diagrams/svg/generative_vs_discriminative.svg)
 
 ---
 
-# The Generative AI Revolution
+# Discriminative Models
 
-| Domain | Tool | What It Does |
-|--------|------|--------------|
-| **Text** | ChatGPT, Claude | Write essays, code, poems |
-| **Images** | DALL-E, Midjourney, Stable Diffusion | Generate any image from text |
-| **Music** | Suno, Udio | Create full songs with lyrics |
-| **Video** | Sora, Runway | Generate realistic video clips |
-| **Code** | GitHub Copilot, Claude | Write and debug code |
-| **Voice** | ElevenLabs | Clone and synthesize voices |
+**Learn:** P(label | input)
 
-<div class="insight">
-All of these generate NEW content that never existed before!
-</div>
+"Given this image, what's the probability it's a cat?"
+
+```
+[Cat image] → P(cat) = 0.95, P(dog) = 0.05
+```
+
+---
+
+# Generative Models
+
+**Learn:** P(data) or P(data | prompt)
+
+"Generate a new image that looks like a cat"
+
+```
+"A cat sitting on a rainbow" → [New image!]
+```
+
+---
+
+# The Generative AI Landscape
+
+| Domain | Tools | What It Creates |
+|--------|-------|-----------------|
+| Text | ChatGPT, Claude | Essays, code, poems |
+| Images | DALL-E, Midjourney | Any image from text |
+| Music | Suno | Songs with lyrics |
+| Video | Sora | Video clips |
+| Voice | ElevenLabs | Clone voices |
+
+---
+
+# Generative AI is Everywhere Now!
+
+```
+Prompt: "A cute robot teaching math"
+        ↓
+    DALL-E / Midjourney
+        ↓
+    [Generated image of robot teacher]
+```
+
+These models create **new content that never existed**!
 
 ---
 
 <!-- _class: section-divider -->
+
 # Part 7: Multimodal AI
-## Combining Everything
+
+## Combining Modalities
 
 ---
 
-# Multimodal = Multiple Modalities
+# What is Multimodal?
 
-**Modalities:** Text, Image, Audio, Video, etc.
+**Modality** = Type of data (text, image, audio, video)
 
-![w:900 center](diagrams/svg/multimodal.svg)
-
-<div class="insight">
-Modern AI (GPT-4, Claude, Gemini) is multimodal - it can see AND read AND hear!
-</div>
+**Multimodal** = Multiple types combined
 
 ---
 
-# Visual Question Answering (VQA)
+# Multimodal Examples
+
+![w:850 center](diagrams/svg/multimodal.svg)
+
+---
+
+# Visual Question Answering
 
 ```
-   Image:                      Questions & Answers:
-   ┌───────────────────┐
-   │                   │      Q: "What color is the car?"
-   │    [Red car on    │      A: "Red"
-   │     a road with   │
-   │     trees]        │      Q: "Is it daytime or night?"
-   │                   │      A: "Daytime"
-   └───────────────────┘
-                              Q: "How many trees are visible?"
-   Requires BOTH:             A: "Four trees"
-   - Understanding image
-   - Understanding language
-   - Reasoning about both!
+[Image: Red car on road]
+
+Q: "What color is the car?"
+A: "Red"
+
+Q: "Is it daytime?"
+A: "Yes, based on the lighting"
+```
+
+Needs to understand **both** image AND language!
+
+---
+
+# Modern AI is Multimodal
+
+**GPT-4, Claude, Gemini** can:
+- See images
+- Read text
+- Understand context
+- Generate responses
+
+All in one model!
+
+---
+
+<!-- _class: section-divider -->
+
+# Part 8: The Universal Recipe
+
+## How All ML Works
+
+---
+
+# The ML Recipe
+
+![w:900 center](diagrams/svg/ml_recipe.svg)
+
+Every ML task follows this pattern!
+
+---
+
+# Step 1: Get Data
+
+```python
+# Your data: features (X) and labels (y)
+X = [[1500, 3, 2],    # House 1: sqft, beds, baths
+     [2000, 4, 3],    # House 2
+     [1200, 2, 1]]    # House 3
+
+y = [300000, 450000, 200000]  # Prices
+```
+
+---
+
+# Step 2: Choose a Model
+
+Different models for different tasks:
+
+| Task | Model Options |
+|------|---------------|
+| Classification | Logistic Regression, Decision Tree, SVM |
+| Regression | Linear Regression, Random Forest |
+| Complex patterns | Neural Networks, Deep Learning |
+
+---
+
+# Step 3: Train (Fit)
+
+```python
+# The model learns from data
+model.fit(X_train, y_train)
+
+# Internally: finds parameters that minimize error
+```
+
+---
+
+# Step 4: Predict
+
+```python
+# Use trained model on new data
+new_house = [[1800, 3, 2]]
+predicted_price = model.predict(new_house)
+# Output: $375,000
+```
+
+---
+
+# Step 5: Evaluate
+
+```python
+# How good is the model?
+accuracy = model.score(X_test, y_test)
+
+# Or compute specific metrics
+from sklearn.metrics import mean_squared_error
+mse = mean_squared_error(y_test, predictions)
 ```
 
 ---
 
 <!-- _class: section-divider -->
-# Part 8: Reinforcement Learning
-## Learning Through Interaction
+
+# Part 9: Hands-On with sklearn
+
+## Your First ML Models
 
 ---
 
-# RL: A Different Paradigm
+# scikit-learn: The ML Library
 
-![w:900 center](diagrams/svg/rl_loop.svg)
+```python
+# The pattern is always the same:
+from sklearn.some_module import SomeModel
 
-**Goal:** Maximize total reward over time through trial and error.
+model = SomeModel()        # 1. Create model
+model.fit(X_train, y_train) # 2. Train
+predictions = model.predict(X_test)  # 3. Predict
+```
 
 ---
 
-# RL Examples
+# Example: Classification with Logistic Regression
 
-| Domain | Example | What It Learned |
-|--------|---------|-----------------|
-| **Games** | AlphaGo | Beat world champion at Go |
-| **Games** | AlphaStar | Grandmaster at StarCraft II |
-| **Robotics** | Boston Dynamics | Walk, run, dance |
-| **Infrastructure** | Google Data Centers | 40% energy reduction |
-| **AI Alignment** | RLHF for ChatGPT | Be helpful and safe |
+```python
+from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import train_test_split
 
-<div class="insight">
-RLHF (Reinforcement Learning from Human Feedback) is how ChatGPT learns to be helpful!
-</div>
+# Split data into train/test
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2)
+
+# Create and train model
+model = LogisticRegression()
+model.fit(X_train, y_train)
+
+# Evaluate
+accuracy = model.score(X_test, y_test)
+print(f"Accuracy: {accuracy:.2%}")
+```
+
+---
+
+# Visualizing Logistic Regression
+
+![w:900 center](examples/logistic_regression_example.png)
+
+---
+
+# Example: Regression with Linear Regression
+
+```python
+from sklearn.linear_model import LinearRegression
+
+# Create and train
+model = LinearRegression()
+model.fit(X_train, y_train)
+
+# Predict
+predictions = model.predict(X_test)
+
+# The model learned: y = w1*x1 + w2*x2 + ... + b
+print(f"Coefficients: {model.coef_}")
+print(f"Intercept: {model.intercept_}")
+```
+
+---
+
+# Example: Decision Tree
+
+```python
+from sklearn.tree import DecisionTreeClassifier
+
+model = DecisionTreeClassifier(max_depth=3)
+model.fit(X_train, y_train)
+
+# Decision trees learn IF-THEN rules!
+# "If sepal_length > 5.5 AND sepal_width < 3.0
+#  THEN class = versicolor"
+```
+
+---
+
+# Visualizing Decision Trees
+
+![w:950 center](examples/decision_tree_example.png)
+
+---
+
+# Example: K-Means Clustering
+
+```python
+from sklearn.cluster import KMeans
+
+# No y labels - it's unsupervised!
+kmeans = KMeans(n_clusters=3)
+kmeans.fit(X)  # Just X, no y!
+
+# Get cluster assignments
+clusters = kmeans.labels_
+# Output: [0, 1, 2, 0, 1, ...]
+```
+
+---
+
+# The sklearn API Pattern
+
+```python
+# ALL models follow this pattern:
+
+model = SomeModel(hyperparameters)  # Create
+model.fit(X_train, y_train)         # Train
+predictions = model.predict(X_test)  # Predict
+score = model.score(X_test, y_test)  # Evaluate
+```
+
+This works for 50+ different algorithms!
 
 ---
 
 <!-- _class: section-divider -->
-# Part 9: The Common Thread
-## Neural Networks & Deep Learning
+
+# Part 10: Introduction to Neural Networks
+
+## The Deep Learning Building Block
 
 ---
 
-# Neural Networks: The Universal Tool
+# Why Neural Networks?
 
-![w:700 center](examples/neural_network_diagram.png)
+Traditional ML: You design features manually
 
-**All these tasks use the same fundamental building block:** Neural networks!
-
----
-
-# NN Output: Binary Classification
-
-![w:900 center](diagrams/svg/nn_binary_classification.svg)
-
-**Output:** 1 neuron with **Sigmoid** activation → probability p ∈ [0, 1]
-
-**Loss:** Binary Cross-Entropy = -[y·log(p) + (1-y)·log(1-p)]
-
-<div class="example">
-Example: Disease prediction, spam detection, fraud detection
-</div>
+Deep Learning: **Network learns features automatically!**
 
 ---
 
-# NN Output: Multi-class Classification
-
-![w:900 center](diagrams/svg/nn_multiclass.svg)
-
-**Output:** C neurons with **Softmax** → probabilities sum to 1.0
-
-**Loss:** Categorical Cross-Entropy = -Σ yᵢ·log(pᵢ)
-
-<div class="example">
-Example: Digit recognition (10 classes), ImageNet (1000 classes)
-</div>
-
----
-
-# NN Output: Regression
-
-![w:900 center](diagrams/svg/nn_regression.svg)
-
-**Output:** 1 neuron with **No activation** (linear) → any real number
-
-**Loss:** Mean Squared Error (MSE) = (1/n)Σ(yᵢ - ŷᵢ)²
-
-<div class="example">
-Example: House prices, stock prediction, age estimation
-</div>
-
----
-
-# NN Output: Object Detection (Multi-task)
-
-![w:900 center](diagrams/svg/nn_detection.svg)
-
-**Output per detection:**
-- 4 values: Box coordinates (x, y, w, h) - *regression*
-- 1 value: Objectness score - *sigmoid*
-- C values: Class probabilities - *softmax*
-
-**Loss:** L = λ₁·L_box + λ₂·L_obj + λ₃·L_class
-
----
-
-# NN Output: Summary
-
-| Task | Output Neurons | Activation | Loss Function |
-|------|---------------|------------|---------------|
-| **Binary Classification** | 1 | Sigmoid | Binary Cross-Entropy |
-| **Multi-class (C classes)** | C | Softmax | Categorical Cross-Entropy |
-| **Multi-label** | C | Sigmoid (each) | Binary CE (per label) |
-| **Regression** | 1 (or k) | None/Linear | MSE or MAE |
-| **Detection** | B × (5 + C) | Mixed | Multi-part loss |
-
-<div class="insight">
-The output layer design tells you everything about the task type!
-</div>
-
----
-
-# How Neural Networks Learn: Gradient Descent
-
-![w:800 center](examples/gradient_descent.png)
-
-**Training = Finding the weights that minimize the loss function**
-
----
-
-# The Deep Learning Revolution
+# Deep Learning Revolution
 
 ![w:900 center](diagrams/svg/deep_learning_revolution.svg)
 
-<div class="insight">
-Deep learning learns the features automatically - no hand-engineering needed!
-</div>
+---
+
+# The Neuron: Basic Unit
+
+```
+Inputs     Weights    Sum + Activation    Output
+  x1 ────── w1 ──┐
+                 │
+  x2 ────── w2 ──┼──→ [Σ + σ] ──→ a
+                 │
+  x3 ────── w3 ──┘
+
+a = σ(w1*x1 + w2*x2 + w3*x3 + b)
+```
 
 ---
 
-# The Decision Flowchart
+# Activation Functions
+
+| Function | Formula | Use Case |
+|----------|---------|----------|
+| ReLU | max(0, x) | Hidden layers |
+| Sigmoid | 1/(1+e⁻ˣ) | Binary output |
+| Softmax | eˣⁱ/Σeˣʲ | Multi-class output |
+
+---
+
+# Neural Network = Layers of Neurons
+
+```
+Input      Hidden Layer 1    Hidden Layer 2    Output
+  ●  ────────  ●  ──────────  ●  ────────────  ●
+  ●  ────────  ●  ──────────  ●
+  ●  ────────  ●  ──────────  ●
+  ●  ────────  ●  ──────────  ●
+              ●              ●
+
+Each connection has a learned weight!
+```
+
+---
+
+# NN for Binary Classification
+
+![w:900 center](diagrams/svg/nn_binary_classification.svg)
+
+---
+
+# NN for Multi-class Classification
+
+![w:900 center](diagrams/svg/nn_multiclass.svg)
+
+---
+
+# NN for Regression
+
+![w:900 center](diagrams/svg/nn_regression.svg)
+
+---
+
+# NN for Object Detection
+
+![w:900 center](diagrams/svg/nn_detection.svg)
+
+---
+
+# How Networks Learn: Gradient Descent
+
+![w:800 center](examples/gradient_descent.png)
+
+Adjust weights to minimize the loss function!
+
+---
+
+# Neural Networks with PyTorch
+
+```python
+import torch.nn as nn
+
+# Define a simple network
+model = nn.Sequential(
+    nn.Linear(4, 16),   # Input → Hidden
+    nn.ReLU(),          # Activation
+    nn.Linear(16, 3),   # Hidden → Output
+    nn.Softmax(dim=1)   # For classification
+)
+```
+
+---
+
+# Training Loop (Simplified)
+
+```python
+for epoch in range(100):
+    # Forward pass
+    predictions = model(X_train)
+
+    # Compute loss
+    loss = loss_fn(predictions, y_train)
+
+    # Backward pass (compute gradients)
+    loss.backward()
+
+    # Update weights
+    optimizer.step()
+```
+
+---
+
+# NN Output Layer Design
+
+| Task | Output Neurons | Activation |
+|------|---------------|------------|
+| Binary Classification | 1 | Sigmoid |
+| Multi-class (C classes) | C | Softmax |
+| Regression | 1 | None (linear) |
+| Detection | 4 + 1 + C | Mixed |
+
+---
+
+# When to Use What?
+
+| Data Size | Model Choice |
+|-----------|--------------|
+| Small (< 1000) | sklearn: LogReg, SVM, Tree |
+| Medium | sklearn: Random Forest, XGBoost |
+| Large (> 10000) | Neural Networks |
+| Images/Text | Deep Learning (CNNs, Transformers) |
+
+---
+
+<!-- _class: section-divider -->
+
+# Part 11: Choosing the Right Task
+
+## Decision Flowchart
+
+---
+
+# The ML Decision Flowchart
 
 ![w:800 center](diagrams/svg/ml_decision_flowchart.svg)
 
 ---
 
+# Quick Decision Guide
+
+| Question | Answer | Task |
+|----------|--------|------|
+| Have labels? | Yes → | Supervised |
+| Have labels? | No → | Unsupervised |
+| Predicting category? | Yes → | Classification |
+| Predicting number? | Yes → | Regression |
+| Need locations? | Yes → | Detection |
+| Need pixel masks? | Yes → | Segmentation |
+| Creating new content? | Yes → | Generation |
+
+---
+
+<!-- _class: section-divider -->
+
+# Summary
+
+## What We Learned
+
+---
+
 # Key Takeaways
 
-1. **Classification** - Predict a category (discrete)
-2. **Regression** - Predict a number (continuous)
-3. **Detection** - Classification + Box Regression
-4. **Segmentation** - Classification for every pixel
-5. **Seq2Seq** - Sequence in, sequence out
-6. **Unsupervised** - Find patterns without labels
-7. **Generative** - Create new data
-8. **Multimodal** - Combine text, images, audio
-9. **RL** - Learn from rewards through interaction
+1. **Learning Paradigms:** Supervised, Unsupervised, RL
+2. **Supervised:** Classification (categories) vs Regression (numbers)
+3. **Vision:** Classification → Detection → Segmentation
+4. **NLP:** Classification → NER → Seq2Seq → Generation
+5. **Generative AI:** Creates new content
+6. **sklearn:** Unified API for classical ML
+7. **Neural Networks:** Deep learning building block
 
-<div class="insight">
-Understanding the output type tells you which family of techniques to use!
-</div>
+---
+
+# The Output Type Tells You Everything
+
+| Output Type | Task Family |
+|-------------|-------------|
+| Category | Classification |
+| Number | Regression |
+| Boxes + labels | Detection |
+| Pixel labels | Segmentation |
+| Sequence | Seq2Seq |
+| New data | Generation |
 
 ---
 
@@ -628,8 +1123,8 @@ Understanding the output type tells you which family of techniques to use!
 
 **Lecture 3:** Language Models
 - Next Token Prediction
-- Pre-training, SFT, RLHF
 - From GPT to ChatGPT
+- RLHF
 
 **Lecture 4:** Object Detection
 - YOLO and beyond
@@ -637,15 +1132,14 @@ Understanding the output type tells you which family of techniques to use!
 
 ---
 
-<!-- _class: section-divider -->
+<!-- _class: title-slide -->
 
 # Thank You!
 
-**"All models are wrong, but some are useful."**
-*— George Box*
+## The Big Picture
 
-### Key Takeaway
-Match the **output type** to the right **task formulation**
+**Understanding the output type helps you pick the right approach.**
 
-Questions?
+*"All models are wrong, but some are useful."* — George Box
 
+**Questions?**
