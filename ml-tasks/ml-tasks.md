@@ -86,18 +86,14 @@ The model learns to map X → Y
 
 # Supervised Learning: The Setup
 
-```
-Training Data:
-┌─────────────────────────────────────────────────┐
-│  Features (X)                    │  Label (Y)  │
-├─────────────────────────────────────────────────┤
-│  Email text: "You won $1000..."  │  Spam       │
-│  Email text: "Meeting at 3pm"    │  Not Spam   │
-│  Email text: "Buy now! Sale!"    │  Spam       │
-│  Email text: "Your order shipped"│  Not Spam   │
-│  ...                             │  ...        │
-└─────────────────────────────────────────────────┘
-```
+| Features (X) | Label (Y) |
+|--------------|-----------|
+| Email: "You won $1000..." | Spam |
+| Email: "Meeting at 3pm" | Not Spam |
+| Email: "Buy now! Sale!" | Spam |
+| Email: "Your order shipped" | Not Spam |
+
+**Training data = Features + Labels**
 
 ---
 
@@ -137,20 +133,14 @@ The model finds **patterns** and **structure** in the data
 
 # Unsupervised Learning: The Setup
 
-```
-Training Data:
-┌─────────────────────────────────────────────────┐
-│  Features (X)                    │  Label (Y)  │
-├─────────────────────────────────────────────────┤
-│  Customer: age=25, spent=$500    │     ?       │
-│  Customer: age=45, spent=$2000   │     ?       │
-│  Customer: age=22, spent=$300    │     ?       │
-│  Customer: age=50, spent=$1800   │     ?       │
-│  ...                             │     ?       │
-└─────────────────────────────────────────────────┘
+| Features (X) | Label (Y) |
+|--------------|-----------|
+| Customer: age=25, spent=$500 | **?** |
+| Customer: age=45, spent=$2000 | **?** |
+| Customer: age=22, spent=$300 | **?** |
+| Customer: age=50, spent=$1800 | **?** |
 
-No one tells you the groups - you discover them!
-```
+**No labels!** You discover the groups yourself.
 
 ---
 
@@ -246,13 +236,11 @@ It depends on what you're predicting:
 
 **Goal:** Assign input to one of several categories
 
-```
-Input: [Image of animal]
-       ↓
-   Classifier
-       ↓
-Output: "Cat" (from set: {Cat, Dog, Bird, Fish})
-```
+| Step | Example |
+|------|---------|
+| **Input** | Image of animal |
+| **Model** | Classifier |
+| **Output** | "Cat" (from {Cat, Dog, Bird, Fish}) |
 
 ---
 
@@ -294,13 +282,11 @@ Each image gets exactly **one label** from the set of possibilities.
 
 **Goal:** Predict a continuous numerical value
 
-```
-Input: [House features: 1500 sqft, 3 beds, ...]
-       ↓
-   Regressor
-       ↓
-Output: $425,000 (any number!)
-```
+| Step | Example |
+|------|---------|
+| **Input** | House: 1500 sqft, 3 beds, 2 baths |
+| **Model** | Regressor |
+| **Output** | $425,000 (any number!) |
 
 ---
 
@@ -365,14 +351,12 @@ Sometimes you just have data, no labels:
 
 **Goal:** Group similar data points together
 
-```
-       •  •                    Cluster 1: •  •
-    •     •                              •     •
-                    →
-         ▲  ▲  ▲               Cluster 2: ▲  ▲  ▲
+| Before | After |
+|--------|-------|
+| Mixed data points | **Cluster 1:** Similar customers |
+| No labels | **Cluster 2:** Different customers |
 
-No labels given, but natural groups emerge!
-```
+**No labels given, but natural groups emerge!**
 
 ---
 
@@ -399,11 +383,10 @@ No labels given, but natural groups emerge!
 
 **Solution:** Compress to 2-3 dimensions while preserving structure
 
-```
-Original: 1000 features → Can't visualize
-              ↓ PCA / t-SNE
-Reduced: 2 features → Can plot!
-```
+| Stage | Dimensions | Visualization |
+|-------|------------|---------------|
+| Original | 1000 features | Can't visualize |
+| After PCA/t-SNE | 2-3 features | Can plot! |
 
 ---
 
@@ -447,9 +430,7 @@ Each level gives more information, but costs more!
 
 **What:** One label for the entire image
 
-```
-[Image of a cat]  →  "Cat"
-```
+**Image of a cat** → **"Cat"**
 
 **Use cases:**
 - Photo organization ("Show me all dog photos")
@@ -462,12 +443,10 @@ Each level gives more information, but costs more!
 
 **What:** Find objects AND their locations
 
-```
-[Image with multiple objects]
-    ↓
-"Cat" at (x=120, y=85, w=200, h=180)
-"Dog" at (x=400, y=100, w=150, h=160)
-```
+| Object | Bounding Box |
+|--------|--------------|
+| Cat | x=120, y=85, w=200, h=180 |
+| Dog | x=400, y=100, w=150, h=160 |
 
 ---
 
@@ -481,12 +460,11 @@ Each level gives more information, but costs more!
 
 **What:** Label every single pixel
 
-```
-Each pixel gets a class:
-- Sky pixels → "sky"
-- Road pixels → "road"
-- Car pixels → "car"
-```
+| Pixel Region | Class Label |
+|--------------|-------------|
+| Sky pixels | "sky" |
+| Road pixels | "road" |
+| Car pixels | "car" |
 
 ---
 
@@ -494,14 +472,13 @@ Each pixel gets a class:
 
 **What:** Separate each individual object
 
-```
-Not just "car" pixels, but:
-- Car 1 pixels
-- Car 2 pixels
-- Car 3 pixels
-```
+| Instance | Pixel Mask |
+|----------|------------|
+| Car 1 | Its own mask |
+| Car 2 | Its own mask |
+| Car 3 | Its own mask |
 
-Critical for self-driving cars!
+**Critical for self-driving cars!**
 
 ---
 
@@ -557,12 +534,11 @@ Same as image classification, but with text:
 
 **Classify each word** in a sentence:
 
-```
-"Sundar Pichai visited New York yesterday"
-   PER    PER    O       LOC  LOC    O
+| Word | Sundar | Pichai | visited | New | York | yesterday |
+|------|--------|--------|---------|-----|------|-----------|
+| **Tag** | PER | PER | O | LOC | LOC | O |
 
-PER = Person, LOC = Location, O = Other
-```
+*PER = Person, LOC = Location, O = Other*
 
 It's like **semantic segmentation for text**!
 
@@ -585,14 +561,11 @@ It's like **semantic segmentation for text**!
 
 **Create new text** from a prompt:
 
-```
-Prompt: "Write a poem about AI"
-        ↓
-    Language Model
-        ↓
-"In circuits deep and networks wide,
- Where silicon dreams reside..."
-```
+| Step | Content |
+|------|---------|
+| **Prompt** | "Write a poem about AI" |
+| **Model** | Language Model (GPT, Claude) |
+| **Output** | "In circuits deep and networks wide, where silicon dreams reside..." |
 
 This is what ChatGPT/Claude do!
 
@@ -618,9 +591,7 @@ This is what ChatGPT/Claude do!
 
 "Given this image, what's the probability it's a cat?"
 
-```
-[Cat image] → P(cat) = 0.95, P(dog) = 0.05
-```
+**Cat image** → P(cat) = 0.95, P(dog) = 0.05
 
 ---
 
@@ -630,9 +601,7 @@ This is what ChatGPT/Claude do!
 
 "Generate a new image that looks like a cat"
 
-```
-"A cat sitting on a rainbow" → [New image!]
-```
+**"A cat sitting on a rainbow"** → **New image!**
 
 ---
 
@@ -650,13 +619,11 @@ This is what ChatGPT/Claude do!
 
 # Generative AI is Everywhere Now!
 
-```
-Prompt: "A cute robot teaching math"
-        ↓
-    DALL-E / Midjourney
-        ↓
-    [Generated image of robot teacher]
-```
+| Step | Content |
+|------|---------|
+| **Prompt** | "A cute robot teaching math" |
+| **Model** | DALL-E / Midjourney |
+| **Output** | Generated image of robot teacher |
 
 These models create **new content that never existed**!
 
@@ -686,15 +653,12 @@ These models create **new content that never existed**!
 
 # Visual Question Answering
 
-```
-[Image: Red car on road]
+**Image:** Red car on road
 
-Q: "What color is the car?"
-A: "Red"
-
-Q: "Is it daytime?"
-A: "Yes, based on the lighting"
-```
+| Question | Answer |
+|----------|--------|
+| "What color is the car?" | "Red" |
+| "Is it daytime?" | "Yes, based on the lighting" |
 
 Needs to understand **both** image AND language!
 
@@ -931,16 +895,14 @@ Deep Learning: **Network learns features automatically!**
 
 # The Neuron: Basic Unit
 
-```
-Inputs     Weights    Sum + Activation    Output
-  x1 ────── w1 ──┐
-                 │
-  x2 ────── w2 ──┼──→ [Σ + σ] ──→ a
-                 │
-  x3 ────── w3 ──┘
+| Component | Description |
+|-----------|-------------|
+| **Inputs** | x₁, x₂, x₃ (features) |
+| **Weights** | w₁, w₂, w₃ (learned) |
+| **Sum** | z = w₁x₁ + w₂x₂ + w₃x₃ + b |
+| **Activation** | a = σ(z) |
 
-a = σ(w1*x1 + w2*x2 + w3*x3 + b)
-```
+$$a = \sigma(w_1 x_1 + w_2 x_2 + w_3 x_3 + b)$$
 
 ---
 
@@ -956,16 +918,14 @@ a = σ(w1*x1 + w2*x2 + w3*x3 + b)
 
 # Neural Network = Layers of Neurons
 
-```
-Input      Hidden Layer 1    Hidden Layer 2    Output
-  ●  ────────  ●  ──────────  ●  ────────────  ●
-  ●  ────────  ●  ──────────  ●
-  ●  ────────  ●  ──────────  ●
-  ●  ────────  ●  ──────────  ●
-              ●              ●
+| Layer | Neurons | Role |
+|-------|---------|------|
+| **Input** | 4 | Receive features |
+| **Hidden 1** | 5 | Learn patterns |
+| **Hidden 2** | 5 | Learn complex patterns |
+| **Output** | 1 | Final prediction |
 
-Each connection has a learned weight!
-```
+**Each connection has a learned weight!**
 
 ---
 

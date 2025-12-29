@@ -127,17 +127,33 @@
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="9" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="9" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="104">
 <h1 id="supervised-learning-the-setup">Supervised Learning: The Setup</h1>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>Training Data:
-┌─────────────────────────────────────────────────┐
-│  Features (X)                    │  Label (Y)  │
-├─────────────────────────────────────────────────┤
-│  Email text: &quot;You won $1000...&quot;  │  Spam       │
-│  Email text: &quot;Meeting at 3pm&quot;    │  Not Spam   │
-│  Email text: &quot;Buy now! Sale!&quot;    │  Spam       │
-│  Email text: &quot;Your order shipped&quot;│  Not Spam   │
-│  ...                             │  ...        │
-└─────────────────────────────────────────────────┘
-</code></pre>
+<table>
+<thead>
+<tr>
+<th>Features (X)</th>
+<th>Label (Y)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Email: &quot;You won $1000...&quot;</td>
+<td>Spam</td>
+</tr>
+<tr>
+<td>Email: &quot;Meeting at 3pm&quot;</td>
+<td>Not Spam</td>
+</tr>
+<tr>
+<td>Email: &quot;Buy now! Sale!&quot;</td>
+<td>Spam</td>
+</tr>
+<tr>
+<td>Email: &quot;Your order shipped&quot;</td>
+<td>Not Spam</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Training data = Features + Labels</strong></p>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="10" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="10" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="104">
 <h1 id="supervised-learning-the-goal">Supervised Learning: The Goal</h1>
@@ -195,19 +211,33 @@
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="13" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="13" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="104">
 <h1 id="unsupervised-learning-the-setup">Unsupervised Learning: The Setup</h1>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>Training Data:
-┌─────────────────────────────────────────────────┐
-│  Features (X)                    │  Label (Y)  │
-├─────────────────────────────────────────────────┤
-│  Customer: age=25, spent=$500    │     ?       │
-│  Customer: age=45, spent=$2000   │     ?       │
-│  Customer: age=22, spent=$300    │     ?       │
-│  Customer: age=50, spent=$1800   │     ?       │
-│  ...                             │     ?       │
-└─────────────────────────────────────────────────┘
-
-No one tells you the groups - you discover them!
-</code></pre>
+<table>
+<thead>
+<tr>
+<th>Features (X)</th>
+<th>Label (Y)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Customer: age=25, spent=$500</td>
+<td><strong>?</strong></td>
+</tr>
+<tr>
+<td>Customer: age=45, spent=$2000</td>
+<td><strong>?</strong></td>
+</tr>
+<tr>
+<td>Customer: age=22, spent=$300</td>
+<td><strong>?</strong></td>
+</tr>
+<tr>
+<td>Customer: age=50, spent=$1800</td>
+<td><strong>?</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>No labels!</strong> You discover the groups yourself.</p>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="14" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="14" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="104">
 <h1 id="unsupervised-learning-examples">Unsupervised Learning: Examples</h1>
@@ -396,12 +426,28 @@ No one tells you the groups - you discover them!
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="23" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="23" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="104">
 <h1 id="classification-the-idea">Classification: The Idea</h1>
 <p><strong>Goal:</strong> Assign input to one of several categories</p>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>Input: [Image of animal]
-       ↓
-   Classifier
-       ↓
-Output: &quot;Cat&quot; (from set: {Cat, Dog, Bird, Fish})
-</code></pre>
+<table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Input</strong></td>
+<td>Image of animal</td>
+</tr>
+<tr>
+<td><strong>Model</strong></td>
+<td>Classifier</td>
+</tr>
+<tr>
+<td><strong>Output</strong></td>
+<td>&quot;Cat&quot; (from {Cat, Dog, Bird, Fish})</td>
+</tr>
+</tbody>
+</table>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="24" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="24" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="104">
 <h1 id="binary-classification">Binary Classification</h1>
@@ -476,12 +522,28 @@ Output: &quot;Cat&quot; (from set: {Cat, Dog, Bird, Fish})
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="27" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="27" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="104">
 <h1 id="regression-the-idea">Regression: The Idea</h1>
 <p><strong>Goal:</strong> Predict a continuous numerical value</p>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>Input: [House features: 1500 sqft, 3 beds, ...]
-       ↓
-   Regressor
-       ↓
-Output: $425,000 (any number!)
-</code></pre>
+<table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Input</strong></td>
+<td>House: 1500 sqft, 3 beds, 2 baths</td>
+</tr>
+<tr>
+<td><strong>Model</strong></td>
+<td>Regressor</td>
+</tr>
+<tr>
+<td><strong>Output</strong></td>
+<td>$425,000 (any number!)</td>
+</tr>
+</tbody>
+</table>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="28" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="28" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="104">
 <h1 id="regression-examples">Regression Examples</h1>
@@ -576,13 +638,25 @@ Output: $425,000 (any number!)
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="34" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="34" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="104">
 <h1 id="clustering-find-natural-groups">Clustering: Find Natural Groups</h1>
 <p><strong>Goal:</strong> Group similar data points together</p>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>       •  •                    Cluster 1: •  •
-    •     •                              •     •
-                    →
-         ▲  ▲  ▲               Cluster 2: ▲  ▲  ▲
-
-No labels given, but natural groups emerge!
-</code></pre>
+<table>
+<thead>
+<tr>
+<th>Before</th>
+<th>After</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Mixed data points</td>
+<td><strong>Cluster 1:</strong> Similar customers</td>
+</tr>
+<tr>
+<td>No labels</td>
+<td><strong>Cluster 2:</strong> Different customers</td>
+</tr>
+</tbody>
+</table>
+<p><strong>No labels given, but natural groups emerge!</strong></p>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="35" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="35" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="104">
 <h1 id="k-means-clustering">K-Means Clustering</h1>
@@ -626,10 +700,27 @@ No labels given, but natural groups emerge!
 <h1 id="dimensionality-reduction">Dimensionality Reduction</h1>
 <p><strong>Problem:</strong> Data has too many features to visualize</p>
 <p><strong>Solution:</strong> Compress to 2-3 dimensions while preserving structure</p>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>Original: 1000 features → Can't visualize
-              ↓ PCA / t-SNE
-Reduced: 2 features → Can plot!
-</code></pre>
+<table>
+<thead>
+<tr>
+<th>Stage</th>
+<th>Dimensions</th>
+<th>Visualization</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Original</td>
+<td>1000 features</td>
+<td>Can't visualize</td>
+</tr>
+<tr>
+<td>After PCA/t-SNE</td>
+<td>2-3 features</td>
+<td>Can plot!</td>
+</tr>
+</tbody>
+</table>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="38" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="38" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="104">
 <h1 id="why-reduce-dimensions">Why Reduce Dimensions?</h1>
@@ -661,8 +752,7 @@ Reduced: 2 features → Can plot!
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="42" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="42" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="104">
 <h1 id="level-1-image-classification">Level 1: Image Classification</h1>
 <p><strong>What:</strong> One label for the entire image</p>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>[Image of a cat]  →  &quot;Cat&quot;
-</code></pre>
+<p><strong>Image of a cat</strong> → <strong>&quot;Cat&quot;</strong></p>
 <p><strong>Use cases:</strong></p>
 <ul>
 <li>Photo organization (&quot;Show me all dog photos&quot;)</li>
@@ -673,11 +763,24 @@ Reduced: 2 features → Can plot!
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="43" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="43" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="104">
 <h1 id="level-2-object-detection">Level 2: Object Detection</h1>
 <p><strong>What:</strong> Find objects AND their locations</p>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>[Image with multiple objects]
-    ↓
-&quot;Cat&quot; at (x=120, y=85, w=200, h=180)
-&quot;Dog&quot; at (x=400, y=100, w=150, h=160)
-</code></pre>
+<table>
+<thead>
+<tr>
+<th>Object</th>
+<th>Bounding Box</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Cat</td>
+<td>x=120, y=85, w=200, h=180</td>
+</tr>
+<tr>
+<td>Dog</td>
+<td>x=400, y=100, w=150, h=160</td>
+</tr>
+</tbody>
+</table>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="44" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="44" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="104">
 <h1 id="detection-in-action">Detection in Action</h1>
@@ -686,21 +789,55 @@ Reduced: 2 features → Can plot!
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="45" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="45" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="104">
 <h1 id="level-3-semantic-segmentation">Level 3: Semantic Segmentation</h1>
 <p><strong>What:</strong> Label every single pixel</p>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>Each pixel gets a class:
-- Sky pixels → &quot;sky&quot;
-- Road pixels → &quot;road&quot;
-- Car pixels → &quot;car&quot;
-</code></pre>
+<table>
+<thead>
+<tr>
+<th>Pixel Region</th>
+<th>Class Label</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sky pixels</td>
+<td>&quot;sky&quot;</td>
+</tr>
+<tr>
+<td>Road pixels</td>
+<td>&quot;road&quot;</td>
+</tr>
+<tr>
+<td>Car pixels</td>
+<td>&quot;car&quot;</td>
+</tr>
+</tbody>
+</table>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="46" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="46" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="104">
 <h1 id="level-4-instance-segmentation">Level 4: Instance Segmentation</h1>
 <p><strong>What:</strong> Separate each individual object</p>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>Not just &quot;car&quot; pixels, but:
-- Car 1 pixels
-- Car 2 pixels
-- Car 3 pixels
-</code></pre>
-<p>Critical for self-driving cars!</p>
+<table>
+<thead>
+<tr>
+<th>Instance</th>
+<th>Pixel Mask</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Car 1</td>
+<td>Its own mask</td>
+</tr>
+<tr>
+<td>Car 2</td>
+<td>Its own mask</td>
+</tr>
+<tr>
+<td>Car 3</td>
+<td>Its own mask</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Critical for self-driving cars!</strong></p>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="47" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="47" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="104">
 <h1 id="segmentation-comparison">Segmentation Comparison</h1>
@@ -788,11 +925,31 @@ Reduced: 2 features → Can plot!
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="52" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="52" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="104">
 <h1 id="named-entity-recognition-ner">Named Entity Recognition (NER)</h1>
 <p><strong>Classify each word</strong> in a sentence:</p>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>&quot;Sundar Pichai visited New York yesterday&quot;
-   PER    PER    O       LOC  LOC    O
-
-PER = Person, LOC = Location, O = Other
-</code></pre>
+<table>
+<thead>
+<tr>
+<th>Word</th>
+<th>Sundar</th>
+<th>Pichai</th>
+<th>visited</th>
+<th>New</th>
+<th>York</th>
+<th>yesterday</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Tag</strong></td>
+<td>PER</td>
+<td>PER</td>
+<td>O</td>
+<td>LOC</td>
+<td>LOC</td>
+<td>O</td>
+</tr>
+</tbody>
+</table>
+<p><em>PER = Person, LOC = Location, O = Other</em></p>
 <p>It's like <strong>semantic segmentation for text</strong>!</p>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="53" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="53" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="104">
@@ -829,13 +986,28 @@ PER = Person, LOC = Location, O = Other
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="54" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="54" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="104">
 <h1 id="text-generation">Text Generation</h1>
 <p><strong>Create new text</strong> from a prompt:</p>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>Prompt: &quot;Write a poem about AI&quot;
-        ↓
-    Language Model
-        ↓
-&quot;In circuits deep and networks wide,
- Where silicon dreams reside...&quot;
-</code></pre>
+<table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Content</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Prompt</strong></td>
+<td>&quot;Write a poem about AI&quot;</td>
+</tr>
+<tr>
+<td><strong>Model</strong></td>
+<td>Language Model (GPT, Claude)</td>
+</tr>
+<tr>
+<td><strong>Output</strong></td>
+<td>&quot;In circuits deep and networks wide, where silicon dreams reside...&quot;</td>
+</tr>
+</tbody>
+</table>
 <p>This is what ChatGPT/Claude do!</p>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="55" data-paginate="true" data-class="section-divider" data-theme="iitgn-modern" lang="en-IN" class="section-divider" data-marpit-pagination="55" style="--paginate:true;--class:section-divider;--theme:iitgn-modern;" data-marpit-pagination-total="104">
@@ -850,15 +1022,13 @@ PER = Person, LOC = Location, O = Other
 <h1 id="discriminative-models">Discriminative Models</h1>
 <p><strong>Learn:</strong> P(label | input)</p>
 <p>&quot;Given this image, what's the probability it's a cat?&quot;</p>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>[Cat image] → P(cat) = 0.95, P(dog) = 0.05
-</code></pre>
+<p><strong>Cat image</strong> → P(cat) = 0.95, P(dog) = 0.05</p>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="58" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="58" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="104">
 <h1 id="generative-models">Generative Models</h1>
 <p><strong>Learn:</strong> P(data) or P(data | prompt)</p>
 <p>&quot;Generate a new image that looks like a cat&quot;</p>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>&quot;A cat sitting on a rainbow&quot; → [New image!]
-</code></pre>
+<p><strong>&quot;A cat sitting on a rainbow&quot;</strong> → <strong>New image!</strong></p>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="59" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="59" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="104">
 <h1 id="the-generative-ai-landscape">The Generative AI Landscape</h1>
@@ -901,12 +1071,28 @@ PER = Person, LOC = Location, O = Other
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="60" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="60" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="104">
 <h1 id="generative-ai-is-everywhere-now">Generative AI is Everywhere Now!</h1>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>Prompt: &quot;A cute robot teaching math&quot;
-        ↓
-    DALL-E / Midjourney
-        ↓
-    [Generated image of robot teacher]
-</code></pre>
+<table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Content</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Prompt</strong></td>
+<td>&quot;A cute robot teaching math&quot;</td>
+</tr>
+<tr>
+<td><strong>Model</strong></td>
+<td>DALL-E / Midjourney</td>
+</tr>
+<tr>
+<td><strong>Output</strong></td>
+<td>Generated image of robot teacher</td>
+</tr>
+</tbody>
+</table>
 <p>These models create <strong>new content that never existed</strong>!</p>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="61" data-paginate="true" data-class="section-divider" data-theme="iitgn-modern" lang="en-IN" class="section-divider" data-marpit-pagination="61" style="--paginate:true;--class:section-divider;--theme:iitgn-modern;" data-marpit-pagination-total="104">
@@ -924,14 +1110,25 @@ PER = Person, LOC = Location, O = Other
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="64" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="64" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="104">
 <h1 id="visual-question-answering">Visual Question Answering</h1>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>[Image: Red car on road]
-
-Q: &quot;What color is the car?&quot;
-A: &quot;Red&quot;
-
-Q: &quot;Is it daytime?&quot;
-A: &quot;Yes, based on the lighting&quot;
-</code></pre>
+<p><strong>Image:</strong> Red car on road</p>
+<table>
+<thead>
+<tr>
+<th>Question</th>
+<th>Answer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>&quot;What color is the car?&quot;</td>
+<td>&quot;Red&quot;</td>
+</tr>
+<tr>
+<td>&quot;Is it daytime?&quot;</td>
+<td>&quot;Yes, based on the lighting&quot;</td>
+</tr>
+</tbody>
+</table>
 <p>Needs to understand <strong>both</strong> image AND language!</p>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="65" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="65" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="104">
@@ -1123,16 +1320,33 @@ score = model.score(X_test, y_test)  <span class="hljs-comment"># Evaluate</span
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="85" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="85" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="104">
 <h1 id="the-neuron-basic-unit">The Neuron: Basic Unit</h1>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>Inputs     Weights    Sum + Activation    Output
-  x1 ────── w1 ──┐
-                 │
-  x2 ────── w2 ──┼──→ [Σ + σ] ──→ a
-                 │
-  x3 ────── w3 ──┘
-
-a = σ(w1*x1 + w2*x2 + w3*x3 + b)
-</code></pre>
-</section>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Inputs</strong></td>
+<td>x₁, x₂, x₃ (features)</td>
+</tr>
+<tr>
+<td><strong>Weights</strong></td>
+<td>w₁, w₂, w₃ (learned)</td>
+</tr>
+<tr>
+<td><strong>Sum</strong></td>
+<td>z = w₁x₁ + w₂x₂ + w₃x₃ + b</td>
+</tr>
+<tr>
+<td><strong>Activation</strong></td>
+<td>a = σ(z)</td>
+</tr>
+</tbody>
+</table>
+<p><mjx-container class="MathJax" jax="SVG" display="true" style="margin: 0;"><svg style="vertical-align: -0.566ex; display: block; width: 100%; height: auto; max-height: 2.262ex;" xmlns="http://www.w3.org/2000/svg" width="31.202ex" height="2.262ex" role="img" focusable="false" viewBox="0 -750 13791.2 1000"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D44E" d="M33 157Q33 258 109 349T280 441Q331 441 370 392Q386 422 416 422Q429 422 439 414T449 394Q449 381 412 234T374 68Q374 43 381 35T402 26Q411 27 422 35Q443 55 463 131Q469 151 473 152Q475 153 483 153H487Q506 153 506 144Q506 138 501 117T481 63T449 13Q436 0 417 -8Q409 -10 393 -10Q359 -10 336 5T306 36L300 51Q299 52 296 50Q294 48 292 46Q233 -10 172 -10Q117 -10 75 30T33 157ZM351 328Q351 334 346 350T323 385T277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q217 26 254 59T298 110Q300 114 325 217T351 328Z"></path></g><g data-mml-node="mo" transform="translate(806.8,0)"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path></g><g data-mml-node="mi" transform="translate(1862.6,0)"><path data-c="1D70E" d="M184 -11Q116 -11 74 34T31 147Q31 247 104 333T274 430Q275 431 414 431H552Q553 430 555 429T559 427T562 425T565 422T567 420T569 416T570 412T571 407T572 401Q572 357 507 357Q500 357 490 357T476 358H416L421 348Q439 310 439 263Q439 153 359 71T184 -11ZM361 278Q361 358 276 358Q152 358 115 184Q114 180 114 178Q106 141 106 117Q106 67 131 47T188 26Q242 26 287 73Q316 103 334 153T356 233T361 278Z"></path></g><g data-mml-node="mo" transform="translate(2433.6,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="msub" transform="translate(2822.6,0)"><g data-mml-node="mi"><path data-c="1D464" d="M580 385Q580 406 599 424T641 443Q659 443 674 425T690 368Q690 339 671 253Q656 197 644 161T609 80T554 12T482 -11Q438 -11 404 5T355 48Q354 47 352 44Q311 -11 252 -11Q226 -11 202 -5T155 14T118 53T104 116Q104 170 138 262T173 379Q173 380 173 381Q173 390 173 393T169 400T158 404H154Q131 404 112 385T82 344T65 302T57 280Q55 278 41 278H27Q21 284 21 287Q21 293 29 315T52 366T96 418T161 441Q204 441 227 416T250 358Q250 340 217 250T184 111Q184 65 205 46T258 26Q301 26 334 87L339 96V119Q339 122 339 128T340 136T341 143T342 152T345 165T348 182T354 206T362 238T373 281Q402 395 406 404Q419 431 449 431Q468 431 475 421T483 402Q483 389 454 274T422 142Q420 131 420 107V100Q420 85 423 71T442 42T487 26Q558 26 600 148Q609 171 620 213T632 273Q632 306 619 325T593 357T580 385Z"></path></g><g data-mml-node="mn" transform="translate(749,-150) scale(0.707)"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path></g></g><g data-mml-node="msub" transform="translate(3975.1,0)"><g data-mml-node="mi"><path data-c="1D465" d="M52 289Q59 331 106 386T222 442Q257 442 286 424T329 379Q371 442 430 442Q467 442 494 420T522 361Q522 332 508 314T481 292T458 288Q439 288 427 299T415 328Q415 374 465 391Q454 404 425 404Q412 404 406 402Q368 386 350 336Q290 115 290 78Q290 50 306 38T341 26Q378 26 414 59T463 140Q466 150 469 151T485 153H489Q504 153 504 145Q504 144 502 134Q486 77 440 33T333 -11Q263 -11 227 52Q186 -10 133 -10H127Q78 -10 57 16T35 71Q35 103 54 123T99 143Q142 143 142 101Q142 81 130 66T107 46T94 41L91 40Q91 39 97 36T113 29T132 26Q168 26 194 71Q203 87 217 139T245 247T261 313Q266 340 266 352Q266 380 251 392T217 404Q177 404 142 372T93 290Q91 281 88 280T72 278H58Q52 284 52 289Z"></path></g><g data-mml-node="mn" transform="translate(605,-150) scale(0.707)"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path></g></g><g data-mml-node="mo" transform="translate(5205.9,0)"><path data-c="2B" d="M56 237T56 250T70 270H369V420L370 570Q380 583 389 583Q402 583 409 568V270H707Q722 262 722 250T707 230H409V-68Q401 -82 391 -82H389H387Q375 -82 369 -68V230H70Q56 237 56 250Z"></path></g><g data-mml-node="msub" transform="translate(6206.1,0)"><g data-mml-node="mi"><path data-c="1D464" d="M580 385Q580 406 599 424T641 443Q659 443 674 425T690 368Q690 339 671 253Q656 197 644 161T609 80T554 12T482 -11Q438 -11 404 5T355 48Q354 47 352 44Q311 -11 252 -11Q226 -11 202 -5T155 14T118 53T104 116Q104 170 138 262T173 379Q173 380 173 381Q173 390 173 393T169 400T158 404H154Q131 404 112 385T82 344T65 302T57 280Q55 278 41 278H27Q21 284 21 287Q21 293 29 315T52 366T96 418T161 441Q204 441 227 416T250 358Q250 340 217 250T184 111Q184 65 205 46T258 26Q301 26 334 87L339 96V119Q339 122 339 128T340 136T341 143T342 152T345 165T348 182T354 206T362 238T373 281Q402 395 406 404Q419 431 449 431Q468 431 475 421T483 402Q483 389 454 274T422 142Q420 131 420 107V100Q420 85 423 71T442 42T487 26Q558 26 600 148Q609 171 620 213T632 273Q632 306 619 325T593 357T580 385Z"></path></g><g data-mml-node="mn" transform="translate(749,-150) scale(0.707)"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path></g></g><g data-mml-node="msub" transform="translate(7358.7,0)"><g data-mml-node="mi"><path data-c="1D465" d="M52 289Q59 331 106 386T222 442Q257 442 286 424T329 379Q371 442 430 442Q467 442 494 420T522 361Q522 332 508 314T481 292T458 288Q439 288 427 299T415 328Q415 374 465 391Q454 404 425 404Q412 404 406 402Q368 386 350 336Q290 115 290 78Q290 50 306 38T341 26Q378 26 414 59T463 140Q466 150 469 151T485 153H489Q504 153 504 145Q504 144 502 134Q486 77 440 33T333 -11Q263 -11 227 52Q186 -10 133 -10H127Q78 -10 57 16T35 71Q35 103 54 123T99 143Q142 143 142 101Q142 81 130 66T107 46T94 41L91 40Q91 39 97 36T113 29T132 26Q168 26 194 71Q203 87 217 139T245 247T261 313Q266 340 266 352Q266 380 251 392T217 404Q177 404 142 372T93 290Q91 281 88 280T72 278H58Q52 284 52 289Z"></path></g><g data-mml-node="mn" transform="translate(605,-150) scale(0.707)"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path></g></g><g data-mml-node="mo" transform="translate(8589.4,0)"><path data-c="2B" d="M56 237T56 250T70 270H369V420L370 570Q380 583 389 583Q402 583 409 568V270H707Q722 262 722 250T707 230H409V-68Q401 -82 391 -82H389H387Q375 -82 369 -68V230H70Q56 237 56 250Z"></path></g><g data-mml-node="msub" transform="translate(9589.7,0)"><g data-mml-node="mi"><path data-c="1D464" d="M580 385Q580 406 599 424T641 443Q659 443 674 425T690 368Q690 339 671 253Q656 197 644 161T609 80T554 12T482 -11Q438 -11 404 5T355 48Q354 47 352 44Q311 -11 252 -11Q226 -11 202 -5T155 14T118 53T104 116Q104 170 138 262T173 379Q173 380 173 381Q173 390 173 393T169 400T158 404H154Q131 404 112 385T82 344T65 302T57 280Q55 278 41 278H27Q21 284 21 287Q21 293 29 315T52 366T96 418T161 441Q204 441 227 416T250 358Q250 340 217 250T184 111Q184 65 205 46T258 26Q301 26 334 87L339 96V119Q339 122 339 128T340 136T341 143T342 152T345 165T348 182T354 206T362 238T373 281Q402 395 406 404Q419 431 449 431Q468 431 475 421T483 402Q483 389 454 274T422 142Q420 131 420 107V100Q420 85 423 71T442 42T487 26Q558 26 600 148Q609 171 620 213T632 273Q632 306 619 325T593 357T580 385Z"></path></g><g data-mml-node="mn" transform="translate(749,-150) scale(0.707)"><path data-c="33" d="M127 463Q100 463 85 480T69 524Q69 579 117 622T233 665Q268 665 277 664Q351 652 390 611T430 522Q430 470 396 421T302 350L299 348Q299 347 308 345T337 336T375 315Q457 262 457 175Q457 96 395 37T238 -22Q158 -22 100 21T42 130Q42 158 60 175T105 193Q133 193 151 175T169 130Q169 119 166 110T159 94T148 82T136 74T126 70T118 67L114 66Q165 21 238 21Q293 21 321 74Q338 107 338 175V195Q338 290 274 322Q259 328 213 329L171 330L168 332Q166 335 166 348Q166 366 174 366Q202 366 232 371Q266 376 294 413T322 525V533Q322 590 287 612Q265 626 240 626Q208 626 181 615T143 592T132 580H135Q138 579 143 578T153 573T165 566T175 555T183 540T186 520Q186 498 172 481T127 463Z"></path></g></g><g data-mml-node="msub" transform="translate(10742.2,0)"><g data-mml-node="mi"><path data-c="1D465" d="M52 289Q59 331 106 386T222 442Q257 442 286 424T329 379Q371 442 430 442Q467 442 494 420T522 361Q522 332 508 314T481 292T458 288Q439 288 427 299T415 328Q415 374 465 391Q454 404 425 404Q412 404 406 402Q368 386 350 336Q290 115 290 78Q290 50 306 38T341 26Q378 26 414 59T463 140Q466 150 469 151T485 153H489Q504 153 504 145Q504 144 502 134Q486 77 440 33T333 -11Q263 -11 227 52Q186 -10 133 -10H127Q78 -10 57 16T35 71Q35 103 54 123T99 143Q142 143 142 101Q142 81 130 66T107 46T94 41L91 40Q91 39 97 36T113 29T132 26Q168 26 194 71Q203 87 217 139T245 247T261 313Q266 340 266 352Q266 380 251 392T217 404Q177 404 142 372T93 290Q91 281 88 280T72 278H58Q52 284 52 289Z"></path></g><g data-mml-node="mn" transform="translate(605,-150) scale(0.707)"><path data-c="33" d="M127 463Q100 463 85 480T69 524Q69 579 117 622T233 665Q268 665 277 664Q351 652 390 611T430 522Q430 470 396 421T302 350L299 348Q299 347 308 345T337 336T375 315Q457 262 457 175Q457 96 395 37T238 -22Q158 -22 100 21T42 130Q42 158 60 175T105 193Q133 193 151 175T169 130Q169 119 166 110T159 94T148 82T136 74T126 70T118 67L114 66Q165 21 238 21Q293 21 321 74Q338 107 338 175V195Q338 290 274 322Q259 328 213 329L171 330L168 332Q166 335 166 348Q166 366 174 366Q202 366 232 371Q266 376 294 413T322 525V533Q322 590 287 612Q265 626 240 626Q208 626 181 615T143 592T132 580H135Q138 579 143 578T153 573T165 566T175 555T183 540T186 520Q186 498 172 481T127 463Z"></path></g></g><g data-mml-node="mo" transform="translate(11973,0)"><path data-c="2B" d="M56 237T56 250T70 270H369V420L370 570Q380 583 389 583Q402 583 409 568V270H707Q722 262 722 250T707 230H409V-68Q401 -82 391 -82H389H387Q375 -82 369 -68V230H70Q56 237 56 250Z"></path></g><g data-mml-node="mi" transform="translate(12973.2,0)"><path data-c="1D44F" d="M73 647Q73 657 77 670T89 683Q90 683 161 688T234 694Q246 694 246 685T212 542Q204 508 195 472T180 418L176 399Q176 396 182 402Q231 442 283 442Q345 442 383 396T422 280Q422 169 343 79T173 -11Q123 -11 82 27T40 150V159Q40 180 48 217T97 414Q147 611 147 623T109 637Q104 637 101 637H96Q86 637 83 637T76 640T73 647ZM336 325V331Q336 405 275 405Q258 405 240 397T207 376T181 352T163 330L157 322L136 236Q114 150 114 114Q114 66 138 42Q154 26 178 26Q211 26 245 58Q270 81 285 114T318 219Q336 291 336 325Z"></path></g><g data-mml-node="mo" transform="translate(13402.2,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g></g></g></svg></mjx-container></p></section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="86" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="86" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="104">
 <h1 id="activation-functions">Activation Functions</h1>
 <table>
@@ -1164,15 +1378,38 @@ a = σ(w1*x1 + w2*x2 + w3*x3 + b)
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="87" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="87" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="104">
 <h1 id="neural-network--layers-of-neurons">Neural Network = Layers of Neurons</h1>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>Input      Hidden Layer 1    Hidden Layer 2    Output
-  ●  ────────  ●  ──────────  ●  ────────────  ●
-  ●  ────────  ●  ──────────  ●
-  ●  ────────  ●  ──────────  ●
-  ●  ────────  ●  ──────────  ●
-              ●              ●
-
-Each connection has a learned weight!
-</code></pre>
+<table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>Neurons</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Input</strong></td>
+<td>4</td>
+<td>Receive features</td>
+</tr>
+<tr>
+<td><strong>Hidden 1</strong></td>
+<td>5</td>
+<td>Learn patterns</td>
+</tr>
+<tr>
+<td><strong>Hidden 2</strong></td>
+<td>5</td>
+<td>Learn complex patterns</td>
+</tr>
+<tr>
+<td><strong>Output</strong></td>
+<td>1</td>
+<td>Final prediction</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Each connection has a learned weight!</strong></p>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="88" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="88" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="104">
 <h1 id="nn-for-binary-classification">NN for Binary Classification</h1>
