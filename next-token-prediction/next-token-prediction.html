@@ -319,57 +319,7 @@ Step 3: Convert counts to probabilities
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="15" data-paginate="true" data-theme="iitgn-modern" lang="C" data-marpit-pagination="15" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="73">
 <h1 id="bigram-the-counting-table">Bigram: The Counting Table</h1>
-<table>
-<thead>
-<tr>
-<th>Current ↓ / Next →</th>
-<th>a</th>
-<th>b</th>
-<th>e</th>
-<th>i</th>
-<th>l</th>
-<th>...</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>a</strong></td>
-<td>0.3</td>
-<td>0.2</td>
-<td>0.1</td>
-<td>0.2</td>
-<td>0.1</td>
-<td>...</td>
-</tr>
-<tr>
-<td><strong>b</strong></td>
-<td>0.1</td>
-<td>0.0</td>
-<td>0.1</td>
-<td>0.5</td>
-<td>0.0</td>
-<td>...</td>
-</tr>
-<tr>
-<td><strong>e</strong></td>
-<td>0.2</td>
-<td>0.0</td>
-<td>0.3</td>
-<td>0.1</td>
-<td>0.2</td>
-<td>...</td>
-</tr>
-<tr>
-<td><strong>i</strong></td>
-<td>0.4</td>
-<td>0.1</td>
-<td>0.1</td>
-<td>0.0</td>
-<td>0.1</td>
-<td>...</td>
-</tr>
-</tbody>
-</table>
+<p><img src="diagrams/svg/bigram_heatmap.svg" alt="center" style="width:750px;" /></p>
 <p>Each row sums to 1.0 (it's a probability distribution!)</p>
 <p><strong>To generate:</strong> Look up current letter → Sample from that row</p>
 <div class="insight">
@@ -903,57 +853,7 @@ The softmax converts logits to probabilities that sum to 1.
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="36" data-paginate="true" data-theme="iitgn-modern" lang="C" data-marpit-pagination="36" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="73">
 <h1 id="creating-training-data-the-sliding-window">Creating Training Data: The Sliding Window</h1>
 <p><strong>Text:</strong> <code>&quot;aabid&quot;</code> — Create (context → target) pairs by sliding a window:</p>
-<table>
-<thead>
-<tr>
-<th>Position</th>
-<th>Context</th>
-<th>Target</th>
-<th>Question</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>0</td>
-<td>[., ., .]</td>
-<td>'a'</td>
-<td>What comes first?</td>
-</tr>
-<tr>
-<td>1</td>
-<td>[., ., a]</td>
-<td>'a'</td>
-<td>After start + a?</td>
-</tr>
-<tr>
-<td>2</td>
-<td>[., a, a]</td>
-<td>'b'</td>
-<td>After a, a?</td>
-</tr>
-<tr>
-<td>3</td>
-<td>[a, a, b]</td>
-<td>'i'</td>
-<td>After a, a, b?</td>
-</tr>
-<tr>
-<td>4</td>
-<td>[a, b, i]</td>
-<td>'d'</td>
-<td>After a, b, i?</td>
-</tr>
-<tr>
-<td>5</td>
-<td>[b, i, d]</td>
-<td>'.'</td>
-<td>After b, i, d?</td>
-</tr>
-</tbody>
-</table>
-<div class="example">
-**Context window:** `[., a, a]` → **Target:** 'b' (what we want to predict)
-</div>
+<p><img src="diagrams/svg/sliding_window.svg" alt="center" style="width:900px;" /></p>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="37" data-paginate="true" data-theme="iitgn-modern" lang="C" data-marpit-pagination="37" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="73">
 <h1 id="training-learning-from-mistakes">Training: Learning from Mistakes</h1>
@@ -1391,64 +1291,8 @@ Same core algorithm. Just **much, much bigger**.
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="53" data-paginate="true" data-theme="iitgn-modern" lang="C" data-marpit-pagination="53" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="73">
 <h1 id="how-bpe-tokenization-works">How BPE Tokenization Works</h1>
-<p><strong>Byte Pair Encoding (BPE)</strong></p>
-<p>Start with character vocabulary: {a, b, c, ..., z, space, ...}</p>
-<table>
-<thead>
-<tr>
-<th>Step</th>
-<th>Action</th>
-<th>Result</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>Count all adjacent pairs</td>
-<td>&quot;th&quot; appears 10,000 times</td>
-</tr>
-<tr>
-<td>2</td>
-<td>Merge most common</td>
-<td>Create new token &quot;th&quot;</td>
-</tr>
-<tr>
-<td>3</td>
-<td>Repeat</td>
-<td>Until vocabulary reaches target size</td>
-</tr>
-</tbody>
-</table>
-<p><strong>After many merges:</strong></p>
-<table>
-<thead>
-<tr>
-<th>Word</th>
-<th>Tokens</th>
-<th>Why</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>&quot;the&quot;</td>
-<td>Single token</td>
-<td>Very common</td>
-</tr>
-<tr>
-<td>&quot;ing&quot;</td>
-<td>Single token</td>
-<td>Common suffix</td>
-</tr>
-<tr>
-<td>&quot;unhappiness&quot;</td>
-<td>[&quot;un&quot;, &quot;happiness&quot;]</td>
-<td>Compound word</td>
-</tr>
-</tbody>
-</table>
-<div class="insight">
-Common words = 1 token, rare words = multiple tokens
-</div>
+<p><strong>Byte Pair Encoding (BPE)</strong> — Start with characters, merge common pairs:</p>
+<p><img src="diagrams/svg/bpe_tokenization.svg" alt="center" style="width:1000px;" /></p>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="54" data-paginate="true" data-theme="iitgn-modern" lang="C" data-marpit-pagination="54" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="73">
 <h1 id="tokenization-quirks">Tokenization Quirks</h1>
@@ -1526,46 +1370,10 @@ Tokenization artifacts explain many LLM failure modes — they don't "see" chara
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="56" data-paginate="true" data-theme="iitgn-modern" lang="C" data-marpit-pagination="56" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="73">
 <h1 id="temperature-the-creativity-knob">Temperature: The Creativity Knob</h1>
 <p>When sampling the next token, we can adjust <strong>temperature</strong>:</p>
-<p><strong>Prompt:</strong> &quot;I love to eat&quot;</p>
-<table>
-<thead>
-<tr>
-<th>Word</th>
-<th>Low Temp (0.1)</th>
-<th>High Temp (2.0)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>pizza</td>
-<td><strong>0.80</strong></td>
-<td>0.25</td>
-</tr>
-<tr>
-<td>pasta</td>
-<td>0.15</td>
-<td>0.20</td>
-</tr>
-<tr>
-<td>shoes</td>
-<td>0.01</td>
-<td>0.15</td>
-</tr>
-<tr>
-<td>clouds</td>
-<td>0.001</td>
-<td>0.12</td>
-</tr>
-<tr>
-<td>dreams</td>
-<td>0.0001</td>
-<td>0.10</td>
-</tr>
-</tbody>
-</table>
+<p><img src="diagrams/svg/temperature_visual.svg" alt="center" style="width:1000px;" /></p>
 <ul>
-<li><strong>Low temp</strong> → Always picks &quot;pizza&quot; (boring but safe)</li>
-<li><strong>High temp</strong> → Might pick &quot;clouds&quot; (creative but weird)</li>
+<li><strong>Low temp</strong> → Always picks the most likely (boring but safe)</li>
+<li><strong>High temp</strong> → Spreads probability more evenly (creative but risky)</li>
 </ul>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="57" data-paginate="true" data-theme="iitgn-modern" lang="C" data-marpit-pagination="57" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="73">

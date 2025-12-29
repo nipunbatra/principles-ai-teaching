@@ -238,12 +238,7 @@ Step 3: Convert counts to probabilities
 
 # Bigram: The Counting Table
 
-| Current ↓ / Next → | a | b | e | i | l | ... |
-|--------------------|-----|-----|-----|-----|-----|-----|
-| **a** | 0.3 | 0.2 | 0.1 | 0.2 | 0.1 | ... |
-| **b** | 0.1 | 0.0 | 0.1 | 0.5 | 0.0 | ... |
-| **e** | 0.2 | 0.0 | 0.3 | 0.1 | 0.2 | ... |
-| **i** | 0.4 | 0.1 | 0.1 | 0.0 | 0.1 | ... |
+![w:750 center](diagrams/svg/bigram_heatmap.svg)
 
 Each row sums to 1.0 (it's a probability distribution!)
 
@@ -621,18 +616,7 @@ The softmax converts logits to probabilities that sum to 1.
 
 **Text:** `"aabid"` — Create (context → target) pairs by sliding a window:
 
-| Position | Context | Target | Question |
-|----------|---------|--------|----------|
-| 0 | [., ., .] | 'a' | What comes first? |
-| 1 | [., ., a] | 'a' | After start + a? |
-| 2 | [., a, a] | 'b' | After a, a? |
-| 3 | [a, a, b] | 'i' | After a, a, b? |
-| 4 | [a, b, i] | 'd' | After a, b, i? |
-| 5 | [b, i, d] | '.' | After b, i, d? |
-
-<div class="example">
-**Context window:** `[., a, a]` → **Target:** 'b' (what we want to predict)
-</div>
+![w:900 center](diagrams/svg/sliding_window.svg)
 
 ---
 
@@ -923,27 +907,9 @@ Note: Spaces are often part of tokens (" is" not "is")
 
 # How BPE Tokenization Works
 
-**Byte Pair Encoding (BPE)**
+**Byte Pair Encoding (BPE)** — Start with characters, merge common pairs:
 
-Start with character vocabulary: {a, b, c, ..., z, space, ...}
-
-| Step | Action | Result |
-|------|--------|--------|
-| 1 | Count all adjacent pairs | "th" appears 10,000 times |
-| 2 | Merge most common | Create new token "th" |
-| 3 | Repeat | Until vocabulary reaches target size |
-
-**After many merges:**
-
-| Word | Tokens | Why |
-|------|--------|-----|
-| "the" | Single token | Very common |
-| "ing" | Single token | Common suffix |
-| "unhappiness" | ["un", "happiness"] | Compound word |
-
-<div class="insight">
-Common words = 1 token, rare words = multiple tokens
-</div>
+![w:1000 center](diagrams/svg/bpe_tokenization.svg)
 
 ---
 
@@ -990,18 +956,10 @@ Modern models: **Learn** position embeddings!
 
 When sampling the next token, we can adjust **temperature**:
 
-**Prompt:** "I love to eat"
+![w:1000 center](diagrams/svg/temperature_visual.svg)
 
-| Word | Low Temp (0.1) | High Temp (2.0) |
-|------|----------------|-----------------|
-| pizza | **0.80** | 0.25 |
-| pasta | 0.15 | 0.20 |
-| shoes | 0.01 | 0.15 |
-| clouds | 0.001 | 0.12 |
-| dreams | 0.0001 | 0.10 |
-
-- **Low temp** → Always picks "pizza" (boring but safe)
-- **High temp** → Might pick "clouds" (creative but weird)
+- **Low temp** → Always picks the most likely (boring but safe)
+- **High temp** → Spreads probability more evenly (creative but risky)
 
 ---
 

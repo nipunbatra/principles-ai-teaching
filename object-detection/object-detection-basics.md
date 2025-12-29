@@ -132,6 +132,8 @@ Detection = Classification + Localization + Counting (implicitly)
 
 # Instance Segmentation: Beyond Boxes
 
+![w:900 center](diagrams/realistic/segmentation_example.png)
+
 | Detection | Segmentation |
 |-----------|--------------|
 | Bounding box (rectangle) | Pixel-perfect mask |
@@ -466,6 +468,12 @@ Each anchor predicts separately → cell can detect person (tall) AND car (wide)
 | **v3** | 2018 | Multi-scale (3 grid sizes) |
 | **v4** | 2020 | Mosaic augmentation |
 | **v5-v8** | 2020-23 | PyTorch native, easy API |
+
+---
+
+# YOLO Architecture Overview
+
+![w:900 center](diagrams/svg/yolo_architecture.svg)
 
 ---
 

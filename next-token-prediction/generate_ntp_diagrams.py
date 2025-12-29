@@ -601,6 +601,354 @@ def plot_sampling_tree():
     plt.savefig('diagrams/sampling_tree.png', dpi=300, bbox_inches='tight')
     plt.close()
 
+# 13. Bigram Heatmap (improved with real character counts)
+def plot_bigram_heatmap_visual():
+    fig, ax = create_figure(figsize=(10, 9))
+    ax.axis('on')
+
+    # Characters including start/end token
+    chars = ['.', 'a', 'b', 'i', 'd', 'n', 'p', 'r', 'y', 'z']
+
+    # Mock transition counts based on names like "aabid", "priya", "nipun", "zeel"
+    # Rows = current char, Cols = next char
+    data = np.array([
+        [0.0, 0.4, 0.0, 0.0, 0.0, 0.1, 0.2, 0.0, 0.0, 0.3],  # . -> start of name
+        [0.1, 0.2, 0.3, 0.1, 0.1, 0.1, 0.0, 0.0, 0.1, 0.0],  # a
+        [0.0, 0.1, 0.0, 0.6, 0.0, 0.0, 0.0, 0.1, 0.0, 0.2],  # b
+        [0.1, 0.1, 0.0, 0.0, 0.3, 0.1, 0.2, 0.0, 0.2, 0.0],  # i
+        [0.5, 0.0, 0.0, 0.1, 0.0, 0.0, 0.0, 0.0, 0.0, 0.4],  # d -> often ends
+        [0.2, 0.0, 0.0, 0.4, 0.0, 0.0, 0.2, 0.0, 0.0, 0.2],  # n
+        [0.0, 0.0, 0.0, 0.2, 0.0, 0.0, 0.0, 0.5, 0.3, 0.0],  # p
+        [0.0, 0.1, 0.0, 0.5, 0.0, 0.0, 0.0, 0.0, 0.4, 0.0],  # r
+        [0.4, 0.3, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.3],  # y -> often ends
+        [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0],  # z (placeholder)
+    ])
+
+    im = ax.imshow(data, cmap='Blues', aspect='auto')
+
+    ax.set_xticks(np.arange(len(chars)))
+    ax.set_yticks(np.arange(len(chars)))
+    ax.set_xticklabels(chars, fontsize=14, fontweight='bold')
+    ax.set_yticklabels(chars, fontsize=14, fontweight='bold')
+
+    # Text annotations
+    for i in range(len(chars)):
+        for j in range(len(chars)):
+            if data[i, j] > 0.01:
+                color = 'white' if data[i, j] > 0.4 else 'black'
+                ax.text(j, i, f'{data[i, j]:.1f}', ha='center', va='center',
+                       fontsize=10, color=color, fontweight='bold')
+
+    ax.set_xlabel("Next Character", fontsize=14, fontweight='bold')
+    ax.set_ylabel("Current Character", fontsize=14, fontweight='bold')
+    ax.set_title("Bigram Probability Table\nP(Next | Current)", fontsize=18, fontweight='bold', pad=15)
+
+    # Colorbar
+    cbar = plt.colorbar(im, ax=ax, shrink=0.8)
+    cbar.set_label('Probability', fontsize=12)
+
+    plt.tight_layout()
+    plt.savefig('diagrams/svg/bigram_heatmap.svg', format='svg', bbox_inches='tight')
+    plt.savefig('diagrams/bigram_heatmap.png', dpi=300, bbox_inches='tight')
+    plt.close()
+
+# 14. Temperature Distribution Comparison
+def plot_temperature_visual():
+    fig, axes = plt.subplots(1, 3, figsize=(14, 5))
+    fig.patch.set_facecolor(COLORS['light_bg'])
+
+    words = ['pizza', 'pasta', 'salad', 'cake', 'fruit']
+    logits = np.array([2.5, 2.0, 1.0, 0.5, 0.2])
+
+    def softmax(x, T):
+        e_x = np.exp(x / T)
+        return e_x / e_x.sum()
+
+    temps = [0.2, 1.0, 2.0]
+    titles = ["T = 0.2 (Focused)", "T = 1.0 (Balanced)", "T = 2.0 (Creative)"]
+    colors_list = [COLORS['blue'], COLORS['green'], COLORS['red']]
+
+    for ax, T, title, color in zip(axes, temps, titles, colors_list):
+        ax.set_facecolor(COLORS['light_bg'])
+        probs = softmax(logits, T)
+
+        bars = ax.barh(words, probs, color=color, alpha=0.7, edgecolor='black')
+        ax.set_xlim(0, 1.05)
+        ax.set_xlabel("Probability", fontsize=11)
+        ax.set_title(title, fontsize=14, fontweight='bold', color=color)
+
+        for bar, p in zip(bars, probs):
+            if p > 0.05:
+                ax.text(p + 0.02, bar.get_y() + bar.get_height()/2,
+                       f'{p:.2f}', va='center', fontsize=10)
+
+        ax.grid(True, axis='x', alpha=0.3)
+
+    plt.suptitle('Temperature Controls "Creativity" in Sampling', fontsize=16, fontweight='bold', y=1.02)
+    plt.tight_layout()
+    plt.savefig('diagrams/svg/temperature_visual.svg', format='svg', bbox_inches='tight')
+    plt.savefig('diagrams/temperature_visual.png', dpi=300, bbox_inches='tight')
+    plt.close()
+
+# 15. BPE Tokenization Visualization
+def plot_bpe_tokenization():
+    fig, ax = create_figure(figsize=(14, 8))
+
+    # Show BPE merge process
+    ax.text(0.5, 0.95, "Byte Pair Encoding (BPE) Tokenization", ha='center',
+            fontsize=20, fontweight='bold')
+
+    # Original text
+    ax.text(0.05, 0.82, "Original:", fontsize=12, fontweight='bold')
+    original = "unhappiness"
+    x_pos = 0.2
+    for i, char in enumerate(original):
+        rect = patches.FancyBboxPatch((x_pos, 0.78), 0.045, 0.08,
+                                       boxstyle="round,pad=0.01",
+                                       facecolor=COLORS['gray'], alpha=0.3)
+        ax.add_patch(rect)
+        ax.text(x_pos + 0.0225, 0.82, char, ha='center', fontsize=14, fontweight='bold')
+        x_pos += 0.05
+
+    # After merges
+    stages = [
+        ("Step 1:", ["u", "n", "h", "a", "pp", "i", "n", "e", "ss"], 0.65, "'pp' merged"),
+        ("Step 2:", ["un", "h", "a", "pp", "i", "n", "e", "ss"], 0.50, "'un' merged"),
+        ("Step 3:", ["un", "happ", "i", "n", "e", "ss"], 0.35, "'happ' merged"),
+        ("Final:", ["un", "happiness"], 0.18, "Common subwords!"),
+    ]
+
+    token_colors = [COLORS['blue'], COLORS['green'], COLORS['red'], COLORS['yellow']]
+
+    for label, tokens, y, note in stages:
+        ax.text(0.05, y + 0.04, label, fontsize=11, fontweight='bold')
+        x_pos = 0.2
+        for i, tok in enumerate(tokens):
+            width = 0.04 + len(tok) * 0.025
+            color = token_colors[i % len(token_colors)]
+            rect = patches.FancyBboxPatch((x_pos, y), width, 0.08,
+                                           boxstyle="round,pad=0.01",
+                                           facecolor=color, alpha=0.6)
+            ax.add_patch(rect)
+            ax.text(x_pos + width/2, y + 0.04, tok, ha='center', fontsize=12, fontweight='bold', color='white')
+            x_pos += width + 0.015
+
+        ax.text(0.85, y + 0.04, note, fontsize=10, style='italic', color='gray')
+
+    # Key insight
+    insight_box = patches.FancyBboxPatch((0.1, 0.02), 0.8, 0.1,
+                                          boxstyle="round,pad=0.02",
+                                          facecolor='#E3F2FD', edgecolor=COLORS['blue'], linewidth=2)
+    ax.add_patch(insight_box)
+    ax.text(0.5, 0.07, 'BPE finds common subwords: "un" (prefix) + "happiness" (common word)',
+            ha='center', fontsize=12, fontweight='bold')
+
+    ax.set_xlim(0, 1)
+    ax.set_ylim(0, 1)
+
+    plt.tight_layout()
+    plt.savefig('diagrams/svg/bpe_tokenization.svg', format='svg', bbox_inches='tight')
+    plt.savefig('diagrams/bpe_tokenization.png', dpi=300, bbox_inches='tight')
+    plt.close()
+
+# 16. Sliding Window Training Data
+def plot_sliding_window():
+    fig, ax = create_figure(figsize=(14, 8))
+
+    ax.text(0.5, 0.95, "Creating Training Data: Sliding Window", ha='center',
+            fontsize=18, fontweight='bold')
+
+    text = "aabid"
+    window_size = 3
+
+    # Show the text at top
+    ax.text(0.05, 0.82, "Text:", fontsize=12, fontweight='bold')
+    x_pos = 0.15
+    for i, char in enumerate(text):
+        rect = patches.FancyBboxPatch((x_pos, 0.78), 0.06, 0.08,
+                                       boxstyle="round,pad=0.01",
+                                       facecolor=COLORS['blue'], alpha=0.7)
+        ax.add_patch(rect)
+        ax.text(x_pos + 0.03, 0.82, char, ha='center', fontsize=16, fontweight='bold', color='white')
+        x_pos += 0.07
+
+    # Show sliding windows
+    windows = [
+        (['.', '.', '.'], 'a', 0.65),
+        (['.', '.', 'a'], 'a', 0.52),
+        (['.', 'a', 'a'], 'b', 0.39),
+        (['a', 'a', 'b'], 'i', 0.26),
+        (['a', 'b', 'i'], 'd', 0.13),
+    ]
+
+    ax.text(0.05, 0.72, "Context (Input)", fontsize=11, fontweight='bold', color=COLORS['green'])
+    ax.text(0.55, 0.72, "Target (Output)", fontsize=11, fontweight='bold', color=COLORS['red'])
+
+    for context, target, y in windows:
+        # Context boxes
+        x_pos = 0.15
+        for char in context:
+            rect = patches.FancyBboxPatch((x_pos, y - 0.04), 0.06, 0.08,
+                                           boxstyle="round,pad=0.01",
+                                           facecolor=COLORS['green'], alpha=0.6)
+            ax.add_patch(rect)
+            ax.text(x_pos + 0.03, y, char, ha='center', fontsize=14, fontweight='bold', color='white')
+            x_pos += 0.07
+
+        # Arrow
+        ax.annotate('', xy=(0.5, y), xytext=(0.42, y),
+                   arrowprops=dict(arrowstyle='->', color='black', lw=2))
+
+        # Target box
+        rect = patches.FancyBboxPatch((0.55, y - 0.04), 0.06, 0.08,
+                                       boxstyle="round,pad=0.01",
+                                       facecolor=COLORS['red'], alpha=0.7)
+        ax.add_patch(rect)
+        ax.text(0.58, y, target, ha='center', fontsize=14, fontweight='bold', color='white')
+
+        # Predict label
+        ax.text(0.65, y, "← Predict this!", fontsize=10, va='center', color='gray')
+
+    # Insight box
+    insight_box = patches.FancyBboxPatch((0.1, 0.02), 0.8, 0.06,
+                                          boxstyle="round,pad=0.02",
+                                          facecolor='#FFF3E0', edgecolor=COLORS['yellow'], linewidth=2)
+    ax.add_patch(insight_box)
+    ax.text(0.5, 0.05, 'The window slides through the text, creating (context, target) pairs for training',
+            ha='center', fontsize=11, fontweight='bold')
+
+    ax.set_xlim(0, 1)
+    ax.set_ylim(0, 1)
+
+    plt.tight_layout()
+    plt.savefig('diagrams/svg/sliding_window.svg', format='svg', bbox_inches='tight')
+    plt.savefig('diagrams/sliding_window.png', dpi=300, bbox_inches='tight')
+    plt.close()
+
+# 17. LLM Recipe Overview
+def plot_llm_recipe():
+    fig, ax = create_figure(figsize=(12, 10))
+
+    ax.text(0.5, 0.95, "The LLM Recipe", ha='center', fontsize=22, fontweight='bold')
+
+    ingredients = [
+        ("1. DATA", 0.78, COLORS['blue'], "Trillions of tokens from internet, books, code"),
+        ("2. ARCHITECTURE", 0.58, COLORS['green'], "Transformer: Attention + Feed-Forward, stacked"),
+        ("3. TRAINING", 0.38, COLORS['yellow'], "Next token prediction on massive compute"),
+        ("4. ALIGNMENT", 0.18, COLORS['red'], "SFT + RLHF to follow instructions safely"),
+    ]
+
+    for label, y, color, desc in ingredients:
+        # Main box
+        rect = patches.FancyBboxPatch((0.08, y - 0.07), 0.25, 0.14,
+                                       boxstyle="round,pad=0.02",
+                                       facecolor=color, edgecolor='black', alpha=0.8, linewidth=2)
+        ax.add_patch(rect)
+        ax.text(0.2, y, label, ha='center', va='center', fontsize=14, fontweight='bold', color='white')
+
+        # Description
+        ax.text(0.38, y, desc, va='center', fontsize=12)
+
+    # Arrow connecting all
+    ax.annotate('', xy=(0.2, 0.25), xytext=(0.2, 0.71),
+               arrowprops=dict(arrowstyle='->', color='gray', lw=3, ls='--'))
+
+    # Result
+    result_box = patches.FancyBboxPatch((0.25, 0.02), 0.5, 0.08,
+                                         boxstyle="round,pad=0.02",
+                                         facecolor='#9b59b6', edgecolor='black', alpha=0.8, linewidth=2)
+    ax.add_patch(result_box)
+    ax.text(0.5, 0.06, "= ChatGPT / Claude / Gemini", ha='center', va='center',
+            fontsize=14, fontweight='bold', color='white')
+
+    ax.set_xlim(0, 1)
+    ax.set_ylim(0, 1)
+
+    plt.tight_layout()
+    plt.savefig('diagrams/svg/llm_recipe.svg', format='svg', bbox_inches='tight')
+    plt.savefig('diagrams/llm_recipe.png', dpi=300, bbox_inches='tight')
+    plt.close()
+
+# 18. LLM Training Pipeline
+def plot_llm_training_pipeline():
+    fig, ax = create_figure(figsize=(16, 6))
+
+    stages = [
+        ("Pre-training", 0.12, COLORS['blue'], "Internet text\n→ Base model"),
+        ("SFT", 0.38, COLORS['green'], "Instruction data\n→ Follows orders"),
+        ("RLHF/DPO", 0.62, COLORS['yellow'], "Human feedback\n→ Safe & helpful"),
+        ("ChatGPT!", 0.88, COLORS['red'], "Ready to\ndeploy"),
+    ]
+
+    for label, x, color, desc in stages:
+        rect = patches.FancyBboxPatch((x - 0.10, 0.35), 0.20, 0.30,
+                                       boxstyle="round,pad=0.02",
+                                       facecolor=color, edgecolor='black', alpha=0.8, linewidth=2)
+        ax.add_patch(rect)
+        ax.text(x, 0.55, label, ha='center', va='center', fontsize=14, fontweight='bold', color='white')
+        ax.text(x, 0.42, desc, ha='center', va='center', fontsize=10, color='white')
+
+    # Arrows
+    for i in range(len(stages) - 1):
+        x1 = stages[i][1] + 0.10
+        x2 = stages[i+1][1] - 0.10
+        ax.annotate('', xy=(x2, 0.5), xytext=(x1, 0.5),
+                   arrowprops=dict(arrowstyle='->', color='black', lw=3))
+
+    # Labels below
+    ax.text(0.12, 0.2, "~$100M\nMonths", ha='center', fontsize=10, color='gray')
+    ax.text(0.38, 0.2, "~$1M\nDays", ha='center', fontsize=10, color='gray')
+    ax.text(0.62, 0.2, "~$10M\nWeeks", ha='center', fontsize=10, color='gray')
+
+    ax.set_xlim(0, 1)
+    ax.set_ylim(0.1, 0.8)
+    ax.set_title("LLM Training Pipeline: From Text to Assistant", fontsize=18, fontweight='bold', pad=20)
+
+    plt.tight_layout()
+    plt.savefig('diagrams/svg/llm_training_pipeline.svg', format='svg', bbox_inches='tight')
+    plt.savefig('diagrams/llm_training_pipeline.png', dpi=300, bbox_inches='tight')
+    plt.close()
+
+# 19. RLHF Pipeline
+def plot_rlhf_pipeline():
+    fig, ax = create_figure(figsize=(14, 8))
+
+    ax.text(0.5, 0.95, "RLHF: Reinforcement Learning from Human Feedback", ha='center',
+            fontsize=18, fontweight='bold')
+
+    steps = [
+        ("1. Generate", 0.15, 0.65, COLORS['blue'], "LLM produces\nmultiple responses"),
+        ("2. Rank", 0.45, 0.65, COLORS['green'], "Humans rank:\nA > B > C"),
+        ("3. Reward Model", 0.75, 0.65, COLORS['yellow'], "Train model to\npredict rankings"),
+        ("4. Optimize", 0.45, 0.25, COLORS['red'], "Use PPO to maximize\nreward while staying\nclose to base model"),
+    ]
+
+    for label, x, y, color, desc in steps:
+        rect = patches.FancyBboxPatch((x - 0.12, y - 0.12), 0.24, 0.24,
+                                       boxstyle="round,pad=0.02",
+                                       facecolor=color, edgecolor='black', alpha=0.8, linewidth=2)
+        ax.add_patch(rect)
+        ax.text(x, y + 0.04, label, ha='center', va='center', fontsize=12, fontweight='bold', color='white')
+        ax.text(x, y - 0.04, desc, ha='center', va='center', fontsize=9, color='white')
+
+    # Arrows
+    ax.annotate('', xy=(0.33, 0.65), xytext=(0.27, 0.65),
+               arrowprops=dict(arrowstyle='->', color='black', lw=2))
+    ax.annotate('', xy=(0.63, 0.65), xytext=(0.57, 0.65),
+               arrowprops=dict(arrowstyle='->', color='black', lw=2))
+    ax.annotate('', xy=(0.57, 0.35), xytext=(0.75, 0.53),
+               arrowprops=dict(arrowstyle='->', color='black', lw=2))
+    ax.annotate('', xy=(0.27, 0.53), xytext=(0.33, 0.35),
+               arrowprops=dict(arrowstyle='->', color='black', lw=2, ls='--'))
+
+    ax.set_xlim(0, 1)
+    ax.set_ylim(0.1, 1)
+
+    plt.tight_layout()
+    plt.savefig('diagrams/svg/rlhf_pipeline.svg', format='svg', bbox_inches='tight')
+    plt.savefig('diagrams/rlhf_pipeline.png', dpi=300, bbox_inches='tight')
+    plt.close()
+
 # Run all the Matplotlib diagrams
 if __name__ == "__main__":
     print("Generating diagrams...")
@@ -628,4 +976,19 @@ if __name__ == "__main__":
     print("  - embedding_space.svg/png")
     plot_sampling_tree()
     print("  - sampling_tree.svg/png")
+    # New diagrams
+    plot_bigram_heatmap_visual()
+    print("  - bigram_heatmap.svg/png")
+    plot_temperature_visual()
+    print("  - temperature_visual.svg/png")
+    plot_bpe_tokenization()
+    print("  - bpe_tokenization.svg/png")
+    plot_sliding_window()
+    print("  - sliding_window.svg/png")
+    plot_llm_recipe()
+    print("  - llm_recipe.svg/png")
+    plot_llm_training_pipeline()
+    print("  - llm_training_pipeline.svg/png")
+    plot_rlhf_pipeline()
+    print("  - rlhf_pipeline.svg/png")
     print("Done!")

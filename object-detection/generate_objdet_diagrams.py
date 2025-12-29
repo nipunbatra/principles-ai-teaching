@@ -551,6 +551,100 @@ def plot_map_metric():
 
     save_plot('map_metric')
 
+# 13. YOLO Architecture Diagram
+def plot_yolo_architecture():
+    fig, ax = create_figure(figsize=(16, 8))
+
+    # Backbone (left)
+    ax.text(0.12, 0.92, "BACKBONE", ha='center', fontsize=14, fontweight='bold', color=COLORS['blue'])
+    ax.text(0.12, 0.85, "(Feature Extraction)", ha='center', fontsize=10, color='gray')
+
+    backbone_layers = [
+        ("Input\n640×640×3", 0.12, 0.72),
+        ("Conv + BN\n+ SiLU", 0.12, 0.55),
+        ("CSP Blocks\n(C2f)", 0.12, 0.38),
+        ("Features\nP3, P4, P5", 0.12, 0.21),
+    ]
+
+    for label, x, y in backbone_layers:
+        rect = patches.FancyBboxPatch((x-0.08, y-0.06), 0.16, 0.12,
+                                       boxstyle="round,pad=0.01",
+                                       facecolor=COLORS['blue'], alpha=0.7)
+        ax.add_patch(rect)
+        ax.text(x, y, label, ha='center', va='center', fontsize=9, fontweight='bold', color='white')
+
+    # Arrows in backbone
+    for i in range(len(backbone_layers)-1):
+        y1 = backbone_layers[i][2] - 0.06
+        y2 = backbone_layers[i+1][2] + 0.06
+        ax.annotate('', xy=(0.12, y2), xytext=(0.12, y1),
+                   arrowprops=dict(arrowstyle='->', color='black', lw=1.5))
+
+    # Neck (middle)
+    ax.text(0.42, 0.92, "NECK (FPN+PAN)", ha='center', fontsize=14, fontweight='bold', color=COLORS['green'])
+    ax.text(0.42, 0.85, "(Multi-scale Fusion)", ha='center', fontsize=10, color='gray')
+
+    neck_layers = [
+        ("Upsample\n+ Concat", 0.35, 0.55),
+        ("C2f Block", 0.35, 0.38),
+        ("Downsample\n+ Concat", 0.49, 0.55),
+        ("C2f Block", 0.49, 0.38),
+    ]
+
+    for label, x, y in neck_layers:
+        rect = patches.FancyBboxPatch((x-0.06, y-0.05), 0.12, 0.10,
+                                       boxstyle="round,pad=0.01",
+                                       facecolor=COLORS['green'], alpha=0.7)
+        ax.add_patch(rect)
+        ax.text(x, y, label, ha='center', va='center', fontsize=8, fontweight='bold', color='white')
+
+    # Feature pyramid outputs
+    ax.text(0.42, 0.21, "Multi-scale\nFeatures", ha='center', fontsize=10, fontweight='bold',
+            bbox=dict(boxstyle='round', facecolor='#C8E6C9', edgecolor=COLORS['green']))
+
+    # Arrow from backbone to neck
+    ax.annotate('', xy=(0.27, 0.45), xytext=(0.20, 0.45),
+               arrowprops=dict(arrowstyle='->', color='black', lw=2))
+
+    # Head (right)
+    ax.text(0.72, 0.92, "HEAD", ha='center', fontsize=14, fontweight='bold', color=COLORS['red'])
+    ax.text(0.72, 0.85, "(Detection)", ha='center', fontsize=10, color='gray')
+
+    head_outputs = [
+        ("80×80 grid\n(small obj)", 0.62, 0.60, COLORS['yellow']),
+        ("40×40 grid\n(medium obj)", 0.72, 0.45, COLORS['orange']),
+        ("20×20 grid\n(large obj)", 0.82, 0.60, COLORS['red']),
+    ]
+
+    for label, x, y, color in head_outputs:
+        rect = patches.FancyBboxPatch((x-0.06, y-0.07), 0.12, 0.14,
+                                       boxstyle="round,pad=0.01",
+                                       facecolor=color, alpha=0.7)
+        ax.add_patch(rect)
+        ax.text(x, y, label, ha='center', va='center', fontsize=8, fontweight='bold', color='white')
+
+    # Arrow from neck to head
+    ax.annotate('', xy=(0.56, 0.45), xytext=(0.50, 0.45),
+               arrowprops=dict(arrowstyle='->', color='black', lw=2))
+
+    # Final output
+    output_box = patches.FancyBboxPatch((0.60, 0.12), 0.28, 0.12,
+                                         boxstyle="round,pad=0.02",
+                                         facecolor='#9b59b6', alpha=0.8, linewidth=2, edgecolor='black')
+    ax.add_patch(output_box)
+    ax.text(0.74, 0.18, "Detections:\n[class, conf, x, y, w, h]", ha='center', va='center',
+            fontsize=10, fontweight='bold', color='white')
+
+    # Arrows to output
+    ax.annotate('', xy=(0.74, 0.24), xytext=(0.72, 0.38),
+               arrowprops=dict(arrowstyle='->', color='black', lw=1.5))
+
+    ax.set_xlim(0, 1)
+    ax.set_ylim(0.05, 1)
+    ax.set_title("YOLOv8 Architecture Overview", fontsize=20, fontweight='bold', pad=20)
+
+    save_plot('yolo_architecture')
+
 # Run all diagrams
 if __name__ == "__main__":
     print("Generating object detection diagrams...")
@@ -578,4 +672,6 @@ if __name__ == "__main__":
     print("  - loss_function.svg/png")
     plot_map_metric()
     print("  - map_metric.svg/png")
+    plot_yolo_architecture()
+    print("  - yolo_architecture.svg/png")
     print("Done!")
