@@ -753,69 +753,60 @@ def plot_bpe_tokenization():
 
 # 16. Sliding Window Training Data
 def plot_sliding_window():
-    fig, ax = create_figure(figsize=(14, 8))
+    fig, ax = create_figure(figsize=(12, 10))
 
     ax.text(0.5, 0.95, "Creating Training Data: Sliding Window", ha='center',
-            fontsize=18, fontweight='bold')
+            fontsize=22, fontweight='bold')
 
     text = "aabid"
-    window_size = 3
 
     # Show the text at top
-    ax.text(0.05, 0.82, "Text:", fontsize=12, fontweight='bold')
-    x_pos = 0.15
+    ax.text(0.05, 0.85, "Text:", fontsize=16, fontweight='bold')
+    x_pos = 0.18
     for i, char in enumerate(text):
-        rect = patches.FancyBboxPatch((x_pos, 0.78), 0.06, 0.08,
+        rect = patches.FancyBboxPatch((x_pos, 0.80), 0.08, 0.10,
                                        boxstyle="round,pad=0.01",
                                        facecolor=COLORS['blue'], alpha=0.7)
         ax.add_patch(rect)
-        ax.text(x_pos + 0.03, 0.82, char, ha='center', fontsize=16, fontweight='bold', color='white')
-        x_pos += 0.07
+        ax.text(x_pos + 0.04, 0.85, char, ha='center', fontsize=22, fontweight='bold', color='white')
+        x_pos += 0.10
 
     # Show sliding windows
     windows = [
-        (['.', '.', '.'], 'a', 0.65),
-        (['.', '.', 'a'], 'a', 0.52),
-        (['.', 'a', 'a'], 'b', 0.39),
+        (['.', '.', '.'], 'a', 0.68),
+        (['.', '.', 'a'], 'a', 0.54),
+        (['.', 'a', 'a'], 'b', 0.40),
         (['a', 'a', 'b'], 'i', 0.26),
-        (['a', 'b', 'i'], 'd', 0.13),
+        (['a', 'b', 'i'], 'd', 0.12),
     ]
 
-    ax.text(0.05, 0.72, "Context (Input)", fontsize=11, fontweight='bold', color=COLORS['green'])
-    ax.text(0.55, 0.72, "Target (Output)", fontsize=11, fontweight='bold', color=COLORS['red'])
+    ax.text(0.05, 0.75, "Context (Input)", fontsize=14, fontweight='bold', color=COLORS['green'])
+    ax.text(0.58, 0.75, "Target", fontsize=14, fontweight='bold', color=COLORS['red'])
 
     for context, target, y in windows:
         # Context boxes
-        x_pos = 0.15
+        x_pos = 0.18
         for char in context:
-            rect = patches.FancyBboxPatch((x_pos, y - 0.04), 0.06, 0.08,
+            rect = patches.FancyBboxPatch((x_pos, y - 0.05), 0.08, 0.10,
                                            boxstyle="round,pad=0.01",
                                            facecolor=COLORS['green'], alpha=0.6)
             ax.add_patch(rect)
-            ax.text(x_pos + 0.03, y, char, ha='center', fontsize=14, fontweight='bold', color='white')
-            x_pos += 0.07
+            ax.text(x_pos + 0.04, y, char, ha='center', fontsize=20, fontweight='bold', color='white')
+            x_pos += 0.10
 
         # Arrow
-        ax.annotate('', xy=(0.5, y), xytext=(0.42, y),
-                   arrowprops=dict(arrowstyle='->', color='black', lw=2))
+        ax.annotate('', xy=(0.55, y), xytext=(0.48, y),
+                   arrowprops=dict(arrowstyle='->', color='black', lw=3))
 
         # Target box
-        rect = patches.FancyBboxPatch((0.55, y - 0.04), 0.06, 0.08,
+        rect = patches.FancyBboxPatch((0.58, y - 0.05), 0.08, 0.10,
                                        boxstyle="round,pad=0.01",
                                        facecolor=COLORS['red'], alpha=0.7)
         ax.add_patch(rect)
-        ax.text(0.58, y, target, ha='center', fontsize=14, fontweight='bold', color='white')
+        ax.text(0.62, y, target, ha='center', fontsize=20, fontweight='bold', color='white')
 
         # Predict label
-        ax.text(0.65, y, "← Predict this!", fontsize=10, va='center', color='gray')
-
-    # Insight box
-    insight_box = patches.FancyBboxPatch((0.1, 0.02), 0.8, 0.06,
-                                          boxstyle="round,pad=0.02",
-                                          facecolor='#FFF3E0', edgecolor=COLORS['yellow'], linewidth=2)
-    ax.add_patch(insight_box)
-    ax.text(0.5, 0.05, 'The window slides through the text, creating (context, target) pairs for training',
-            ha='center', fontsize=11, fontweight='bold')
+        ax.text(0.70, y, "← Predict!", fontsize=14, va='center', color='gray', fontweight='bold')
 
     ax.set_xlim(0, 1)
     ax.set_ylim(0, 1)

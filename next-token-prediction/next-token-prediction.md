@@ -2,6 +2,7 @@
 marp: true
 theme: iitgn-modern
 paginate: true
+math: mathjax
 ---
 
 <!-- _class: title-slide -->
@@ -141,14 +142,37 @@ The model has compressed patterns from human knowledge into its weights.
 ## The One Algorithm
 
 ```python
-for token in generate(prompt):
-    probabilities = model(all_tokens_so_far)
-    next_token = sample(probabilities)
-    output(next_token)
+def generate_text(prompt, model):
+    tokens = tokenize(prompt)
+
+    while not done:
+        # Step 1: Model predicts probabilities for ALL possible next tokens
+        probs = model(tokens)      # e.g., {"the": 0.3, "a": 0.2, "cat": 0.1, ...}
+
+        # Step 2: Sample one token based on probabilities
+        next_token = sample(probs)  # e.g., "the"
+
+        # Step 3: Add to our sequence and repeat
+        tokens.append(next_token)
+
+    return tokens
 ```
 
+---
+
+# That's ALL ChatGPT Does!
+
+| Step | What Happens | Example |
+|------|--------------|---------|
+| **Input** | User types prompt | "The capital of France is" |
+| **Loop 1** | Model predicts → samples | → "Paris" |
+| **Loop 2** | Model predicts → samples | → "." |
+| **Loop 3** | Model predicts → samples | → "It" |
+| **Loop 4** | Model predicts → samples | → "is" |
+| ... | Keep going... | "known for the Eiffel Tower." |
+
 <div class="insight">
-That's literally it. ChatGPT is this loop run millions of times with a really good model.
+ChatGPT = this loop running billions of times with a REALLY good probability model
 </div>
 
 ---
@@ -181,7 +205,7 @@ As models get bigger, surprising abilities **emerge**:
 | **Large** (100B+ params) | Complex reasoning, code generation, creative writing, multi-step problem solving, "understanding" context |
 
 <div class="insight">
-All from the same objective: **predict the next token!**
+All from the same objective: <strong>predict the next token!</strong>
 </div>
 
 ---
@@ -238,14 +262,12 @@ Step 3: Convert counts to probabilities
 
 # Bigram: The Counting Table
 
-![w:750 center](diagrams/svg/bigram_heatmap.svg)
+![w:550 center](diagrams/svg/bigram_heatmap.svg)
 
-Each row sums to 1.0 (it's a probability distribution!)
-
-**To generate:** Look up current letter → Sample from that row
+Each row sums to 1.0 — **To generate:** Look up current letter → Sample from that row
 
 <div class="insight">
-**This table IS the model.** No neural network needed!
+<strong>This table IS the model.</strong> No neural network needed!
 </div>
 
 ---
@@ -289,7 +311,7 @@ Result: "abid"  ← Looks like a real name!
 | 5 | `y` | .(0.45), a(0.15), i(0.10) | 0.30 | **.** |
 
 <div class="example">
-**Generated: "mary"** ← A real name!
+<strong>Generated: "mary"</strong> — A real name!
 </div>
 
 ---
@@ -463,7 +485,7 @@ Now `a` and `e` are **mathematically close**!
 
 # Word Embeddings: The Famous Example
 
-![w:900 center](diagrams/svg/embedding_space.svg)
+![w:700 center](diagrams/svg/embedding_space.svg)
 
 ---
 
@@ -526,10 +548,10 @@ No one told the model about capitals or verb tenses!
 
 Real word embeddings projected to 2D (using t-SNE):
 
-![w:800 center](diagrams/svg/embedding_clusters.svg)
+![w:650 center](diagrams/svg/embedding_clusters.svg)
 
 <div class="insight">
-Similar things automatically cluster together — words with related meanings end up in the same neighborhood in embedding space!
+Similar words cluster together — related meanings = nearby in embedding space!
 </div>
 
 ---
@@ -616,7 +638,7 @@ The softmax converts logits to probabilities that sum to 1.
 
 **Text:** `"aabid"` — Create (context → target) pairs by sliding a window:
 
-![w:900 center](diagrams/svg/sliding_window.svg)
+![w:750 center](diagrams/svg/sliding_window.svg)
 
 ---
 
@@ -673,7 +695,7 @@ The model gets heavily penalized for confident wrong answers! This encourages we
 </div>
 
 <div class="insight">
-Learning rate $\alpha$ controls step size: too big = overshoot, too small = slow.
+Learning rate (α) controls step size: too big = overshoot, too small = slow.
 </div>
 
 ---
@@ -880,52 +902,68 @@ Same core algorithm. Just **much, much bigger**.
 
 ---
 
-# Tokenization: Not Characters, Not Words
+# Why Not Characters or Words?
 
-LLMs use **TOKENS** — subword units (BPE algorithm):
+LLMs don't process characters OR words — they use **TOKENS** (subwords).
 
-**Example:** "unhappiness" → ["un", "happiness"]
+| Approach | Example | Problem |
+|----------|---------|---------|
+| **Characters** | "hello" → ['h','e','l','l','o'] | 5 steps for one word! Too slow |
+| **Words** | "hello" → ["hello"] | What about "unhappiness"? Millions of words! |
+| **Tokens** | "unhappiness" → ["un", "happiness"] | Best of both! ~50K vocabulary |
 
-| Approach | Problem | Vocabulary Size |
-|----------|---------|-----------------|
-| **Characters** | Too slow (many steps per word) | ~100 |
-| **Words** | Too many unique words | Millions! |
-| **Tokens** | Best of both worlds | ~50,000-100,000 |
+---
 
-<div class="example">
+# Tokenization Examples
 
-**Text:** "ChatGPT is amazing!"
+| Text | Tokens | Count |
+|------|--------|-------|
+| "Hello world" | ["Hello", " world"] | 2 |
+| "ChatGPT" | ["Chat", "G", "PT"] | 3 |
+| "unhappiness" | ["un", "happiness"] | 2 |
+| "don't" | ["don", "'t"] | 2 |
+| "2024" | ["2024"] | 1 |
+| "12345678" | ["123", "456", "78"] | 3 |
 
-**Tokens:** `["Chat", "G", "PT", " is", " amazing", "!"]`
-
-**Token IDs:** `[15496, 38, 2898, 318, 4998, 0]`
-
-Note: Spaces are often part of tokens (" is" not "is")
+<div class="insight">
+Common words = 1 token. Rare/long words = multiple tokens.
+Spaces often included: " world" not "world"
 </div>
 
 ---
 
-# How BPE Tokenization Works
+# How BPE Works (Simplified)
 
-**Byte Pair Encoding (BPE)** — Start with characters, merge common pairs:
+**Byte Pair Encoding** — Start with characters, merge common pairs:
 
-![w:1000 center](diagrams/svg/bpe_tokenization.svg)
+| Step | Vocabulary | Example: "low lower lowest" |
+|------|------------|----------------------------|
+| **Start** | All characters | l, o, w, e, r, s, t, ... |
+| **Merge 1** | + "lo" | "lo" appears often together |
+| **Merge 2** | + "low" | "low" appears often |
+| **Merge 3** | + "er" | "er" is common suffix |
+| **Merge 4** | + "est" | "est" is common suffix |
+| **Final** | ~50,000 tokens | Mix of chars, subwords, words |
+
+<div class="insight">
+Common patterns become single tokens. Rare words split into pieces.
+</div>
 
 ---
 
-# Tokenization Quirks
+# Why Tokenization Matters
 
-**Why LLMs struggle with certain tasks:**
+**LLM failures often trace back to tokenization!**
 
-| Problem | Example | Why It's Hard |
-|---------|---------|---------------|
-| **Counting letters** | "strawberry" → ["str", "aw", "berry"] | 'r' split across tokens! |
-| **Non-English** | "Hello" → 1 token, "नमस्ते" → 6 tokens | Same meaning, 6x cost! |
-| **Numbers** | "1234" = 1 token, "12345" = 2 tokens | Math becomes inconsistent |
-| **Code indentation** | "    " (4 spaces) = 1 token | "   " (3 spaces) = 3 tokens |
+| Task | Problem | Why |
+|------|---------|-----|
+| "How many r's in strawberry?" | Often wrong! | "strawberry" → ["str", "aw", "berry"] |
+| Math with big numbers | Inconsistent | "1234" = 1 token, "12345" = 2 tokens |
+| Non-English text | Expensive! | "Hello" = 1 token, "नमस्ते" = 6 tokens |
+| Counting characters | Hard | Model sees tokens, not characters |
 
 <div class="warning">
-Tokenization artifacts explain many LLM failure modes — they don't "see" characters, they see tokens!
+The model doesn't "see" individual characters — it sees tokens!
 </div>
 
 ---
@@ -982,100 +1020,81 @@ Lower temperature → more focused; Higher temperature → more creative/random
 
 ---
 
-# Top-k and Top-p Sampling
+# Other Sampling Strategies
 
-## Top-K Sampling
-Only consider the top K most likely tokens.
+Besides temperature, there are other ways to control generation:
 
-| All tokens | Top-3 (renormalized) |
-|------------|---------------------|
-| pizza(0.4), pasta(0.3), shoes(0.1), clouds(0.05)... | pizza(0.53), pasta(0.40), shoes(0.07) |
+| Strategy | How it Works | When to Use |
+|----------|--------------|-------------|
+| **Top-K** | Only consider top K tokens | Simple, predictable |
+| **Top-P** | Include tokens until cumulative prob > P | Adaptive, popular |
+| **Greedy** | Always pick highest probability | Deterministic, boring |
 
-**Problem:** K is fixed — sometimes 3 options make sense, sometimes 10.
-
-## Top-P (Nucleus) Sampling
-Include tokens until cumulative probability > P.
-
-| Token | Prob | Cumulative | Include? (P=0.9) |
-|-------|------|------------|------------------|
-| pizza | 0.40 | 0.40 | ✓ |
-| pasta | 0.30 | 0.70 | ✓ |
-| shoes | 0.10 | 0.80 | ✓ |
-| clouds | 0.05 | 0.85 | ✓ |
-| dreams | 0.04 | 0.89 | ✓ |
-| hope | 0.02 | 0.91 | ✗ Stop! |
+**Example with Top-3:**
+- All options: pizza(0.4), pasta(0.3), salad(0.1), shoes(0.05)...
+- Top-3 only: pizza(0.53), pasta(0.40), salad(0.07) ← renormalized
 
 <div class="insight">
-Top-P is **adaptive**: narrow when confident, wide when uncertain!
+Top-P (nucleus sampling) is adaptive: fewer options when confident, more when uncertain!
 </div>
 
 ---
 
-# The Sampling Tree
+# Why Sampling = Different Outputs
 
-Because we sample probabilistically, each generation is different!
+Same prompt, different runs → different text!
 
-![w:800 center](diagrams/svg/sampling_tree.svg)
+| Run | Prompt | Generated |
+|-----|--------|-----------|
+| 1 | "The cat" | "The cat sat on the mat." |
+| 2 | "The cat" | "The cat jumped over the fence." |
+| 3 | "The cat" | "The cat was sleeping peacefully." |
+
+Each token is **sampled** from a probability distribution.
+Different random samples → different paths → different outputs!
 
 ---
 
-# Training at Scale
+# Training at Scale: GPT-3 Numbers
 
-## GPT-3 Training
+| Aspect | GPT-3 |
+|--------|-------|
+| **Parameters** | 175 billion |
+| **Training data** | 500 billion tokens |
+| **Data sources** | Common Crawl, Books, Wikipedia |
+| **Training time** | ~1 month |
+| **Hardware** | 10,000 GPUs |
+| **Cost** | ~$4.6 million (electricity alone!) |
 
-<div class="columns">
-<div>
-
-**Data:**
-| Source | Tokens |
-|--------|--------|
-| Common Crawl | 410B |
-| Books | 67B |
-| Wikipedia | 3B |
-| **Total** | ~500B |
-
-</div>
-<div>
-
-**Compute:**
-- 10,000 GPUs
-- Training time: ~1 month
-- Cost: ~$4.6 million (electricity!)
-
-**Model:**
-- 175 billion parameters
-- 96 layers, 96 attention heads
-- 12,288 embedding dimensions
-
-</div>
+<div class="insight">
+The core algorithm is simple. The scale is what makes it work!
 </div>
 
 ---
 
-# The Complete Recipe
+# From GPT to ChatGPT: 3 Training Stages
 
-![w:650 center](diagrams/svg/llm_recipe.svg)
-
----
-
-# From GPT to ChatGPT: The Full Training Pipeline
-
-![w:1100 center](diagrams/svg/llm_training_pipeline.svg)
+| Stage | Goal | Data | Result |
+|-------|------|------|--------|
+| **1. Pre-training** | Learn language | Internet text (trillions of tokens) | Base model (can complete text) |
+| **2. SFT** | Follow instructions | (instruction, response) pairs (~100K) | Follows directions |
+| **3. RLHF** | Be helpful & safe | Human preference rankings | ChatGPT! |
 
 ---
 
 # Stage 1: Pre-Training
 
-**Goal:** Learn language from massive text data
+**Goal:** Learn patterns from massive text
 
-| Aspect | Details |
-|--------|---------|
-| Data | Internet, books, Wikipedia (~trillions of tokens) |
-| Objective | Next token prediction: P(next \| context) |
-| Compute | 1000s of GPU-hours |
-| Result | **Base model** - can complete text but not helpful |
+| Input | Target | What model learns |
+|-------|--------|-------------------|
+| "The capital of France" | "is" | Geography facts |
+| "def hello():" | "print" | Python syntax |
+| "To be or not to" | "be" | Shakespeare |
 
-**This is the most expensive step!** OpenAI, Anthropic, Google spend $10M-$100M+ here.
+- Cost: **$10M-$100M+**
+- Time: **Months**
+- Result: Can complete text, but not helpful or safe
 
 ---
 
@@ -1083,58 +1102,35 @@ Because we sample probabilistically, each generation is different!
 
 **Goal:** Learn to follow instructions
 
-| Aspect | Details |
-|--------|---------|
-| Data | Human-written (instruction, response) pairs (~100K) |
-| Objective | Imitate high-quality responses |
-| Compute | 10s of GPU-hours |
-| Result | **Instruction-tuned** - follows directions |
+| User Says | Model Should Say |
+|-----------|------------------|
+| "Explain photosynthesis simply" | "Plants use sunlight to make food from air and water!" |
+| "Write a haiku about coding" | "Fingers on keyboard / Logic flows through the machine / Bugs hide in plain sight" |
+| "Summarize this article" | [Actual summary] |
 
-Example training data:
-- **User:** "Explain photosynthesis to a 5-year-old"
-- **Assistant:** "Plants eat sunlight! They use it to make food from air and water..."
+- Data: ~100K human-written examples
+- Cost: **~$1M**
+- Result: Follows instructions, but can still be harmful
 
 ---
 
 # Stage 3: RLHF (Alignment)
 
-**Goal:** Learn human values and preferences
+**Goal:** Learn human values — be helpful, harmless, honest
 
-![w:900 center](diagrams/svg/rlhf_pipeline.svg)
+| Step | What Happens |
+|------|--------------|
+| **1. Generate** | Model produces 3 responses to same prompt |
+| **2. Rank** | Humans say: Response A > B > C |
+| **3. Reward Model** | Train a model to predict rankings |
+| **4. Optimize** | Use RL to maximize reward |
 
----
+**Why needed?** SFT models can still:
+- Follow dangerous instructions
+- Make up facts confidently
+- Be technically correct but useless
 
-# RLHF Details
-
-**Why RLHF?** SFT models can still be:
-- Harmful (follow dangerous instructions)
-- Dishonest (make up facts confidently)
-- Unhelpful (technically correct but useless)
-
-**The Solution:**
-1. Generate multiple responses to each prompt
-2. Have humans rank them (which is better?)
-3. Train a reward model to predict human preferences
-4. Use RL (PPO) to optimize the LLM for high reward
-
-**Result:** ChatGPT = GPT + SFT + RLHF
-
----
-
-# Alternative: DPO (Direct Preference Optimization)
-
-**New approach (2023):** Skip the reward model!
-
-| Method | Steps | Complexity |
-|--------|-------|------------|
-| RLHF | Reward model + PPO | High |
-| DPO | Direct optimization | Lower |
-
-DPO trains directly on preference data:
-- Input: (prompt, chosen_response, rejected_response)
-- Output: Model that prefers good responses
-
-Used by: Llama 2, many open-source models
+**Result: ChatGPT = Pre-training + SFT + RLHF**
 
 ---
 
@@ -1223,11 +1219,24 @@ from autocomplete to ChatGPT to Claude. Now you understand how!
 
 # Thank You!
 
-**"The best way to predict the future is to create it."**
+<!-- _class: title-slide -->
 
-The same simple idea — predicting the next token — powers everything
-from autocomplete to ChatGPT to Claude.
+<div style="text-align: center; margin-top: 2em;">
 
-## Questions?
+### The Big Reveal
 
----
+**All of ChatGPT, Claude, Gemini...**
+
+**...is just predicting the next token, really well.**
+
+</div>
+
+<div class="insight" style="margin-top: 2em;">
+<strong>One simple idea, scaled massively:</strong> Given context, what comes next?
+</div>
+
+<div style="text-align: center; margin-top: 2em; font-size: 1.5em;">
+
+**Questions?**
+
+</div>
