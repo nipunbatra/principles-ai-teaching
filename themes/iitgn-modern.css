@@ -18,7 +18,7 @@
 
 section {
   font-family: 'Inter', 'Segoe UI', sans-serif;
-  font-size: 21px;
+  font-size: 22px;
   padding: 0;
   color: var(--text);
   display: flex;
@@ -96,22 +96,42 @@ code {
 }
 
 pre {
-  background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
-  color: #e2e8f0;
-  border-radius: 12px;
+  background: #1e1e1e;
+  color: #d4d4d4;
+  border-radius: 8px;
+  border: none;
   padding: 20px;
   font-size: 0.78em;
   line-height: 1.5;
   overflow: hidden;
   margin: 15px 45px;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  box-shadow: none;
 }
 
 pre code {
   background: transparent;
-  color: #e2e8f0;
+  color: #d4d4d4;
   padding: 0;
 }
+
+/* VS Code Dark+ syntax highlighting */
+pre .hljs-string { color: #ce9178; }
+pre .hljs-number { color: #b5cea8; }
+pre .hljs-keyword { color: #569cd6; }
+pre .hljs-built_in { color: #4ec9b0; }
+pre .hljs-comment { color: #6a9955; }
+pre .hljs-attr { color: #9cdcfe; }
+pre .hljs-property { color: #9cdcfe; }
+pre .hljs-literal { color: #569cd6; }
+pre .hljs-function { color: #dcdcaa; }
+pre .hljs-class { color: #4ec9b0; }
+pre .hljs-variable { color: #9cdcfe; }
+pre .hljs-punctuation { color: #d4d4d4; }
+pre .hljs-title { color: #dcdcaa; }
+pre .hljs-params { color: #9cdcfe; }
+pre .hljs-meta { color: #c586c0; }
+pre .hljs-type { color: #4ec9b0; }
+pre .hljs-name { color: #569cd6; }
 
 /* Modern callout boxes */
 section .example {
