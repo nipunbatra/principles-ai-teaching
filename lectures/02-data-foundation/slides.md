@@ -33,6 +33,18 @@ Today: What IS this data? How does learning actually work?
 
 ---
 
+# Today's Learning Goals
+
+By the end of this lecture, you will be able to:
+
+1. **Distinguish** traditional programming from machine learning
+2. **Identify** the three learning paradigms (supervised, unsupervised, RL)
+3. **Differentiate** classification from regression problems
+4. **Explain** why train/test split is essential
+5. **Apply** the sklearn API pattern to any ML problem
+
+---
+
 <!-- _class: section-divider -->
 
 # Part 1: The ML Framework
@@ -62,17 +74,72 @@ Every AI/ML system answers **one fundamental question**:
 
 # Traditional Programming vs ML
 
-**Traditional Programming:**
-```
-Rules + Data → Output
-```
-*Human writes explicit rules*
+![w:950 center](diagrams/svg/traditional_vs_ml.svg)
 
-**Machine Learning:**
+---
+
+# The Paradigm Shift
+
+<div class="columns">
+<div>
+
+### Traditional Programming
+
 ```
-Data + Desired Outputs → Rules (Model)
+     ┌─────────────┐
+     │    RULES    │ ← Human writes
+     │  (if/else)  │
+     └──────┬──────┘
+            │
+     ┌──────▼──────┐
+     │    DATA     │
+     └──────┬──────┘
+            │
+     ┌──────▼──────┐
+     │   OUTPUT    │
+     └─────────────┘
 ```
-*Computer learns rules from examples!*
+
+**Explicit programming**
+
+</div>
+<div>
+
+### Machine Learning
+
+```
+     ┌─────────────┐
+     │    DATA     │
+     └──────┬──────┘
+            │
+     ┌──────▼──────┐
+     │   LABELS    │ ← Desired outputs
+     └──────┬──────┘
+            │
+     ┌──────▼──────┐
+     │    MODEL    │ ← Learned rules!
+     └─────────────┘
+```
+
+**Learning from examples**
+
+</div>
+</div>
+
+---
+
+# Why This Matters
+
+| Scenario | Traditional | ML |
+|----------|-------------|-----|
+| Spam changes tactics | Rewrite rules | Retrain on new examples |
+| 1000 new categories | 1000 new rule sets | Same algorithm, new data |
+| Complex patterns | Impossible to specify | Model discovers them |
+| Human bias | Encoded in rules | (Can still exist in data) |
+
+<div class="insight">
+ML excels when patterns are complex or rules are hard to specify explicitly.
+</div>
 
 ---
 
@@ -83,16 +150,22 @@ Data + Desired Outputs → Rules (Model)
 
 **Traditional Approach:**
 ```python
-if "FREE" in email:
-    return SPAM
-if "winner" in email:
-    return SPAM
-if "click here" in email:
-    return SPAM
-# ... 1000 more rules
+def is_spam(email):
+    if "FREE" in email:
+        return True
+    if "winner" in email:
+        return True
+    if "click here" in email:
+        return True
+    if sender not in contacts:
+        if num_links > 5:
+            return True
+    # ... 1000 more rules
+    return False
 ```
 
 *What about "Fr33" or "w1nner"?*
+*What if rules conflict?*
 
 </div>
 <div>
@@ -103,108 +176,192 @@ if "click here" in email:
 X = [email1, email2, ...]
 y = [spam, not_spam, ...]
 
+model = SpamClassifier()
 model.fit(X, y)
 
-# Now it learns patterns
+# Model learns patterns itself!
 model.predict(new_email)
 ```
 
 *It learns to generalize!*
+*Handles variations automatically*
 
 </div>
+</div>
+
+---
+
+# The Power of Generalization
+
+**Training data has:** "FREE money!!!"
+
+**Model learns:** Unusual capitalization + exclamation marks + money words = suspicious
+
+**New email:** "EARN ca$h NOW!!!" → **Spam** (never seen before, but pattern matches)
+
+<div class="insight">
+Good ML models learn the <strong>underlying pattern</strong>, not just memorize examples.
 </div>
 
 ---
 
 # Three Learning Paradigms
 
-Based on **what information you give** the model:
+![w:900 center](diagrams/svg/learning_paradigms.svg)
 
-| Paradigm | What You Provide | Goal |
-|----------|-----------------|------|
-| **Supervised** | Inputs + Correct Outputs | Learn to predict outputs |
-| **Unsupervised** | Inputs only (no labels) | Find patterns/structure |
-| **Reinforcement** | Environment + Rewards | Learn to maximize reward |
+---
 
-<div class="insight">
-This course focuses on <strong>supervised learning</strong> — it's the most common!
-</div>
+# Paradigm Comparison
+
+| Aspect | Supervised | Unsupervised | Reinforcement |
+|--------|------------|--------------|---------------|
+| **Data** | X + y (labels) | X only | States + Actions |
+| **Goal** | Predict labels | Find structure | Maximize reward |
+| **Feedback** | Correct answers | None | Reward signals |
+| **Example** | Spam detection | Customer segments | Game playing |
+
+---
+
+# Supervised Learning: The Teacher Analogy
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                      SUPERVISED LEARNING                         │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                  │
+│   Student (Model)          Teacher (Training Data)              │
+│                                                                  │
+│   "Is this spam?"    ──►   "Yes, that's spam."                  │
+│                             "No, that's legitimate."             │
+│                             "Yes, that's spam."                  │
+│                             ...                                  │
+│                                                                  │
+│   After many examples, student learns the patterns!              │
+│                                                                  │
+└─────────────────────────────────────────────────────────────────┘
+```
 
 ---
 
 # Supervised Learning: Two Types
 
-It depends on **what you're predicting**:
+![w:900 center](diagrams/svg/classification_vs_regression.svg)
 
-| If output is... | Task | Example |
-|-----------------|------|---------|
-| **Category** (discrete) | Classification | Is it spam? Yes/No |
-| **Number** (continuous) | Regression | What's the price? $350,000 |
+---
+
+# Classification: Discrete Outputs
+
+**Goal:** Assign input to one of K categories
+
+| Type | K | Example |
+|------|---|---------|
+| **Binary** | 2 | Spam / Not Spam |
+| **Multi-class** | K > 2 | Cat, Dog, Bird, Fish |
+| **Multi-label** | Multiple | [Action, Comedy] for a movie |
+
+```python
+# Binary: One probability
+model.predict_proba(email)  # → [0.15, 0.85] = 85% spam
+
+# Multi-class: K probabilities (sum to 1)
+model.predict_proba(image)  # → [0.70, 0.20, 0.05, 0.05]
+                            #    Cat   Dog  Bird  Fish
+```
 
 ---
 
 # Classification Examples
 
-| Task | Input | Output Classes |
-|------|-------|----------------|
-| Spam Detection | Email text | Spam, Not Spam |
-| Medical Diagnosis | Symptoms | Disease A, B, C, Healthy |
-| Image Recognition | Photo | Cat, Dog, Bird, ... |
-| Sentiment Analysis | Review text | Positive, Negative, Neutral |
+| Task | Input | Classes | Real-World Use |
+|------|-------|---------|----------------|
+| Spam Detection | Email text | Spam, Not Spam | Gmail, Outlook |
+| Medical Diagnosis | Symptoms, tests | Disease A, B, Healthy | Hospital systems |
+| Image Recognition | Photo pixels | 1000 ImageNet classes | Google Photos |
+| Sentiment Analysis | Review text | Positive, Negative, Neutral | Brand monitoring |
+| Fraud Detection | Transaction | Fraud, Legitimate | Credit card companies |
+| Face Recognition | Face image | Person 1, 2, ..., N | iPhone unlock |
+
+---
+
+# Regression: Continuous Outputs
+
+**Goal:** Predict a numerical value
+
+```python
+# Output can be ANY number
+model.predict(house_features)  # → 425,000.00
+model.predict(face_image)      # → 27.3 (years old)
+model.predict(stock_data)      # → 152.47 (price)
+```
+
+<div class="insight">
+Classification: "Which bucket?" | Regression: "How much?"
+</div>
 
 ---
 
 # Regression Examples
 
-| Task | Input | Output (Number) |
-|------|-------|-----------------|
-| House Pricing | Size, location, rooms | $425,000 |
-| Stock Prediction | Historical prices | Tomorrow's price |
-| Age Estimation | Face image | 27 years |
-| Weather | Current conditions | Temperature (°C) |
+| Task | Input | Output | Range | Real-World Use |
+|------|-------|--------|-------|----------------|
+| House Pricing | Size, location | Price ($) | $100K - $10M | Zillow, Redfin |
+| Age Estimation | Face image | Years | 0 - 100 | Age verification |
+| Demand Forecasting | History, season | Units | 0 - ∞ | Amazon inventory |
+| Energy Prediction | Weather, time | kWh | 0 - ∞ | Power grid |
+| Stock Prediction | Historical data | Price | 0 - ∞ | Trading |
+| Salary Estimation | Resume features | Salary | $0 - $1M | LinkedIn |
 
 ---
 
-# ML Tasks: The Key Question
+# Quick Check: Classification or Regression?
 
-When facing an ML problem, always ask:
+| Task | Answer |
+|------|--------|
+| "Will it rain tomorrow?" | Classification (Yes/No) |
+| "How many mm of rain?" | Regression (continuous) |
+| "What genre is this movie?" | Classification (Action, Comedy, ...) |
+| "What rating will user give?" | Could be both! (1-5 stars) |
+| "Which digit is written?" | Classification (0-9) |
+| "How confident is the prediction?" | Regression (0.0 - 1.0) |
 
-<div class="insight">
+---
 
-**What exactly am I trying to predict?**
+# The In-Between: Ordinal Data
 
-</div>
+Some data is **ordered categories**:
 
-| If you're predicting... | It's called... | Example |
-|------------------------|----------------|---------|
-| A **category** | Classification | "Is this spam?" |
-| A **number** | Regression | "What's the price?" |
-| A **sequence** | Seq2Seq | "Translate to French" |
-| **Something new** | Generation | "Draw a cat" |
+| Rating | As Classification | As Regression |
+|--------|-------------------|---------------|
+| ⭐ | Class 0 | 1.0 |
+| ⭐⭐ | Class 1 | 2.0 |
+| ⭐⭐⭐ | Class 2 | 3.0 |
+| ⭐⭐⭐⭐ | Class 3 | 4.0 |
+| ⭐⭐⭐⭐⭐ | Class 4 | 5.0 |
+
+**Both approaches can work!** Regression might predict 3.7 stars.
+
+---
+
+# ML Tasks: The Decision Flowchart
+
+![w:900 center](diagrams/svg/ml_task_flowchart.svg)
 
 ---
 
 # Computer Vision Task Hierarchy
 
-| Task | Question | Output |
-|------|----------|--------|
-| **Classification** | "What is this?" | One label: "Cat" |
-| **Detection** | "What + Where?" | Boxes + labels |
-| **Segmentation** | "Pixel-level what?" | Pixel masks |
-| **Pose Estimation** | "Where are keypoints?" | Body skeleton |
-
-Each level adds more information!
+![w:950 center](diagrams/svg/vision_hierarchy.svg)
 
 ---
 
 # NLP Task Hierarchy
 
-| Task | Input → Output | Example |
-|------|----------------|---------|
-| **Classification** | Text → Category | Review → Positive/Negative |
-| **NER** | Text → Tagged words | "Sundar Pichai" → PERSON |
-| **Seq2Seq** | Sequence → Sequence | English → French |
-| **Generation** | Prompt → New text | "Write a poem..." → Poem |
+| Task | Input → Output | Example | Complexity |
+|------|----------------|---------|------------|
+| **Classification** | Text → Category | "Great movie!" → Positive | ⭐ |
+| **NER** | Text → Tagged entities | "[Sundar Pichai]_PERSON visited [Google]_ORG" | ⭐⭐ |
+| **Seq2Seq** | Sequence → Sequence | English → French | ⭐⭐⭐ |
+| **Generation** | Prompt → Text | "Write a poem..." → Poem | ⭐⭐⭐⭐ |
 
 ---
 
@@ -221,136 +378,341 @@ Each level adds more information!
 > "Data is the new oil. Like oil, data is valuable, but if unrefined it cannot really be used."
 > — Clive Humby (2006)
 
-<div class="insight">
-Without data, ML is impossible. With bad data, ML is useless.
-</div>
+| Oil Industry | ML Industry |
+|--------------|-------------|
+| Extract crude oil | Collect raw data |
+| Refine into gasoline | Clean and process data |
+| Powers engines | Powers models |
+| Pollution issues | Bias issues |
 
 ---
 
 # What IS Data in ML?
 
-**Data = Examples we learn from**
+![w:900 center](diagrams/svg/features_and_labels.svg)
 
-Each example has:
-- **Features (X):** What we know about it
-- **Label (y):** What we want to predict (in supervised learning)
+---
 
-```python
-# Example: House price prediction
-Features (X) = [sqft, bedrooms, bathrooms, location]
-Label (y) = price
+# Anatomy of a Dataset
+
+```
+                    Features (X)                           Label (y)
+         ┌────────────────────────────────────────┐      ┌─────────┐
+         │  sqft  │ beds │ baths │ garage │ year  │      │  price  │
+         ├────────┼──────┼───────┼────────┼───────┤      ├─────────┤
+Row 1 →  │  1500  │   3  │   2   │  Yes   │ 1990  │      │ 300,000 │
+Row 2 →  │  2000  │   4  │   3   │  Yes   │ 2005  │      │ 450,000 │
+Row 3 →  │  1200  │   2  │   1   │  No    │ 1975  │      │ 200,000 │
+Row 4 →  │  1800  │   3  │   2   │  Yes   │ 2010  │      │ 350,000 │
+         └────────┴──────┴───────┴────────┴───────┘      └─────────┘
+
+         n_samples = 4 (rows)
+         n_features = 5 (columns in X)
 ```
 
 ---
 
-# Features and Labels: House Example
+# Features: The Inputs
 
-| sqft | beds | baths | garage | price ($) |
-|------|------|-------|--------|-----------|
-| 1500 | 3 | 2 | Yes | 300,000 |
-| 2000 | 4 | 3 | Yes | 450,000 |
-| 1200 | 2 | 1 | No | 200,000 |
-| 1800 | 3 | 2 | Yes | 350,000 |
+**Features = Information about each example**
 
-**Features (X):** sqft, beds, baths, garage
-**Label (y):** price
+<div class="columns">
+<div>
 
----
+### Good Features
 
-# Features and Labels: Spam Example
+- Relevant to prediction
+- Measurable/computable
+- Available at prediction time
+- Not too correlated with each other
 
-| has_FREE | has_winner | num_links | from_known | is_spam |
-|----------|------------|-----------|------------|---------|
-| 1 | 1 | 5 | 0 | Yes |
-| 0 | 0 | 1 | 1 | No |
-| 1 | 0 | 3 | 0 | Yes |
-| 0 | 0 | 0 | 1 | No |
+</div>
+<div>
 
-**Features (X):** has_FREE, has_winner, num_links, from_known
-**Label (y):** is_spam
+### Feature Examples
+
+| Domain | Features |
+|--------|----------|
+| House | sqft, beds, zip code |
+| Email | word counts, sender |
+| Image | pixel values |
+| Customer | age, purchases, clicks |
+
+</div>
+</div>
 
 ---
 
 # Types of Features
 
-| Type | Description | Example |
-|------|-------------|---------|
-| **Numerical** | Continuous numbers | Age: 25, Price: $50.99 |
-| **Categorical** | Discrete categories | Color: Red/Blue/Green |
-| **Binary** | Two values | Has garage: Yes/No |
-| **Ordinal** | Ordered categories | Size: S < M < L < XL |
-| **Text** | Raw text | Review: "Great product!" |
+![w:950 center](diagrams/svg/feature_types.svg)
 
 ---
 
-# Types of Data
+# Feature Type Details
 
-<div class="columns">
-<div>
+| Type | Values | Example | Encoding |
+|------|--------|---------|----------|
+| **Numerical** | Any number | Age: 25, Price: $50.99 | Use directly |
+| **Categorical** | Unordered set | Color: Red, Blue, Green | One-hot encoding |
+| **Binary** | 2 values | Has garage: Yes/No | 0 or 1 |
+| **Ordinal** | Ordered set | Size: S < M < L < XL | Integer encoding |
+| **Text** | String | "Great product!" | Embedding |
+| **Date/Time** | Timestamp | 2024-01-15 | Extract features |
 
-**Structured (Tabular)**
-- Rows = examples
-- Columns = features
-- Easy to work with
-- Example: CSV files, databases
+---
 
-**Images**
-- Pixels as features
-- Shape: Height × Width × Channels
-- Example: MNIST digits
+# One-Hot Encoding Example
 
+**Problem:** Models need numbers, but "Red" isn't a number!
+
+**Solution:** Create binary columns for each category
+
+| Color | is_Red | is_Blue | is_Green |
+|-------|--------|---------|----------|
+| Red | 1 | 0 | 0 |
+| Blue | 0 | 1 | 0 |
+| Green | 0 | 0 | 1 |
+| Blue | 0 | 1 | 0 |
+
+```python
+pd.get_dummies(df['color'])  # Does this automatically!
+```
+
+---
+
+# Labels: The Outputs
+
+**Label = What we want to predict**
+
+| Supervised Task | Label Type | Examples |
+|-----------------|------------|----------|
+| Binary classification | 0 or 1 | spam/not spam |
+| Multi-class | Integer (0 to K-1) | digit (0-9) |
+| Regression | Float | price ($) |
+| Multi-label | Binary vector | [action, comedy, drama] |
+
+<div class="warning">
+Unsupervised learning has NO labels! That's what makes it "unsupervised."
 </div>
-<div>
 
-**Text**
-- Words/tokens as features
-- Variable length sequences
-- Example: Reviews, documents
+---
 
-**Time Series**
-- Ordered by time
-- Temporal patterns matter
-- Example: Stock prices, weather
+# Types of Data Structures
 
-</div>
-</div>
+![w:900 center](diagrams/svg/data_types.svg)
+
+---
+
+# Tabular Data (Most Common)
+
+```python
+import pandas as pd
+
+df = pd.DataFrame({
+    'sqft': [1500, 2000, 1200],
+    'beds': [3, 4, 2],
+    'price': [300000, 450000, 200000]
+})
+
+#    sqft  beds   price
+# 0  1500     3  300000
+# 1  2000     4  450000
+# 2  1200     2  200000
+
+X = df[['sqft', 'beds']]  # Features
+y = df['price']            # Labels
+```
+
+---
+
+# Image Data
+
+```python
+import numpy as np
+
+# Grayscale image: Height × Width
+mnist_digit = np.zeros((28, 28))  # 784 pixels
+
+# Color image: Height × Width × 3 (RGB)
+photo = np.zeros((224, 224, 3))   # 150,528 values
+
+# Batch of images: Batch × Height × Width × Channels
+batch = np.zeros((32, 224, 224, 3))  # 32 images
+```
+
+```
+┌─────────────────────────┐
+│ 0   0   0   23  155  0  │
+│ 0   0   89  254 254  0  │  ← Each cell = pixel brightness
+│ 0   0   155 254 178  0  │    (0 = black, 255 = white)
+│ ...                     │
+└─────────────────────────┘
+```
+
+---
+
+# Text Data
+
+**Raw text needs preprocessing:**
+
+```python
+text = "I love this movie! It's great."
+
+# Step 1: Tokenize (split into words/pieces)
+tokens = ["I", "love", "this", "movie", "!", "It", "'s", "great", "."]
+
+# Step 2: Convert to numbers (vocabulary index)
+indices = [23, 156, 45, 892, 2, 56, 78, 234, 3]
+
+# Step 3: (Optional) Convert to embeddings
+embeddings = model.embed(indices)  # Shape: (9, 768)
+```
+
+---
+
+# Time Series Data
+
+```python
+# Stock prices over time
+dates = pd.date_range('2024-01-01', periods=100)
+prices = [100.0, 101.5, 99.8, 102.3, ...]  # 100 values
+
+# Key characteristic: ORDER MATTERS!
+# Shuffling destroys the patterns
+```
+
+```
+Price
+  │    ╱╲
+  │   ╱  ╲  ╱╲
+  │  ╱    ╲╱  ╲
+  │ ╱          ╲
+  └──────────────────► Time
+    t1  t2  t3  t4
+```
 
 ---
 
 # How Much Data Do You Need?
 
-**Rule of thumb:**
-- Simple models: 100s of examples
-- Complex models: 1000s-10000s of examples
-- Deep learning: 100000s+ examples
+![w:900 center](diagrams/svg/data_requirements.svg)
+
+---
+
+# The Data Scaling Laws
+
+| Model Complexity | Minimum Data | Sweet Spot | Diminishing Returns |
+|------------------|--------------|------------|---------------------|
+| Linear Regression | 50 | 500 | 5,000 |
+| Decision Tree | 100 | 1,000 | 10,000 |
+| Random Forest | 500 | 5,000 | 50,000 |
+| Neural Network (small) | 1,000 | 10,000 | 100,000 |
+| Deep Learning | 10,000 | 100,000 | 1,000,000+ |
+| LLMs | 1B tokens | 1T tokens | 10T+ tokens |
 
 <div class="insight">
-More data almost always helps, but quality matters more than quantity!
+More data almost always helps, but there are diminishing returns.
+Quality > Quantity!
 </div>
 
 ---
 
 # Data Quality Issues
 
-| Problem | What It Means | Impact |
-|---------|---------------|--------|
-| **Missing values** | Empty cells in data | Model can't learn from incomplete examples |
-| **Outliers** | Extreme unusual values | Can skew model predictions |
-| **Noise** | Random errors in data | Harder to find true patterns |
-| **Imbalanced classes** | 99% one class, 1% other | Model ignores rare class |
-| **Duplicates** | Same example multiple times | Overfitting to duplicates |
+![w:900 center](diagrams/svg/data_quality_issues.svg)
+
+---
+
+# Missing Values
+
+```python
+# Original data
+df = pd.DataFrame({
+    'age': [25, None, 35, 42, None],
+    'salary': [50000, 60000, None, 80000, 55000]
+})
+
+# Option 1: Drop rows with missing values
+df.dropna()  # Lose 3 rows!
+
+# Option 2: Fill with mean/median
+df['age'].fillna(df['age'].mean())  # Fill with 34
+
+# Option 3: Fill with mode (categorical)
+df['color'].fillna(df['color'].mode()[0])
+```
+
+---
+
+# Outliers
+
+```
+Normal distribution:      With outlier:
+     ╭───────╮                ╭───────╮
+    ╱         ╲              ╱         ╲              •
+   ╱           ╲            ╱           ╲           (outlier)
+  ╱             ╲          ╱             ╲
+ ╱               ╲        ╱               ╲
+────────────────────     ────────────────────────────────
+  μ = 50                   μ = 50        outlier = 500
+
+Mean without outlier: 50
+Mean with outlier: 95  ← Heavily skewed!
+```
+
+**Detection:** Z-score > 3, IQR method, visual inspection
+
+---
+
+# Class Imbalance
+
+**Scenario:** Fraud detection (1% fraud, 99% legitimate)
+
+| Approach | Model Prediction | Accuracy |
+|----------|------------------|----------|
+| Naive model | "All legitimate" | 99%! |
+| Smart model | Tries to detect | 97% |
+
+**The 99% model is USELESS!** It never detects fraud.
+
+**Solutions:**
+- Oversample minority class (SMOTE)
+- Undersample majority class
+- Use class weights
+- Different metrics (precision, recall, F1)
 
 ---
 
 # The Data Lifecycle
 
-```
-1. COLLECT     → Gather raw data from sources
-2. CLEAN       → Handle missing values, fix errors
-3. EXPLORE     → Understand patterns, visualize
-4. TRANSFORM   → Scale, encode, engineer features
-5. SPLIT       → Separate into train/test sets
-6. USE         → Feed into ML model
+![w:950 center](diagrams/svg/data_lifecycle.svg)
+
+---
+
+# Data Lifecycle in Code
+
+```python
+# 1. COLLECT
+df = pd.read_csv('raw_data.csv')
+
+# 2. CLEAN
+df = df.dropna()  # Handle missing
+df = df[df['age'] < 120]  # Remove outliers
+
+# 3. EXPLORE
+df.describe()  # Statistics
+df.hist()  # Visualize
+
+# 4. TRANSFORM
+df['log_price'] = np.log(df['price'])  # Transform
+X = pd.get_dummies(df[features])  # Encode
+
+# 5. SPLIT
+X_train, X_test, y_train, y_test = train_test_split(X, y)
+
+# 6. USE
+model.fit(X_train, y_train)
 ```
 
 ---
@@ -363,86 +725,96 @@ More data almost always helps, but quality matters more than quantity!
 
 ---
 
-# The Problem with Memorization
+# The Exam Analogy
 
-Imagine studying for an exam:
+![w:900 center](diagrams/svg/exam_analogy.svg)
+
+---
+
+# Two Study Strategies
 
 <div class="columns">
 <div>
 
-**Strategy A: Memorize answers**
-- Learn exact answers to practice questions
-- Fail on any new question
+### Strategy A: Memorize
+
+```
+Q: "What is 2+3?"
+A: "5" (memorized)
+
+Q: "What is 2+4?"
+A: "???" (never seen!)
+```
+
+**Result:** Fails on new questions
 
 </div>
 <div>
 
-**Strategy B: Learn concepts**
-- Understand underlying principles
-- Apply to any question
+### Strategy B: Learn
+
+```
+Q: "What is 2+3?"
+A: "5" (understands addition)
+
+Q: "What is 2+4?"
+A: "6" (applies principle)
+```
+
+**Result:** Works on any question
 
 </div>
 </div>
 
 <div class="insight">
-We want our ML models to be like Strategy B — <strong>generalize</strong>, not memorize!
+We want ML models to LEARN, not MEMORIZE!
 </div>
 
 ---
 
 # What is Overfitting?
 
-**Overfitting** = Model memorizes training data instead of learning patterns
-
-| Training Data | Test (New) Data |
-|---------------|-----------------|
-| 99% accuracy | 60% accuracy |
-
-The model learned the noise, not the signal!
+![w:900 center](diagrams/svg/overfitting_visual.svg)
 
 ---
 
-# How Do We Detect Overfitting?
+# Overfitting in Detail
 
-**Solution:** Hold out some data the model never sees during training
+**Definition:** Model performs well on training data but poorly on new data
 
-```python
-from sklearn.model_selection import train_test_split
+| Metric | Overfitting | Good Fit |
+|--------|-------------|----------|
+| Training Accuracy | 99% | 92% |
+| Test Accuracy | 60% | 90% |
+| Gap | **39%** | 2% |
 
-# Split: 80% train, 20% test
-X_train, X_test, y_train, y_test = train_test_split(
-    X, y, test_size=0.2, random_state=42
-)
-```
+**The model memorized the training data!**
 
 ---
 
 # The Train/Test Split
 
-```
-┌─────────────────────────────────────────┐
-│           ALL YOUR DATA                  │
-├─────────────────────────────┬───────────┤
-│      Training Set (80%)     │ Test (20%)│
-│   Model learns from this    │ Evaluate  │
-└─────────────────────────────┴───────────┘
-```
-
-**Training set:** Model learns patterns
-**Test set:** We evaluate if it generalized
+![w:900 center](diagrams/svg/train_test_split.svg)
 
 ---
 
-# Why This Works
+# Why Split Works
 
-1. Model trains ONLY on training data
-2. Model has NEVER seen test data
-3. Good performance on test = model generalized
-4. Bad performance on test = model overfit
-
-<div class="insight">
-The test set simulates "real world" data the model will encounter later.
-</div>
+```
+┌───────────────────────────────────────────────────────────────┐
+│                         THE RULES                             │
+├───────────────────────────────────────────────────────────────┤
+│                                                               │
+│  1. Model trains ONLY on training data                        │
+│                                                               │
+│  2. Model NEVER sees test data during training                │
+│                                                               │
+│  3. After training, evaluate on test data                     │
+│                                                               │
+│  4. Test performance = Expected real-world performance        │
+│                                                               │
+└───────────────────────────────────────────────────────────────┘
+```
 
 ---
 
@@ -450,25 +822,92 @@ The test set simulates "real world" data the model will encounter later.
 
 <div class="insight">
 
-**NEVER use test data for training or model selection!**
+# NEVER PEEK AT TEST DATA!
 
 </div>
 
-If you "peek" at test data:
-- You'll unconsciously tune to it
-- Your accuracy estimate will be wrong
-- Model will fail in production
+If you use test data for:
+- Choosing which model to use → **Data leakage**
+- Tuning hyperparameters → **Data leakage**
+- Feature selection → **Data leakage**
+
+Your accuracy estimate will be **too optimistic** and your model will **fail in production**.
+
+---
+
+# Train/Test Split in Code
+
+```python
+from sklearn.model_selection import train_test_split
+
+# The sacred split
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y,
+    test_size=0.2,      # 20% for testing
+    random_state=42,    # For reproducibility
+    stratify=y          # Keep class proportions (classification)
+)
+
+print(f"Training samples: {len(X_train)}")  # 800
+print(f"Test samples: {len(X_test)}")       # 200
+
+# NOW: Only touch X_train, y_train until final evaluation
+```
+
+---
+
+# Choosing Split Ratio
+
+| Dataset Size | Train % | Test % | Reasoning |
+|--------------|---------|--------|-----------|
+| < 1,000 | 70% | 30% | Need enough test samples |
+| 1,000 - 10,000 | 80% | 20% | Standard split |
+| 10,000 - 100,000 | 90% | 10% | Plenty of test data |
+| > 100,000 | 95% | 5% | Even 5% is thousands |
+
+<div class="insight">
+With huge datasets, even a small percentage gives reliable estimates.
+</div>
+
+---
+
+# The Three-Way Split
+
+For model selection, you need **three** sets:
+
+![w:900 center](diagrams/svg/three_way_split.svg)
+
+---
+
+# Three-Way Split Explained
+
+| Set | Purpose | When Used |
+|-----|---------|-----------|
+| **Training** (60%) | Learn parameters | During `model.fit()` |
+| **Validation** (20%) | Tune hyperparameters | Choosing model, settings |
+| **Test** (20%) | Final evaluation | Once, at the very end |
+
+```python
+# First split: separate test
+X_temp, X_test, y_temp, y_test = train_test_split(X, y, test_size=0.2)
+
+# Second split: separate validation
+X_train, X_val, y_train, y_val = train_test_split(X_temp, y_temp, test_size=0.25)
+# 0.25 of 0.8 = 0.2 of total
+```
 
 ---
 
 # Common Mistakes
 
-| Mistake | Why It's Bad |
-|---------|--------------|
-| Training on all data | Can't detect overfitting |
-| Looking at test data early | Contaminates your estimate |
-| Using test data to tune hyperparameters | Same as training on it |
-| Small test set | Unreliable accuracy estimate |
+| Mistake | Why It's Bad | Fix |
+|---------|--------------|-----|
+| Training on all data | Can't detect overfitting | Always split first |
+| Peeking at test data | Optimistic estimates | Lock away test data |
+| Tuning on test | Indirect training | Use validation set |
+| Small test set | High variance | Use at least 20% |
+| No random state | Non-reproducible | Set `random_state=42` |
+| Data leakage | False confidence | Check processing order |
 
 ---
 
@@ -482,31 +921,29 @@ If you "peek" at test data:
 
 # The Universal ML Recipe
 
-Every ML project follows these steps:
-
-```
-1. GET DATA       → Collect examples
-2. PREPARE DATA   → Clean, split into train/test
-3. CHOOSE MODEL   → Pick an algorithm
-4. TRAIN          → Model learns from training data
-5. EVALUATE       → Test on held-out data
-6. DEPLOY         → Use in the real world
-```
+![w:950 center](diagrams/svg/ml_recipe.svg)
 
 ---
 
 # Step 1: Get Data
 
 ```python
-# Your data: features (X) and labels (y)
-X = [[1500, 3, 2],    # House 1: sqft, beds, baths
-     [2000, 4, 3],    # House 2
-     [1200, 2, 1]]    # House 3
+import pandas as pd
+from sklearn.datasets import load_iris
 
-y = [300000, 450000, 200000]  # Prices (labels)
+# Option 1: Load from file
+df = pd.read_csv('houses.csv')
+X = df[['sqft', 'beds', 'baths']]
+y = df['price']
+
+# Option 2: Use sklearn datasets
+iris = load_iris()
+X, y = iris.data, iris.target
+
+# Option 3: Create manually
+X = [[1500, 3, 2], [2000, 4, 3], [1200, 2, 1]]
+y = [300000, 450000, 200000]
 ```
-
-**More data = better model** (usually!)
 
 ---
 
@@ -514,29 +951,44 @@ y = [300000, 450000, 200000]  # Prices (labels)
 
 ```python
 from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
 
-# Split into training and testing sets
+# 1. Split first! (before any processing)
 X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.2, random_state=42
 )
+
+# 2. Scale features (fit ONLY on train!)
+scaler = StandardScaler()
+X_train_scaled = scaler.fit_transform(X_train)  # fit + transform
+X_test_scaled = scaler.transform(X_test)        # only transform!
 ```
 
-**Why split?**
-- Train on 80%, test on 20%
-- Simulate "unseen" data
-- Detect overfitting
+<div class="warning">
+Always fit scaler on training data only! Otherwise: data leakage.
+</div>
 
 ---
 
 # Step 3: Choose a Model
 
-| Task | Simple Models | Complex Models |
-|------|---------------|----------------|
-| Classification | Logistic Regression, Decision Tree | Neural Network, Random Forest |
-| Regression | Linear Regression | XGBoost, Neural Network |
-| Clustering | K-Means | DBSCAN, Hierarchical |
+![w:900 center](diagrams/svg/model_selection_guide.svg)
 
-**Start simple, add complexity only if needed!**
+---
+
+# Model Complexity Ladder
+
+| Model | Complexity | Interpretability | When to Use |
+|-------|------------|------------------|-------------|
+| Linear/Logistic | ⭐ | High | Start here, baseline |
+| Decision Tree | ⭐⭐ | High | Need explanations |
+| Random Forest | ⭐⭐⭐ | Medium | General purpose |
+| XGBoost | ⭐⭐⭐⭐ | Low | Competitions |
+| Neural Network | ⭐⭐⭐⭐⭐ | Very Low | Images, text, lots of data |
+
+<div class="insight">
+Always start simple! Only add complexity if needed.
+</div>
 
 ---
 
@@ -544,168 +996,236 @@ X_train, X_test, y_train, y_test = train_test_split(
 
 ```python
 from sklearn.linear_model import LinearRegression
+from sklearn.tree import DecisionTreeClassifier
 
-model = LinearRegression()
-model.fit(X_train, y_train)  # Learn from data!
+# For regression
+reg_model = LinearRegression()
+reg_model.fit(X_train, y_train)
+
+# For classification
+clf_model = DecisionTreeClassifier(max_depth=5)
+clf_model.fit(X_train, y_train)
+
+# What happens inside:
+# 1. Model sees (X, y) pairs
+# 2. Adjusts internal parameters
+# 3. Minimizes prediction error
+# 4. Stores learned patterns
 ```
 
-**What happens inside:**
-- Model finds patterns in training data
-- Adjusts internal parameters to minimize error
-- "Learns" the mapping from X to y
+---
+
+# What Happens During Training?
+
+```
+Iteration 1:  Predictions: [350K, 400K, 250K]
+              Actual:      [300K, 450K, 200K]
+              Error:       Large!
+              Action:      Adjust parameters ↓
+
+Iteration 2:  Predictions: [320K, 430K, 220K]
+              Actual:      [300K, 450K, 200K]
+              Error:       Smaller
+              Action:      Keep adjusting...
+
+...
+
+Iteration N:  Predictions: [305K, 445K, 198K]
+              Actual:      [300K, 450K, 200K]
+              Error:       Small enough!
+              Action:      Stop, save parameters
+```
 
 ---
 
 # Step 5: Evaluate
 
 ```python
-# Make predictions on test data
+# Make predictions on TEST data (never seen before!)
 predictions = model.predict(X_test)
 
-# Compare to actual values
-from sklearn.metrics import mean_squared_error
-error = mean_squared_error(y_test, predictions)
-print(f"Average error: ${error:.0f}")
-```
+# Compare predictions to actual values
+from sklearn.metrics import mean_squared_error, accuracy_score
 
-**Key question:** How well does it work on data it *hasn't seen*?
+# Regression
+rmse = np.sqrt(mean_squared_error(y_test, predictions))
+print(f"RMSE: ${rmse:,.0f}")  # RMSE: $25,000
+
+# Classification
+accuracy = accuracy_score(y_test, predictions)
+print(f"Accuracy: {accuracy:.1%}")  # Accuracy: 94.5%
+```
 
 ---
 
 # Step 6: Deploy
 
 ```python
+import joblib
+
+# Save the trained model
+joblib.dump(model, 'house_price_model.pkl')
+joblib.dump(scaler, 'scaler.pkl')
+
+# Later, in production...
+model = joblib.load('house_price_model.pkl')
+scaler = joblib.load('scaler.pkl')
+
 # New house comes in
 new_house = [[1800, 3, 2]]  # sqft, beds, baths
-
-# Predict!
-predicted_price = model.predict(new_house)
-print(f"Predicted price: ${predicted_price[0]:.0f}")
+new_house_scaled = scaler.transform(new_house)
+predicted_price = model.predict(new_house_scaled)
+print(f"Predicted price: ${predicted_price[0]:,.0f}")
 ```
-
-**The model is now useful in the real world!**
 
 ---
 
 # The sklearn API Pattern
 
-```python
-# This pattern works for 50+ different algorithms!
-
-from sklearn.some_module import SomeModel
-
-model = SomeModel()           # 1. Create
-model.fit(X_train, y_train)   # 2. Train
-predictions = model.predict(X_test)  # 3. Predict
-score = model.score(X_test, y_test)  # 4. Evaluate
-```
-
-<div class="insight">
-Learn this pattern once, use it everywhere!
-</div>
+![w:900 center](diagrams/svg/sklearn_api.svg)
 
 ---
 
-# Quick Demo: Classification
+# The Beauty of Consistent APIs
+
+```python
+# ALL sklearn models follow the same pattern!
+
+# Linear Regression
+from sklearn.linear_model import LinearRegression
+model = LinearRegression()
+model.fit(X_train, y_train)
+model.predict(X_test)
+
+# Random Forest
+from sklearn.ensemble import RandomForestClassifier
+model = RandomForestClassifier()
+model.fit(X_train, y_train)
+model.predict(X_test)
+
+# Neural Network
+from sklearn.neural_network import MLPClassifier
+model = MLPClassifier()
+model.fit(X_train, y_train)
+model.predict(X_test)
+
+# Same 3 methods: fit(), predict(), score()
+```
+
+---
+
+# Complete Example: Classification
 
 ```python
 from sklearn.datasets import load_iris
-from sklearn.tree import DecisionTreeClassifier
 from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.metrics import accuracy_score, classification_report
 
-# Load data
+# 1. Load data
 iris = load_iris()
 X, y = iris.data, iris.target
 
-# Split
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
+# 2. Split
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42
+)
 
-# Train
-model = DecisionTreeClassifier()
+# 3. Train
+model = DecisionTreeClassifier(max_depth=3)
 model.fit(X_train, y_train)
 
-# Evaluate
-accuracy = model.score(X_test, y_test)
-print(f"Accuracy: {accuracy:.1%}")  # ~95-97%
+# 4. Evaluate
+y_pred = model.predict(X_test)
+print(f"Accuracy: {accuracy_score(y_test, y_pred):.1%}")
+print(classification_report(y_test, y_pred, target_names=iris.target_names))
 ```
 
 ---
 
-# Quick Demo: Regression
+# Complete Example: Regression
 
 ```python
-from sklearn.datasets import load_diabetes
-from sklearn.linear_model import LinearRegression
+from sklearn.datasets import fetch_california_housing
 from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_squared_error, r2_score
+import numpy as np
 
-# Load data
-diabetes = load_diabetes()
-X, y = diabetes.data, diabetes.target
+# 1. Load data
+housing = fetch_california_housing()
+X, y = housing.data, housing.target
 
-# Split
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
+# 2. Split
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42
+)
 
-# Train
+# 3. Train
 model = LinearRegression()
 model.fit(X_train, y_train)
 
-# Evaluate
-r2 = model.score(X_test, y_test)
-print(f"R² Score: {r2:.3f}")  # ~0.4-0.5
+# 4. Evaluate
+y_pred = model.predict(X_test)
+print(f"RMSE: ${np.sqrt(mean_squared_error(y_test, y_pred))*100000:,.0f}")
+print(f"R² Score: {r2_score(y_test, y_pred):.3f}")
 ```
 
 ---
 
 <!-- _class: section-divider -->
 
-# Part 5: What's Next
+# Part 5: Course Roadmap
 
-## Course Roadmap
+## What's Coming Next
 
 ---
 
 # Your Journey Through AI
 
-| Week | Topic | Big Question |
-|------|-------|--------------|
-| **1** | Introduction (Videos) | What can AI do today? |
-| **2** | Data Foundation | What makes good data? |
-| **3** | Supervised Learning | How do we predict? |
-| **4** | Model Selection | How do we choose models? |
-| **5** | Neural Networks | What makes deep learning special? |
-| **6** | Computer Vision | How do machines see? |
-| **7** | Language Models | How do machines understand text? |
-| **8** | Generative AI | How do machines create? |
+| Week | Topic | Big Question | You'll Learn |
+|------|-------|--------------|--------------|
+| **1** | Introduction | What can AI do? | Motivation, capabilities |
+| **2** | Data Foundation | What is ML? | Framework, data, split |
+| **3** | Supervised Learning | How do algorithms work? | LR, Trees, KNN |
+| **4** | Model Selection | How to choose? | CV, tuning, ensembles |
+| **5** | Neural Networks | What is deep learning? | Backprop, PyTorch |
+| **6** | Computer Vision | How do machines see? | CNNs, YOLO |
+| **7** | Language Models | How do LLMs work? | Transformers |
+| **8** | Generative AI | How do machines create? | Diffusion, APIs |
 
 ---
 
-# What You'll Build
+# Skills You'll Build
 
-| Lab | What You'll Create |
-|-----|-------------------|
-| 1-2 | Your first ML models with sklearn |
-| 3 | PyTorch basics, simple neural network |
-| 4-5 | Build a small language model from scratch |
-| 6-7 | Object detection with YOLO |
-| 8 | Fine-tune an LLM |
-
-**By the end:** You'll understand AND build AI systems!
+![w:900 center](diagrams/svg/skills_progression.svg)
 
 ---
 
 # Key Takeaways
 
-1. **ML learns patterns from data** — not explicit rules
+<div class="columns">
+<div>
 
-2. **Data = Features (X) + Labels (y)**
+### Framework
+1. ML learns from DATA
+2. Three paradigms: Supervised, Unsupervised, RL
+3. Classification vs Regression
 
-3. **Train/Test split is essential** — always hold out test data
+</div>
+<div>
 
-4. **The sklearn pattern:**
-   - `model.fit(X_train, y_train)` → Train
-   - `model.predict(X_test)` → Predict
+### Data
+4. Features (X) + Labels (y)
+5. Quality > Quantity
+6. Train/Test split is SACRED
 
-5. **Classification vs Regression:** Category or Number?
+</div>
+</div>
+
+### Practice
+7. The sklearn pattern: `fit()` → `predict()` → `score()`
+8. Start simple, add complexity only if needed
 
 ---
 

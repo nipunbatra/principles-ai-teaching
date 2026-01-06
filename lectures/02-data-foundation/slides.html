@@ -14,7 +14,7 @@
 <h2 id="understanding-data-and-how-machines-learn">Understanding Data and How Machines Learn</h2>
 <p><strong>Nipun Batra</strong> | IIT Gandhinagar</p>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="2" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="2" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="47">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="2" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="2" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="77">
 <h1 id="recap-what-did-we-see-last-week">Recap: What Did We See Last Week?</h1>
 <p><strong>AI is everywhere:</strong></p>
 <ul>
@@ -30,11 +30,22 @@
 Today: What IS this data? How does learning actually work?
 </div>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="3" data-paginate="true" data-class="section-divider" data-theme="iitgn-modern" lang="en-IN" class="section-divider" data-marpit-pagination="3" style="--paginate:true;--class:section-divider;--theme:iitgn-modern;" data-marpit-pagination-total="47">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="3" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="3" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="77">
+<h1 id="todays-learning-goals">Today's Learning Goals</h1>
+<p>By the end of this lecture, you will be able to:</p>
+<ol>
+<li><strong>Distinguish</strong> traditional programming from machine learning</li>
+<li><strong>Identify</strong> the three learning paradigms (supervised, unsupervised, RL)</li>
+<li><strong>Differentiate</strong> classification from regression problems</li>
+<li><strong>Explain</strong> why train/test split is essential</li>
+<li><strong>Apply</strong> the sklearn API pattern to any ML problem</li>
+</ol>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="4" data-paginate="true" data-class="section-divider" data-theme="iitgn-modern" lang="en-IN" class="section-divider" data-marpit-pagination="4" style="--paginate:true;--class:section-divider;--theme:iitgn-modern;" data-marpit-pagination-total="77">
 <h1 id="part-1-the-ml-framework">Part 1: The ML Framework</h1>
 <h2 id="how-machines-learn">How Machines Learn</h2>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="4" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="4" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="47">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="5" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="5" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="77">
 <h1 id="the-big-question">The Big Question</h1>
 <p>Every AI/ML system answers <strong>one fundamental question</strong>:</p>
 <div class="insight">
@@ -72,31 +83,105 @@ Today: What IS this data? How does learning actually work?
 </tbody>
 </table>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="5" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="5" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="47">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="6" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="6" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="77">
 <h1 id="traditional-programming-vs-ml">Traditional Programming vs ML</h1>
-<p><strong>Traditional Programming:</strong></p>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>Rules + Data → Output
-</code></pre>
-<p><em>Human writes explicit rules</em></p>
-<p><strong>Machine Learning:</strong></p>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>Data + Desired Outputs → Rules (Model)
-</code></pre>
-<p><em>Computer learns rules from examples!</em></p>
+<p><img src="diagrams/svg/traditional_vs_ml.svg" alt="center" style="width:950px;" /></p>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="6" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="6" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="47">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="7" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="7" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="77">
+<h1 id="the-paradigm-shift">The Paradigm Shift</h1>
+<div class="columns">
+<div>
+<h3 id="traditional-programming">Traditional Programming</h3>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code>     ┌─────────────┐
+     │    RULES    │ ← Human writes
+     │  (if/else)  │
+     └──────┬──────┘
+            │
+     ┌──────▼──────┐
+     │    DATA     │
+     └──────┬──────┘
+            │
+     ┌──────▼──────┐
+     │   OUTPUT    │
+     └─────────────┘
+</code></pre>
+<p><strong>Explicit programming</strong></p>
+</div>
+<div>
+<h3 id="machine-learning">Machine Learning</h3>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code>     ┌─────────────┐
+     │    DATA     │
+     └──────┬──────┘
+            │
+     ┌──────▼──────┐
+     │   LABELS    │ ← Desired outputs
+     └──────┬──────┘
+            │
+     ┌──────▼──────┐
+     │    MODEL    │ ← Learned rules!
+     └─────────────┘
+</code></pre>
+<p><strong>Learning from examples</strong></p>
+</div>
+</div>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="8" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="8" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="77">
+<h1 id="why-this-matters">Why This Matters</h1>
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>Traditional</th>
+<th>ML</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Spam changes tactics</td>
+<td>Rewrite rules</td>
+<td>Retrain on new examples</td>
+</tr>
+<tr>
+<td>1000 new categories</td>
+<td>1000 new rule sets</td>
+<td>Same algorithm, new data</td>
+</tr>
+<tr>
+<td>Complex patterns</td>
+<td>Impossible to specify</td>
+<td>Model discovers them</td>
+</tr>
+<tr>
+<td>Human bias</td>
+<td>Encoded in rules</td>
+<td>(Can still exist in data)</td>
+</tr>
+</tbody>
+</table>
+<div class="insight">
+ML excels when patterns are complex or rules are hard to specify explicitly.
+</div>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="9" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="9" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="77">
 <h1 id="example-spam-detection">Example: Spam Detection</h1>
 <div class="columns">
 <div>
 <p><strong>Traditional Approach:</strong></p>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-python"><span class="hljs-keyword">if</span> <span class="hljs-string">&quot;FREE&quot;</span> <span class="hljs-keyword">in</span> email:
-    <span class="hljs-keyword">return</span> SPAM
-<span class="hljs-keyword">if</span> <span class="hljs-string">&quot;winner&quot;</span> <span class="hljs-keyword">in</span> email:
-    <span class="hljs-keyword">return</span> SPAM
-<span class="hljs-keyword">if</span> <span class="hljs-string">&quot;click here&quot;</span> <span class="hljs-keyword">in</span> email:
-    <span class="hljs-keyword">return</span> SPAM
-<span class="hljs-comment"># ... 1000 more rules</span>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">is_spam</span>(<span class="hljs-params">email</span>):
+    <span class="hljs-keyword">if</span> <span class="hljs-string">&quot;FREE&quot;</span> <span class="hljs-keyword">in</span> email:
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">True</span>
+    <span class="hljs-keyword">if</span> <span class="hljs-string">&quot;winner&quot;</span> <span class="hljs-keyword">in</span> email:
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">True</span>
+    <span class="hljs-keyword">if</span> <span class="hljs-string">&quot;click here&quot;</span> <span class="hljs-keyword">in</span> email:
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">True</span>
+    <span class="hljs-keyword">if</span> sender <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> contacts:
+        <span class="hljs-keyword">if</span> num_links &gt; <span class="hljs-number">5</span>:
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">True</span>
+    <span class="hljs-comment"># ... 1000 more rules</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span>
 </code></pre>
-<p><em>What about &quot;Fr33&quot; or &quot;w1nner&quot;?</em></p>
+<p><em>What about &quot;Fr33&quot; or &quot;w1nner&quot;?</em><br />
+<em>What if rules conflict?</em></p>
 </div>
 <div>
 <p><strong>ML Approach:</strong></p>
@@ -104,81 +189,137 @@ Today: What IS this data? How does learning actually work?
 X = [email1, email2, ...]
 y = [spam, not_spam, ...]
 
+model = SpamClassifier()
 model.fit(X, y)
 
-<span class="hljs-comment"># Now it learns patterns</span>
+<span class="hljs-comment"># Model learns patterns itself!</span>
 model.predict(new_email)
 </code></pre>
-<p><em>It learns to generalize!</em></p>
+<p><em>It learns to generalize!</em><br />
+<em>Handles variations automatically</em></p>
 </div>
 </div>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="7" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="7" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="47">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="10" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="10" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="77">
+<h1 id="the-power-of-generalization">The Power of Generalization</h1>
+<p><strong>Training data has:</strong> &quot;FREE money!!!&quot;</p>
+<p><strong>Model learns:</strong> Unusual capitalization + exclamation marks + money words = suspicious</p>
+<p><strong>New email:</strong> &quot;EARN ca$h NOW!!!&quot; → <strong>Spam</strong> (never seen before, but pattern matches)</p>
+<div class="insight">
+Good ML models learn the <strong>underlying pattern</strong>, not just memorize examples.
+</div>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="11" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="11" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="77">
 <h1 id="three-learning-paradigms">Three Learning Paradigms</h1>
-<p>Based on <strong>what information you give</strong> the model:</p>
+<p><img src="diagrams/svg/learning_paradigms.svg" alt="center" style="width:900px;" /></p>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="12" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="12" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="77">
+<h1 id="paradigm-comparison">Paradigm Comparison</h1>
 <table>
 <thead>
 <tr>
-<th>Paradigm</th>
-<th>What You Provide</th>
-<th>Goal</th>
+<th>Aspect</th>
+<th>Supervised</th>
+<th>Unsupervised</th>
+<th>Reinforcement</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>Supervised</strong></td>
-<td>Inputs + Correct Outputs</td>
-<td>Learn to predict outputs</td>
+<td><strong>Data</strong></td>
+<td>X + y (labels)</td>
+<td>X only</td>
+<td>States + Actions</td>
 </tr>
 <tr>
-<td><strong>Unsupervised</strong></td>
-<td>Inputs only (no labels)</td>
-<td>Find patterns/structure</td>
+<td><strong>Goal</strong></td>
+<td>Predict labels</td>
+<td>Find structure</td>
+<td>Maximize reward</td>
 </tr>
 <tr>
-<td><strong>Reinforcement</strong></td>
-<td>Environment + Rewards</td>
-<td>Learn to maximize reward</td>
+<td><strong>Feedback</strong></td>
+<td>Correct answers</td>
+<td>None</td>
+<td>Reward signals</td>
+</tr>
+<tr>
+<td><strong>Example</strong></td>
+<td>Spam detection</td>
+<td>Customer segments</td>
+<td>Game playing</td>
 </tr>
 </tbody>
 </table>
-<div class="insight">
-This course focuses on <strong>supervised learning</strong> — it's the most common!
-</div>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="8" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="8" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="47">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="13" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="13" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="77">
+<h1 id="supervised-learning-the-teacher-analogy">Supervised Learning: The Teacher Analogy</h1>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code>┌─────────────────────────────────────────────────────────────────┐
+│                      SUPERVISED LEARNING                         │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                  │
+│   Student (Model)          Teacher (Training Data)              │
+│                                                                  │
+│   &quot;Is this spam?&quot;    ──►   &quot;Yes, that's spam.&quot;                  │
+│                             &quot;No, that's legitimate.&quot;             │
+│                             &quot;Yes, that's spam.&quot;                  │
+│                             ...                                  │
+│                                                                  │
+│   After many examples, student learns the patterns!              │
+│                                                                  │
+└─────────────────────────────────────────────────────────────────┘
+</code></pre>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="14" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="14" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="77">
 <h1 id="supervised-learning-two-types">Supervised Learning: Two Types</h1>
-<p>It depends on <strong>what you're predicting</strong>:</p>
+<p><img src="diagrams/svg/classification_vs_regression.svg" alt="center" style="width:900px;" /></p>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="15" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="15" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="77">
+<h1 id="classification-discrete-outputs">Classification: Discrete Outputs</h1>
+<p><strong>Goal:</strong> Assign input to one of K categories</p>
 <table>
 <thead>
 <tr>
-<th>If output is...</th>
-<th>Task</th>
+<th>Type</th>
+<th>K</th>
 <th>Example</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>Category</strong> (discrete)</td>
-<td>Classification</td>
-<td>Is it spam? Yes/No</td>
+<td><strong>Binary</strong></td>
+<td>2</td>
+<td>Spam / Not Spam</td>
 </tr>
 <tr>
-<td><strong>Number</strong> (continuous)</td>
-<td>Regression</td>
-<td>What's the price? $350,000</td>
+<td><strong>Multi-class</strong></td>
+<td>K &gt; 2</td>
+<td>Cat, Dog, Bird, Fish</td>
+</tr>
+<tr>
+<td><strong>Multi-label</strong></td>
+<td>Multiple</td>
+<td>[Action, Comedy] for a movie</td>
 </tr>
 </tbody>
 </table>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-python"><span class="hljs-comment"># Binary: One probability</span>
+model.predict_proba(email)  <span class="hljs-comment"># → [0.15, 0.85] = 85% spam</span>
+
+<span class="hljs-comment"># Multi-class: K probabilities (sum to 1)</span>
+model.predict_proba(image)  <span class="hljs-comment"># → [0.70, 0.20, 0.05, 0.05]</span>
+                            <span class="hljs-comment">#    Cat   Dog  Bird  Fish</span>
+</code></pre>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="9" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="9" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="47">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="16" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="16" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="77">
 <h1 id="classification-examples">Classification Examples</h1>
 <table>
 <thead>
 <tr>
 <th>Task</th>
 <th>Input</th>
-<th>Output Classes</th>
+<th>Classes</th>
+<th>Real-World Use</th>
 </tr>
 </thead>
 <tbody>
@@ -186,133 +327,198 @@ This course focuses on <strong>supervised learning</strong> — it's the most co
 <td>Spam Detection</td>
 <td>Email text</td>
 <td>Spam, Not Spam</td>
+<td>Gmail, Outlook</td>
 </tr>
 <tr>
 <td>Medical Diagnosis</td>
-<td>Symptoms</td>
-<td>Disease A, B, C, Healthy</td>
+<td>Symptoms, tests</td>
+<td>Disease A, B, Healthy</td>
+<td>Hospital systems</td>
 </tr>
 <tr>
 <td>Image Recognition</td>
-<td>Photo</td>
-<td>Cat, Dog, Bird, ...</td>
+<td>Photo pixels</td>
+<td>1000 ImageNet classes</td>
+<td>Google Photos</td>
 </tr>
 <tr>
 <td>Sentiment Analysis</td>
 <td>Review text</td>
 <td>Positive, Negative, Neutral</td>
+<td>Brand monitoring</td>
+</tr>
+<tr>
+<td>Fraud Detection</td>
+<td>Transaction</td>
+<td>Fraud, Legitimate</td>
+<td>Credit card companies</td>
+</tr>
+<tr>
+<td>Face Recognition</td>
+<td>Face image</td>
+<td>Person 1, 2, ..., N</td>
+<td>iPhone unlock</td>
 </tr>
 </tbody>
 </table>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="10" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="10" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="47">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="17" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="17" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="77">
+<h1 id="regression-continuous-outputs">Regression: Continuous Outputs</h1>
+<p><strong>Goal:</strong> Predict a numerical value</p>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-python"><span class="hljs-comment"># Output can be ANY number</span>
+model.predict(house_features)  <span class="hljs-comment"># → 425,000.00</span>
+model.predict(face_image)      <span class="hljs-comment"># → 27.3 (years old)</span>
+model.predict(stock_data)      <span class="hljs-comment"># → 152.47 (price)</span>
+</code></pre>
+<div class="insight">
+Classification: "Which bucket?" | Regression: "How much?"
+</div>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="18" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="18" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="77">
 <h1 id="regression-examples">Regression Examples</h1>
 <table>
 <thead>
 <tr>
 <th>Task</th>
 <th>Input</th>
-<th>Output (Number)</th>
+<th>Output</th>
+<th>Range</th>
+<th>Real-World Use</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>House Pricing</td>
-<td>Size, location, rooms</td>
-<td>$425,000</td>
-</tr>
-<tr>
-<td>Stock Prediction</td>
-<td>Historical prices</td>
-<td>Tomorrow's price</td>
+<td>Size, location</td>
+<td>Price ($)</td>
+<td>$100K - $10M</td>
+<td>Zillow, Redfin</td>
 </tr>
 <tr>
 <td>Age Estimation</td>
 <td>Face image</td>
-<td>27 years</td>
+<td>Years</td>
+<td>0 - 100</td>
+<td>Age verification</td>
 </tr>
 <tr>
-<td>Weather</td>
-<td>Current conditions</td>
-<td>Temperature (°C)</td>
+<td>Demand Forecasting</td>
+<td>History, season</td>
+<td>Units</td>
+<td>0 - ∞</td>
+<td>Amazon inventory</td>
+</tr>
+<tr>
+<td>Energy Prediction</td>
+<td>Weather, time</td>
+<td>kWh</td>
+<td>0 - ∞</td>
+<td>Power grid</td>
+</tr>
+<tr>
+<td>Stock Prediction</td>
+<td>Historical data</td>
+<td>Price</td>
+<td>0 - ∞</td>
+<td>Trading</td>
+</tr>
+<tr>
+<td>Salary Estimation</td>
+<td>Resume features</td>
+<td>Salary</td>
+<td>$0 - $1M</td>
+<td>LinkedIn</td>
 </tr>
 </tbody>
 </table>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="11" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="11" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="47">
-<h1 id="ml-tasks-the-key-question">ML Tasks: The Key Question</h1>
-<p>When facing an ML problem, always ask:</p>
-<div class="insight">
-<p><strong>What exactly am I trying to predict?</strong></p>
-</div>
-<table>
-<thead>
-<tr>
-<th>If you're predicting...</th>
-<th>It's called...</th>
-<th>Example</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>A <strong>category</strong></td>
-<td>Classification</td>
-<td>&quot;Is this spam?&quot;</td>
-</tr>
-<tr>
-<td>A <strong>number</strong></td>
-<td>Regression</td>
-<td>&quot;What's the price?&quot;</td>
-</tr>
-<tr>
-<td>A <strong>sequence</strong></td>
-<td>Seq2Seq</td>
-<td>&quot;Translate to French&quot;</td>
-</tr>
-<tr>
-<td><strong>Something new</strong></td>
-<td>Generation</td>
-<td>&quot;Draw a cat&quot;</td>
-</tr>
-</tbody>
-</table>
-</section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="12" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="12" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="47">
-<h1 id="computer-vision-task-hierarchy">Computer Vision Task Hierarchy</h1>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="19" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="19" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="77">
+<h1 id="quick-check-classification-or-regression">Quick Check: Classification or Regression?</h1>
 <table>
 <thead>
 <tr>
 <th>Task</th>
-<th>Question</th>
-<th>Output</th>
+<th>Answer</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>Classification</strong></td>
-<td>&quot;What is this?&quot;</td>
-<td>One label: &quot;Cat&quot;</td>
+<td>&quot;Will it rain tomorrow?&quot;</td>
+<td>Classification (Yes/No)</td>
 </tr>
 <tr>
-<td><strong>Detection</strong></td>
-<td>&quot;What + Where?&quot;</td>
-<td>Boxes + labels</td>
+<td>&quot;How many mm of rain?&quot;</td>
+<td>Regression (continuous)</td>
 </tr>
 <tr>
-<td><strong>Segmentation</strong></td>
-<td>&quot;Pixel-level what?&quot;</td>
-<td>Pixel masks</td>
+<td>&quot;What genre is this movie?&quot;</td>
+<td>Classification (Action, Comedy, ...)</td>
 </tr>
 <tr>
-<td><strong>Pose Estimation</strong></td>
-<td>&quot;Where are keypoints?&quot;</td>
-<td>Body skeleton</td>
+<td>&quot;What rating will user give?&quot;</td>
+<td>Could be both! (1-5 stars)</td>
+</tr>
+<tr>
+<td>&quot;Which digit is written?&quot;</td>
+<td>Classification (0-9)</td>
+</tr>
+<tr>
+<td>&quot;How confident is the prediction?&quot;</td>
+<td>Regression (0.0 - 1.0)</td>
 </tr>
 </tbody>
 </table>
-<p>Each level adds more information!</p>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="13" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="13" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="47">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="20" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="20" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="77">
+<h1 id="the-in-between-ordinal-data">The In-Between: Ordinal Data</h1>
+<p>Some data is <strong>ordered categories</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Rating</th>
+<th>As Classification</th>
+<th>As Regression</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img class="emoji" draggable="false" alt="⭐" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2b50.svg" data-marp-twemoji=""/></td>
+<td>Class 0</td>
+<td>1.0</td>
+</tr>
+<tr>
+<td><img class="emoji" draggable="false" alt="⭐" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2b50.svg" data-marp-twemoji=""/><img class="emoji" draggable="false" alt="⭐" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2b50.svg" data-marp-twemoji=""/></td>
+<td>Class 1</td>
+<td>2.0</td>
+</tr>
+<tr>
+<td><img class="emoji" draggable="false" alt="⭐" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2b50.svg" data-marp-twemoji=""/><img class="emoji" draggable="false" alt="⭐" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2b50.svg" data-marp-twemoji=""/><img class="emoji" draggable="false" alt="⭐" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2b50.svg" data-marp-twemoji=""/></td>
+<td>Class 2</td>
+<td>3.0</td>
+</tr>
+<tr>
+<td><img class="emoji" draggable="false" alt="⭐" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2b50.svg" data-marp-twemoji=""/><img class="emoji" draggable="false" alt="⭐" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2b50.svg" data-marp-twemoji=""/><img class="emoji" draggable="false" alt="⭐" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2b50.svg" data-marp-twemoji=""/><img class="emoji" draggable="false" alt="⭐" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2b50.svg" data-marp-twemoji=""/></td>
+<td>Class 3</td>
+<td>4.0</td>
+</tr>
+<tr>
+<td><img class="emoji" draggable="false" alt="⭐" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2b50.svg" data-marp-twemoji=""/><img class="emoji" draggable="false" alt="⭐" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2b50.svg" data-marp-twemoji=""/><img class="emoji" draggable="false" alt="⭐" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2b50.svg" data-marp-twemoji=""/><img class="emoji" draggable="false" alt="⭐" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2b50.svg" data-marp-twemoji=""/><img class="emoji" draggable="false" alt="⭐" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2b50.svg" data-marp-twemoji=""/></td>
+<td>Class 4</td>
+<td>5.0</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Both approaches can work!</strong> Regression might predict 3.7 stars.</p>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="21" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="21" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="77">
+<h1 id="ml-tasks-the-decision-flowchart">ML Tasks: The Decision Flowchart</h1>
+<p><img src="diagrams/svg/ml_task_flowchart.svg" alt="center" style="width:900px;" /></p>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="22" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="22" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="77">
+<h1 id="computer-vision-task-hierarchy">Computer Vision Task Hierarchy</h1>
+<p><img src="diagrams/svg/vision_hierarchy.svg" alt="center" style="width:950px;" /></p>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="23" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="23" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="77">
 <h1 id="nlp-task-hierarchy">NLP Task Hierarchy</h1>
 <table>
 <thead>
@@ -320,580 +526,1020 @@ This course focuses on <strong>supervised learning</strong> — it's the most co
 <th>Task</th>
 <th>Input → Output</th>
 <th>Example</th>
+<th>Complexity</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><strong>Classification</strong></td>
 <td>Text → Category</td>
-<td>Review → Positive/Negative</td>
+<td>&quot;Great movie!&quot; → Positive</td>
+<td><img class="emoji" draggable="false" alt="⭐" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2b50.svg" data-marp-twemoji=""/></td>
 </tr>
 <tr>
 <td><strong>NER</strong></td>
-<td>Text → Tagged words</td>
-<td>&quot;Sundar Pichai&quot; → PERSON</td>
+<td>Text → Tagged entities</td>
+<td>&quot;[Sundar Pichai]_PERSON visited [Google]_ORG&quot;</td>
+<td><img class="emoji" draggable="false" alt="⭐" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2b50.svg" data-marp-twemoji=""/><img class="emoji" draggable="false" alt="⭐" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2b50.svg" data-marp-twemoji=""/></td>
 </tr>
 <tr>
 <td><strong>Seq2Seq</strong></td>
 <td>Sequence → Sequence</td>
 <td>English → French</td>
+<td><img class="emoji" draggable="false" alt="⭐" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2b50.svg" data-marp-twemoji=""/><img class="emoji" draggable="false" alt="⭐" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2b50.svg" data-marp-twemoji=""/><img class="emoji" draggable="false" alt="⭐" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2b50.svg" data-marp-twemoji=""/></td>
 </tr>
 <tr>
 <td><strong>Generation</strong></td>
-<td>Prompt → New text</td>
+<td>Prompt → Text</td>
 <td>&quot;Write a poem...&quot; → Poem</td>
+<td><img class="emoji" draggable="false" alt="⭐" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2b50.svg" data-marp-twemoji=""/><img class="emoji" draggable="false" alt="⭐" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2b50.svg" data-marp-twemoji=""/><img class="emoji" draggable="false" alt="⭐" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2b50.svg" data-marp-twemoji=""/><img class="emoji" draggable="false" alt="⭐" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2b50.svg" data-marp-twemoji=""/></td>
 </tr>
 </tbody>
 </table>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="14" data-paginate="true" data-class="section-divider" data-theme="iitgn-modern" lang="en-IN" class="section-divider" data-marpit-pagination="14" style="--paginate:true;--class:section-divider;--theme:iitgn-modern;" data-marpit-pagination-total="47">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="24" data-paginate="true" data-class="section-divider" data-theme="iitgn-modern" lang="en-IN" class="section-divider" data-marpit-pagination="24" style="--paginate:true;--class:section-divider;--theme:iitgn-modern;" data-marpit-pagination-total="77">
 <h1 id="part-2-understanding-data">Part 2: Understanding Data</h1>
 <h2 id="the-fuel-for-machine-learning">The Fuel for Machine Learning</h2>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="15" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="15" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="47">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="25" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="25" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="77">
 <h1 id="data-is-the-new-oil">&quot;Data is the New Oil&quot;</h1>
 <blockquote>
 <p>&quot;Data is the new oil. Like oil, data is valuable, but if unrefined it cannot really be used.&quot;<br />
 — Clive Humby (2006)</p>
 </blockquote>
-<div class="insight">
-Without data, ML is impossible. With bad data, ML is useless.
-</div>
+<table>
+<thead>
+<tr>
+<th>Oil Industry</th>
+<th>ML Industry</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Extract crude oil</td>
+<td>Collect raw data</td>
+</tr>
+<tr>
+<td>Refine into gasoline</td>
+<td>Clean and process data</td>
+</tr>
+<tr>
+<td>Powers engines</td>
+<td>Powers models</td>
+</tr>
+<tr>
+<td>Pollution issues</td>
+<td>Bias issues</td>
+</tr>
+</tbody>
+</table>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="16" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="16" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="47">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="26" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="26" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="77">
 <h1 id="what-is-data-in-ml">What IS Data in ML?</h1>
-<p><strong>Data = Examples we learn from</strong></p>
-<p>Each example has:</p>
-<ul>
-<li><strong>Features (X):</strong> What we know about it</li>
-<li><strong>Label (y):</strong> What we want to predict (in supervised learning)</li>
-</ul>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-python"><span class="hljs-comment"># Example: House price prediction</span>
-Features (X) = [sqft, bedrooms, bathrooms, location]
-Label (y) = price
+<p><img src="diagrams/svg/features_and_labels.svg" alt="center" style="width:900px;" /></p>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="27" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="27" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="77">
+<h1 id="anatomy-of-a-dataset">Anatomy of a Dataset</h1>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code>                    Features (X)                           Label (y)
+         ┌────────────────────────────────────────┐      ┌─────────┐
+         │  sqft  │ beds │ baths │ garage │ year  │      │  price  │
+         ├────────┼──────┼───────┼────────┼───────┤      ├─────────┤
+Row 1 →  │  1500  │   3  │   2   │  Yes   │ 1990  │      │ 300,000 │
+Row 2 →  │  2000  │   4  │   3   │  Yes   │ 2005  │      │ 450,000 │
+Row 3 →  │  1200  │   2  │   1   │  No    │ 1975  │      │ 200,000 │
+Row 4 →  │  1800  │   3  │   2   │  Yes   │ 2010  │      │ 350,000 │
+         └────────┴──────┴───────┴────────┴───────┘      └─────────┘
+
+         n_samples = 4 (rows)
+         n_features = 5 (columns in X)
 </code></pre>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="17" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="17" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="47">
-<h1 id="features-and-labels-house-example">Features and Labels: House Example</h1>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="28" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="28" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="77">
+<h1 id="features-the-inputs">Features: The Inputs</h1>
+<p><strong>Features = Information about each example</strong></p>
+<div class="columns">
+<div>
+<h3 id="good-features">Good Features</h3>
+<ul>
+<li>Relevant to prediction</li>
+<li>Measurable/computable</li>
+<li>Available at prediction time</li>
+<li>Not too correlated with each other</li>
+</ul>
+</div>
+<div>
+<h3 id="feature-examples">Feature Examples</h3>
 <table>
 <thead>
 <tr>
-<th>sqft</th>
-<th>beds</th>
-<th>baths</th>
-<th>garage</th>
-<th>price ($)</th>
+<th>Domain</th>
+<th>Features</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>1500</td>
-<td>3</td>
-<td>2</td>
-<td>Yes</td>
-<td>300,000</td>
+<td>House</td>
+<td>sqft, beds, zip code</td>
 </tr>
 <tr>
-<td>2000</td>
-<td>4</td>
-<td>3</td>
-<td>Yes</td>
-<td>450,000</td>
+<td>Email</td>
+<td>word counts, sender</td>
 </tr>
 <tr>
-<td>1200</td>
-<td>2</td>
-<td>1</td>
-<td>No</td>
-<td>200,000</td>
+<td>Image</td>
+<td>pixel values</td>
 </tr>
 <tr>
-<td>1800</td>
-<td>3</td>
-<td>2</td>
-<td>Yes</td>
-<td>350,000</td>
+<td>Customer</td>
+<td>age, purchases, clicks</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Features (X):</strong> sqft, beds, baths, garage<br />
-<strong>Label (y):</strong> price</p>
+</div>
+</div>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="18" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="18" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="47">
-<h1 id="features-and-labels-spam-example">Features and Labels: Spam Example</h1>
-<table>
-<thead>
-<tr>
-<th>has_FREE</th>
-<th>has_winner</th>
-<th>num_links</th>
-<th>from_known</th>
-<th>is_spam</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>1</td>
-<td>5</td>
-<td>0</td>
-<td>Yes</td>
-</tr>
-<tr>
-<td>0</td>
-<td>0</td>
-<td>1</td>
-<td>1</td>
-<td>No</td>
-</tr>
-<tr>
-<td>1</td>
-<td>0</td>
-<td>3</td>
-<td>0</td>
-<td>Yes</td>
-</tr>
-<tr>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>1</td>
-<td>No</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Features (X):</strong> has_FREE, has_winner, num_links, from_known<br />
-<strong>Label (y):</strong> is_spam</p>
-</section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="19" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="19" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="47">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="29" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="29" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="77">
 <h1 id="types-of-features">Types of Features</h1>
+<p><img src="diagrams/svg/feature_types.svg" alt="center" style="width:950px;" /></p>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="30" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="30" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="77">
+<h1 id="feature-type-details">Feature Type Details</h1>
 <table>
 <thead>
 <tr>
 <th>Type</th>
-<th>Description</th>
+<th>Values</th>
 <th>Example</th>
+<th>Encoding</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><strong>Numerical</strong></td>
-<td>Continuous numbers</td>
+<td>Any number</td>
 <td>Age: 25, Price: $50.99</td>
+<td>Use directly</td>
 </tr>
 <tr>
 <td><strong>Categorical</strong></td>
-<td>Discrete categories</td>
-<td>Color: Red/Blue/Green</td>
+<td>Unordered set</td>
+<td>Color: Red, Blue, Green</td>
+<td>One-hot encoding</td>
 </tr>
 <tr>
 <td><strong>Binary</strong></td>
-<td>Two values</td>
+<td>2 values</td>
 <td>Has garage: Yes/No</td>
+<td>0 or 1</td>
 </tr>
 <tr>
 <td><strong>Ordinal</strong></td>
-<td>Ordered categories</td>
+<td>Ordered set</td>
 <td>Size: S &lt; M &lt; L &lt; XL</td>
+<td>Integer encoding</td>
 </tr>
 <tr>
 <td><strong>Text</strong></td>
-<td>Raw text</td>
-<td>Review: &quot;Great product!&quot;</td>
+<td>String</td>
+<td>&quot;Great product!&quot;</td>
+<td>Embedding</td>
+</tr>
+<tr>
+<td><strong>Date/Time</strong></td>
+<td>Timestamp</td>
+<td>2024-01-15</td>
+<td>Extract features</td>
 </tr>
 </tbody>
 </table>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="20" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="20" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="47">
-<h1 id="types-of-data">Types of Data</h1>
-<div class="columns">
-<div>
-<p><strong>Structured (Tabular)</strong></p>
-<ul>
-<li>Rows = examples</li>
-<li>Columns = features</li>
-<li>Easy to work with</li>
-<li>Example: CSV files, databases</li>
-</ul>
-<p><strong>Images</strong></p>
-<ul>
-<li>Pixels as features</li>
-<li>Shape: Height × Width × Channels</li>
-<li>Example: MNIST digits</li>
-</ul>
-</div>
-<div>
-<p><strong>Text</strong></p>
-<ul>
-<li>Words/tokens as features</li>
-<li>Variable length sequences</li>
-<li>Example: Reviews, documents</li>
-</ul>
-<p><strong>Time Series</strong></p>
-<ul>
-<li>Ordered by time</li>
-<li>Temporal patterns matter</li>
-<li>Example: Stock prices, weather</li>
-</ul>
-</div>
-</div>
-</section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="21" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="21" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="47">
-<h1 id="how-much-data-do-you-need">How Much Data Do You Need?</h1>
-<p><strong>Rule of thumb:</strong></p>
-<ul>
-<li>Simple models: 100s of examples</li>
-<li>Complex models: 1000s-10000s of examples</li>
-<li>Deep learning: 100000s+ examples</li>
-</ul>
-<div class="insight">
-More data almost always helps, but quality matters more than quantity!
-</div>
-</section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="22" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="22" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="47">
-<h1 id="data-quality-issues">Data Quality Issues</h1>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="31" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="31" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="77">
+<h1 id="one-hot-encoding-example">One-Hot Encoding Example</h1>
+<p><strong>Problem:</strong> Models need numbers, but &quot;Red&quot; isn't a number!</p>
+<p><strong>Solution:</strong> Create binary columns for each category</p>
 <table>
 <thead>
 <tr>
-<th>Problem</th>
-<th>What It Means</th>
-<th>Impact</th>
+<th>Color</th>
+<th>is_Red</th>
+<th>is_Blue</th>
+<th>is_Green</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>Missing values</strong></td>
-<td>Empty cells in data</td>
-<td>Model can't learn from incomplete examples</td>
+<td>Red</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
 </tr>
 <tr>
-<td><strong>Outliers</strong></td>
-<td>Extreme unusual values</td>
-<td>Can skew model predictions</td>
+<td>Blue</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
 </tr>
 <tr>
-<td><strong>Noise</strong></td>
-<td>Random errors in data</td>
-<td>Harder to find true patterns</td>
+<td>Green</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
 </tr>
 <tr>
-<td><strong>Imbalanced classes</strong></td>
-<td>99% one class, 1% other</td>
-<td>Model ignores rare class</td>
-</tr>
-<tr>
-<td><strong>Duplicates</strong></td>
-<td>Same example multiple times</td>
-<td>Overfitting to duplicates</td>
+<td>Blue</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
 </tr>
 </tbody>
 </table>
-</section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="23" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="23" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="47">
-<h1 id="the-data-lifecycle">The Data Lifecycle</h1>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>1. COLLECT     → Gather raw data from sources
-2. CLEAN       → Handle missing values, fix errors
-3. EXPLORE     → Understand patterns, visualize
-4. TRANSFORM   → Scale, encode, engineer features
-5. SPLIT       → Separate into train/test sets
-6. USE         → Feed into ML model
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-python">pd.get_dummies(df[<span class="hljs-string">&#x27;color&#x27;</span>])  <span class="hljs-comment"># Does this automatically!</span>
 </code></pre>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="24" data-paginate="true" data-class="section-divider" data-theme="iitgn-modern" lang="en-IN" class="section-divider" data-marpit-pagination="24" style="--paginate:true;--class:section-divider;--theme:iitgn-modern;" data-marpit-pagination-total="47">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="32" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="32" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="77">
+<h1 id="labels-the-outputs">Labels: The Outputs</h1>
+<p><strong>Label = What we want to predict</strong></p>
+<table>
+<thead>
+<tr>
+<th>Supervised Task</th>
+<th>Label Type</th>
+<th>Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Binary classification</td>
+<td>0 or 1</td>
+<td>spam/not spam</td>
+</tr>
+<tr>
+<td>Multi-class</td>
+<td>Integer (0 to K-1)</td>
+<td>digit (0-9)</td>
+</tr>
+<tr>
+<td>Regression</td>
+<td>Float</td>
+<td>price ($)</td>
+</tr>
+<tr>
+<td>Multi-label</td>
+<td>Binary vector</td>
+<td>[action, comedy, drama]</td>
+</tr>
+</tbody>
+</table>
+<div class="warning">
+Unsupervised learning has NO labels! That's what makes it "unsupervised."
+</div>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="33" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="33" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="77">
+<h1 id="types-of-data-structures">Types of Data Structures</h1>
+<p><img src="diagrams/svg/data_types.svg" alt="center" style="width:900px;" /></p>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="34" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="34" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="77">
+<h1 id="tabular-data-most-common">Tabular Data (Most Common)</h1>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-python"><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
+
+df = pd.DataFrame({
+    <span class="hljs-string">&#x27;sqft&#x27;</span>: [<span class="hljs-number">1500</span>, <span class="hljs-number">2000</span>, <span class="hljs-number">1200</span>],
+    <span class="hljs-string">&#x27;beds&#x27;</span>: [<span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">2</span>],
+    <span class="hljs-string">&#x27;price&#x27;</span>: [<span class="hljs-number">300000</span>, <span class="hljs-number">450000</span>, <span class="hljs-number">200000</span>]
+})
+
+<span class="hljs-comment">#    sqft  beds   price</span>
+<span class="hljs-comment"># 0  1500     3  300000</span>
+<span class="hljs-comment"># 1  2000     4  450000</span>
+<span class="hljs-comment"># 2  1200     2  200000</span>
+
+X = df[[<span class="hljs-string">&#x27;sqft&#x27;</span>, <span class="hljs-string">&#x27;beds&#x27;</span>]]  <span class="hljs-comment"># Features</span>
+y = df[<span class="hljs-string">&#x27;price&#x27;</span>]            <span class="hljs-comment"># Labels</span>
+</code></pre>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="35" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="35" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="77">
+<h1 id="image-data">Image Data</h1>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+
+<span class="hljs-comment"># Grayscale image: Height × Width</span>
+mnist_digit = np.zeros((<span class="hljs-number">28</span>, <span class="hljs-number">28</span>))  <span class="hljs-comment"># 784 pixels</span>
+
+<span class="hljs-comment"># Color image: Height × Width × 3 (RGB)</span>
+photo = np.zeros((<span class="hljs-number">224</span>, <span class="hljs-number">224</span>, <span class="hljs-number">3</span>))   <span class="hljs-comment"># 150,528 values</span>
+
+<span class="hljs-comment"># Batch of images: Batch × Height × Width × Channels</span>
+batch = np.zeros((<span class="hljs-number">32</span>, <span class="hljs-number">224</span>, <span class="hljs-number">224</span>, <span class="hljs-number">3</span>))  <span class="hljs-comment"># 32 images</span>
+</code></pre>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code>┌─────────────────────────┐
+│ 0   0   0   23  155  0  │
+│ 0   0   89  254 254  0  │  ← Each cell = pixel brightness
+│ 0   0   155 254 178  0  │    (0 = black, 255 = white)
+│ ...                     │
+└─────────────────────────┘
+</code></pre>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="36" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="36" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="77">
+<h1 id="text-data">Text Data</h1>
+<p><strong>Raw text needs preprocessing:</strong></p>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-python">text = <span class="hljs-string">&quot;I love this movie! It&#x27;s great.&quot;</span>
+
+<span class="hljs-comment"># Step 1: Tokenize (split into words/pieces)</span>
+tokens = [<span class="hljs-string">&quot;I&quot;</span>, <span class="hljs-string">&quot;love&quot;</span>, <span class="hljs-string">&quot;this&quot;</span>, <span class="hljs-string">&quot;movie&quot;</span>, <span class="hljs-string">&quot;!&quot;</span>, <span class="hljs-string">&quot;It&quot;</span>, <span class="hljs-string">&quot;&#x27;s&quot;</span>, <span class="hljs-string">&quot;great&quot;</span>, <span class="hljs-string">&quot;.&quot;</span>]
+
+<span class="hljs-comment"># Step 2: Convert to numbers (vocabulary index)</span>
+indices = [<span class="hljs-number">23</span>, <span class="hljs-number">156</span>, <span class="hljs-number">45</span>, <span class="hljs-number">892</span>, <span class="hljs-number">2</span>, <span class="hljs-number">56</span>, <span class="hljs-number">78</span>, <span class="hljs-number">234</span>, <span class="hljs-number">3</span>]
+
+<span class="hljs-comment"># Step 3: (Optional) Convert to embeddings</span>
+embeddings = model.embed(indices)  <span class="hljs-comment"># Shape: (9, 768)</span>
+</code></pre>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="37" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="37" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="77">
+<h1 id="time-series-data">Time Series Data</h1>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-python"><span class="hljs-comment"># Stock prices over time</span>
+dates = pd.date_range(<span class="hljs-string">&#x27;2024-01-01&#x27;</span>, periods=<span class="hljs-number">100</span>)
+prices = [<span class="hljs-number">100.0</span>, <span class="hljs-number">101.5</span>, <span class="hljs-number">99.8</span>, <span class="hljs-number">102.3</span>, ...]  <span class="hljs-comment"># 100 values</span>
+
+<span class="hljs-comment"># Key characteristic: ORDER MATTERS!</span>
+<span class="hljs-comment"># Shuffling destroys the patterns</span>
+</code></pre>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code>Price
+  │    ╱╲
+  │   ╱  ╲  ╱╲
+  │  ╱    ╲╱  ╲
+  │ ╱          ╲
+  └──────────────────► Time
+    t1  t2  t3  t4
+</code></pre>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="38" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="38" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="77">
+<h1 id="how-much-data-do-you-need">How Much Data Do You Need?</h1>
+<p><img src="diagrams/svg/data_requirements.svg" alt="center" style="width:900px;" /></p>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="39" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="39" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="77">
+<h1 id="the-data-scaling-laws">The Data Scaling Laws</h1>
+<table>
+<thead>
+<tr>
+<th>Model Complexity</th>
+<th>Minimum Data</th>
+<th>Sweet Spot</th>
+<th>Diminishing Returns</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Linear Regression</td>
+<td>50</td>
+<td>500</td>
+<td>5,000</td>
+</tr>
+<tr>
+<td>Decision Tree</td>
+<td>100</td>
+<td>1,000</td>
+<td>10,000</td>
+</tr>
+<tr>
+<td>Random Forest</td>
+<td>500</td>
+<td>5,000</td>
+<td>50,000</td>
+</tr>
+<tr>
+<td>Neural Network (small)</td>
+<td>1,000</td>
+<td>10,000</td>
+<td>100,000</td>
+</tr>
+<tr>
+<td>Deep Learning</td>
+<td>10,000</td>
+<td>100,000</td>
+<td>1,000,000+</td>
+</tr>
+<tr>
+<td>LLMs</td>
+<td>1B tokens</td>
+<td>1T tokens</td>
+<td>10T+ tokens</td>
+</tr>
+</tbody>
+</table>
+<div class="insight">
+More data almost always helps, but there are diminishing returns.
+Quality &gt; Quantity!
+</div>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="40" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="40" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="77">
+<h1 id="data-quality-issues">Data Quality Issues</h1>
+<p><img src="diagrams/svg/data_quality_issues.svg" alt="center" style="width:900px;" /></p>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="41" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="41" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="77">
+<h1 id="missing-values">Missing Values</h1>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-python"><span class="hljs-comment"># Original data</span>
+df = pd.DataFrame({
+    <span class="hljs-string">&#x27;age&#x27;</span>: [<span class="hljs-number">25</span>, <span class="hljs-literal">None</span>, <span class="hljs-number">35</span>, <span class="hljs-number">42</span>, <span class="hljs-literal">None</span>],
+    <span class="hljs-string">&#x27;salary&#x27;</span>: [<span class="hljs-number">50000</span>, <span class="hljs-number">60000</span>, <span class="hljs-literal">None</span>, <span class="hljs-number">80000</span>, <span class="hljs-number">55000</span>]
+})
+
+<span class="hljs-comment"># Option 1: Drop rows with missing values</span>
+df.dropna()  <span class="hljs-comment"># Lose 3 rows!</span>
+
+<span class="hljs-comment"># Option 2: Fill with mean/median</span>
+df[<span class="hljs-string">&#x27;age&#x27;</span>].fillna(df[<span class="hljs-string">&#x27;age&#x27;</span>].mean())  <span class="hljs-comment"># Fill with 34</span>
+
+<span class="hljs-comment"># Option 3: Fill with mode (categorical)</span>
+df[<span class="hljs-string">&#x27;color&#x27;</span>].fillna(df[<span class="hljs-string">&#x27;color&#x27;</span>].mode()[<span class="hljs-number">0</span>])
+</code></pre>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="42" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="42" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="77">
+<h1 id="outliers">Outliers</h1>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code>Normal distribution:      With outlier:
+     ╭───────╮                ╭───────╮
+    ╱         ╲              ╱         ╲              •
+   ╱           ╲            ╱           ╲           (outlier)
+  ╱             ╲          ╱             ╲
+ ╱               ╲        ╱               ╲
+────────────────────     ────────────────────────────────
+  μ = 50                   μ = 50        outlier = 500
+
+Mean without outlier: 50
+Mean with outlier: 95  ← Heavily skewed!
+</code></pre>
+<p><strong>Detection:</strong> Z-score &gt; 3, IQR method, visual inspection</p>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="43" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="43" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="77">
+<h1 id="class-imbalance">Class Imbalance</h1>
+<p><strong>Scenario:</strong> Fraud detection (1% fraud, 99% legitimate)</p>
+<table>
+<thead>
+<tr>
+<th>Approach</th>
+<th>Model Prediction</th>
+<th>Accuracy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Naive model</td>
+<td>&quot;All legitimate&quot;</td>
+<td>99%!</td>
+</tr>
+<tr>
+<td>Smart model</td>
+<td>Tries to detect</td>
+<td>97%</td>
+</tr>
+</tbody>
+</table>
+<p><strong>The 99% model is USELESS!</strong> It never detects fraud.</p>
+<p><strong>Solutions:</strong></p>
+<ul>
+<li>Oversample minority class (SMOTE)</li>
+<li>Undersample majority class</li>
+<li>Use class weights</li>
+<li>Different metrics (precision, recall, F1)</li>
+</ul>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="44" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="44" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="77">
+<h1 id="the-data-lifecycle">The Data Lifecycle</h1>
+<p><img src="diagrams/svg/data_lifecycle.svg" alt="center" style="width:950px;" /></p>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="45" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="45" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="77">
+<h1 id="data-lifecycle-in-code">Data Lifecycle in Code</h1>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-python"><span class="hljs-comment"># 1. COLLECT</span>
+df = pd.read_csv(<span class="hljs-string">&#x27;raw_data.csv&#x27;</span>)
+
+<span class="hljs-comment"># 2. CLEAN</span>
+df = df.dropna()  <span class="hljs-comment"># Handle missing</span>
+df = df[df[<span class="hljs-string">&#x27;age&#x27;</span>] &lt; <span class="hljs-number">120</span>]  <span class="hljs-comment"># Remove outliers</span>
+
+<span class="hljs-comment"># 3. EXPLORE</span>
+df.describe()  <span class="hljs-comment"># Statistics</span>
+df.hist()  <span class="hljs-comment"># Visualize</span>
+
+<span class="hljs-comment"># 4. TRANSFORM</span>
+df[<span class="hljs-string">&#x27;log_price&#x27;</span>] = np.log(df[<span class="hljs-string">&#x27;price&#x27;</span>])  <span class="hljs-comment"># Transform</span>
+X = pd.get_dummies(df[features])  <span class="hljs-comment"># Encode</span>
+
+<span class="hljs-comment"># 5. SPLIT</span>
+X_train, X_test, y_train, y_test = train_test_split(X, y)
+
+<span class="hljs-comment"># 6. USE</span>
+model.fit(X_train, y_train)
+</code></pre>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="46" data-paginate="true" data-class="section-divider" data-theme="iitgn-modern" lang="en-IN" class="section-divider" data-marpit-pagination="46" style="--paginate:true;--class:section-divider;--theme:iitgn-modern;" data-marpit-pagination-total="77">
 <h1 id="part-3-traintest-split">Part 3: Train/Test Split</h1>
 <h2 id="the-most-important-concept">The Most Important Concept</h2>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="25" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="25" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="47">
-<h1 id="the-problem-with-memorization">The Problem with Memorization</h1>
-<p>Imagine studying for an exam:</p>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="47" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="47" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="77">
+<h1 id="the-exam-analogy">The Exam Analogy</h1>
+<p><img src="diagrams/svg/exam_analogy.svg" alt="center" style="width:900px;" /></p>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="48" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="48" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="77">
+<h1 id="two-study-strategies">Two Study Strategies</h1>
 <div class="columns">
 <div>
-<p><strong>Strategy A: Memorize answers</strong></p>
-<ul>
-<li>Learn exact answers to practice questions</li>
-<li>Fail on any new question</li>
-</ul>
+<h3 id="strategy-a-memorize">Strategy A: Memorize</h3>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code>Q: &quot;What is 2+3?&quot;
+A: &quot;5&quot; (memorized)
+
+Q: &quot;What is 2+4?&quot;
+A: &quot;???&quot; (never seen!)
+</code></pre>
+<p><strong>Result:</strong> Fails on new questions</p>
 </div>
 <div>
-<p><strong>Strategy B: Learn concepts</strong></p>
-<ul>
-<li>Understand underlying principles</li>
-<li>Apply to any question</li>
-</ul>
+<h3 id="strategy-b-learn">Strategy B: Learn</h3>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code>Q: &quot;What is 2+3?&quot;
+A: &quot;5&quot; (understands addition)
+
+Q: &quot;What is 2+4?&quot;
+A: &quot;6&quot; (applies principle)
+</code></pre>
+<p><strong>Result:</strong> Works on any question</p>
 </div>
 </div>
 <div class="insight">
-We want our ML models to be like Strategy B — <strong>generalize</strong>, not memorize!
+We want ML models to LEARN, not MEMORIZE!
 </div>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="26" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="26" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="47">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="49" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="49" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="77">
 <h1 id="what-is-overfitting">What is Overfitting?</h1>
-<p><strong>Overfitting</strong> = Model memorizes training data instead of learning patterns</p>
+<p><img src="diagrams/svg/overfitting_visual.svg" alt="center" style="width:900px;" /></p>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="50" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="50" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="77">
+<h1 id="overfitting-in-detail">Overfitting in Detail</h1>
+<p><strong>Definition:</strong> Model performs well on training data but poorly on new data</p>
 <table>
 <thead>
 <tr>
-<th>Training Data</th>
-<th>Test (New) Data</th>
+<th>Metric</th>
+<th>Overfitting</th>
+<th>Good Fit</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>99% accuracy</td>
-<td>60% accuracy</td>
+<td>Training Accuracy</td>
+<td>99%</td>
+<td>92%</td>
+</tr>
+<tr>
+<td>Test Accuracy</td>
+<td>60%</td>
+<td>90%</td>
+</tr>
+<tr>
+<td>Gap</td>
+<td><strong>39%</strong></td>
+<td>2%</td>
 </tr>
 </tbody>
 </table>
-<p>The model learned the noise, not the signal!</p>
+<p><strong>The model memorized the training data!</strong></p>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="27" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="27" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="47">
-<h1 id="how-do-we-detect-overfitting">How Do We Detect Overfitting?</h1>
-<p><strong>Solution:</strong> Hold out some data the model never sees during training</p>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-python"><span class="hljs-keyword">from</span> sklearn.model_selection <span class="hljs-keyword">import</span> train_test_split
-
-<span class="hljs-comment"># Split: 80% train, 20% test</span>
-X_train, X_test, y_train, y_test = train_test_split(
-    X, y, test_size=<span class="hljs-number">0.2</span>, random_state=<span class="hljs-number">42</span>
-)
-</code></pre>
-</section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="28" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="28" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="47">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="51" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="51" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="77">
 <h1 id="the-traintest-split">The Train/Test Split</h1>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>┌─────────────────────────────────────────┐
-│           ALL YOUR DATA                  │
-├─────────────────────────────┬───────────┤
-│      Training Set (80%)     │ Test (20%)│
-│   Model learns from this    │ Evaluate  │
-└─────────────────────────────┴───────────┘
+<p><img src="diagrams/svg/train_test_split.svg" alt="center" style="width:900px;" /></p>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="52" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="52" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="77">
+<h1 id="why-split-works">Why Split Works</h1>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code>┌───────────────────────────────────────────────────────────────┐
+│                         THE RULES                             │
+├───────────────────────────────────────────────────────────────┤
+│                                                               │
+│  1. Model trains ONLY on training data                        │
+│                                                               │
+│  2. Model NEVER sees test data during training                │
+│                                                               │
+│  3. After training, evaluate on test data                     │
+│                                                               │
+│  4. Test performance = Expected real-world performance        │
+│                                                               │
+└───────────────────────────────────────────────────────────────┘
 </code></pre>
-<p><strong>Training set:</strong> Model learns patterns<br />
-<strong>Test set:</strong> We evaluate if it generalized</p>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="29" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="29" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="47">
-<h1 id="why-this-works">Why This Works</h1>
-<ol>
-<li>Model trains ONLY on training data</li>
-<li>Model has NEVER seen test data</li>
-<li>Good performance on test = model generalized</li>
-<li>Bad performance on test = model overfit</li>
-</ol>
-<div class="insight">
-The test set simulates "real world" data the model will encounter later.
-</div>
-</section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="30" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="30" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="47">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="53" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="53" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="77">
 <h1 id="the-golden-rule">The Golden Rule</h1>
 <div class="insight">
-<p><strong>NEVER use test data for training or model selection!</strong></p>
+<h1 id="never-peek-at-test-data">NEVER PEEK AT TEST DATA!</h1>
 </div>
-<p>If you &quot;peek&quot; at test data:</p>
+<p>If you use test data for:</p>
 <ul>
-<li>You'll unconsciously tune to it</li>
-<li>Your accuracy estimate will be wrong</li>
-<li>Model will fail in production</li>
+<li>Choosing which model to use → <strong>Data leakage</strong></li>
+<li>Tuning hyperparameters → <strong>Data leakage</strong></li>
+<li>Feature selection → <strong>Data leakage</strong></li>
 </ul>
+<p>Your accuracy estimate will be <strong>too optimistic</strong> and your model will <strong>fail in production</strong>.</p>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="31" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="31" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="47">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="54" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="54" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="77">
+<h1 id="traintest-split-in-code">Train/Test Split in Code</h1>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-python"><span class="hljs-keyword">from</span> sklearn.model_selection <span class="hljs-keyword">import</span> train_test_split
+
+<span class="hljs-comment"># The sacred split</span>
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y,
+    test_size=<span class="hljs-number">0.2</span>,      <span class="hljs-comment"># 20% for testing</span>
+    random_state=<span class="hljs-number">42</span>,    <span class="hljs-comment"># For reproducibility</span>
+    stratify=y          <span class="hljs-comment"># Keep class proportions (classification)</span>
+)
+
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Training samples: <span class="hljs-subst">{<span class="hljs-built_in">len</span>(X_train)}</span>&quot;</span>)  <span class="hljs-comment"># 800</span>
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Test samples: <span class="hljs-subst">{<span class="hljs-built_in">len</span>(X_test)}</span>&quot;</span>)       <span class="hljs-comment"># 200</span>
+
+<span class="hljs-comment"># NOW: Only touch X_train, y_train until final evaluation</span>
+</code></pre>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="55" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="55" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="77">
+<h1 id="choosing-split-ratio">Choosing Split Ratio</h1>
+<table>
+<thead>
+<tr>
+<th>Dataset Size</th>
+<th>Train %</th>
+<th>Test %</th>
+<th>Reasoning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>&lt; 1,000</td>
+<td>70%</td>
+<td>30%</td>
+<td>Need enough test samples</td>
+</tr>
+<tr>
+<td>1,000 - 10,000</td>
+<td>80%</td>
+<td>20%</td>
+<td>Standard split</td>
+</tr>
+<tr>
+<td>10,000 - 100,000</td>
+<td>90%</td>
+<td>10%</td>
+<td>Plenty of test data</td>
+</tr>
+<tr>
+<td>&gt; 100,000</td>
+<td>95%</td>
+<td>5%</td>
+<td>Even 5% is thousands</td>
+</tr>
+</tbody>
+</table>
+<div class="insight">
+With huge datasets, even a small percentage gives reliable estimates.
+</div>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="56" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="56" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="77">
+<h1 id="the-three-way-split">The Three-Way Split</h1>
+<p>For model selection, you need <strong>three</strong> sets:</p>
+<p><img src="diagrams/svg/three_way_split.svg" alt="center" style="width:900px;" /></p>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="57" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="57" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="77">
+<h1 id="three-way-split-explained">Three-Way Split Explained</h1>
+<table>
+<thead>
+<tr>
+<th>Set</th>
+<th>Purpose</th>
+<th>When Used</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Training</strong> (60%)</td>
+<td>Learn parameters</td>
+<td>During <code>model.fit()</code></td>
+</tr>
+<tr>
+<td><strong>Validation</strong> (20%)</td>
+<td>Tune hyperparameters</td>
+<td>Choosing model, settings</td>
+</tr>
+<tr>
+<td><strong>Test</strong> (20%)</td>
+<td>Final evaluation</td>
+<td>Once, at the very end</td>
+</tr>
+</tbody>
+</table>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-python"><span class="hljs-comment"># First split: separate test</span>
+X_temp, X_test, y_temp, y_test = train_test_split(X, y, test_size=<span class="hljs-number">0.2</span>)
+
+<span class="hljs-comment"># Second split: separate validation</span>
+X_train, X_val, y_train, y_val = train_test_split(X_temp, y_temp, test_size=<span class="hljs-number">0.25</span>)
+<span class="hljs-comment"># 0.25 of 0.8 = 0.2 of total</span>
+</code></pre>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="58" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="58" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="77">
 <h1 id="common-mistakes">Common Mistakes</h1>
 <table>
 <thead>
 <tr>
 <th>Mistake</th>
 <th>Why It's Bad</th>
+<th>Fix</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>Training on all data</td>
 <td>Can't detect overfitting</td>
+<td>Always split first</td>
 </tr>
 <tr>
-<td>Looking at test data early</td>
-<td>Contaminates your estimate</td>
+<td>Peeking at test data</td>
+<td>Optimistic estimates</td>
+<td>Lock away test data</td>
 </tr>
 <tr>
-<td>Using test data to tune hyperparameters</td>
-<td>Same as training on it</td>
+<td>Tuning on test</td>
+<td>Indirect training</td>
+<td>Use validation set</td>
 </tr>
 <tr>
 <td>Small test set</td>
-<td>Unreliable accuracy estimate</td>
+<td>High variance</td>
+<td>Use at least 20%</td>
+</tr>
+<tr>
+<td>No random state</td>
+<td>Non-reproducible</td>
+<td>Set <code>random_state=42</code></td>
+</tr>
+<tr>
+<td>Data leakage</td>
+<td>False confidence</td>
+<td>Check processing order</td>
 </tr>
 </tbody>
 </table>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="32" data-paginate="true" data-class="section-divider" data-theme="iitgn-modern" lang="en-IN" class="section-divider" data-marpit-pagination="32" style="--paginate:true;--class:section-divider;--theme:iitgn-modern;" data-marpit-pagination-total="47">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="59" data-paginate="true" data-class="section-divider" data-theme="iitgn-modern" lang="en-IN" class="section-divider" data-marpit-pagination="59" style="--paginate:true;--class:section-divider;--theme:iitgn-modern;" data-marpit-pagination-total="77">
 <h1 id="part-4-the-ml-recipe">Part 4: The ML Recipe</h1>
 <h2 id="putting-it-all-together">Putting It All Together</h2>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="33" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="33" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="47">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="60" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="60" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="77">
 <h1 id="the-universal-ml-recipe">The Universal ML Recipe</h1>
-<p>Every ML project follows these steps:</p>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>1. GET DATA       → Collect examples
-2. PREPARE DATA   → Clean, split into train/test
-3. CHOOSE MODEL   → Pick an algorithm
-4. TRAIN          → Model learns from training data
-5. EVALUATE       → Test on held-out data
-6. DEPLOY         → Use in the real world
-</code></pre>
+<p><img src="diagrams/svg/ml_recipe.svg" alt="center" style="width:950px;" /></p>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="34" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="34" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="47">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="61" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="61" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="77">
 <h1 id="step-1-get-data">Step 1: Get Data</h1>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-python"><span class="hljs-comment"># Your data: features (X) and labels (y)</span>
-X = [[<span class="hljs-number">1500</span>, <span class="hljs-number">3</span>, <span class="hljs-number">2</span>],    <span class="hljs-comment"># House 1: sqft, beds, baths</span>
-     [<span class="hljs-number">2000</span>, <span class="hljs-number">4</span>, <span class="hljs-number">3</span>],    <span class="hljs-comment"># House 2</span>
-     [<span class="hljs-number">1200</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>]]    <span class="hljs-comment"># House 3</span>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-python"><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
+<span class="hljs-keyword">from</span> sklearn.datasets <span class="hljs-keyword">import</span> load_iris
 
-y = [<span class="hljs-number">300000</span>, <span class="hljs-number">450000</span>, <span class="hljs-number">200000</span>]  <span class="hljs-comment"># Prices (labels)</span>
+<span class="hljs-comment"># Option 1: Load from file</span>
+df = pd.read_csv(<span class="hljs-string">&#x27;houses.csv&#x27;</span>)
+X = df[[<span class="hljs-string">&#x27;sqft&#x27;</span>, <span class="hljs-string">&#x27;beds&#x27;</span>, <span class="hljs-string">&#x27;baths&#x27;</span>]]
+y = df[<span class="hljs-string">&#x27;price&#x27;</span>]
+
+<span class="hljs-comment"># Option 2: Use sklearn datasets</span>
+iris = load_iris()
+X, y = iris.data, iris.target
+
+<span class="hljs-comment"># Option 3: Create manually</span>
+X = [[<span class="hljs-number">1500</span>, <span class="hljs-number">3</span>, <span class="hljs-number">2</span>], [<span class="hljs-number">2000</span>, <span class="hljs-number">4</span>, <span class="hljs-number">3</span>], [<span class="hljs-number">1200</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>]]
+y = [<span class="hljs-number">300000</span>, <span class="hljs-number">450000</span>, <span class="hljs-number">200000</span>]
 </code></pre>
-<p><strong>More data = better model</strong> (usually!)</p>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="35" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="35" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="47">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="62" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="62" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="77">
 <h1 id="step-2-prepare-data">Step 2: Prepare Data</h1>
 <pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-python"><span class="hljs-keyword">from</span> sklearn.model_selection <span class="hljs-keyword">import</span> train_test_split
+<span class="hljs-keyword">from</span> sklearn.preprocessing <span class="hljs-keyword">import</span> StandardScaler
 
-<span class="hljs-comment"># Split into training and testing sets</span>
+<span class="hljs-comment"># 1. Split first! (before any processing)</span>
 X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=<span class="hljs-number">0.2</span>, random_state=<span class="hljs-number">42</span>
 )
+
+<span class="hljs-comment"># 2. Scale features (fit ONLY on train!)</span>
+scaler = StandardScaler()
+X_train_scaled = scaler.fit_transform(X_train)  <span class="hljs-comment"># fit + transform</span>
+X_test_scaled = scaler.transform(X_test)        <span class="hljs-comment"># only transform!</span>
 </code></pre>
-<p><strong>Why split?</strong></p>
-<ul>
-<li>Train on 80%, test on 20%</li>
-<li>Simulate &quot;unseen&quot; data</li>
-<li>Detect overfitting</li>
-</ul>
+<div class="warning">
+Always fit scaler on training data only! Otherwise: data leakage.
+</div>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="36" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="36" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="47">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="63" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="63" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="77">
 <h1 id="step-3-choose-a-model">Step 3: Choose a Model</h1>
+<p><img src="diagrams/svg/model_selection_guide.svg" alt="center" style="width:900px;" /></p>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="64" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="64" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="77">
+<h1 id="model-complexity-ladder">Model Complexity Ladder</h1>
 <table>
 <thead>
 <tr>
-<th>Task</th>
-<th>Simple Models</th>
-<th>Complex Models</th>
+<th>Model</th>
+<th>Complexity</th>
+<th>Interpretability</th>
+<th>When to Use</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Classification</td>
-<td>Logistic Regression, Decision Tree</td>
-<td>Neural Network, Random Forest</td>
+<td>Linear/Logistic</td>
+<td><img class="emoji" draggable="false" alt="⭐" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2b50.svg" data-marp-twemoji=""/></td>
+<td>High</td>
+<td>Start here, baseline</td>
 </tr>
 <tr>
-<td>Regression</td>
-<td>Linear Regression</td>
-<td>XGBoost, Neural Network</td>
+<td>Decision Tree</td>
+<td><img class="emoji" draggable="false" alt="⭐" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2b50.svg" data-marp-twemoji=""/><img class="emoji" draggable="false" alt="⭐" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2b50.svg" data-marp-twemoji=""/></td>
+<td>High</td>
+<td>Need explanations</td>
 </tr>
 <tr>
-<td>Clustering</td>
-<td>K-Means</td>
-<td>DBSCAN, Hierarchical</td>
+<td>Random Forest</td>
+<td><img class="emoji" draggable="false" alt="⭐" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2b50.svg" data-marp-twemoji=""/><img class="emoji" draggable="false" alt="⭐" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2b50.svg" data-marp-twemoji=""/><img class="emoji" draggable="false" alt="⭐" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2b50.svg" data-marp-twemoji=""/></td>
+<td>Medium</td>
+<td>General purpose</td>
+</tr>
+<tr>
+<td>XGBoost</td>
+<td><img class="emoji" draggable="false" alt="⭐" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2b50.svg" data-marp-twemoji=""/><img class="emoji" draggable="false" alt="⭐" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2b50.svg" data-marp-twemoji=""/><img class="emoji" draggable="false" alt="⭐" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2b50.svg" data-marp-twemoji=""/><img class="emoji" draggable="false" alt="⭐" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2b50.svg" data-marp-twemoji=""/></td>
+<td>Low</td>
+<td>Competitions</td>
+</tr>
+<tr>
+<td>Neural Network</td>
+<td><img class="emoji" draggable="false" alt="⭐" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2b50.svg" data-marp-twemoji=""/><img class="emoji" draggable="false" alt="⭐" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2b50.svg" data-marp-twemoji=""/><img class="emoji" draggable="false" alt="⭐" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2b50.svg" data-marp-twemoji=""/><img class="emoji" draggable="false" alt="⭐" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2b50.svg" data-marp-twemoji=""/><img class="emoji" draggable="false" alt="⭐" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2b50.svg" data-marp-twemoji=""/></td>
+<td>Very Low</td>
+<td>Images, text, lots of data</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Start simple, add complexity only if needed!</strong></p>
-</section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="37" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="37" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="47">
-<h1 id="step-4-train-fit">Step 4: Train (Fit)</h1>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-python"><span class="hljs-keyword">from</span> sklearn.linear_model <span class="hljs-keyword">import</span> LinearRegression
-
-model = LinearRegression()
-model.fit(X_train, y_train)  <span class="hljs-comment"># Learn from data!</span>
-</code></pre>
-<p><strong>What happens inside:</strong></p>
-<ul>
-<li>Model finds patterns in training data</li>
-<li>Adjusts internal parameters to minimize error</li>
-<li>&quot;Learns&quot; the mapping from X to y</li>
-</ul>
-</section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="38" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="38" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="47">
-<h1 id="step-5-evaluate">Step 5: Evaluate</h1>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-python"><span class="hljs-comment"># Make predictions on test data</span>
-predictions = model.predict(X_test)
-
-<span class="hljs-comment"># Compare to actual values</span>
-<span class="hljs-keyword">from</span> sklearn.metrics <span class="hljs-keyword">import</span> mean_squared_error
-error = mean_squared_error(y_test, predictions)
-<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Average error: $<span class="hljs-subst">{error:<span class="hljs-number">.0</span>f}</span>&quot;</span>)
-</code></pre>
-<p><strong>Key question:</strong> How well does it work on data it <em>hasn't seen</em>?</p>
-</section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="39" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="39" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="47">
-<h1 id="step-6-deploy">Step 6: Deploy</h1>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-python"><span class="hljs-comment"># New house comes in</span>
-new_house = [[<span class="hljs-number">1800</span>, <span class="hljs-number">3</span>, <span class="hljs-number">2</span>]]  <span class="hljs-comment"># sqft, beds, baths</span>
-
-<span class="hljs-comment"># Predict!</span>
-predicted_price = model.predict(new_house)
-<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Predicted price: $<span class="hljs-subst">{predicted_price[<span class="hljs-number">0</span>]:<span class="hljs-number">.0</span>f}</span>&quot;</span>)
-</code></pre>
-<p><strong>The model is now useful in the real world!</strong></p>
-</section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="40" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="40" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="47">
-<h1 id="the-sklearn-api-pattern">The sklearn API Pattern</h1>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-python"><span class="hljs-comment"># This pattern works for 50+ different algorithms!</span>
-
-<span class="hljs-keyword">from</span> sklearn.some_module <span class="hljs-keyword">import</span> SomeModel
-
-model = SomeModel()           <span class="hljs-comment"># 1. Create</span>
-model.fit(X_train, y_train)   <span class="hljs-comment"># 2. Train</span>
-predictions = model.predict(X_test)  <span class="hljs-comment"># 3. Predict</span>
-score = model.score(X_test, y_test)  <span class="hljs-comment"># 4. Evaluate</span>
-</code></pre>
 <div class="insight">
-Learn this pattern once, use it everywhere!
+Always start simple! Only add complexity if needed.
 </div>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="41" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="41" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="47">
-<h1 id="quick-demo-classification">Quick Demo: Classification</h1>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-python"><span class="hljs-keyword">from</span> sklearn.datasets <span class="hljs-keyword">import</span> load_iris
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="65" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="65" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="77">
+<h1 id="step-4-train-fit">Step 4: Train (Fit)</h1>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-python"><span class="hljs-keyword">from</span> sklearn.linear_model <span class="hljs-keyword">import</span> LinearRegression
 <span class="hljs-keyword">from</span> sklearn.tree <span class="hljs-keyword">import</span> DecisionTreeClassifier
-<span class="hljs-keyword">from</span> sklearn.model_selection <span class="hljs-keyword">import</span> train_test_split
 
-<span class="hljs-comment"># Load data</span>
+<span class="hljs-comment"># For regression</span>
+reg_model = LinearRegression()
+reg_model.fit(X_train, y_train)
+
+<span class="hljs-comment"># For classification</span>
+clf_model = DecisionTreeClassifier(max_depth=<span class="hljs-number">5</span>)
+clf_model.fit(X_train, y_train)
+
+<span class="hljs-comment"># What happens inside:</span>
+<span class="hljs-comment"># 1. Model sees (X, y) pairs</span>
+<span class="hljs-comment"># 2. Adjusts internal parameters</span>
+<span class="hljs-comment"># 3. Minimizes prediction error</span>
+<span class="hljs-comment"># 4. Stores learned patterns</span>
+</code></pre>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="66" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="66" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="77">
+<h1 id="what-happens-during-training">What Happens During Training?</h1>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code>Iteration 1:  Predictions: [350K, 400K, 250K]
+              Actual:      [300K, 450K, 200K]
+              Error:       Large!
+              Action:      Adjust parameters ↓
+
+Iteration 2:  Predictions: [320K, 430K, 220K]
+              Actual:      [300K, 450K, 200K]
+              Error:       Smaller
+              Action:      Keep adjusting...
+
+...
+
+Iteration N:  Predictions: [305K, 445K, 198K]
+              Actual:      [300K, 450K, 200K]
+              Error:       Small enough!
+              Action:      Stop, save parameters
+</code></pre>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="67" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="67" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="77">
+<h1 id="step-5-evaluate">Step 5: Evaluate</h1>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-python"><span class="hljs-comment"># Make predictions on TEST data (never seen before!)</span>
+predictions = model.predict(X_test)
+
+<span class="hljs-comment"># Compare predictions to actual values</span>
+<span class="hljs-keyword">from</span> sklearn.metrics <span class="hljs-keyword">import</span> mean_squared_error, accuracy_score
+
+<span class="hljs-comment"># Regression</span>
+rmse = np.sqrt(mean_squared_error(y_test, predictions))
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;RMSE: $<span class="hljs-subst">{rmse:,<span class="hljs-number">.0</span>f}</span>&quot;</span>)  <span class="hljs-comment"># RMSE: $25,000</span>
+
+<span class="hljs-comment"># Classification</span>
+accuracy = accuracy_score(y_test, predictions)
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Accuracy: <span class="hljs-subst">{accuracy:<span class="hljs-number">.1</span>%}</span>&quot;</span>)  <span class="hljs-comment"># Accuracy: 94.5%</span>
+</code></pre>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="68" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="68" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="77">
+<h1 id="step-6-deploy">Step 6: Deploy</h1>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-python"><span class="hljs-keyword">import</span> joblib
+
+<span class="hljs-comment"># Save the trained model</span>
+joblib.dump(model, <span class="hljs-string">&#x27;house_price_model.pkl&#x27;</span>)
+joblib.dump(scaler, <span class="hljs-string">&#x27;scaler.pkl&#x27;</span>)
+
+<span class="hljs-comment"># Later, in production...</span>
+model = joblib.load(<span class="hljs-string">&#x27;house_price_model.pkl&#x27;</span>)
+scaler = joblib.load(<span class="hljs-string">&#x27;scaler.pkl&#x27;</span>)
+
+<span class="hljs-comment"># New house comes in</span>
+new_house = [[<span class="hljs-number">1800</span>, <span class="hljs-number">3</span>, <span class="hljs-number">2</span>]]  <span class="hljs-comment"># sqft, beds, baths</span>
+new_house_scaled = scaler.transform(new_house)
+predicted_price = model.predict(new_house_scaled)
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Predicted price: $<span class="hljs-subst">{predicted_price[<span class="hljs-number">0</span>]:,<span class="hljs-number">.0</span>f}</span>&quot;</span>)
+</code></pre>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="69" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="69" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="77">
+<h1 id="the-sklearn-api-pattern">The sklearn API Pattern</h1>
+<p><img src="diagrams/svg/sklearn_api.svg" alt="center" style="width:900px;" /></p>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="70" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="70" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="77">
+<h1 id="the-beauty-of-consistent-apis">The Beauty of Consistent APIs</h1>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-python"><span class="hljs-comment"># ALL sklearn models follow the same pattern!</span>
+
+<span class="hljs-comment"># Linear Regression</span>
+<span class="hljs-keyword">from</span> sklearn.linear_model <span class="hljs-keyword">import</span> LinearRegression
+model = LinearRegression()
+model.fit(X_train, y_train)
+model.predict(X_test)
+
+<span class="hljs-comment"># Random Forest</span>
+<span class="hljs-keyword">from</span> sklearn.ensemble <span class="hljs-keyword">import</span> RandomForestClassifier
+model = RandomForestClassifier()
+model.fit(X_train, y_train)
+model.predict(X_test)
+
+<span class="hljs-comment"># Neural Network</span>
+<span class="hljs-keyword">from</span> sklearn.neural_network <span class="hljs-keyword">import</span> MLPClassifier
+model = MLPClassifier()
+model.fit(X_train, y_train)
+model.predict(X_test)
+
+<span class="hljs-comment"># Same 3 methods: fit(), predict(), score()</span>
+</code></pre>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="71" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="71" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="77">
+<h1 id="complete-example-classification">Complete Example: Classification</h1>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-python"><span class="hljs-keyword">from</span> sklearn.datasets <span class="hljs-keyword">import</span> load_iris
+<span class="hljs-keyword">from</span> sklearn.model_selection <span class="hljs-keyword">import</span> train_test_split
+<span class="hljs-keyword">from</span> sklearn.tree <span class="hljs-keyword">import</span> DecisionTreeClassifier
+<span class="hljs-keyword">from</span> sklearn.metrics <span class="hljs-keyword">import</span> accuracy_score, classification_report
+
+<span class="hljs-comment"># 1. Load data</span>
 iris = load_iris()
 X, y = iris.data, iris.target
 
-<span class="hljs-comment"># Split</span>
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=<span class="hljs-number">0.2</span>)
+<span class="hljs-comment"># 2. Split</span>
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=<span class="hljs-number">0.2</span>, random_state=<span class="hljs-number">42</span>
+)
 
-<span class="hljs-comment"># Train</span>
-model = DecisionTreeClassifier()
+<span class="hljs-comment"># 3. Train</span>
+model = DecisionTreeClassifier(max_depth=<span class="hljs-number">3</span>)
 model.fit(X_train, y_train)
 
-<span class="hljs-comment"># Evaluate</span>
-accuracy = model.score(X_test, y_test)
-<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Accuracy: <span class="hljs-subst">{accuracy:<span class="hljs-number">.1</span>%}</span>&quot;</span>)  <span class="hljs-comment"># ~95-97%</span>
+<span class="hljs-comment"># 4. Evaluate</span>
+y_pred = model.predict(X_test)
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Accuracy: <span class="hljs-subst">{accuracy_score(y_test, y_pred):<span class="hljs-number">.1</span>%}</span>&quot;</span>)
+<span class="hljs-built_in">print</span>(classification_report(y_test, y_pred, target_names=iris.target_names))
 </code></pre>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="42" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="42" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="47">
-<h1 id="quick-demo-regression">Quick Demo: Regression</h1>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-python"><span class="hljs-keyword">from</span> sklearn.datasets <span class="hljs-keyword">import</span> load_diabetes
-<span class="hljs-keyword">from</span> sklearn.linear_model <span class="hljs-keyword">import</span> LinearRegression
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="72" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="72" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="77">
+<h1 id="complete-example-regression">Complete Example: Regression</h1>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-python"><span class="hljs-keyword">from</span> sklearn.datasets <span class="hljs-keyword">import</span> fetch_california_housing
 <span class="hljs-keyword">from</span> sklearn.model_selection <span class="hljs-keyword">import</span> train_test_split
+<span class="hljs-keyword">from</span> sklearn.linear_model <span class="hljs-keyword">import</span> LinearRegression
+<span class="hljs-keyword">from</span> sklearn.metrics <span class="hljs-keyword">import</span> mean_squared_error, r2_score
+<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
 
-<span class="hljs-comment"># Load data</span>
-diabetes = load_diabetes()
-X, y = diabetes.data, diabetes.target
+<span class="hljs-comment"># 1. Load data</span>
+housing = fetch_california_housing()
+X, y = housing.data, housing.target
 
-<span class="hljs-comment"># Split</span>
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=<span class="hljs-number">0.2</span>)
+<span class="hljs-comment"># 2. Split</span>
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=<span class="hljs-number">0.2</span>, random_state=<span class="hljs-number">42</span>
+)
 
-<span class="hljs-comment"># Train</span>
+<span class="hljs-comment"># 3. Train</span>
 model = LinearRegression()
 model.fit(X_train, y_train)
 
-<span class="hljs-comment"># Evaluate</span>
-r2 = model.score(X_test, y_test)
-<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;R² Score: <span class="hljs-subst">{r2:<span class="hljs-number">.3</span>f}</span>&quot;</span>)  <span class="hljs-comment"># ~0.4-0.5</span>
+<span class="hljs-comment"># 4. Evaluate</span>
+y_pred = model.predict(X_test)
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;RMSE: $<span class="hljs-subst">{np.sqrt(mean_squared_error(y_test, y_pred))*<span class="hljs-number">100000</span>:,<span class="hljs-number">.0</span>f}</span>&quot;</span>)
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;R² Score: <span class="hljs-subst">{r2_score(y_test, y_pred):<span class="hljs-number">.3</span>f}</span>&quot;</span>)
 </code></pre>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="43" data-paginate="true" data-class="section-divider" data-theme="iitgn-modern" lang="en-IN" class="section-divider" data-marpit-pagination="43" style="--paginate:true;--class:section-divider;--theme:iitgn-modern;" data-marpit-pagination-total="47">
-<h1 id="part-5-whats-next">Part 5: What's Next</h1>
-<h2 id="course-roadmap">Course Roadmap</h2>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="73" data-paginate="true" data-class="section-divider" data-theme="iitgn-modern" lang="en-IN" class="section-divider" data-marpit-pagination="73" style="--paginate:true;--class:section-divider;--theme:iitgn-modern;" data-marpit-pagination-total="77">
+<h1 id="part-5-course-roadmap">Part 5: Course Roadmap</h1>
+<h2 id="whats-coming-next">What's Coming Next</h2>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="44" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="44" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="47">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="74" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="74" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="77">
 <h1 id="your-journey-through-ai">Your Journey Through AI</h1>
 <table>
 <thead>
@@ -901,111 +1547,92 @@ r2 = model.score(X_test, y_test)
 <th>Week</th>
 <th>Topic</th>
 <th>Big Question</th>
+<th>You'll Learn</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><strong>1</strong></td>
-<td>Introduction (Videos)</td>
-<td>What can AI do today?</td>
+<td>Introduction</td>
+<td>What can AI do?</td>
+<td>Motivation, capabilities</td>
 </tr>
 <tr>
 <td><strong>2</strong></td>
 <td>Data Foundation</td>
-<td>What makes good data?</td>
+<td>What is ML?</td>
+<td>Framework, data, split</td>
 </tr>
 <tr>
 <td><strong>3</strong></td>
 <td>Supervised Learning</td>
-<td>How do we predict?</td>
+<td>How do algorithms work?</td>
+<td>LR, Trees, KNN</td>
 </tr>
 <tr>
 <td><strong>4</strong></td>
 <td>Model Selection</td>
-<td>How do we choose models?</td>
+<td>How to choose?</td>
+<td>CV, tuning, ensembles</td>
 </tr>
 <tr>
 <td><strong>5</strong></td>
 <td>Neural Networks</td>
-<td>What makes deep learning special?</td>
+<td>What is deep learning?</td>
+<td>Backprop, PyTorch</td>
 </tr>
 <tr>
 <td><strong>6</strong></td>
 <td>Computer Vision</td>
 <td>How do machines see?</td>
+<td>CNNs, YOLO</td>
 </tr>
 <tr>
 <td><strong>7</strong></td>
 <td>Language Models</td>
-<td>How do machines understand text?</td>
+<td>How do LLMs work?</td>
+<td>Transformers</td>
 </tr>
 <tr>
 <td><strong>8</strong></td>
 <td>Generative AI</td>
 <td>How do machines create?</td>
+<td>Diffusion, APIs</td>
 </tr>
 </tbody>
 </table>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="45" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="45" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="47">
-<h1 id="what-youll-build">What You'll Build</h1>
-<table>
-<thead>
-<tr>
-<th>Lab</th>
-<th>What You'll Create</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1-2</td>
-<td>Your first ML models with sklearn</td>
-</tr>
-<tr>
-<td>3</td>
-<td>PyTorch basics, simple neural network</td>
-</tr>
-<tr>
-<td>4-5</td>
-<td>Build a small language model from scratch</td>
-</tr>
-<tr>
-<td>6-7</td>
-<td>Object detection with YOLO</td>
-</tr>
-<tr>
-<td>8</td>
-<td>Fine-tune an LLM</td>
-</tr>
-</tbody>
-</table>
-<p><strong>By the end:</strong> You'll understand AND build AI systems!</p>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="75" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="75" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="77">
+<h1 id="skills-youll-build">Skills You'll Build</h1>
+<p><img src="diagrams/svg/skills_progression.svg" alt="center" style="width:900px;" /></p>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="46" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="46" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="47">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="76" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="76" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="77">
 <h1 id="key-takeaways">Key Takeaways</h1>
+<div class="columns">
+<div>
+<h3 id="framework">Framework</h3>
 <ol>
-<li>
-<p><strong>ML learns patterns from data</strong> — not explicit rules</p>
-</li>
-<li>
-<p><strong>Data = Features (X) + Labels (y)</strong></p>
-</li>
-<li>
-<p><strong>Train/Test split is essential</strong> — always hold out test data</p>
-</li>
-<li>
-<p><strong>The sklearn pattern:</strong></p>
-<ul>
-<li><code>model.fit(X_train, y_train)</code> → Train</li>
-<li><code>model.predict(X_test)</code> → Predict</li>
-</ul>
-</li>
-<li>
-<p><strong>Classification vs Regression:</strong> Category or Number?</p>
-</li>
+<li>ML learns from DATA</li>
+<li>Three paradigms: Supervised, Unsupervised, RL</li>
+<li>Classification vs Regression</li>
+</ol>
+</div>
+<div>
+<h3 id="data">Data</h3>
+<ol start="4">
+<li>Features (X) + Labels (y)</li>
+<li>Quality &gt; Quantity</li>
+<li>Train/Test split is SACRED</li>
+</ol>
+</div>
+</div>
+<h3 id="practice">Practice</h3>
+<ol start="7">
+<li>The sklearn pattern: <code>fit()</code> → <code>predict()</code> → <code>score()</code></li>
+<li>Start simple, add complexity only if needed</li>
 </ol>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="47" data-paginate="true" data-class="title-slide" data-theme="iitgn-modern" lang="en-IN" class="title-slide" data-marpit-pagination="47" style="--paginate:true;--class:title-slide;--theme:iitgn-modern;" data-marpit-pagination-total="47">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="77" data-paginate="true" data-class="title-slide" data-theme="iitgn-modern" lang="en-IN" class="title-slide" data-marpit-pagination="77" style="--paginate:true;--class:title-slide;--theme:iitgn-modern;" data-marpit-pagination-total="77">
 <h1 id="ready-to-build">Ready to Build!</h1>
 <h2 id="next-supervised-learning-deep-dive">Next: Supervised Learning Deep Dive</h2>
 <p><strong>Lab this week:</strong> Your first ML models with sklearn</p>

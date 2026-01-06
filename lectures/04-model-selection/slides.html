@@ -14,236 +14,531 @@
 <h2 id="choosing-tuning-and-combining-models">Choosing, Tuning, and Combining Models</h2>
 <p><strong>Nipun Batra</strong> | IIT Gandhinagar</p>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="2" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="2" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="50">
-<h1 id="the-story-so-far">The Story So Far</h1>
-<p>We know several algorithms:</p>
-<ul>
-<li>Linear/Logistic Regression</li>
-<li>Decision Trees</li>
-<li>K-Nearest Neighbors</li>
-</ul>
-<p><strong>But how do we choose?</strong> And can we do better?</p>
-</section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="3" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="3" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="50">
-<h1 id="todays-agenda">Today's Agenda</h1>
-<ol>
-<li><strong>Bias-Variance Tradeoff</strong> - Why models fail</li>
-<li><strong>Cross-Validation</strong> - Better evaluation</li>
-<li><strong>Hyperparameter Tuning</strong> - Finding the best settings</li>
-<li><strong>Ensemble Methods</strong> - Combining models</li>
-<li><strong>Unsupervised Learning</strong> - When there are no labels</li>
-</ol>
-</section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="4" data-paginate="true" data-class="section-divider" data-theme="iitgn-modern" lang="en-IN" class="section-divider" data-marpit-pagination="4" style="--paginate:true;--class:section-divider;--theme:iitgn-modern;" data-marpit-pagination-total="50">
-<h1 id="part-1-bias-variance-tradeoff">Part 1: Bias-Variance Tradeoff</h1>
-<h2 id="why-models-fail">Why Models Fail</h2>
-</section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="5" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="5" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="50">
-<h1 id="two-ways-to-be-wrong">Two Ways to Be Wrong</h1>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="2" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="2" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="76">
+<h1 id="learning-goals">Learning Goals</h1>
+<p>By the end of this lecture, you will:</p>
 <table>
 <thead>
 <tr>
+<th>Goal</th>
+<th>What You'll Learn</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Understand</strong></td>
+<td>Why models fail (bias vs variance)</td>
+</tr>
+<tr>
+<td><strong>Implement</strong></td>
+<td>Cross-validation for reliable evaluation</td>
+</tr>
+<tr>
+<td><strong>Tune</strong></td>
+<td>Hyperparameters with Grid/Random search</td>
+</tr>
+<tr>
+<td><strong>Build</strong></td>
+<td>Ensemble models (Random Forest, XGBoost)</td>
+</tr>
+<tr>
+<td><strong>Apply</strong></td>
+<td>Clustering when no labels exist</td>
+</tr>
+</tbody>
+</table>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="3" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="3" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="76">
+<h1 id="the-story-so-far">The Story So Far</h1>
+<p>We know several algorithms:</p>
+<table>
+<thead>
+<tr>
+<th>Algorithm</th>
 <th>Type</th>
-<th>The model...</th>
-<th>Example</th>
+<th>When to Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Linear Regression</td>
+<td>Regression</td>
+<td>Linear relationships</td>
+</tr>
+<tr>
+<td>Logistic Regression</td>
+<td>Classification</td>
+<td>Binary decisions</td>
+</tr>
+<tr>
+<td>Decision Trees</td>
+<td>Both</td>
+<td>Interpretable rules</td>
+</tr>
+<tr>
+<td>K-NN</td>
+<td>Both</td>
+<td>Similar items</td>
+</tr>
+</tbody>
+</table>
+<p><strong>But how do we choose? And can we do better?</strong></p>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="4" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="4" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="76">
+<h1 id="todays-questions">Today's Questions</h1>
+<ol>
+<li>Why does my model perform poorly on new data?</li>
+<li>How do I reliably compare models?</li>
+<li>How do I find the best settings for a model?</li>
+<li>Can I combine models to get better results?</li>
+<li>What if I don't have labels?</li>
+</ol>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="5" data-paginate="true" data-class="section-divider" data-theme="iitgn-modern" lang="en-IN" class="section-divider" data-marpit-pagination="5" style="--paginate:true;--class:section-divider;--theme:iitgn-modern;" data-marpit-pagination-total="76">
+<h1 id="part-1-bias-variance-tradeoff">Part 1: Bias-Variance Tradeoff</h1>
+<h2 id="the-fundamental-reason-models-fail">The Fundamental Reason Models Fail</h2>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="6" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="6" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="76">
+<h1 id="a-story-of-two-mistakes">A Story of Two Mistakes</h1>
+<p><strong>Imagine you're estimating someone's weight from their height.</strong></p>
+<table>
+<thead>
+<tr>
+<th>Mistake Type</th>
+<th>What Happened</th>
+<th>The Problem</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><strong>High Bias</strong></td>
-<td>Is too simple</td>
-<td>A horizontal line for curved data</td>
+<td>Used a flat line (everyone = 70 kg)</td>
+<td>Too simple</td>
 </tr>
 <tr>
 <td><strong>High Variance</strong></td>
-<td>Is too complex</td>
-<td>Wiggly line that hits every point</td>
+<td>Memorized every person exactly</td>
+<td>Too complex</td>
 </tr>
 </tbody>
 </table>
+<div class="insight">
+<p>Every ML mistake is one of these two types!</p>
+</div>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="6" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="6" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="50">
-<h1 id="underfitting-high-bias">Underfitting (High Bias)</h1>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>    Data:  o  o  o  o  o
-                        o
-               o
-          o
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="7" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="7" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="76">
+<h1 id="underfitting-the-too-simple-model">Underfitting: The Too-Simple Model</h1>
+<p><strong>Definition:</strong> Model is too simple to capture the pattern.</p>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code>Reality: Weight increases with height
 
-    Model: ─────────────── (horizontal line)
+Height →    ●      ●
+         ●    ●        ●
+       ●        ●
+                    ●
 
-    Too simple! Misses the pattern.
+Your Model: ─────────────── (flat line: always predict average)
+
+Problem: Doesn't capture the upward trend!
 </code></pre>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="7" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="7" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="50">
-<h1 id="overfitting-high-variance">Overfitting (High Variance)</h1>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>    Data:  o  o  o  o  o
-                        o
-               o
-          o
-
-    Model: ∼∼∼∿∼∿∼∿∼∼ (wiggly, hits every point)
-
-    Too complex! Memorizes noise.
-</code></pre>
-</section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="8" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="8" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="50">
-<h1 id="the-goldilocks-zone">The Goldilocks Zone</h1>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>    Data:  o  o  o  o  o
-                        o
-               o
-          o
-
-    Model: ────────╱ (just right!)
-
-    Captures the pattern, not the noise.
-</code></pre>
-</section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="9" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="9" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="50">
-<h1 id="bias-vs-variance-mathematically">Bias vs Variance Mathematically</h1>
-<p><mjx-container class="MathJax" jax="SVG" display="true" style="margin: 0;"><svg style="vertical-align: -0.186ex; display: block; width: 100%; height: auto; max-height: 2.185ex;" xmlns="http://www.w3.org/2000/svg" width="50.389ex" height="2.185ex" role="img" focusable="false" viewBox="0 -883.9 22272 965.9"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mtext"><path data-c="54" d="M36 443Q37 448 46 558T55 671V677H666V671Q667 666 676 556T685 443V437H645V443Q645 445 642 478T631 544T610 593Q593 614 555 625Q534 630 478 630H451H443Q417 630 414 618Q413 616 413 339V63Q420 53 439 50T528 46H558V0H545L361 3Q186 1 177 0H164V46H194Q264 46 283 49T309 63V339V550Q309 620 304 625T271 630H244H224Q154 630 119 601Q101 585 93 554T81 486T76 443V437H36V443Z"></path><path data-c="6F" d="M28 214Q28 309 93 378T250 448Q340 448 405 380T471 215Q471 120 407 55T250 -10Q153 -10 91 57T28 214ZM250 30Q372 30 372 193V225V250Q372 272 371 288T364 326T348 362T317 390T268 410Q263 411 252 411Q222 411 195 399Q152 377 139 338T126 246V226Q126 130 145 91Q177 30 250 30Z" transform="translate(722,0)"></path><path data-c="74" d="M27 422Q80 426 109 478T141 600V615H181V431H316V385H181V241Q182 116 182 100T189 68Q203 29 238 29Q282 29 292 100Q293 108 293 146V181H333V146V134Q333 57 291 17Q264 -10 221 -10Q187 -10 162 2T124 33T105 68T98 100Q97 107 97 248V385H18V422H27Z" transform="translate(1222,0)"></path><path data-c="61" d="M137 305T115 305T78 320T63 359Q63 394 97 421T218 448Q291 448 336 416T396 340Q401 326 401 309T402 194V124Q402 76 407 58T428 40Q443 40 448 56T453 109V145H493V106Q492 66 490 59Q481 29 455 12T400 -6T353 12T329 54V58L327 55Q325 52 322 49T314 40T302 29T287 17T269 6T247 -2T221 -8T190 -11Q130 -11 82 20T34 107Q34 128 41 147T68 188T116 225T194 253T304 268H318V290Q318 324 312 340Q290 411 215 411Q197 411 181 410T156 406T148 403Q170 388 170 359Q170 334 154 320ZM126 106Q126 75 150 51T209 26Q247 26 276 49T315 109Q317 116 318 175Q318 233 317 233Q309 233 296 232T251 223T193 203T147 166T126 106Z" transform="translate(1611,0)"></path><path data-c="6C" d="M42 46H56Q95 46 103 60V68Q103 77 103 91T103 124T104 167T104 217T104 272T104 329Q104 366 104 407T104 482T104 542T103 586T103 603Q100 622 89 628T44 637H26V660Q26 683 28 683L38 684Q48 685 67 686T104 688Q121 689 141 690T171 693T182 694H185V379Q185 62 186 60Q190 52 198 49Q219 46 247 46H263V0H255L232 1Q209 2 183 2T145 3T107 3T57 1L34 0H26V46H42Z" transform="translate(2111,0)"></path><path data-c="20" d="" transform="translate(2389,0)"></path><path data-c="45" d="M128 619Q121 626 117 628T101 631T58 634H25V680H597V676Q599 670 611 560T625 444V440H585V444Q584 447 582 465Q578 500 570 526T553 571T528 601T498 619T457 629T411 633T353 634Q266 634 251 633T233 622Q233 622 233 621Q232 619 232 497V376H286Q359 378 377 385Q413 401 416 469Q416 471 416 473V493H456V213H416V233Q415 268 408 288T383 317T349 328T297 330Q290 330 286 330H232V196V114Q232 57 237 52Q243 47 289 47H340H391Q428 47 452 50T505 62T552 92T584 146Q594 172 599 200T607 247T612 270V273H652V270Q651 267 632 137T610 3V0H25V46H58Q100 47 109 49T128 61V619Z" transform="translate(2639,0)"></path><path data-c="72" d="M36 46H50Q89 46 97 60V68Q97 77 97 91T98 122T98 161T98 203Q98 234 98 269T98 328L97 351Q94 370 83 376T38 385H20V408Q20 431 22 431L32 432Q42 433 60 434T96 436Q112 437 131 438T160 441T171 442H174V373Q213 441 271 441H277Q322 441 343 419T364 373Q364 352 351 337T313 322Q288 322 276 338T263 372Q263 381 265 388T270 400T273 405Q271 407 250 401Q234 393 226 386Q179 341 179 207V154Q179 141 179 127T179 101T180 81T180 66V61Q181 59 183 57T188 54T193 51T200 49T207 48T216 47T225 47T235 46T245 46H276V0H267Q249 3 140 3Q37 3 28 0H20V46H36Z" transform="translate(3320,0)"></path><path data-c="72" d="M36 46H50Q89 46 97 60V68Q97 77 97 91T98 122T98 161T98 203Q98 234 98 269T98 328L97 351Q94 370 83 376T38 385H20V408Q20 431 22 431L32 432Q42 433 60 434T96 436Q112 437 131 438T160 441T171 442H174V373Q213 441 271 441H277Q322 441 343 419T364 373Q364 352 351 337T313 322Q288 322 276 338T263 372Q263 381 265 388T270 400T273 405Q271 407 250 401Q234 393 226 386Q179 341 179 207V154Q179 141 179 127T179 101T180 81T180 66V61Q181 59 183 57T188 54T193 51T200 49T207 48T216 47T225 47T235 46T245 46H276V0H267Q249 3 140 3Q37 3 28 0H20V46H36Z" transform="translate(3712,0)"></path><path data-c="6F" d="M28 214Q28 309 93 378T250 448Q340 448 405 380T471 215Q471 120 407 55T250 -10Q153 -10 91 57T28 214ZM250 30Q372 30 372 193V225V250Q372 272 371 288T364 326T348 362T317 390T268 410Q263 411 252 411Q222 411 195 399Q152 377 139 338T126 246V226Q126 130 145 91Q177 30 250 30Z" transform="translate(4104,0)"></path><path data-c="72" d="M36 46H50Q89 46 97 60V68Q97 77 97 91T98 122T98 161T98 203Q98 234 98 269T98 328L97 351Q94 370 83 376T38 385H20V408Q20 431 22 431L32 432Q42 433 60 434T96 436Q112 437 131 438T160 441T171 442H174V373Q213 441 271 441H277Q322 441 343 419T364 373Q364 352 351 337T313 322Q288 322 276 338T263 372Q263 381 265 388T270 400T273 405Q271 407 250 401Q234 393 226 386Q179 341 179 207V154Q179 141 179 127T179 101T180 81T180 66V61Q181 59 183 57T188 54T193 51T200 49T207 48T216 47T225 47T235 46T245 46H276V0H267Q249 3 140 3Q37 3 28 0H20V46H36Z" transform="translate(4604,0)"></path></g><g data-mml-node="mo" transform="translate(5273.8,0)"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path></g><g data-mml-node="msup" transform="translate(6329.6,0)"><g data-mml-node="mtext"><path data-c="42" d="M131 622Q124 629 120 631T104 634T61 637H28V683H229H267H346Q423 683 459 678T531 651Q574 627 599 590T624 512Q624 461 583 419T476 360L466 357Q539 348 595 302T651 187Q651 119 600 67T469 3Q456 1 242 0H28V46H61Q103 47 112 49T131 61V622ZM511 513Q511 560 485 594T416 636Q415 636 403 636T371 636T333 637Q266 637 251 636T232 628Q229 624 229 499V374H312L396 375L406 377Q410 378 417 380T442 393T474 417T499 456T511 513ZM537 188Q537 239 509 282T430 336L329 337H229V200V116Q229 57 234 52Q240 47 334 47H383Q425 47 443 53Q486 67 511 104T537 188Z"></path><path data-c="69" d="M69 609Q69 637 87 653T131 669Q154 667 171 652T188 609Q188 579 171 564T129 549Q104 549 87 564T69 609ZM247 0Q232 3 143 3Q132 3 106 3T56 1L34 0H26V46H42Q70 46 91 49Q100 53 102 60T104 102V205V293Q104 345 102 359T88 378Q74 385 41 385H30V408Q30 431 32 431L42 432Q52 433 70 434T106 436Q123 437 142 438T171 441T182 442H185V62Q190 52 197 50T232 46H255V0H247Z" transform="translate(708,0)"></path><path data-c="61" d="M137 305T115 305T78 320T63 359Q63 394 97 421T218 448Q291 448 336 416T396 340Q401 326 401 309T402 194V124Q402 76 407 58T428 40Q443 40 448 56T453 109V145H493V106Q492 66 490 59Q481 29 455 12T400 -6T353 12T329 54V58L327 55Q325 52 322 49T314 40T302 29T287 17T269 6T247 -2T221 -8T190 -11Q130 -11 82 20T34 107Q34 128 41 147T68 188T116 225T194 253T304 268H318V290Q318 324 312 340Q290 411 215 411Q197 411 181 410T156 406T148 403Q170 388 170 359Q170 334 154 320ZM126 106Q126 75 150 51T209 26Q247 26 276 49T315 109Q317 116 318 175Q318 233 317 233Q309 233 296 232T251 223T193 203T147 166T126 106Z" transform="translate(986,0)"></path><path data-c="73" d="M295 316Q295 356 268 385T190 414Q154 414 128 401Q98 382 98 349Q97 344 98 336T114 312T157 287Q175 282 201 278T245 269T277 256Q294 248 310 236T342 195T359 133Q359 71 321 31T198 -10H190Q138 -10 94 26L86 19L77 10Q71 4 65 -1L54 -11H46H42Q39 -11 33 -5V74V132Q33 153 35 157T45 162H54Q66 162 70 158T75 146T82 119T101 77Q136 26 198 26Q295 26 295 104Q295 133 277 151Q257 175 194 187T111 210Q75 227 54 256T33 318Q33 357 50 384T93 424T143 442T187 447H198Q238 447 268 432L283 424L292 431Q302 440 314 448H322H326Q329 448 335 442V310L329 304H301Q295 310 295 316Z" transform="translate(1486,0)"></path></g><g data-mml-node="mn" transform="translate(1913,413) scale(0.707)"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path></g></g><g data-mml-node="mo" transform="translate(8868.3,0)"><path data-c="2B" d="M56 237T56 250T70 270H369V420L370 570Q380 583 389 583Q402 583 409 568V270H707Q722 262 722 250T707 230H409V-68Q401 -82 391 -82H389H387Q375 -82 369 -68V230H70Q56 237 56 250Z"></path></g><g data-mml-node="mtext" transform="translate(9868.6,0)"><path data-c="56" d="M114 620Q113 621 110 624T107 627T103 630T98 632T91 634T80 635T67 636T48 637H19V683H28Q46 680 152 680Q273 680 294 683H305V637H284Q223 634 223 620Q223 618 313 372T404 126L490 358Q575 588 575 597Q575 616 554 626T508 637H503V683H512Q527 680 627 680Q718 680 724 683H730V637H723Q648 637 627 596Q627 595 515 291T401 -14Q396 -22 382 -22H374H367Q353 -22 348 -14Q346 -12 231 303Q114 617 114 620Z"></path><path data-c="61" d="M137 305T115 305T78 320T63 359Q63 394 97 421T218 448Q291 448 336 416T396 340Q401 326 401 309T402 194V124Q402 76 407 58T428 40Q443 40 448 56T453 109V145H493V106Q492 66 490 59Q481 29 455 12T400 -6T353 12T329 54V58L327 55Q325 52 322 49T314 40T302 29T287 17T269 6T247 -2T221 -8T190 -11Q130 -11 82 20T34 107Q34 128 41 147T68 188T116 225T194 253T304 268H318V290Q318 324 312 340Q290 411 215 411Q197 411 181 410T156 406T148 403Q170 388 170 359Q170 334 154 320ZM126 106Q126 75 150 51T209 26Q247 26 276 49T315 109Q317 116 318 175Q318 233 317 233Q309 233 296 232T251 223T193 203T147 166T126 106Z" transform="translate(750,0)"></path><path data-c="72" d="M36 46H50Q89 46 97 60V68Q97 77 97 91T98 122T98 161T98 203Q98 234 98 269T98 328L97 351Q94 370 83 376T38 385H20V408Q20 431 22 431L32 432Q42 433 60 434T96 436Q112 437 131 438T160 441T171 442H174V373Q213 441 271 441H277Q322 441 343 419T364 373Q364 352 351 337T313 322Q288 322 276 338T263 372Q263 381 265 388T270 400T273 405Q271 407 250 401Q234 393 226 386Q179 341 179 207V154Q179 141 179 127T179 101T180 81T180 66V61Q181 59 183 57T188 54T193 51T200 49T207 48T216 47T225 47T235 46T245 46H276V0H267Q249 3 140 3Q37 3 28 0H20V46H36Z" transform="translate(1250,0)"></path><path data-c="69" d="M69 609Q69 637 87 653T131 669Q154 667 171 652T188 609Q188 579 171 564T129 549Q104 549 87 564T69 609ZM247 0Q232 3 143 3Q132 3 106 3T56 1L34 0H26V46H42Q70 46 91 49Q100 53 102 60T104 102V205V293Q104 345 102 359T88 378Q74 385 41 385H30V408Q30 431 32 431L42 432Q52 433 70 434T106 436Q123 437 142 438T171 441T182 442H185V62Q190 52 197 50T232 46H255V0H247Z" transform="translate(1642,0)"></path><path data-c="61" d="M137 305T115 305T78 320T63 359Q63 394 97 421T218 448Q291 448 336 416T396 340Q401 326 401 309T402 194V124Q402 76 407 58T428 40Q443 40 448 56T453 109V145H493V106Q492 66 490 59Q481 29 455 12T400 -6T353 12T329 54V58L327 55Q325 52 322 49T314 40T302 29T287 17T269 6T247 -2T221 -8T190 -11Q130 -11 82 20T34 107Q34 128 41 147T68 188T116 225T194 253T304 268H318V290Q318 324 312 340Q290 411 215 411Q197 411 181 410T156 406T148 403Q170 388 170 359Q170 334 154 320ZM126 106Q126 75 150 51T209 26Q247 26 276 49T315 109Q317 116 318 175Q318 233 317 233Q309 233 296 232T251 223T193 203T147 166T126 106Z" transform="translate(1920,0)"></path><path data-c="6E" d="M41 46H55Q94 46 102 60V68Q102 77 102 91T102 122T103 161T103 203Q103 234 103 269T102 328V351Q99 370 88 376T43 385H25V408Q25 431 27 431L37 432Q47 433 65 434T102 436Q119 437 138 438T167 441T178 442H181V402Q181 364 182 364T187 369T199 384T218 402T247 421T285 437Q305 442 336 442Q450 438 463 329Q464 322 464 190V104Q464 66 466 59T477 49Q498 46 526 46H542V0H534L510 1Q487 2 460 2T422 3Q319 3 310 0H302V46H318Q379 46 379 62Q380 64 380 200Q379 335 378 343Q372 371 358 385T334 402T308 404Q263 404 229 370Q202 343 195 315T187 232V168V108Q187 78 188 68T191 55T200 49Q221 46 249 46H265V0H257L234 1Q210 2 183 2T145 3Q42 3 33 0H25V46H41Z" transform="translate(2420,0)"></path><path data-c="63" d="M370 305T349 305T313 320T297 358Q297 381 312 396Q317 401 317 402T307 404Q281 408 258 408Q209 408 178 376Q131 329 131 219Q131 137 162 90Q203 29 272 29Q313 29 338 55T374 117Q376 125 379 127T395 129H409Q415 123 415 120Q415 116 411 104T395 71T366 33T318 2T249 -11Q163 -11 99 53T34 214Q34 318 99 383T250 448T370 421T404 357Q404 334 387 320Z" transform="translate(2976,0)"></path><path data-c="65" d="M28 218Q28 273 48 318T98 391T163 433T229 448Q282 448 320 430T378 380T406 316T415 245Q415 238 408 231H126V216Q126 68 226 36Q246 30 270 30Q312 30 342 62Q359 79 369 104L379 128Q382 131 395 131H398Q415 131 415 121Q415 117 412 108Q393 53 349 21T250 -11Q155 -11 92 58T28 218ZM333 275Q322 403 238 411H236Q228 411 220 410T195 402T166 381T143 340T127 274V267H333V275Z" transform="translate(3420,0)"></path></g><g data-mml-node="mo" transform="translate(13954.8,0)"><path data-c="2B" d="M56 237T56 250T70 270H369V420L370 570Q380 583 389 583Q402 583 409 568V270H707Q722 262 722 250T707 230H409V-68Q401 -82 391 -82H389H387Q375 -82 369 -68V230H70Q56 237 56 250Z"></path></g><g data-mml-node="mtext" transform="translate(14955,0)"><path data-c="49" d="M328 0Q307 3 180 3T32 0H21V46H43Q92 46 106 49T126 60Q128 63 128 342Q128 620 126 623Q122 628 118 630T96 635T43 637H21V683H32Q53 680 180 680T328 683H339V637H317Q268 637 254 634T234 623Q232 620 232 342Q232 63 234 60Q238 55 242 53T264 48T317 46H339V0H328Z"></path><path data-c="72" d="M36 46H50Q89 46 97 60V68Q97 77 97 91T98 122T98 161T98 203Q98 234 98 269T98 328L97 351Q94 370 83 376T38 385H20V408Q20 431 22 431L32 432Q42 433 60 434T96 436Q112 437 131 438T160 441T171 442H174V373Q213 441 271 441H277Q322 441 343 419T364 373Q364 352 351 337T313 322Q288 322 276 338T263 372Q263 381 265 388T270 400T273 405Q271 407 250 401Q234 393 226 386Q179 341 179 207V154Q179 141 179 127T179 101T180 81T180 66V61Q181 59 183 57T188 54T193 51T200 49T207 48T216 47T225 47T235 46T245 46H276V0H267Q249 3 140 3Q37 3 28 0H20V46H36Z" transform="translate(361,0)"></path><path data-c="72" d="M36 46H50Q89 46 97 60V68Q97 77 97 91T98 122T98 161T98 203Q98 234 98 269T98 328L97 351Q94 370 83 376T38 385H20V408Q20 431 22 431L32 432Q42 433 60 434T96 436Q112 437 131 438T160 441T171 442H174V373Q213 441 271 441H277Q322 441 343 419T364 373Q364 352 351 337T313 322Q288 322 276 338T263 372Q263 381 265 388T270 400T273 405Q271 407 250 401Q234 393 226 386Q179 341 179 207V154Q179 141 179 127T179 101T180 81T180 66V61Q181 59 183 57T188 54T193 51T200 49T207 48T216 47T225 47T235 46T245 46H276V0H267Q249 3 140 3Q37 3 28 0H20V46H36Z" transform="translate(753,0)"></path><path data-c="65" d="M28 218Q28 273 48 318T98 391T163 433T229 448Q282 448 320 430T378 380T406 316T415 245Q415 238 408 231H126V216Q126 68 226 36Q246 30 270 30Q312 30 342 62Q359 79 369 104L379 128Q382 131 395 131H398Q415 131 415 121Q415 117 412 108Q393 53 349 21T250 -11Q155 -11 92 58T28 218ZM333 275Q322 403 238 411H236Q228 411 220 410T195 402T166 381T143 340T127 274V267H333V275Z" transform="translate(1145,0)"></path><path data-c="64" d="M376 495Q376 511 376 535T377 568Q377 613 367 624T316 637H298V660Q298 683 300 683L310 684Q320 685 339 686T376 688Q393 689 413 690T443 693T454 694H457V390Q457 84 458 81Q461 61 472 55T517 46H535V0Q533 0 459 -5T380 -11H373V44L365 37Q307 -11 235 -11Q158 -11 96 50T34 215Q34 315 97 378T244 442Q319 442 376 393V495ZM373 342Q328 405 260 405Q211 405 173 369Q146 341 139 305T131 211Q131 155 138 120T173 59Q203 26 251 26Q322 26 373 103V342Z" transform="translate(1589,0)"></path><path data-c="75" d="M383 58Q327 -10 256 -10H249Q124 -10 105 89Q104 96 103 226Q102 335 102 348T96 369Q86 385 36 385H25V408Q25 431 27 431L38 432Q48 433 67 434T105 436Q122 437 142 438T172 441T184 442H187V261Q188 77 190 64Q193 49 204 40Q224 26 264 26Q290 26 311 35T343 58T363 90T375 120T379 144Q379 145 379 161T380 201T380 248V315Q380 361 370 372T320 385H302V431Q304 431 378 436T457 442H464V264Q464 84 465 81Q468 61 479 55T524 46H542V0Q540 0 467 -5T390 -11H383V58Z" transform="translate(2145,0)"></path><path data-c="63" d="M370 305T349 305T313 320T297 358Q297 381 312 396Q317 401 317 402T307 404Q281 408 258 408Q209 408 178 376Q131 329 131 219Q131 137 162 90Q203 29 272 29Q313 29 338 55T374 117Q376 125 379 127T395 129H409Q415 123 415 120Q415 116 411 104T395 71T366 33T318 2T249 -11Q163 -11 99 53T34 214Q34 318 99 383T250 448T370 421T404 357Q404 334 387 320Z" transform="translate(2701,0)"></path><path data-c="69" d="M69 609Q69 637 87 653T131 669Q154 667 171 652T188 609Q188 579 171 564T129 549Q104 549 87 564T69 609ZM247 0Q232 3 143 3Q132 3 106 3T56 1L34 0H26V46H42Q70 46 91 49Q100 53 102 60T104 102V205V293Q104 345 102 359T88 378Q74 385 41 385H30V408Q30 431 32 431L42 432Q52 433 70 434T106 436Q123 437 142 438T171 441T182 442H185V62Q190 52 197 50T232 46H255V0H247Z" transform="translate(3145,0)"></path><path data-c="62" d="M307 -11Q234 -11 168 55L158 37Q156 34 153 28T147 17T143 10L138 1L118 0H98V298Q98 599 97 603Q94 622 83 628T38 637H20V660Q20 683 22 683L32 684Q42 685 61 686T98 688Q115 689 135 690T165 693T176 694H179V543Q179 391 180 391L183 394Q186 397 192 401T207 411T228 421T254 431T286 439T323 442Q401 442 461 379T522 216Q522 115 458 52T307 -11ZM182 98Q182 97 187 90T196 79T206 67T218 55T233 44T250 35T271 29T295 26Q330 26 363 46T412 113Q424 148 424 212Q424 287 412 323Q385 405 300 405Q270 405 239 390T188 347L182 339V98Z" transform="translate(3423,0)"></path><path data-c="6C" d="M42 46H56Q95 46 103 60V68Q103 77 103 91T103 124T104 167T104 217T104 272T104 329Q104 366 104 407T104 482T104 542T103 586T103 603Q100 622 89 628T44 637H26V660Q26 683 28 683L38 684Q48 685 67 686T104 688Q121 689 141 690T171 693T182 694H185V379Q185 62 186 60Q190 52 198 49Q219 46 247 46H263V0H255L232 1Q209 2 183 2T145 3T107 3T57 1L34 0H26V46H42Z" transform="translate(3979,0)"></path><path data-c="65" d="M28 218Q28 273 48 318T98 391T163 433T229 448Q282 448 320 430T378 380T406 316T415 245Q415 238 408 231H126V216Q126 68 226 36Q246 30 270 30Q312 30 342 62Q359 79 369 104L379 128Q382 131 395 131H398Q415 131 415 121Q415 117 412 108Q393 53 349 21T250 -11Q155 -11 92 58T28 218ZM333 275Q322 403 238 411H236Q228 411 220 410T195 402T166 381T143 340T127 274V267H333V275Z" transform="translate(4257,0)"></path><path data-c="20" d="" transform="translate(4701,0)"></path><path data-c="4E" d="M42 46Q74 48 94 56T118 69T128 86V634H124Q114 637 52 637H25V683H232L235 680Q237 679 322 554T493 303L578 178V598Q572 608 568 613T544 627T492 637H475V683H483Q498 680 600 680Q706 680 715 683H724V637H707Q634 633 622 598L621 302V6L614 0H600Q585 0 582 3T481 150T282 443T171 605V345L172 86Q183 50 257 46H274V0H265Q250 3 150 3Q48 3 33 0H25V46H42Z" transform="translate(4951,0)"></path><path data-c="6F" d="M28 214Q28 309 93 378T250 448Q340 448 405 380T471 215Q471 120 407 55T250 -10Q153 -10 91 57T28 214ZM250 30Q372 30 372 193V225V250Q372 272 371 288T364 326T348 362T317 390T268 410Q263 411 252 411Q222 411 195 399Q152 377 139 338T126 246V226Q126 130 145 91Q177 30 250 30Z" transform="translate(5701,0)"></path><path data-c="69" d="M69 609Q69 637 87 653T131 669Q154 667 171 652T188 609Q188 579 171 564T129 549Q104 549 87 564T69 609ZM247 0Q232 3 143 3Q132 3 106 3T56 1L34 0H26V46H42Q70 46 91 49Q100 53 102 60T104 102V205V293Q104 345 102 359T88 378Q74 385 41 385H30V408Q30 431 32 431L42 432Q52 433 70 434T106 436Q123 437 142 438T171 441T182 442H185V62Q190 52 197 50T232 46H255V0H247Z" transform="translate(6201,0)"></path><path data-c="73" d="M295 316Q295 356 268 385T190 414Q154 414 128 401Q98 382 98 349Q97 344 98 336T114 312T157 287Q175 282 201 278T245 269T277 256Q294 248 310 236T342 195T359 133Q359 71 321 31T198 -10H190Q138 -10 94 26L86 19L77 10Q71 4 65 -1L54 -11H46H42Q39 -11 33 -5V74V132Q33 153 35 157T45 162H54Q66 162 70 158T75 146T82 119T101 77Q136 26 198 26Q295 26 295 104Q295 133 277 151Q257 175 194 187T111 210Q75 227 54 256T33 318Q33 357 50 384T93 424T143 442T187 447H198Q238 447 268 432L283 424L292 431Q302 440 314 448H322H326Q329 448 335 442V310L329 304H301Q295 310 295 316Z" transform="translate(6479,0)"></path><path data-c="65" d="M28 218Q28 273 48 318T98 391T163 433T229 448Q282 448 320 430T378 380T406 316T415 245Q415 238 408 231H126V216Q126 68 226 36Q246 30 270 30Q312 30 342 62Q359 79 369 104L379 128Q382 131 395 131H398Q415 131 415 121Q415 117 412 108Q393 53 349 21T250 -11Q155 -11 92 58T28 218ZM333 275Q322 403 238 411H236Q228 411 220 410T195 402T166 381T143 340T127 274V267H333V275Z" transform="translate(6873,0)"></path></g></g></g></svg></mjx-container></p><table>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="8" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="8" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="76">
+<h1 id="underfitting-symptoms">Underfitting: Symptoms</h1>
+<table>
 <thead>
 <tr>
-<th>Term</th>
-<th>Meaning</th>
+<th>Symptom</th>
+<th>Value</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Bias²</td>
-<td>Error from wrong assumptions</td>
+<td>Training Error</td>
+<td>HIGH</td>
 </tr>
 <tr>
-<td>Variance</td>
-<td>Sensitivity to training data</td>
+<td>Test Error</td>
+<td>HIGH</td>
 </tr>
 <tr>
-<td>Noise</td>
-<td>Random error we can't reduce</td>
+<td>Model</td>
+<td>Too simple</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Both errors are high</strong> because the model can't even fit the training data!</p>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="9" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="9" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="76">
+<h1 id="overfitting-the-memorizer">Overfitting: The Memorizer</h1>
+<p><strong>Definition:</strong> Model is too complex and memorizes noise.</p>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code>Training Data:
+Height →    ●      ●
+         ●    ●        ●  (with some measurement noise)
+       ●        ●
+                    ●
+
+Your Model: ∿∼∿∼∿∼∿∼∿∼∿ (wiggly line hitting every point)
+
+Problem: When a new person comes, prediction is garbage!
+</code></pre>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="10" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="10" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="76">
+<h1 id="overfitting-symptoms">Overfitting: Symptoms</h1>
+<table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Training Error</td>
+<td>LOW (near perfect!)</td>
+</tr>
+<tr>
+<td>Test Error</td>
+<td>HIGH</td>
+</tr>
+<tr>
+<td>Model</td>
+<td>Too complex</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Big gap</strong> between training and test error!</p>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="11" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="11" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="76">
+<h1 id="the-goldilocks-model">The Goldilocks Model</h1>
+<p><strong>Goal:</strong> A model that's &quot;just right&quot;</p>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code>Height →    ●      ●
+         ●    ●        ●
+       ●        ●    ────── (smooth trend line)
+            ─────
+       ────
+                    ●
+
+Captures the pattern, ignores the noise!
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Training Error</td>
+<td>Low</td>
+</tr>
+<tr>
+<td>Test Error</td>
+<td>Low</td>
+</tr>
+<tr>
+<td>Gap</td>
+<td>Small</td>
 </tr>
 </tbody>
 </table>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="10" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="10" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="50">
-<h1 id="the-tradeoff">The Tradeoff</h1>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="12" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="12" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="76">
+<h1 id="bias-variance-decomposition">Bias-Variance Decomposition</h1>
+<p><strong>Mathematical view:</strong></p>
+<p><mjx-container class="MathJax" jax="SVG" display="true" style="margin: 0;"><svg style="vertical-align: -0.186ex; display: block; width: 100%; height: auto; max-height: 2.185ex;" xmlns="http://www.w3.org/2000/svg" width="50.389ex" height="2.185ex" role="img" focusable="false" viewBox="0 -883.9 22272 965.9"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mtext"><path data-c="54" d="M36 443Q37 448 46 558T55 671V677H666V671Q667 666 676 556T685 443V437H645V443Q645 445 642 478T631 544T610 593Q593 614 555 625Q534 630 478 630H451H443Q417 630 414 618Q413 616 413 339V63Q420 53 439 50T528 46H558V0H545L361 3Q186 1 177 0H164V46H194Q264 46 283 49T309 63V339V550Q309 620 304 625T271 630H244H224Q154 630 119 601Q101 585 93 554T81 486T76 443V437H36V443Z"></path><path data-c="6F" d="M28 214Q28 309 93 378T250 448Q340 448 405 380T471 215Q471 120 407 55T250 -10Q153 -10 91 57T28 214ZM250 30Q372 30 372 193V225V250Q372 272 371 288T364 326T348 362T317 390T268 410Q263 411 252 411Q222 411 195 399Q152 377 139 338T126 246V226Q126 130 145 91Q177 30 250 30Z" transform="translate(722,0)"></path><path data-c="74" d="M27 422Q80 426 109 478T141 600V615H181V431H316V385H181V241Q182 116 182 100T189 68Q203 29 238 29Q282 29 292 100Q293 108 293 146V181H333V146V134Q333 57 291 17Q264 -10 221 -10Q187 -10 162 2T124 33T105 68T98 100Q97 107 97 248V385H18V422H27Z" transform="translate(1222,0)"></path><path data-c="61" d="M137 305T115 305T78 320T63 359Q63 394 97 421T218 448Q291 448 336 416T396 340Q401 326 401 309T402 194V124Q402 76 407 58T428 40Q443 40 448 56T453 109V145H493V106Q492 66 490 59Q481 29 455 12T400 -6T353 12T329 54V58L327 55Q325 52 322 49T314 40T302 29T287 17T269 6T247 -2T221 -8T190 -11Q130 -11 82 20T34 107Q34 128 41 147T68 188T116 225T194 253T304 268H318V290Q318 324 312 340Q290 411 215 411Q197 411 181 410T156 406T148 403Q170 388 170 359Q170 334 154 320ZM126 106Q126 75 150 51T209 26Q247 26 276 49T315 109Q317 116 318 175Q318 233 317 233Q309 233 296 232T251 223T193 203T147 166T126 106Z" transform="translate(1611,0)"></path><path data-c="6C" d="M42 46H56Q95 46 103 60V68Q103 77 103 91T103 124T104 167T104 217T104 272T104 329Q104 366 104 407T104 482T104 542T103 586T103 603Q100 622 89 628T44 637H26V660Q26 683 28 683L38 684Q48 685 67 686T104 688Q121 689 141 690T171 693T182 694H185V379Q185 62 186 60Q190 52 198 49Q219 46 247 46H263V0H255L232 1Q209 2 183 2T145 3T107 3T57 1L34 0H26V46H42Z" transform="translate(2111,0)"></path><path data-c="20" d="" transform="translate(2389,0)"></path><path data-c="45" d="M128 619Q121 626 117 628T101 631T58 634H25V680H597V676Q599 670 611 560T625 444V440H585V444Q584 447 582 465Q578 500 570 526T553 571T528 601T498 619T457 629T411 633T353 634Q266 634 251 633T233 622Q233 622 233 621Q232 619 232 497V376H286Q359 378 377 385Q413 401 416 469Q416 471 416 473V493H456V213H416V233Q415 268 408 288T383 317T349 328T297 330Q290 330 286 330H232V196V114Q232 57 237 52Q243 47 289 47H340H391Q428 47 452 50T505 62T552 92T584 146Q594 172 599 200T607 247T612 270V273H652V270Q651 267 632 137T610 3V0H25V46H58Q100 47 109 49T128 61V619Z" transform="translate(2639,0)"></path><path data-c="72" d="M36 46H50Q89 46 97 60V68Q97 77 97 91T98 122T98 161T98 203Q98 234 98 269T98 328L97 351Q94 370 83 376T38 385H20V408Q20 431 22 431L32 432Q42 433 60 434T96 436Q112 437 131 438T160 441T171 442H174V373Q213 441 271 441H277Q322 441 343 419T364 373Q364 352 351 337T313 322Q288 322 276 338T263 372Q263 381 265 388T270 400T273 405Q271 407 250 401Q234 393 226 386Q179 341 179 207V154Q179 141 179 127T179 101T180 81T180 66V61Q181 59 183 57T188 54T193 51T200 49T207 48T216 47T225 47T235 46T245 46H276V0H267Q249 3 140 3Q37 3 28 0H20V46H36Z" transform="translate(3320,0)"></path><path data-c="72" d="M36 46H50Q89 46 97 60V68Q97 77 97 91T98 122T98 161T98 203Q98 234 98 269T98 328L97 351Q94 370 83 376T38 385H20V408Q20 431 22 431L32 432Q42 433 60 434T96 436Q112 437 131 438T160 441T171 442H174V373Q213 441 271 441H277Q322 441 343 419T364 373Q364 352 351 337T313 322Q288 322 276 338T263 372Q263 381 265 388T270 400T273 405Q271 407 250 401Q234 393 226 386Q179 341 179 207V154Q179 141 179 127T179 101T180 81T180 66V61Q181 59 183 57T188 54T193 51T200 49T207 48T216 47T225 47T235 46T245 46H276V0H267Q249 3 140 3Q37 3 28 0H20V46H36Z" transform="translate(3712,0)"></path><path data-c="6F" d="M28 214Q28 309 93 378T250 448Q340 448 405 380T471 215Q471 120 407 55T250 -10Q153 -10 91 57T28 214ZM250 30Q372 30 372 193V225V250Q372 272 371 288T364 326T348 362T317 390T268 410Q263 411 252 411Q222 411 195 399Q152 377 139 338T126 246V226Q126 130 145 91Q177 30 250 30Z" transform="translate(4104,0)"></path><path data-c="72" d="M36 46H50Q89 46 97 60V68Q97 77 97 91T98 122T98 161T98 203Q98 234 98 269T98 328L97 351Q94 370 83 376T38 385H20V408Q20 431 22 431L32 432Q42 433 60 434T96 436Q112 437 131 438T160 441T171 442H174V373Q213 441 271 441H277Q322 441 343 419T364 373Q364 352 351 337T313 322Q288 322 276 338T263 372Q263 381 265 388T270 400T273 405Q271 407 250 401Q234 393 226 386Q179 341 179 207V154Q179 141 179 127T179 101T180 81T180 66V61Q181 59 183 57T188 54T193 51T200 49T207 48T216 47T225 47T235 46T245 46H276V0H267Q249 3 140 3Q37 3 28 0H20V46H36Z" transform="translate(4604,0)"></path></g><g data-mml-node="mo" transform="translate(5273.8,0)"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path></g><g data-mml-node="msup" transform="translate(6329.6,0)"><g data-mml-node="mtext"><path data-c="42" d="M131 622Q124 629 120 631T104 634T61 637H28V683H229H267H346Q423 683 459 678T531 651Q574 627 599 590T624 512Q624 461 583 419T476 360L466 357Q539 348 595 302T651 187Q651 119 600 67T469 3Q456 1 242 0H28V46H61Q103 47 112 49T131 61V622ZM511 513Q511 560 485 594T416 636Q415 636 403 636T371 636T333 637Q266 637 251 636T232 628Q229 624 229 499V374H312L396 375L406 377Q410 378 417 380T442 393T474 417T499 456T511 513ZM537 188Q537 239 509 282T430 336L329 337H229V200V116Q229 57 234 52Q240 47 334 47H383Q425 47 443 53Q486 67 511 104T537 188Z"></path><path data-c="69" d="M69 609Q69 637 87 653T131 669Q154 667 171 652T188 609Q188 579 171 564T129 549Q104 549 87 564T69 609ZM247 0Q232 3 143 3Q132 3 106 3T56 1L34 0H26V46H42Q70 46 91 49Q100 53 102 60T104 102V205V293Q104 345 102 359T88 378Q74 385 41 385H30V408Q30 431 32 431L42 432Q52 433 70 434T106 436Q123 437 142 438T171 441T182 442H185V62Q190 52 197 50T232 46H255V0H247Z" transform="translate(708,0)"></path><path data-c="61" d="M137 305T115 305T78 320T63 359Q63 394 97 421T218 448Q291 448 336 416T396 340Q401 326 401 309T402 194V124Q402 76 407 58T428 40Q443 40 448 56T453 109V145H493V106Q492 66 490 59Q481 29 455 12T400 -6T353 12T329 54V58L327 55Q325 52 322 49T314 40T302 29T287 17T269 6T247 -2T221 -8T190 -11Q130 -11 82 20T34 107Q34 128 41 147T68 188T116 225T194 253T304 268H318V290Q318 324 312 340Q290 411 215 411Q197 411 181 410T156 406T148 403Q170 388 170 359Q170 334 154 320ZM126 106Q126 75 150 51T209 26Q247 26 276 49T315 109Q317 116 318 175Q318 233 317 233Q309 233 296 232T251 223T193 203T147 166T126 106Z" transform="translate(986,0)"></path><path data-c="73" d="M295 316Q295 356 268 385T190 414Q154 414 128 401Q98 382 98 349Q97 344 98 336T114 312T157 287Q175 282 201 278T245 269T277 256Q294 248 310 236T342 195T359 133Q359 71 321 31T198 -10H190Q138 -10 94 26L86 19L77 10Q71 4 65 -1L54 -11H46H42Q39 -11 33 -5V74V132Q33 153 35 157T45 162H54Q66 162 70 158T75 146T82 119T101 77Q136 26 198 26Q295 26 295 104Q295 133 277 151Q257 175 194 187T111 210Q75 227 54 256T33 318Q33 357 50 384T93 424T143 442T187 447H198Q238 447 268 432L283 424L292 431Q302 440 314 448H322H326Q329 448 335 442V310L329 304H301Q295 310 295 316Z" transform="translate(1486,0)"></path></g><g data-mml-node="mn" transform="translate(1913,413) scale(0.707)"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path></g></g><g data-mml-node="mo" transform="translate(8868.3,0)"><path data-c="2B" d="M56 237T56 250T70 270H369V420L370 570Q380 583 389 583Q402 583 409 568V270H707Q722 262 722 250T707 230H409V-68Q401 -82 391 -82H389H387Q375 -82 369 -68V230H70Q56 237 56 250Z"></path></g><g data-mml-node="mtext" transform="translate(9868.6,0)"><path data-c="56" d="M114 620Q113 621 110 624T107 627T103 630T98 632T91 634T80 635T67 636T48 637H19V683H28Q46 680 152 680Q273 680 294 683H305V637H284Q223 634 223 620Q223 618 313 372T404 126L490 358Q575 588 575 597Q575 616 554 626T508 637H503V683H512Q527 680 627 680Q718 680 724 683H730V637H723Q648 637 627 596Q627 595 515 291T401 -14Q396 -22 382 -22H374H367Q353 -22 348 -14Q346 -12 231 303Q114 617 114 620Z"></path><path data-c="61" d="M137 305T115 305T78 320T63 359Q63 394 97 421T218 448Q291 448 336 416T396 340Q401 326 401 309T402 194V124Q402 76 407 58T428 40Q443 40 448 56T453 109V145H493V106Q492 66 490 59Q481 29 455 12T400 -6T353 12T329 54V58L327 55Q325 52 322 49T314 40T302 29T287 17T269 6T247 -2T221 -8T190 -11Q130 -11 82 20T34 107Q34 128 41 147T68 188T116 225T194 253T304 268H318V290Q318 324 312 340Q290 411 215 411Q197 411 181 410T156 406T148 403Q170 388 170 359Q170 334 154 320ZM126 106Q126 75 150 51T209 26Q247 26 276 49T315 109Q317 116 318 175Q318 233 317 233Q309 233 296 232T251 223T193 203T147 166T126 106Z" transform="translate(750,0)"></path><path data-c="72" d="M36 46H50Q89 46 97 60V68Q97 77 97 91T98 122T98 161T98 203Q98 234 98 269T98 328L97 351Q94 370 83 376T38 385H20V408Q20 431 22 431L32 432Q42 433 60 434T96 436Q112 437 131 438T160 441T171 442H174V373Q213 441 271 441H277Q322 441 343 419T364 373Q364 352 351 337T313 322Q288 322 276 338T263 372Q263 381 265 388T270 400T273 405Q271 407 250 401Q234 393 226 386Q179 341 179 207V154Q179 141 179 127T179 101T180 81T180 66V61Q181 59 183 57T188 54T193 51T200 49T207 48T216 47T225 47T235 46T245 46H276V0H267Q249 3 140 3Q37 3 28 0H20V46H36Z" transform="translate(1250,0)"></path><path data-c="69" d="M69 609Q69 637 87 653T131 669Q154 667 171 652T188 609Q188 579 171 564T129 549Q104 549 87 564T69 609ZM247 0Q232 3 143 3Q132 3 106 3T56 1L34 0H26V46H42Q70 46 91 49Q100 53 102 60T104 102V205V293Q104 345 102 359T88 378Q74 385 41 385H30V408Q30 431 32 431L42 432Q52 433 70 434T106 436Q123 437 142 438T171 441T182 442H185V62Q190 52 197 50T232 46H255V0H247Z" transform="translate(1642,0)"></path><path data-c="61" d="M137 305T115 305T78 320T63 359Q63 394 97 421T218 448Q291 448 336 416T396 340Q401 326 401 309T402 194V124Q402 76 407 58T428 40Q443 40 448 56T453 109V145H493V106Q492 66 490 59Q481 29 455 12T400 -6T353 12T329 54V58L327 55Q325 52 322 49T314 40T302 29T287 17T269 6T247 -2T221 -8T190 -11Q130 -11 82 20T34 107Q34 128 41 147T68 188T116 225T194 253T304 268H318V290Q318 324 312 340Q290 411 215 411Q197 411 181 410T156 406T148 403Q170 388 170 359Q170 334 154 320ZM126 106Q126 75 150 51T209 26Q247 26 276 49T315 109Q317 116 318 175Q318 233 317 233Q309 233 296 232T251 223T193 203T147 166T126 106Z" transform="translate(1920,0)"></path><path data-c="6E" d="M41 46H55Q94 46 102 60V68Q102 77 102 91T102 122T103 161T103 203Q103 234 103 269T102 328V351Q99 370 88 376T43 385H25V408Q25 431 27 431L37 432Q47 433 65 434T102 436Q119 437 138 438T167 441T178 442H181V402Q181 364 182 364T187 369T199 384T218 402T247 421T285 437Q305 442 336 442Q450 438 463 329Q464 322 464 190V104Q464 66 466 59T477 49Q498 46 526 46H542V0H534L510 1Q487 2 460 2T422 3Q319 3 310 0H302V46H318Q379 46 379 62Q380 64 380 200Q379 335 378 343Q372 371 358 385T334 402T308 404Q263 404 229 370Q202 343 195 315T187 232V168V108Q187 78 188 68T191 55T200 49Q221 46 249 46H265V0H257L234 1Q210 2 183 2T145 3Q42 3 33 0H25V46H41Z" transform="translate(2420,0)"></path><path data-c="63" d="M370 305T349 305T313 320T297 358Q297 381 312 396Q317 401 317 402T307 404Q281 408 258 408Q209 408 178 376Q131 329 131 219Q131 137 162 90Q203 29 272 29Q313 29 338 55T374 117Q376 125 379 127T395 129H409Q415 123 415 120Q415 116 411 104T395 71T366 33T318 2T249 -11Q163 -11 99 53T34 214Q34 318 99 383T250 448T370 421T404 357Q404 334 387 320Z" transform="translate(2976,0)"></path><path data-c="65" d="M28 218Q28 273 48 318T98 391T163 433T229 448Q282 448 320 430T378 380T406 316T415 245Q415 238 408 231H126V216Q126 68 226 36Q246 30 270 30Q312 30 342 62Q359 79 369 104L379 128Q382 131 395 131H398Q415 131 415 121Q415 117 412 108Q393 53 349 21T250 -11Q155 -11 92 58T28 218ZM333 275Q322 403 238 411H236Q228 411 220 410T195 402T166 381T143 340T127 274V267H333V275Z" transform="translate(3420,0)"></path></g><g data-mml-node="mo" transform="translate(13954.8,0)"><path data-c="2B" d="M56 237T56 250T70 270H369V420L370 570Q380 583 389 583Q402 583 409 568V270H707Q722 262 722 250T707 230H409V-68Q401 -82 391 -82H389H387Q375 -82 369 -68V230H70Q56 237 56 250Z"></path></g><g data-mml-node="mtext" transform="translate(14955,0)"><path data-c="49" d="M328 0Q307 3 180 3T32 0H21V46H43Q92 46 106 49T126 60Q128 63 128 342Q128 620 126 623Q122 628 118 630T96 635T43 637H21V683H32Q53 680 180 680T328 683H339V637H317Q268 637 254 634T234 623Q232 620 232 342Q232 63 234 60Q238 55 242 53T264 48T317 46H339V0H328Z"></path><path data-c="72" d="M36 46H50Q89 46 97 60V68Q97 77 97 91T98 122T98 161T98 203Q98 234 98 269T98 328L97 351Q94 370 83 376T38 385H20V408Q20 431 22 431L32 432Q42 433 60 434T96 436Q112 437 131 438T160 441T171 442H174V373Q213 441 271 441H277Q322 441 343 419T364 373Q364 352 351 337T313 322Q288 322 276 338T263 372Q263 381 265 388T270 400T273 405Q271 407 250 401Q234 393 226 386Q179 341 179 207V154Q179 141 179 127T179 101T180 81T180 66V61Q181 59 183 57T188 54T193 51T200 49T207 48T216 47T225 47T235 46T245 46H276V0H267Q249 3 140 3Q37 3 28 0H20V46H36Z" transform="translate(361,0)"></path><path data-c="72" d="M36 46H50Q89 46 97 60V68Q97 77 97 91T98 122T98 161T98 203Q98 234 98 269T98 328L97 351Q94 370 83 376T38 385H20V408Q20 431 22 431L32 432Q42 433 60 434T96 436Q112 437 131 438T160 441T171 442H174V373Q213 441 271 441H277Q322 441 343 419T364 373Q364 352 351 337T313 322Q288 322 276 338T263 372Q263 381 265 388T270 400T273 405Q271 407 250 401Q234 393 226 386Q179 341 179 207V154Q179 141 179 127T179 101T180 81T180 66V61Q181 59 183 57T188 54T193 51T200 49T207 48T216 47T225 47T235 46T245 46H276V0H267Q249 3 140 3Q37 3 28 0H20V46H36Z" transform="translate(753,0)"></path><path data-c="65" d="M28 218Q28 273 48 318T98 391T163 433T229 448Q282 448 320 430T378 380T406 316T415 245Q415 238 408 231H126V216Q126 68 226 36Q246 30 270 30Q312 30 342 62Q359 79 369 104L379 128Q382 131 395 131H398Q415 131 415 121Q415 117 412 108Q393 53 349 21T250 -11Q155 -11 92 58T28 218ZM333 275Q322 403 238 411H236Q228 411 220 410T195 402T166 381T143 340T127 274V267H333V275Z" transform="translate(1145,0)"></path><path data-c="64" d="M376 495Q376 511 376 535T377 568Q377 613 367 624T316 637H298V660Q298 683 300 683L310 684Q320 685 339 686T376 688Q393 689 413 690T443 693T454 694H457V390Q457 84 458 81Q461 61 472 55T517 46H535V0Q533 0 459 -5T380 -11H373V44L365 37Q307 -11 235 -11Q158 -11 96 50T34 215Q34 315 97 378T244 442Q319 442 376 393V495ZM373 342Q328 405 260 405Q211 405 173 369Q146 341 139 305T131 211Q131 155 138 120T173 59Q203 26 251 26Q322 26 373 103V342Z" transform="translate(1589,0)"></path><path data-c="75" d="M383 58Q327 -10 256 -10H249Q124 -10 105 89Q104 96 103 226Q102 335 102 348T96 369Q86 385 36 385H25V408Q25 431 27 431L38 432Q48 433 67 434T105 436Q122 437 142 438T172 441T184 442H187V261Q188 77 190 64Q193 49 204 40Q224 26 264 26Q290 26 311 35T343 58T363 90T375 120T379 144Q379 145 379 161T380 201T380 248V315Q380 361 370 372T320 385H302V431Q304 431 378 436T457 442H464V264Q464 84 465 81Q468 61 479 55T524 46H542V0Q540 0 467 -5T390 -11H383V58Z" transform="translate(2145,0)"></path><path data-c="63" d="M370 305T349 305T313 320T297 358Q297 381 312 396Q317 401 317 402T307 404Q281 408 258 408Q209 408 178 376Q131 329 131 219Q131 137 162 90Q203 29 272 29Q313 29 338 55T374 117Q376 125 379 127T395 129H409Q415 123 415 120Q415 116 411 104T395 71T366 33T318 2T249 -11Q163 -11 99 53T34 214Q34 318 99 383T250 448T370 421T404 357Q404 334 387 320Z" transform="translate(2701,0)"></path><path data-c="69" d="M69 609Q69 637 87 653T131 669Q154 667 171 652T188 609Q188 579 171 564T129 549Q104 549 87 564T69 609ZM247 0Q232 3 143 3Q132 3 106 3T56 1L34 0H26V46H42Q70 46 91 49Q100 53 102 60T104 102V205V293Q104 345 102 359T88 378Q74 385 41 385H30V408Q30 431 32 431L42 432Q52 433 70 434T106 436Q123 437 142 438T171 441T182 442H185V62Q190 52 197 50T232 46H255V0H247Z" transform="translate(3145,0)"></path><path data-c="62" d="M307 -11Q234 -11 168 55L158 37Q156 34 153 28T147 17T143 10L138 1L118 0H98V298Q98 599 97 603Q94 622 83 628T38 637H20V660Q20 683 22 683L32 684Q42 685 61 686T98 688Q115 689 135 690T165 693T176 694H179V543Q179 391 180 391L183 394Q186 397 192 401T207 411T228 421T254 431T286 439T323 442Q401 442 461 379T522 216Q522 115 458 52T307 -11ZM182 98Q182 97 187 90T196 79T206 67T218 55T233 44T250 35T271 29T295 26Q330 26 363 46T412 113Q424 148 424 212Q424 287 412 323Q385 405 300 405Q270 405 239 390T188 347L182 339V98Z" transform="translate(3423,0)"></path><path data-c="6C" d="M42 46H56Q95 46 103 60V68Q103 77 103 91T103 124T104 167T104 217T104 272T104 329Q104 366 104 407T104 482T104 542T103 586T103 603Q100 622 89 628T44 637H26V660Q26 683 28 683L38 684Q48 685 67 686T104 688Q121 689 141 690T171 693T182 694H185V379Q185 62 186 60Q190 52 198 49Q219 46 247 46H263V0H255L232 1Q209 2 183 2T145 3T107 3T57 1L34 0H26V46H42Z" transform="translate(3979,0)"></path><path data-c="65" d="M28 218Q28 273 48 318T98 391T163 433T229 448Q282 448 320 430T378 380T406 316T415 245Q415 238 408 231H126V216Q126 68 226 36Q246 30 270 30Q312 30 342 62Q359 79 369 104L379 128Q382 131 395 131H398Q415 131 415 121Q415 117 412 108Q393 53 349 21T250 -11Q155 -11 92 58T28 218ZM333 275Q322 403 238 411H236Q228 411 220 410T195 402T166 381T143 340T127 274V267H333V275Z" transform="translate(4257,0)"></path><path data-c="20" d="" transform="translate(4701,0)"></path><path data-c="4E" d="M42 46Q74 48 94 56T118 69T128 86V634H124Q114 637 52 637H25V683H232L235 680Q237 679 322 554T493 303L578 178V598Q572 608 568 613T544 627T492 637H475V683H483Q498 680 600 680Q706 680 715 683H724V637H707Q634 633 622 598L621 302V6L614 0H600Q585 0 582 3T481 150T282 443T171 605V345L172 86Q183 50 257 46H274V0H265Q250 3 150 3Q48 3 33 0H25V46H42Z" transform="translate(4951,0)"></path><path data-c="6F" d="M28 214Q28 309 93 378T250 448Q340 448 405 380T471 215Q471 120 407 55T250 -10Q153 -10 91 57T28 214ZM250 30Q372 30 372 193V225V250Q372 272 371 288T364 326T348 362T317 390T268 410Q263 411 252 411Q222 411 195 399Q152 377 139 338T126 246V226Q126 130 145 91Q177 30 250 30Z" transform="translate(5701,0)"></path><path data-c="69" d="M69 609Q69 637 87 653T131 669Q154 667 171 652T188 609Q188 579 171 564T129 549Q104 549 87 564T69 609ZM247 0Q232 3 143 3Q132 3 106 3T56 1L34 0H26V46H42Q70 46 91 49Q100 53 102 60T104 102V205V293Q104 345 102 359T88 378Q74 385 41 385H30V408Q30 431 32 431L42 432Q52 433 70 434T106 436Q123 437 142 438T171 441T182 442H185V62Q190 52 197 50T232 46H255V0H247Z" transform="translate(6201,0)"></path><path data-c="73" d="M295 316Q295 356 268 385T190 414Q154 414 128 401Q98 382 98 349Q97 344 98 336T114 312T157 287Q175 282 201 278T245 269T277 256Q294 248 310 236T342 195T359 133Q359 71 321 31T198 -10H190Q138 -10 94 26L86 19L77 10Q71 4 65 -1L54 -11H46H42Q39 -11 33 -5V74V132Q33 153 35 157T45 162H54Q66 162 70 158T75 146T82 119T101 77Q136 26 198 26Q295 26 295 104Q295 133 277 151Q257 175 194 187T111 210Q75 227 54 256T33 318Q33 357 50 384T93 424T143 442T187 447H198Q238 447 268 432L283 424L292 431Q302 440 314 448H322H326Q329 448 335 442V310L329 304H301Q295 310 295 316Z" transform="translate(6479,0)"></path><path data-c="65" d="M28 218Q28 273 48 318T98 391T163 433T229 448Q282 448 320 430T378 380T406 316T415 245Q415 238 408 231H126V216Q126 68 226 36Q246 30 270 30Q312 30 342 62Q359 79 369 104L379 128Q382 131 395 131H398Q415 131 415 121Q415 117 412 108Q393 53 349 21T250 -11Q155 -11 92 58T28 218ZM333 275Q322 403 238 411H236Q228 411 220 410T195 402T166 381T143 340T127 274V267H333V275Z" transform="translate(6873,0)"></path></g></g></g></svg></mjx-container></p><table>
+<thead>
+<tr>
+<th>Component</th>
+<th>What It Means</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Bias²</strong></td>
+<td>Error from wrong assumptions</td>
+<td>Model too simple</td>
+</tr>
+<tr>
+<td><strong>Variance</strong></td>
+<td>Sensitivity to training data</td>
+<td>Model too complex</td>
+</tr>
+<tr>
+<td><strong>Noise</strong></td>
+<td>Random error in data</td>
+<td>Can't reduce</td>
+</tr>
+</tbody>
+</table>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="13" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="13" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="76">
+<h1 id="the-tradeoff-visualized">The Tradeoff Visualized</h1>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code>Error
+  │
+  │   ╲        Total Error
+  │    ╲        ╱
+  │     ╲      ╱
+  │      ╲____╱  ← Sweet spot
+  │      ╱    ╲
+  │Bias╱       ╲ Variance
+  └──────────────────────
+     Simple ──────<img class="emoji" draggable="false" alt="▶" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/25b6.svg" data-marp-twemoji=""/> Complex
+              Model Complexity
+</code></pre>
+<p><strong>You can't minimize both simultaneously!</strong></p>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="14" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="14" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="76">
+<h1 id="bias-variance-in-different-models">Bias-Variance in Different Models</h1>
 <table>
 <thead>
 <tr>
-<th>Model Complexity</th>
+<th>Model</th>
+<th>Complexity</th>
 <th>Bias</th>
 <th>Variance</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Very simple</td>
+<td>Linear Regression</td>
+<td>Low</td>
 <td>High</td>
 <td>Low</td>
 </tr>
 <tr>
-<td>Just right</td>
+<td>Polynomial (degree 2)</td>
+<td>Medium</td>
 <td>Medium</td>
 <td>Medium</td>
 </tr>
 <tr>
-<td>Very complex</td>
+<td>Polynomial (degree 20)</td>
+<td>High</td>
+<td>Low</td>
+<td>High</td>
+</tr>
+<tr>
+<td>Decision Tree (depth 3)</td>
+<td>Low</td>
+<td>High</td>
+<td>Low</td>
+</tr>
+<tr>
+<td>Decision Tree (depth 50)</td>
+<td>High</td>
 <td>Low</td>
 <td>High</td>
 </tr>
 </tbody>
 </table>
-<div class="insight">
-We can't minimize both simultaneously — we must find the balance!
-</div>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="11" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="11" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="50">
-<h1 id="how-to-detect">How to Detect?</h1>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="15" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="15" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="76">
+<h1 id="diagnosing-your-model">Diagnosing Your Model</h1>
 <table>
 <thead>
 <tr>
-<th>Symptom</th>
+<th>Train Error</th>
+<th>Test Error</th>
 <th>Diagnosis</th>
-<th>Solution</th>
+<th>Fix</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>High train error, high test error</td>
+<td>High</td>
+<td>High</td>
 <td>Underfitting</td>
-<td>More complex model</td>
+<td>More complexity</td>
 </tr>
 <tr>
-<td>Low train error, high test error</td>
+<td>Low</td>
+<td>High</td>
 <td>Overfitting</td>
-<td>Simpler model, more data</td>
+<td>Less complexity</td>
 </tr>
 <tr>
-<td>Low train error, low test error</td>
+<td>Low</td>
+<td>Low</td>
 <td>Good fit!</td>
-<td>Ship it!</td>
+<td>Deploy it</td>
+</tr>
+<tr>
+<td>High</td>
+<td>Low</td>
+<td>Something weird</td>
+<td>Check for bugs</td>
 </tr>
 </tbody>
 </table>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="12" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="12" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="50">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="16" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="16" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="76">
 <h1 id="learning-curves">Learning Curves</h1>
-<p>Plot error vs training set size:</p>
+<p><strong>Plot error vs training set size:</strong></p>
 <pre is="marp-pre" data-auto-scaling="downscale-only"><code>Error
   │
-  │ ╲              test error
-  │   ╲  --------
-  │     ─────────  train error
-  │
-  └─────────────────────
-             Training set size
-
-If gap between curves: OVERFITTING
-If both high: UNDERFITTING
+  │ ╲              Test Error
+  │   ╲  ─ ─ ─ ─ ─
+  │     ────────── ← Gap indicates overfitting
+  │    ╱ ─ ─ ─ ─ ─  Train Error
+  │  ╱
+  └─────────────────────<img class="emoji" draggable="false" alt="▶" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/25b6.svg" data-marp-twemoji=""/>
+          Training Set Size
 </code></pre>
+<p><strong>More data helps reduce overfitting!</strong></p>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="13" data-paginate="true" data-class="section-divider" data-theme="iitgn-modern" lang="en-IN" class="section-divider" data-marpit-pagination="13" style="--paginate:true;--class:section-divider;--theme:iitgn-modern;" data-marpit-pagination-total="50">
-<h1 id="part-2-cross-validation">Part 2: Cross-Validation</h1>
-<h2 id="better-evaluation-than-traintest-split">Better Evaluation Than Train/Test Split</h2>
-</section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="14" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="14" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="50">
-<h1 id="problem-with-single-traintest-split">Problem with Single Train/Test Split</h1>
-<p><strong>Issue:</strong> Results depend on which data ends up in test set.</p>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="17" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="17" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="76">
+<h1 id="solutions-for-overfitting">Solutions for Overfitting</h1>
 <table>
 <thead>
 <tr>
-<th>Random Seed</th>
-<th>Test Accuracy</th>
+<th>Technique</th>
+<th>How It Helps</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>seed=1</td>
-<td>92%</td>
+<td><strong>More data</strong></td>
+<td>Harder to memorize</td>
 </tr>
 <tr>
-<td>seed=2</td>
-<td>87%</td>
+<td><strong>Simpler model</strong></td>
+<td>Less capacity to overfit</td>
 </tr>
 <tr>
-<td>seed=3</td>
-<td>95%</td>
+<td><strong>Regularization</strong></td>
+<td>Penalize complexity</td>
+</tr>
+<tr>
+<td><strong>Early stopping</strong></td>
+<td>Stop before memorizing</td>
+</tr>
+<tr>
+<td><strong>Cross-validation</strong></td>
+<td>Better evaluation</td>
+</tr>
+<tr>
+<td><strong>Ensemble methods</strong></td>
+<td>Average out variance</td>
 </tr>
 </tbody>
 </table>
-<p>Which one should we believe?</p>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="15" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="15" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="50">
-<h1 id="k-fold-cross-validation">K-Fold Cross-Validation</h1>
-<p><strong>Idea:</strong> Use every data point for both training AND testing!</p>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>Fold 1: [Test] [Train] [Train] [Train] [Train]
-Fold 2: [Train] [Test] [Train] [Train] [Train]
-Fold 3: [Train] [Train] [Test] [Train] [Train]
-Fold 4: [Train] [Train] [Train] [Test] [Train]
-Fold 5: [Train] [Train] [Train] [Train] [Test]
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="18" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="18" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="76">
+<h1 id="solutions-for-underfitting">Solutions for Underfitting</h1>
+<table>
+<thead>
+<tr>
+<th>Technique</th>
+<th>How It Helps</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>More features</strong></td>
+<td>Give model more information</td>
+</tr>
+<tr>
+<td><strong>More complex model</strong></td>
+<td>Increase capacity</td>
+</tr>
+<tr>
+<td><strong>Less regularization</strong></td>
+<td>Let model be more flexible</td>
+</tr>
+<tr>
+<td><strong>Feature engineering</strong></td>
+<td>Create better features</td>
+</tr>
+<tr>
+<td><strong>Polynomial features</strong></td>
+<td>Capture non-linear patterns</td>
+</tr>
+</tbody>
+</table>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="19" data-paginate="true" data-class="section-divider" data-theme="iitgn-modern" lang="en-IN" class="section-divider" data-marpit-pagination="19" style="--paginate:true;--class:section-divider;--theme:iitgn-modern;" data-marpit-pagination-total="76">
+<h1 id="part-2-cross-validation">Part 2: Cross-Validation</h1>
+<h2 id="getting-reliable-performance-estimates">Getting Reliable Performance Estimates</h2>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="20" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="20" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="76">
+<h1 id="the-problem-with-traintest-split">The Problem with Train/Test Split</h1>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-python"><span class="hljs-keyword">from</span> sklearn.model_selection <span class="hljs-keyword">import</span> train_test_split
 
-Final score = Average of all 5 test scores
+<span class="hljs-comment"># Try different random seeds</span>
+<span class="hljs-keyword">for</span> seed <span class="hljs-keyword">in</span> [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>]:
+    X_train, X_test, y_train, y_test = train_test_split(
+        X, y, test_size=<span class="hljs-number">0.2</span>, random_state=seed)
+    model.fit(X_train, y_train)
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Seed <span class="hljs-subst">{seed}</span>: <span class="hljs-subst">{model.score(X_test, y_test):<span class="hljs-number">.2</span>%}</span>&quot;</span>)
+</code></pre>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code>Seed 1: 87%
+Seed 2: 92%  ← Which one should we believe?
+Seed 3: 84%
+Seed 4: 90%
+Seed 5: 88%
 </code></pre>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="16" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="16" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="50">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="21" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="21" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="76">
+<h1 id="the-luckyunlucky-split-problem">The Lucky/Unlucky Split Problem</h1>
+<p><strong>What if your test set happened to contain:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>Accuracy</th>
+<th>Reality</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Easy examples only</td>
+<td>95%</td>
+<td>Overly optimistic</td>
+</tr>
+<tr>
+<td>Hard examples only</td>
+<td>80%</td>
+<td>Overly pessimistic</td>
+</tr>
+<tr>
+<td>Representative sample</td>
+<td>88%</td>
+<td>Realistic</td>
+</tr>
+</tbody>
+</table>
+<p><strong>One split = One roll of the dice</strong></p>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="22" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="22" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="76">
+<h1 id="k-fold-cross-validation">K-Fold Cross-Validation</h1>
+<p><strong>Idea:</strong> Use EVERY data point for both training AND testing!</p>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code>Data: [1][2][3][4][5][6][7][8][9][10]
+
+Fold 1: [TEST 1-2] [TRAIN 3-10] → Score: 0.87
+Fold 2: [TRAIN 1-2] [TEST 3-4] [TRAIN 5-10] → Score: 0.89
+Fold 3: [TRAIN 1-4] [TEST 5-6] [TRAIN 7-10] → Score: 0.91
+Fold 4: [TRAIN 1-6] [TEST 7-8] [TRAIN 9-10] → Score: 0.88
+Fold 5: [TRAIN 1-8] [TEST 9-10] → Score: 0.90
+
+Final Score: 0.89 ± 0.01
+</code></pre>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="23" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="23" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="76">
+<h1 id="visual-5-fold-cross-validation">Visual: 5-Fold Cross-Validation</h1>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code>          Fold 1   Fold 2   Fold 3   Fold 4   Fold 5
+Data:     ┌─────┬─────┬─────┬─────┬─────┐
+Portion 1 │TEST │Train│Train│Train│Train│
+Portion 2 │Train│TEST │Train│Train│Train│
+Portion 3 │Train│Train│TEST │Train│Train│
+Portion 4 │Train│Train│Train│TEST │Train│
+Portion 5 │Train│Train│Train│Train│TEST │
+          └─────┴─────┴─────┴─────┴─────┘
+
+Every portion is used for testing exactly ONCE
+</code></pre>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="24" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="24" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="76">
 <h1 id="k-fold-in-sklearn">K-Fold in sklearn</h1>
 <pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-python"><span class="hljs-keyword">from</span> sklearn.model_selection <span class="hljs-keyword">import</span> cross_val_score
 <span class="hljs-keyword">from</span> sklearn.tree <span class="hljs-keyword">import</span> DecisionTreeClassifier
@@ -253,275 +548,631 @@ model = DecisionTreeClassifier(max_depth=<span class="hljs-number">5</span>)
 <span class="hljs-comment"># 5-fold cross-validation</span>
 scores = cross_val_score(model, X, y, cv=<span class="hljs-number">5</span>)
 
-<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Scores: <span class="hljs-subst">{scores}</span>&quot;</span>)  <span class="hljs-comment"># [0.92, 0.88, 0.91, 0.90, 0.89]</span>
-<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Mean: <span class="hljs-subst">{scores.mean():<span class="hljs-number">.2</span>f}</span>&quot;</span>)  <span class="hljs-comment"># 0.90</span>
-<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Std: <span class="hljs-subst">{scores.std():<span class="hljs-number">.2</span>f}</span>&quot;</span>)   <span class="hljs-comment"># 0.01</span>
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Fold scores: <span class="hljs-subst">{scores}</span>&quot;</span>)
+<span class="hljs-comment"># [0.87, 0.89, 0.91, 0.88, 0.90]</span>
+
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Mean: <span class="hljs-subst">{scores.mean():<span class="hljs-number">.3</span>f}</span>&quot;</span>)  <span class="hljs-comment"># 0.890</span>
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Std:  <span class="hljs-subst">{scores.std():<span class="hljs-number">.3</span>f}</span>&quot;</span>)   <span class="hljs-comment"># 0.015</span>
 </code></pre>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="17" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="17" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="50">
-<h1 id="why-cross-validation">Why Cross-Validation?</h1>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="25" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="25" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="76">
+<h1 id="interpreting-cross-validation-results">Interpreting Cross-Validation Results</h1>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-python">scores = [<span class="hljs-number">0.87</span>, <span class="hljs-number">0.89</span>, <span class="hljs-number">0.91</span>, <span class="hljs-number">0.88</span>, <span class="hljs-number">0.90</span>]
+</code></pre>
 <table>
 <thead>
 <tr>
-<th>Benefit</th>
-<th>Explanation</th>
+<th>Metric</th>
+<th>Value</th>
+<th>Meaning</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>More reliable</td>
-<td>Average over multiple splits</td>
+<td>Mean</td>
+<td>0.890</td>
+<td>Expected performance</td>
 </tr>
 <tr>
-<td>Uses all data</td>
-<td>Every point is tested once</td>
+<td>Std</td>
+<td>0.015</td>
+<td>Model stability</td>
 </tr>
 <tr>
-<td>Measures variance</td>
-<td>Std shows model stability</td>
+<td>Min</td>
+<td>0.87</td>
+<td>Worst case</td>
 </tr>
 <tr>
-<td>Standard practice</td>
-<td>Everyone uses it!</td>
+<td>Max</td>
+<td>0.91</td>
+<td>Best case</td>
 </tr>
 </tbody>
 </table>
+<p><strong>Low std = Stable model</strong><br />
+<strong>High std = Model performance varies a lot</strong></p>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="18" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="18" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="50">
-<h1 id="common-k-values">Common K Values</h1>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="26" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="26" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="76">
+<h1 id="choosing-k">Choosing K</h1>
 <table>
 <thead>
 <tr>
 <th>K</th>
 <th>Name</th>
-<th>When to Use</th>
+<th>Pros</th>
+<th>Cons</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>5</td>
 <td>5-Fold</td>
-<td>Most common default</td>
+<td>Fast, standard</td>
+<td>Less reliable</td>
 </tr>
 <tr>
 <td>10</td>
 <td>10-Fold</td>
-<td>More reliable estimate</td>
+<td>More reliable</td>
+<td>Slower</td>
 </tr>
 <tr>
 <td>n</td>
 <td>Leave-One-Out</td>
-<td>Very small datasets</td>
+<td>Uses all data</td>
+<td>Very slow</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Rule:</strong> Larger K = more reliable but slower.</p>
+<p><strong>Rule of thumb:</strong></p>
+<ul>
+<li>Small dataset (&lt; 1000): Use 10-fold</li>
+<li>Medium dataset: Use 5-fold</li>
+<li>Large dataset (&gt; 10000): Even 3-fold is fine</li>
+</ul>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="19" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="19" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="50">
-<h1 id="trainvalidationtest-split">Train/Validation/Test Split</h1>
-<p>For model selection, we need <strong>three</strong> sets:</p>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>┌───────────────────────────────────────────────┐
-│               ALL DATA                         │
-├─────────────────────────┬──────────┬──────────┤
-│   Training Set (60%)    │Val (20%) │Test (20%)│
-│   Learn parameters      │Tune hyper│ Final    │
-│                         │parameters│ evaluation│
-└─────────────────────────┴──────────┴──────────┘
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="27" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="27" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="76">
+<h1 id="stratified-k-fold">Stratified K-Fold</h1>
+<p><strong>Problem:</strong> What if your classes are imbalanced?</p>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-python"><span class="hljs-comment"># Original data: 900 class 0, 100 class 1</span>
+<span class="hljs-comment"># Random fold might get: 200 class 0, 0 class 1  ← Bad!</span>
+</code></pre>
+<p><strong>Solution:</strong> Stratified K-Fold maintains class proportions</p>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-python"><span class="hljs-keyword">from</span> sklearn.model_selection <span class="hljs-keyword">import</span> cross_val_score, StratifiedKFold
+
+skf = StratifiedKFold(n_splits=<span class="hljs-number">5</span>, shuffle=<span class="hljs-literal">True</span>, random_state=<span class="hljs-number">42</span>)
+scores = cross_val_score(model, X, y, cv=skf)
 </code></pre>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="20" data-paginate="true" data-class="section-divider" data-theme="iitgn-modern" lang="en-IN" class="section-divider" data-marpit-pagination="20" style="--paginate:true;--class:section-divider;--theme:iitgn-modern;" data-marpit-pagination-total="50">
-<h1 id="part-3-hyperparameter-tuning">Part 3: Hyperparameter Tuning</h1>
-<h2 id="finding-the-best-settings">Finding the Best Settings</h2>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="28" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="28" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="76">
+<h1 id="comparing-models-with-cross-validation">Comparing Models with Cross-Validation</h1>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-python"><span class="hljs-keyword">from</span> sklearn.linear_model <span class="hljs-keyword">import</span> LogisticRegression
+<span class="hljs-keyword">from</span> sklearn.tree <span class="hljs-keyword">import</span> DecisionTreeClassifier
+<span class="hljs-keyword">from</span> sklearn.neighbors <span class="hljs-keyword">import</span> KNeighborsClassifier
+
+models = {
+    <span class="hljs-string">&#x27;Logistic&#x27;</span>: LogisticRegression(),
+    <span class="hljs-string">&#x27;Tree&#x27;</span>: DecisionTreeClassifier(max_depth=<span class="hljs-number">5</span>),
+    <span class="hljs-string">&#x27;KNN&#x27;</span>: KNeighborsClassifier(n_neighbors=<span class="hljs-number">5</span>)
+}
+
+<span class="hljs-keyword">for</span> name, model <span class="hljs-keyword">in</span> models.items():
+    scores = cross_val_score(model, X, y, cv=<span class="hljs-number">5</span>)
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;<span class="hljs-subst">{name}</span>: <span class="hljs-subst">{scores.mean():<span class="hljs-number">.3</span>f}</span> ± <span class="hljs-subst">{scores.std():<span class="hljs-number">.3</span>f}</span>&quot;</span>)
+</code></pre>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code>Logistic: 0.850 ± 0.020
+Tree:     0.890 ± 0.015  ← Winner
+KNN:      0.870 ± 0.025
+</code></pre>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="21" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="21" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="50">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="29" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="29" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="76">
+<h1 id="the-three-way-split">The Three-Way Split</h1>
+<p><strong>For model selection AND final evaluation:</strong></p>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code>                    All Data (100%)
+                         │
+        ┌────────────────┼────────────────┐
+        │                │                │
+   Training         Validation         Test
+     (60%)            (20%)            (20%)
+        │                │                │
+   Learn model       Tune hyper-     Final score
+   parameters        parameters      (touch once!)
+</code></pre>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="30" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="30" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="76">
+<h1 id="why-three-sets">Why Three Sets?</h1>
+<table>
+<thead>
+<tr>
+<th>Set</th>
+<th>Purpose</th>
+<th>When to Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Training</strong></td>
+<td>Learn model parameters</td>
+<td>During fit()</td>
+</tr>
+<tr>
+<td><strong>Validation</strong></td>
+<td>Choose hyperparameters, compare models</td>
+<td>During tuning</td>
+</tr>
+<tr>
+<td><strong>Test</strong></td>
+<td>Final evaluation</td>
+<td>Only at the very end!</td>
+</tr>
+</tbody>
+</table>
+<div class="warning">
+<p><strong>Never tune on test set!</strong> It defeats the purpose of having one.</p>
+</div>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="31" data-paginate="true" data-class="section-divider" data-theme="iitgn-modern" lang="en-IN" class="section-divider" data-marpit-pagination="31" style="--paginate:true;--class:section-divider;--theme:iitgn-modern;" data-marpit-pagination-total="76">
+<h1 id="part-3-hyperparameter-tuning">Part 3: Hyperparameter Tuning</h1>
+<h2 id="finding-the-best-model-settings">Finding the Best Model Settings</h2>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="32" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="32" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="76">
 <h1 id="parameters-vs-hyperparameters">Parameters vs Hyperparameters</h1>
 <table>
 <thead>
 <tr>
 <th>Type</th>
-<th>Learned by</th>
+<th>Set By</th>
+<th>When</th>
 <th>Example</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><strong>Parameters</strong></td>
-<td>The algorithm</td>
-<td>Weights in linear regression</td>
+<td>Algorithm</td>
+<td>During training</td>
+<td>Weights in regression</td>
 </tr>
 <tr>
 <td><strong>Hyperparameters</strong></td>
-<td>You (before training)</td>
-<td>max_depth in decision tree</td>
+<td>You</td>
+<td>Before training</td>
+<td>max_depth, n_neighbors</td>
 </tr>
 </tbody>
 </table>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-python"><span class="hljs-comment"># Hyperparameter (you choose)</span>
+model = DecisionTreeClassifier(max_depth=<span class="hljs-number">5</span>)
+
+<span class="hljs-comment"># Parameters (learned automatically)</span>
+model.fit(X, y)
+<span class="hljs-built_in">print</span>(model.tree_.feature)  <span class="hljs-comment"># Learned split features</span>
+</code></pre>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="22" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="22" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="50">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="33" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="33" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="76">
 <h1 id="common-hyperparameters">Common Hyperparameters</h1>
 <table>
 <thead>
 <tr>
 <th>Model</th>
 <th>Hyperparameter</th>
-<th>Controls</th>
+<th>What It Controls</th>
+<th>Range</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>Decision Tree</td>
-<td>max_depth</td>
-<td>Tree complexity</td>
+<td><code>max_depth</code></td>
+<td>Tree depth</td>
+<td>1 to 20+</td>
+</tr>
+<tr>
+<td>Decision Tree</td>
+<td><code>min_samples_leaf</code></td>
+<td>Leaf size</td>
+<td>1 to 50</td>
 </tr>
 <tr>
 <td>K-NN</td>
-<td>n_neighbors (K)</td>
-<td>How many neighbors</td>
+<td><code>n_neighbors</code></td>
+<td>Neighbors to use</td>
+<td>1 to 50</td>
 </tr>
 <tr>
 <td>Logistic Reg</td>
-<td>C</td>
-<td>Regularization strength</td>
+<td><code>C</code></td>
+<td>Regularization</td>
+<td>0.001 to 100</td>
 </tr>
 <tr>
 <td>Random Forest</td>
-<td>n_estimators</td>
+<td><code>n_estimators</code></td>
 <td>Number of trees</td>
+<td>10 to 500</td>
 </tr>
 </tbody>
 </table>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="23" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="23" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="50">
-<h1 id="grid-search">Grid Search</h1>
-<p>Try <strong>all combinations</strong> of hyperparameter values:</p>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-python"><span class="hljs-keyword">from</span> sklearn.model_selection <span class="hljs-keyword">import</span> GridSearchCV
-<span class="hljs-keyword">from</span> sklearn.tree <span class="hljs-keyword">import</span> DecisionTreeClassifier
-
-<span class="hljs-comment"># Define search space</span>
-param_grid = {
-    <span class="hljs-string">&#x27;max_depth&#x27;</span>: [<span class="hljs-number">3</span>, <span class="hljs-number">5</span>, <span class="hljs-number">7</span>, <span class="hljs-number">10</span>],
-    <span class="hljs-string">&#x27;min_samples_leaf&#x27;</span>: [<span class="hljs-number">1</span>, <span class="hljs-number">5</span>, <span class="hljs-number">10</span>]
-}
-
-<span class="hljs-comment"># Search!</span>
-grid = GridSearchCV(DecisionTreeClassifier(), param_grid, cv=<span class="hljs-number">5</span>)
-grid.fit(X_train, y_train)
-
-<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Best params: <span class="hljs-subst">{grid.best_params_}</span>&quot;</span>)
-<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Best score: <span class="hljs-subst">{grid.best_score_:<span class="hljs-number">.2</span>f}</span>&quot;</span>)
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="34" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="34" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="76">
+<h1 id="manual-tuning-trial-and-error">Manual Tuning: Trial and Error</h1>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-python"><span class="hljs-comment"># Try different max_depth values</span>
+<span class="hljs-keyword">for</span> depth <span class="hljs-keyword">in</span> [<span class="hljs-number">3</span>, <span class="hljs-number">5</span>, <span class="hljs-number">7</span>, <span class="hljs-number">10</span>, <span class="hljs-number">15</span>]:
+    model = DecisionTreeClassifier(max_depth=depth)
+    scores = cross_val_score(model, X, y, cv=<span class="hljs-number">5</span>)
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;depth=<span class="hljs-subst">{depth}</span>: <span class="hljs-subst">{scores.mean():<span class="hljs-number">.3</span>f}</span>&quot;</span>)
 </code></pre>
-</section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="24" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="24" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="50">
-<h1 id="grid-search-results">Grid Search Results</h1>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-python"><span class="hljs-comment"># All results</span>
-results = pd.DataFrame(grid.cv_results_)
-<span class="hljs-built_in">print</span>(results[[<span class="hljs-string">&#x27;param_max_depth&#x27;</span>, <span class="hljs-string">&#x27;param_min_samples_leaf&#x27;</span>,
-               <span class="hljs-string">&#x27;mean_test_score&#x27;</span>]])
-
-<span class="hljs-comment"># Use best model</span>
-best_model = grid.best_estimator_
-predictions = best_model.predict(X_test)
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code>depth=3:  0.820
+depth=5:  0.870
+depth=7:  0.890  ← Best
+depth=10: 0.880
+depth=15: 0.840  ← Overfitting starts
 </code></pre>
+<p><strong>Works but tedious for multiple hyperparameters!</strong></p>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="25" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="25" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="50">
-<h1 id="randomized-search">Randomized Search</h1>
-<p>When search space is large, try <strong>random combinations</strong>:</p>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-python"><span class="hljs-keyword">from</span> sklearn.model_selection <span class="hljs-keyword">import</span> RandomizedSearchCV
-
-param_dist = {
-    <span class="hljs-string">&#x27;max_depth&#x27;</span>: <span class="hljs-built_in">range</span>(<span class="hljs-number">1</span>, <span class="hljs-number">20</span>),
-    <span class="hljs-string">&#x27;min_samples_leaf&#x27;</span>: <span class="hljs-built_in">range</span>(<span class="hljs-number">1</span>, <span class="hljs-number">50</span>)
-}
-
-<span class="hljs-comment"># Try 20 random combinations</span>
-random_search = RandomizedSearchCV(
-    DecisionTreeClassifier(), param_dist, n_iter=<span class="hljs-number">20</span>, cv=<span class="hljs-number">5</span>
-)
-random_search.fit(X_train, y_train)
-</code></pre>
-</section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="26" data-paginate="true" data-class="section-divider" data-theme="iitgn-modern" lang="en-IN" class="section-divider" data-marpit-pagination="26" style="--paginate:true;--class:section-divider;--theme:iitgn-modern;" data-marpit-pagination-total="50">
-<h1 id="part-4-ensemble-methods">Part 4: Ensemble Methods</h1>
-<h2 id="the-wisdom-of-crowds">The Wisdom of Crowds</h2>
-</section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="27" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="27" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="50">
-<h1 id="the-key-insight">The Key Insight</h1>
-<p><strong>One model can be wrong. Many models are often right!</strong></p>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="35" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="35" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="76">
+<h1 id="grid-search-automated-tuning">Grid Search: Automated Tuning</h1>
+<p><strong>Try ALL combinations systematically:</strong></p>
 <table>
 <thead>
 <tr>
-<th>Single Expert</th>
-<th>Panel of Experts</th>
+<th>max_depth</th>
+<th>min_samples_leaf</th>
+<th>Score</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>High risk of error</td>
-<td>Errors cancel out</td>
+<td>3</td>
+<td>1</td>
+<td>0.82</td>
 </tr>
 <tr>
-<td>Biased perspective</td>
-<td>Diverse viewpoints</td>
+<td>3</td>
+<td>5</td>
+<td>0.83</td>
 </tr>
 <tr>
-<td>One decision</td>
-<td>Collective wisdom</td>
+<td>3</td>
+<td>10</td>
+<td>0.81</td>
+</tr>
+<tr>
+<td>5</td>
+<td>1</td>
+<td>0.87</td>
+</tr>
+<tr>
+<td>5</td>
+<td>5</td>
+<td>0.88</td>
+</tr>
+<tr>
+<td><strong>5</strong></td>
+<td><strong>10</strong></td>
+<td><strong>0.89</strong> ← Best</td>
+</tr>
+<tr>
+<td>7</td>
+<td>1</td>
+<td>0.86</td>
+</tr>
+<tr>
+<td>...</td>
+<td>...</td>
+<td>...</td>
 </tr>
 </tbody>
 </table>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="28" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="28" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="50">
-<h1 id="two-main-strategies">Two Main Strategies</h1>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="36" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="36" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="76">
+<h1 id="gridsearchcv-in-sklearn">GridSearchCV in sklearn</h1>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-python"><span class="hljs-keyword">from</span> sklearn.model_selection <span class="hljs-keyword">import</span> GridSearchCV
+<span class="hljs-keyword">from</span> sklearn.tree <span class="hljs-keyword">import</span> DecisionTreeClassifier
+
+<span class="hljs-comment"># Define the grid of values to try</span>
+param_grid = {
+    <span class="hljs-string">&#x27;max_depth&#x27;</span>: [<span class="hljs-number">3</span>, <span class="hljs-number">5</span>, <span class="hljs-number">7</span>, <span class="hljs-number">10</span>],
+    <span class="hljs-string">&#x27;min_samples_leaf&#x27;</span>: [<span class="hljs-number">1</span>, <span class="hljs-number">5</span>, <span class="hljs-number">10</span>, <span class="hljs-number">20</span>]
+}
+
+<span class="hljs-comment"># Create and run the search</span>
+grid_search = GridSearchCV(
+    DecisionTreeClassifier(),
+    param_grid,
+    cv=<span class="hljs-number">5</span>,               <span class="hljs-comment"># 5-fold cross-validation</span>
+    scoring=<span class="hljs-string">&#x27;accuracy&#x27;</span>  <span class="hljs-comment"># Metric to optimize</span>
+)
+grid_search.fit(X_train, y_train)
+</code></pre>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="37" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="37" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="76">
+<h1 id="gridsearchcv-results">GridSearchCV Results</h1>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-python"><span class="hljs-comment"># Best hyperparameters</span>
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Best params: <span class="hljs-subst">{grid_search.best_params_}</span>&quot;</span>)
+<span class="hljs-comment"># {&#x27;max_depth&#x27;: 5, &#x27;min_samples_leaf&#x27;: 10}</span>
+
+<span class="hljs-comment"># Best cross-validation score</span>
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Best CV score: <span class="hljs-subst">{grid_search.best_score_:<span class="hljs-number">.3</span>f}</span>&quot;</span>)
+<span class="hljs-comment"># 0.890</span>
+
+<span class="hljs-comment"># Get the best model (already fitted!)</span>
+best_model = grid_search.best_estimator_
+
+<span class="hljs-comment"># Evaluate on test set</span>
+test_score = best_model.score(X_test, y_test)
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Test score: <span class="hljs-subst">{test_score:<span class="hljs-number">.3</span>f}</span>&quot;</span>)
+<span class="hljs-comment"># 0.885</span>
+</code></pre>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="38" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="38" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="76">
+<h1 id="viewing-all-results">Viewing All Results</h1>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-python"><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
+
+results = pd.DataFrame(grid_search.cv_results_)
+<span class="hljs-built_in">print</span>(results[[<span class="hljs-string">&#x27;param_max_depth&#x27;</span>, <span class="hljs-string">&#x27;param_min_samples_leaf&#x27;</span>,
+               <span class="hljs-string">&#x27;mean_test_score&#x27;</span>, <span class="hljs-string">&#x27;rank_test_score&#x27;</span>]])
+</code></pre>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code>   param_max_depth  param_min_samples_leaf  mean_test_score  rank_test_score
+0               3                       1            0.820               12
+1               3                       5            0.830               10
+2               3                      10            0.810               14
+3               5                       1            0.870                6
+4               5                       5            0.880                3
+5               5                      10            0.890                1  ← Best
+...
+</code></pre>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="39" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="39" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="76">
+<h1 id="the-explosion-problem">The Explosion Problem</h1>
+<p><strong>Grid search with 5 hyperparameters, 10 values each:</strong></p>
+<p><mjx-container class="MathJax" jax="SVG" display="true" style="margin: 0;"><svg style="vertical-align: -0.439ex; display: block; width: 100%; height: auto; max-height: 2.059ex;" xmlns="http://www.w3.org/2000/svg" width="47.466ex" height="2.059ex" role="img" focusable="false" viewBox="0 -716 20980 910"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mn"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path><path data-c="30" d="M96 585Q152 666 249 666Q297 666 345 640T423 548Q460 465 460 320Q460 165 417 83Q397 41 362 16T301 -15T250 -22Q224 -22 198 -16T137 16T82 83Q39 165 39 320Q39 494 96 585ZM321 597Q291 629 250 629Q208 629 178 597Q153 571 145 525T137 333Q137 175 145 125T181 46Q209 16 250 16Q290 16 318 46Q347 76 354 130T362 333Q362 478 354 524T321 597Z" transform="translate(500,0)"></path></g><g data-mml-node="mo" transform="translate(1222.2,0)"><path data-c="D7" d="M630 29Q630 9 609 9Q604 9 587 25T493 118L389 222L284 117Q178 13 175 11Q171 9 168 9Q160 9 154 15T147 29Q147 36 161 51T255 146L359 250L255 354Q174 435 161 449T147 471Q147 480 153 485T168 490Q173 490 175 489Q178 487 284 383L389 278L493 382Q570 459 587 475T609 491Q630 491 630 471Q630 464 620 453T522 355L418 250L522 145Q606 61 618 48T630 29Z"></path></g><g data-mml-node="mn" transform="translate(2222.4,0)"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path><path data-c="30" d="M96 585Q152 666 249 666Q297 666 345 640T423 548Q460 465 460 320Q460 165 417 83Q397 41 362 16T301 -15T250 -22Q224 -22 198 -16T137 16T82 83Q39 165 39 320Q39 494 96 585ZM321 597Q291 629 250 629Q208 629 178 597Q153 571 145 525T137 333Q137 175 145 125T181 46Q209 16 250 16Q290 16 318 46Q347 76 354 130T362 333Q362 478 354 524T321 597Z" transform="translate(500,0)"></path></g><g data-mml-node="mo" transform="translate(3444.7,0)"><path data-c="D7" d="M630 29Q630 9 609 9Q604 9 587 25T493 118L389 222L284 117Q178 13 175 11Q171 9 168 9Q160 9 154 15T147 29Q147 36 161 51T255 146L359 250L255 354Q174 435 161 449T147 471Q147 480 153 485T168 490Q173 490 175 489Q178 487 284 383L389 278L493 382Q570 459 587 475T609 491Q630 491 630 471Q630 464 620 453T522 355L418 250L522 145Q606 61 618 48T630 29Z"></path></g><g data-mml-node="mn" transform="translate(4444.9,0)"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path><path data-c="30" d="M96 585Q152 666 249 666Q297 666 345 640T423 548Q460 465 460 320Q460 165 417 83Q397 41 362 16T301 -15T250 -22Q224 -22 198 -16T137 16T82 83Q39 165 39 320Q39 494 96 585ZM321 597Q291 629 250 629Q208 629 178 597Q153 571 145 525T137 333Q137 175 145 125T181 46Q209 16 250 16Q290 16 318 46Q347 76 354 130T362 333Q362 478 354 524T321 597Z" transform="translate(500,0)"></path></g><g data-mml-node="mo" transform="translate(5667.1,0)"><path data-c="D7" d="M630 29Q630 9 609 9Q604 9 587 25T493 118L389 222L284 117Q178 13 175 11Q171 9 168 9Q160 9 154 15T147 29Q147 36 161 51T255 146L359 250L255 354Q174 435 161 449T147 471Q147 480 153 485T168 490Q173 490 175 489Q178 487 284 383L389 278L493 382Q570 459 587 475T609 491Q630 491 630 471Q630 464 620 453T522 355L418 250L522 145Q606 61 618 48T630 29Z"></path></g><g data-mml-node="mn" transform="translate(6667.3,0)"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path><path data-c="30" d="M96 585Q152 666 249 666Q297 666 345 640T423 548Q460 465 460 320Q460 165 417 83Q397 41 362 16T301 -15T250 -22Q224 -22 198 -16T137 16T82 83Q39 165 39 320Q39 494 96 585ZM321 597Q291 629 250 629Q208 629 178 597Q153 571 145 525T137 333Q137 175 145 125T181 46Q209 16 250 16Q290 16 318 46Q347 76 354 130T362 333Q362 478 354 524T321 597Z" transform="translate(500,0)"></path></g><g data-mml-node="mo" transform="translate(7889.6,0)"><path data-c="D7" d="M630 29Q630 9 609 9Q604 9 587 25T493 118L389 222L284 117Q178 13 175 11Q171 9 168 9Q160 9 154 15T147 29Q147 36 161 51T255 146L359 250L255 354Q174 435 161 449T147 471Q147 480 153 485T168 490Q173 490 175 489Q178 487 284 383L389 278L493 382Q570 459 587 475T609 491Q630 491 630 471Q630 464 620 453T522 355L418 250L522 145Q606 61 618 48T630 29Z"></path></g><g data-mml-node="mn" transform="translate(8889.8,0)"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path><path data-c="30" d="M96 585Q152 666 249 666Q297 666 345 640T423 548Q460 465 460 320Q460 165 417 83Q397 41 362 16T301 -15T250 -22Q224 -22 198 -16T137 16T82 83Q39 165 39 320Q39 494 96 585ZM321 597Q291 629 250 629Q208 629 178 597Q153 571 145 525T137 333Q137 175 145 125T181 46Q209 16 250 16Q290 16 318 46Q347 76 354 130T362 333Q362 478 354 524T321 597Z" transform="translate(500,0)"></path></g><g data-mml-node="mo" transform="translate(10167.6,0)"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path></g><g data-mml-node="mn" transform="translate(11223.3,0)"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path><path data-c="30" d="M96 585Q152 666 249 666Q297 666 345 640T423 548Q460 465 460 320Q460 165 417 83Q397 41 362 16T301 -15T250 -22Q224 -22 198 -16T137 16T82 83Q39 165 39 320Q39 494 96 585ZM321 597Q291 629 250 629Q208 629 178 597Q153 571 145 525T137 333Q137 175 145 125T181 46Q209 16 250 16Q290 16 318 46Q347 76 354 130T362 333Q362 478 354 524T321 597Z" transform="translate(500,0)"></path><path data-c="30" d="M96 585Q152 666 249 666Q297 666 345 640T423 548Q460 465 460 320Q460 165 417 83Q397 41 362 16T301 -15T250 -22Q224 -22 198 -16T137 16T82 83Q39 165 39 320Q39 494 96 585ZM321 597Q291 629 250 629Q208 629 178 597Q153 571 145 525T137 333Q137 175 145 125T181 46Q209 16 250 16Q290 16 318 46Q347 76 354 130T362 333Q362 478 354 524T321 597Z" transform="translate(1000,0)"></path></g><g data-mml-node="mo" transform="translate(12723.3,0)"><path data-c="2C" d="M78 35T78 60T94 103T137 121Q165 121 187 96T210 8Q210 -27 201 -60T180 -117T154 -158T130 -185T117 -194Q113 -194 104 -185T95 -172Q95 -168 106 -156T131 -126T157 -76T173 -3V9L172 8Q170 7 167 6T161 3T152 1T140 0Q113 0 96 17Z"></path></g><g data-mml-node="mn" transform="translate(13168,0)"><path data-c="30" d="M96 585Q152 666 249 666Q297 666 345 640T423 548Q460 465 460 320Q460 165 417 83Q397 41 362 16T301 -15T250 -22Q224 -22 198 -16T137 16T82 83Q39 165 39 320Q39 494 96 585ZM321 597Q291 629 250 629Q208 629 178 597Q153 571 145 525T137 333Q137 175 145 125T181 46Q209 16 250 16Q290 16 318 46Q347 76 354 130T362 333Q362 478 354 524T321 597Z"></path><path data-c="30" d="M96 585Q152 666 249 666Q297 666 345 640T423 548Q460 465 460 320Q460 165 417 83Q397 41 362 16T301 -15T250 -22Q224 -22 198 -16T137 16T82 83Q39 165 39 320Q39 494 96 585ZM321 597Q291 629 250 629Q208 629 178 597Q153 571 145 525T137 333Q137 175 145 125T181 46Q209 16 250 16Q290 16 318 46Q347 76 354 130T362 333Q362 478 354 524T321 597Z" transform="translate(500,0)"></path><path data-c="30" d="M96 585Q152 666 249 666Q297 666 345 640T423 548Q460 465 460 320Q460 165 417 83Q397 41 362 16T301 -15T250 -22Q224 -22 198 -16T137 16T82 83Q39 165 39 320Q39 494 96 585ZM321 597Q291 629 250 629Q208 629 178 597Q153 571 145 525T137 333Q137 175 145 125T181 46Q209 16 250 16Q290 16 318 46Q347 76 354 130T362 333Q362 478 354 524T321 597Z" transform="translate(1000,0)"></path></g><g data-mml-node="mtext" transform="translate(14668,0)"><path data-c="A0" d=""></path><path data-c="63" d="M370 305T349 305T313 320T297 358Q297 381 312 396Q317 401 317 402T307 404Q281 408 258 408Q209 408 178 376Q131 329 131 219Q131 137 162 90Q203 29 272 29Q313 29 338 55T374 117Q376 125 379 127T395 129H409Q415 123 415 120Q415 116 411 104T395 71T366 33T318 2T249 -11Q163 -11 99 53T34 214Q34 318 99 383T250 448T370 421T404 357Q404 334 387 320Z" transform="translate(250,0)"></path><path data-c="6F" d="M28 214Q28 309 93 378T250 448Q340 448 405 380T471 215Q471 120 407 55T250 -10Q153 -10 91 57T28 214ZM250 30Q372 30 372 193V225V250Q372 272 371 288T364 326T348 362T317 390T268 410Q263 411 252 411Q222 411 195 399Q152 377 139 338T126 246V226Q126 130 145 91Q177 30 250 30Z" transform="translate(694,0)"></path><path data-c="6D" d="M41 46H55Q94 46 102 60V68Q102 77 102 91T102 122T103 161T103 203Q103 234 103 269T102 328V351Q99 370 88 376T43 385H25V408Q25 431 27 431L37 432Q47 433 65 434T102 436Q119 437 138 438T167 441T178 442H181V402Q181 364 182 364T187 369T199 384T218 402T247 421T285 437Q305 442 336 442Q351 442 364 440T387 434T406 426T421 417T432 406T441 395T448 384T452 374T455 366L457 361L460 365Q463 369 466 373T475 384T488 397T503 410T523 422T546 432T572 439T603 442Q729 442 740 329Q741 322 741 190V104Q741 66 743 59T754 49Q775 46 803 46H819V0H811L788 1Q764 2 737 2T699 3Q596 3 587 0H579V46H595Q656 46 656 62Q657 64 657 200Q656 335 655 343Q649 371 635 385T611 402T585 404Q540 404 506 370Q479 343 472 315T464 232V168V108Q464 78 465 68T468 55T477 49Q498 46 526 46H542V0H534L510 1Q487 2 460 2T422 3Q319 3 310 0H302V46H318Q379 46 379 62Q380 64 380 200Q379 335 378 343Q372 371 358 385T334 402T308 404Q263 404 229 370Q202 343 195 315T187 232V168V108Q187 78 188 68T191 55T200 49Q221 46 249 46H265V0H257L234 1Q210 2 183 2T145 3Q42 3 33 0H25V46H41Z" transform="translate(1194,0)"></path><path data-c="62" d="M307 -11Q234 -11 168 55L158 37Q156 34 153 28T147 17T143 10L138 1L118 0H98V298Q98 599 97 603Q94 622 83 628T38 637H20V660Q20 683 22 683L32 684Q42 685 61 686T98 688Q115 689 135 690T165 693T176 694H179V543Q179 391 180 391L183 394Q186 397 192 401T207 411T228 421T254 431T286 439T323 442Q401 442 461 379T522 216Q522 115 458 52T307 -11ZM182 98Q182 97 187 90T196 79T206 67T218 55T233 44T250 35T271 29T295 26Q330 26 363 46T412 113Q424 148 424 212Q424 287 412 323Q385 405 300 405Q270 405 239 390T188 347L182 339V98Z" transform="translate(2027,0)"></path><path data-c="69" d="M69 609Q69 637 87 653T131 669Q154 667 171 652T188 609Q188 579 171 564T129 549Q104 549 87 564T69 609ZM247 0Q232 3 143 3Q132 3 106 3T56 1L34 0H26V46H42Q70 46 91 49Q100 53 102 60T104 102V205V293Q104 345 102 359T88 378Q74 385 41 385H30V408Q30 431 32 431L42 432Q52 433 70 434T106 436Q123 437 142 438T171 441T182 442H185V62Q190 52 197 50T232 46H255V0H247Z" transform="translate(2583,0)"></path><path data-c="6E" d="M41 46H55Q94 46 102 60V68Q102 77 102 91T102 122T103 161T103 203Q103 234 103 269T102 328V351Q99 370 88 376T43 385H25V408Q25 431 27 431L37 432Q47 433 65 434T102 436Q119 437 138 438T167 441T178 442H181V402Q181 364 182 364T187 369T199 384T218 402T247 421T285 437Q305 442 336 442Q450 438 463 329Q464 322 464 190V104Q464 66 466 59T477 49Q498 46 526 46H542V0H534L510 1Q487 2 460 2T422 3Q319 3 310 0H302V46H318Q379 46 379 62Q380 64 380 200Q379 335 378 343Q372 371 358 385T334 402T308 404Q263 404 229 370Q202 343 195 315T187 232V168V108Q187 78 188 68T191 55T200 49Q221 46 249 46H265V0H257L234 1Q210 2 183 2T145 3Q42 3 33 0H25V46H41Z" transform="translate(2861,0)"></path><path data-c="61" d="M137 305T115 305T78 320T63 359Q63 394 97 421T218 448Q291 448 336 416T396 340Q401 326 401 309T402 194V124Q402 76 407 58T428 40Q443 40 448 56T453 109V145H493V106Q492 66 490 59Q481 29 455 12T400 -6T353 12T329 54V58L327 55Q325 52 322 49T314 40T302 29T287 17T269 6T247 -2T221 -8T190 -11Q130 -11 82 20T34 107Q34 128 41 147T68 188T116 225T194 253T304 268H318V290Q318 324 312 340Q290 411 215 411Q197 411 181 410T156 406T148 403Q170 388 170 359Q170 334 154 320ZM126 106Q126 75 150 51T209 26Q247 26 276 49T315 109Q317 116 318 175Q318 233 317 233Q309 233 296 232T251 223T193 203T147 166T126 106Z" transform="translate(3417,0)"></path><path data-c="74" d="M27 422Q80 426 109 478T141 600V615H181V431H316V385H181V241Q182 116 182 100T189 68Q203 29 238 29Q282 29 292 100Q293 108 293 146V181H333V146V134Q333 57 291 17Q264 -10 221 -10Q187 -10 162 2T124 33T105 68T98 100Q97 107 97 248V385H18V422H27Z" transform="translate(3917,0)"></path><path data-c="69" d="M69 609Q69 637 87 653T131 669Q154 667 171 652T188 609Q188 579 171 564T129 549Q104 549 87 564T69 609ZM247 0Q232 3 143 3Q132 3 106 3T56 1L34 0H26V46H42Q70 46 91 49Q100 53 102 60T104 102V205V293Q104 345 102 359T88 378Q74 385 41 385H30V408Q30 431 32 431L42 432Q52 433 70 434T106 436Q123 437 142 438T171 441T182 442H185V62Q190 52 197 50T232 46H255V0H247Z" transform="translate(4306,0)"></path><path data-c="6F" d="M28 214Q28 309 93 378T250 448Q340 448 405 380T471 215Q471 120 407 55T250 -10Q153 -10 91 57T28 214ZM250 30Q372 30 372 193V225V250Q372 272 371 288T364 326T348 362T317 390T268 410Q263 411 252 411Q222 411 195 399Q152 377 139 338T126 246V226Q126 130 145 91Q177 30 250 30Z" transform="translate(4584,0)"></path><path data-c="6E" d="M41 46H55Q94 46 102 60V68Q102 77 102 91T102 122T103 161T103 203Q103 234 103 269T102 328V351Q99 370 88 376T43 385H25V408Q25 431 27 431L37 432Q47 433 65 434T102 436Q119 437 138 438T167 441T178 442H181V402Q181 364 182 364T187 369T199 384T218 402T247 421T285 437Q305 442 336 442Q450 438 463 329Q464 322 464 190V104Q464 66 466 59T477 49Q498 46 526 46H542V0H534L510 1Q487 2 460 2T422 3Q319 3 310 0H302V46H318Q379 46 379 62Q380 64 380 200Q379 335 378 343Q372 371 358 385T334 402T308 404Q263 404 229 370Q202 343 195 315T187 232V168V108Q187 78 188 68T191 55T200 49Q221 46 249 46H265V0H257L234 1Q210 2 183 2T145 3Q42 3 33 0H25V46H41Z" transform="translate(5084,0)"></path><path data-c="73" d="M295 316Q295 356 268 385T190 414Q154 414 128 401Q98 382 98 349Q97 344 98 336T114 312T157 287Q175 282 201 278T245 269T277 256Q294 248 310 236T342 195T359 133Q359 71 321 31T198 -10H190Q138 -10 94 26L86 19L77 10Q71 4 65 -1L54 -11H46H42Q39 -11 33 -5V74V132Q33 153 35 157T45 162H54Q66 162 70 158T75 146T82 119T101 77Q136 26 198 26Q295 26 295 104Q295 133 277 151Q257 175 194 187T111 210Q75 227 54 256T33 318Q33 357 50 384T93 424T143 442T187 447H198Q238 447 268 432L283 424L292 431Q302 440 314 448H322H326Q329 448 335 442V310L329 304H301Q295 310 295 316Z" transform="translate(5640,0)"></path><path data-c="21" d="M78 661Q78 682 96 699T138 716T180 700T199 661Q199 654 179 432T158 206Q156 198 139 198Q121 198 119 206Q118 209 98 431T78 661ZM79 61Q79 89 97 105T141 121Q164 119 181 104T198 61Q198 31 181 16T139 1Q114 1 97 16T79 61Z" transform="translate(6034,0)"></path></g></g></g></svg></mjx-container></p><p><strong>With 5-fold CV:</strong> 500,000 model trainings!</p>
+<table>
+<thead>
+<tr>
+<th>Combinations</th>
+<th>Time (1 sec/train)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>100</td>
+<td>8 minutes</td>
+</tr>
+<tr>
+<td>1,000</td>
+<td>1.4 hours</td>
+</tr>
+<tr>
+<td>10,000</td>
+<td>14 hours</td>
+</tr>
+<tr>
+<td>100,000</td>
+<td>6 days</td>
+</tr>
+</tbody>
+</table>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="40" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="40" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="76">
+<h1 id="random-search-smart-sampling">Random Search: Smart Sampling</h1>
+<p><strong>Idea:</strong> Don't try everything, sample randomly!</p>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-python"><span class="hljs-keyword">from</span> sklearn.model_selection <span class="hljs-keyword">import</span> RandomizedSearchCV
+<span class="hljs-keyword">from</span> scipy.stats <span class="hljs-keyword">import</span> randint
+
+param_dist = {
+    <span class="hljs-string">&#x27;max_depth&#x27;</span>: randint(<span class="hljs-number">1</span>, <span class="hljs-number">20</span>),           <span class="hljs-comment"># Random 1-20</span>
+    <span class="hljs-string">&#x27;min_samples_leaf&#x27;</span>: randint(<span class="hljs-number">1</span>, <span class="hljs-number">50</span>),    <span class="hljs-comment"># Random 1-50</span>
+    <span class="hljs-string">&#x27;min_samples_split&#x27;</span>: randint(<span class="hljs-number">2</span>, <span class="hljs-number">50</span>)    <span class="hljs-comment"># Random 2-50</span>
+}
+
+random_search = RandomizedSearchCV(
+    DecisionTreeClassifier(),
+    param_dist,
+    n_iter=<span class="hljs-number">50</span>,    <span class="hljs-comment"># Only try 50 random combinations</span>
+    cv=<span class="hljs-number">5</span>,
+    random_state=<span class="hljs-number">42</span>
+)
+random_search.fit(X_train, y_train)
+</code></pre>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="41" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="41" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="76">
+<h1 id="grid-vs-random-search">Grid vs Random Search</h1>
+<table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>Grid Search</th>
+<th>Random Search</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Coverage</strong></td>
+<td>All combinations</td>
+<td>Sample of space</td>
+</tr>
+<tr>
+<td><strong>Time</strong></td>
+<td>Slow for large grids</td>
+<td>Controllable (n_iter)</td>
+</tr>
+<tr>
+<td><strong>Continuous params</strong></td>
+<td>Must discretize</td>
+<td>Can sample directly</td>
+</tr>
+<tr>
+<td><strong>Best for</strong></td>
+<td>Few params</td>
+<td>Many params</td>
+</tr>
+</tbody>
+</table>
+<div class="insight">
+<p>Random search often finds good solutions faster than grid search!</p>
+</div>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="42" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="42" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="76">
+<h1 id="practical-tuning-strategy">Practical Tuning Strategy</h1>
+<table>
+<thead>
+<tr>
+<th>Step</th>
+<th>What to Do</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. Baseline</td>
+<td>Train with defaults, get baseline score</td>
+</tr>
+<tr>
+<td>2. Coarse search</td>
+<td>Random search with wide ranges</td>
+</tr>
+<tr>
+<td>3. Fine search</td>
+<td>Grid search around best area</td>
+</tr>
+<tr>
+<td>4. Final eval</td>
+<td>Test on held-out test set</td>
+</tr>
+</tbody>
+</table>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-python"><span class="hljs-comment"># Start wide</span>
+RandomizedSearchCV(model, wide_params, n_iter=<span class="hljs-number">100</span>)
+
+<span class="hljs-comment"># Then narrow down</span>
+GridSearchCV(model, narrow_params, cv=<span class="hljs-number">5</span>)
+</code></pre>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="43" data-paginate="true" data-class="section-divider" data-theme="iitgn-modern" lang="en-IN" class="section-divider" data-marpit-pagination="43" style="--paginate:true;--class:section-divider;--theme:iitgn-modern;" data-marpit-pagination-total="76">
+<h1 id="part-4-ensemble-methods">Part 4: Ensemble Methods</h1>
+<h2 id="the-wisdom-of-crowds">The Wisdom of Crowds</h2>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="44" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="44" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="76">
+<h1 id="why-ensembles-work">Why Ensembles Work</h1>
+<p><strong>One person guessing jar of marbles:</strong> Often wrong</p>
+<p><strong>1000 people averaging guesses:</strong> Usually close!</p>
+<table>
+<thead>
+<tr>
+<th>Individual</th>
+<th>Guess</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Person 1</td>
+<td>520</td>
+</tr>
+<tr>
+<td>Person 2</td>
+<td>680</td>
+</tr>
+<tr>
+<td>Person 3</td>
+<td>450</td>
+</tr>
+<tr>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr>
+<td><strong>Average</strong></td>
+<td><strong>503</strong></td>
+</tr>
+<tr>
+<td><strong>Actual</strong></td>
+<td><strong>500</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Errors cancel out!</strong></p>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="45" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="45" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="76">
+<h1 id="the-same-idea-in-ml">The Same Idea in ML</h1>
+<p><strong>One decision tree:</strong> May overfit, unstable</p>
+<p><strong>100 decision trees averaged:</strong> Robust, accurate</p>
+<table>
+<thead>
+<tr>
+<th>Single Model</th>
+<th>Ensemble</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>High variance</td>
+<td>Reduced variance</td>
+</tr>
+<tr>
+<td>Biased view</td>
+<td>Diverse perspectives</td>
+</tr>
+<tr>
+<td>One mistake ruins it</td>
+<td>Errors average out</td>
+</tr>
+<tr>
+<td>Unstable</td>
+<td>Stable</td>
+</tr>
+</tbody>
+</table>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="46" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="46" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="76">
+<h1 id="two-ensemble-strategies">Two Ensemble Strategies</h1>
 <table>
 <thead>
 <tr>
 <th>Strategy</th>
-<th>Idea</th>
-<th>Method</th>
+<th>Key Idea</th>
+<th>How It Reduces Error</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><strong>Bagging</strong></td>
-<td>Average many similar models</td>
-<td>Random Forest</td>
+<td>Average many parallel models</td>
+<td>Reduces variance</td>
 </tr>
 <tr>
 <td><strong>Boosting</strong></td>
-<td>Build models that fix previous errors</td>
-<td>XGBoost</td>
+<td>Build models sequentially</td>
+<td>Reduces bias</td>
 </tr>
 </tbody>
 </table>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="29" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="29" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="50">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="47" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="47" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="76">
 <h1 id="bagging-bootstrap-aggregating">Bagging: Bootstrap Aggregating</h1>
 <p><strong>Steps:</strong></p>
 <ol>
-<li>Create multiple <strong>random subsets</strong> of training data (with replacement)</li>
-<li>Train a model on each subset</li>
-<li><strong>Average</strong> their predictions (regression) or <strong>vote</strong> (classification)</li>
+<li><strong>Bootstrap:</strong> Create random subsets of data (with replacement)</li>
+<li><strong>Train:</strong> Fit a model on each subset</li>
+<li><strong>Aggregate:</strong> Average predictions (regression) or vote (classification)</li>
 </ol>
-</section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="30" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="30" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="50">
-<h1 id="random-forest">Random Forest</h1>
-<p><strong>Decision Trees + Bagging + Feature Randomization</strong></p>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-python"><span class="hljs-keyword">from</span> sklearn.ensemble <span class="hljs-keyword">import</span> RandomForestClassifier
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code>Original Data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
-<span class="hljs-comment"># 100 trees, each trained on random data subset</span>
-model = RandomForestClassifier(n_estimators=<span class="hljs-number">100</span>)
-model.fit(X_train, y_train)
+Bootstrap 1: [1, 1, 3, 4, 6, 6, 7, 9, 9, 10] → Model 1
+Bootstrap 2: [2, 2, 3, 5, 5, 6, 8, 8, 9, 10] → Model 2
+Bootstrap 3: [1, 3, 4, 4, 5, 7, 7, 8, 10, 10] → Model 3
 
-accuracy = model.score(X_test, y_test)
+Final: Average(Model 1, Model 2, Model 3)
 </code></pre>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="31" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="31" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="50">
-<h1 id="why-random-forest-works">Why Random Forest Works</h1>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="48" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="48" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="76">
+<h1 id="random-forest">Random Forest</h1>
+<p><strong>Bagging + Decision Trees + Feature Randomization</strong></p>
 <table>
 <thead>
 <tr>
-<th>Feature</th>
-<th>Benefit</th>
+<th>Component</th>
+<th>What It Does</th>
 </tr>
 </thead>
 <tbody>
@@ -538,67 +1189,145 @@ accuracy = model.score(X_test, y_test)
 <td>Decorrelate trees</td>
 </tr>
 <tr>
-<td>Voting</td>
-<td>Robust to outliers</td>
+<td>Voting/Averaging</td>
+<td>Combine predictions</td>
 </tr>
 </tbody>
 </table>
-<div class="insight">
-Random Forest is often the best "out of the box" model!
-</div>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-python"><span class="hljs-keyword">from</span> sklearn.ensemble <span class="hljs-keyword">import</span> RandomForestClassifier
+
+model = RandomForestClassifier(
+    n_estimators=<span class="hljs-number">100</span>,    <span class="hljs-comment"># 100 trees</span>
+    max_depth=<span class="hljs-number">10</span>,        <span class="hljs-comment"># Limit tree depth</span>
+    random_state=<span class="hljs-number">42</span>
+)
+model.fit(X_train, y_train)
+</code></pre>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="32" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="32" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="50">
-<h1 id="feature-importance">Feature Importance</h1>
-<p>Random Forest tells you which features matter:</p>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="49" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="49" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="76">
+<h1 id="why-random-forest-works">Why Random Forest Works</h1>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code>Tree 1: Uses features [A, B, C] → Predicts: Class 1
+Tree 2: Uses features [B, D, E] → Predicts: Class 0
+Tree 3: Uses features [A, C, F] → Predicts: Class 1
+Tree 4: Uses features [D, E, F] → Predicts: Class 1
+...
+Tree 100: Uses features [A, E, G] → Predicts: Class 1
+
+Vote: 70 trees say Class 1, 30 say Class 0
+Final Prediction: Class 1
+</code></pre>
+<p><strong>Each tree makes different mistakes → Average is better!</strong></p>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="50" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="50" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="76">
+<h1 id="random-forest-key-hyperparameters">Random Forest: Key Hyperparameters</h1>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>What It Does</th>
+<th>Good Values</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>n_estimators</code></td>
+<td>Number of trees</td>
+<td>100-500</td>
+</tr>
+<tr>
+<td><code>max_depth</code></td>
+<td>Tree depth</td>
+<td>10-30 or None</td>
+</tr>
+<tr>
+<td><code>min_samples_leaf</code></td>
+<td>Min samples in leaf</td>
+<td>1-10</td>
+</tr>
+<tr>
+<td><code>max_features</code></td>
+<td>Features per split</td>
+<td>'sqrt' or 'log2'</td>
+</tr>
+</tbody>
+</table>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-python">model = RandomForestClassifier(
+    n_estimators=<span class="hljs-number">200</span>,
+    max_depth=<span class="hljs-number">15</span>,
+    max_features=<span class="hljs-string">&#x27;sqrt&#x27;</span>,
+    random_state=<span class="hljs-number">42</span>
+)
+</code></pre>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="51" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="51" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="76">
+<h1 id="feature-importance-from-random-forest">Feature Importance from Random Forest</h1>
 <pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-python"><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
 
+<span class="hljs-comment"># Train model</span>
+model.fit(X_train, y_train)
+
+<span class="hljs-comment"># Get importance</span>
 importance = pd.DataFrame({
     <span class="hljs-string">&#x27;feature&#x27;</span>: feature_names,
     <span class="hljs-string">&#x27;importance&#x27;</span>: model.feature_importances_
 }).sort_values(<span class="hljs-string">&#x27;importance&#x27;</span>, ascending=<span class="hljs-literal">False</span>)
 
-<span class="hljs-built_in">print</span>(importance.head())
+<span class="hljs-built_in">print</span>(importance.head(<span class="hljs-number">10</span>))
+</code></pre>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code>       feature  importance
+0        income      0.25
+1           age      0.18
+2   credit_score     0.15
+...
 </code></pre>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="33" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="33" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="50">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="52" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="52" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="76">
 <h1 id="boosting-learning-from-mistakes">Boosting: Learning from Mistakes</h1>
-<p><strong>Steps:</strong></p>
-<ol>
-<li>Train a model</li>
-<li>Find where it makes errors</li>
-<li>Train next model to <strong>focus on errors</strong></li>
-<li>Repeat, combine all models</li>
-</ol>
-<p>Each model <strong>boosts</strong> the performance!</p>
+<p><strong>Key Idea:</strong> Each model focuses on what previous models got wrong.</p>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code>Round 1: Train model on all data
+         Some examples misclassified (X)
+
+Round 2: Train new model, weight misclassified X higher
+         Fixes some errors, might make new ones
+
+Round 3: Focus even more on remaining errors
+         ...
+
+Final: Combine all models (weighted vote)
+</code></pre>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="34" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="34" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="50">
-<h1 id="gradient-boosting-in-sklearn">Gradient Boosting in sklearn</h1>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="53" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="53" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="76">
+<h1 id="gradient-boosting">Gradient Boosting</h1>
 <pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-python"><span class="hljs-keyword">from</span> sklearn.ensemble <span class="hljs-keyword">import</span> GradientBoostingClassifier
 
 model = GradientBoostingClassifier(
-    n_estimators=<span class="hljs-number">100</span>,
-    learning_rate=<span class="hljs-number">0.1</span>,
-    max_depth=<span class="hljs-number">3</span>
+    n_estimators=<span class="hljs-number">100</span>,    <span class="hljs-comment"># Number of boosting rounds</span>
+    learning_rate=<span class="hljs-number">0.1</span>,   <span class="hljs-comment"># Step size (smaller = slower but better)</span>
+    max_depth=<span class="hljs-number">3</span>,         <span class="hljs-comment"># Shallow trees work best</span>
+    random_state=<span class="hljs-number">42</span>
 )
 model.fit(X_train, y_train)
 </code></pre>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="35" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="35" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="50">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="54" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="54" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="76">
 <h1 id="xgboost-the-competition-winner">XGBoost: The Competition Winner</h1>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-python"><span class="hljs-comment"># Install: pip install xgboost</span>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-python"><span class="hljs-comment"># pip install xgboost</span>
 <span class="hljs-keyword">from</span> xgboost <span class="hljs-keyword">import</span> XGBClassifier
 
 model = XGBClassifier(
     n_estimators=<span class="hljs-number">100</span>,
     learning_rate=<span class="hljs-number">0.1</span>,
-    max_depth=<span class="hljs-number">5</span>
+    max_depth=<span class="hljs-number">5</span>,
+    random_state=<span class="hljs-number">42</span>
 )
 model.fit(X_train, y_train)
 
 <span class="hljs-comment"># Often wins Kaggle competitions!</span>
 </code></pre>
+<p><strong>XGBoost = Extreme Gradient Boosting</strong></p>
+<p>Faster, more regularized, handles missing values.</p>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="36" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="36" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="50">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="55" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="55" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="76">
 <h1 id="bagging-vs-boosting">Bagging vs Boosting</h1>
 <table>
 <thead>
@@ -610,269 +1339,511 @@ model.fit(X_train, y_train)
 </thead>
 <tbody>
 <tr>
-<td>Reduces</td>
-<td>Variance</td>
-<td>Bias</td>
+<td><strong>Goal</strong></td>
+<td>Reduce variance</td>
+<td>Reduce bias</td>
 </tr>
 <tr>
-<td>Training</td>
+<td><strong>Training</strong></td>
 <td>Parallel (fast)</td>
 <td>Sequential (slower)</td>
 </tr>
 <tr>
-<td>Risk</td>
-<td>Less overfitting</td>
-<td>Can overfit</td>
+<td><strong>Trees</strong></td>
+<td>Independent</td>
+<td>Build on each other</td>
 </tr>
 <tr>
-<td>Example</td>
+<td><strong>Overfitting risk</strong></td>
+<td>Low</td>
+<td>Higher</td>
+</tr>
+<tr>
+<td><strong>Example</strong></td>
 <td>Random Forest</td>
 <td>XGBoost, LightGBM</td>
 </tr>
+<tr>
+<td><strong>When to use</strong></td>
+<td>High variance model</td>
+<td>High bias model</td>
+</tr>
 </tbody>
 </table>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="37" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="37" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="50">
-<h1 id="when-to-use-what">When to Use What?</h1>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="56" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="56" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="76">
+<h1 id="ensemble-comparison">Ensemble Comparison</h1>
 <table>
 <thead>
 <tr>
-<th>Scenario</th>
-<th>Best Choice</th>
+<th>Model</th>
+<th>Speed</th>
+<th>Accuracy</th>
+<th>Interpretable?</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Quick baseline</td>
+<td>Decision Tree</td>
+<td>Fast</td>
+<td>Medium</td>
+<td>Yes</td>
+</tr>
+<tr>
 <td>Random Forest</td>
+<td>Medium</td>
+<td>High</td>
+<td>Somewhat</td>
 </tr>
 <tr>
-<td>Competition winning</td>
-<td>XGBoost / LightGBM</td>
+<td>XGBoost</td>
+<td>Slow</td>
+<td>Very High</td>
+<td>No</td>
 </tr>
 <tr>
-<td>Interpretability needed</td>
-<td>Single Decision Tree</td>
-</tr>
-<tr>
-<td>Small data</td>
-<td>Simpler models</td>
-</tr>
-<tr>
-<td>Lots of data</td>
-<td>Deep Learning</td>
+<td>LightGBM</td>
+<td>Fast</td>
+<td>Very High</td>
+<td>No</td>
 </tr>
 </tbody>
 </table>
+<div class="insight">
+<p><strong>Start with Random Forest</strong> - great out of the box.<br />
+<strong>Use XGBoost/LightGBM</strong> when you need maximum accuracy.</p>
+</div>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="38" data-paginate="true" data-class="section-divider" data-theme="iitgn-modern" lang="en-IN" class="section-divider" data-marpit-pagination="38" style="--paginate:true;--class:section-divider;--theme:iitgn-modern;" data-marpit-pagination-total="50">
-<h1 id="part-5-unsupervised-learning">Part 5: Unsupervised Learning</h1>
-<h2 id="when-there-are-no-labels">When There Are No Labels</h2>
-</section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="39" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="39" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="50">
-<h1 id="no-labels-no-problem">No Labels? No Problem!</h1>
-<p>Sometimes you don't have labels:</p>
-<ul>
-<li>Customer segmentation</li>
-<li>Anomaly detection</li>
-<li>Data exploration</li>
-</ul>
-<p><strong>Unsupervised learning</strong> finds structure without labels.</p>
-</section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="40" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="40" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="50">
-<h1 id="clustering-find-groups">Clustering: Find Groups</h1>
-<p><strong>Goal:</strong> Group similar data points together.</p>
-<table>
-<thead>
-<tr>
-<th>Algorithm</th>
-<th>How It Works</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>K-Means</td>
-<td>Assign to nearest centroid</td>
-</tr>
-<tr>
-<td>DBSCAN</td>
-<td>Density-based regions</td>
-</tr>
-<tr>
-<td>Hierarchical</td>
-<td>Build tree of clusters</td>
-</tr>
-</tbody>
-</table>
-</section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="41" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="41" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="50">
-<h1 id="k-means-clustering">K-Means Clustering</h1>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-python"><span class="hljs-keyword">from</span> sklearn.cluster <span class="hljs-keyword">import</span> KMeans
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="57" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="57" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="76">
+<h1 id="practical-example">Practical Example</h1>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-python"><span class="hljs-keyword">from</span> sklearn.ensemble <span class="hljs-keyword">import</span> RandomForestClassifier, GradientBoostingClassifier
+<span class="hljs-keyword">from</span> xgboost <span class="hljs-keyword">import</span> XGBClassifier
 
-<span class="hljs-comment"># Find 3 clusters</span>
-model = KMeans(n_clusters=<span class="hljs-number">3</span>, random_state=<span class="hljs-number">42</span>)
-model.fit(X)
+models = {
+    <span class="hljs-string">&#x27;Random Forest&#x27;</span>: RandomForestClassifier(n_estimators=<span class="hljs-number">100</span>),
+    <span class="hljs-string">&#x27;Gradient Boosting&#x27;</span>: GradientBoostingClassifier(n_estimators=<span class="hljs-number">100</span>),
+    <span class="hljs-string">&#x27;XGBoost&#x27;</span>: XGBClassifier(n_estimators=<span class="hljs-number">100</span>)
+}
 
-<span class="hljs-comment"># Which cluster is each point in?</span>
-labels = model.labels_
-
-<span class="hljs-comment"># Where are the cluster centers?</span>
-centers = model.cluster_centers_
+<span class="hljs-keyword">for</span> name, model <span class="hljs-keyword">in</span> models.items():
+    scores = cross_val_score(model, X, y, cv=<span class="hljs-number">5</span>)
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;<span class="hljs-subst">{name}</span>: <span class="hljs-subst">{scores.mean():<span class="hljs-number">.3</span>f}</span> ± <span class="hljs-subst">{scores.std():<span class="hljs-number">.3</span>f}</span>&quot;</span>)
+</code></pre>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code>Random Forest:     0.925 ± 0.015
+Gradient Boosting: 0.932 ± 0.012
+XGBoost:           0.938 ± 0.010  ← Best
 </code></pre>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="42" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="42" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="50">
-<h1 id="k-means-algorithm">K-Means Algorithm</h1>
-<ol>
-<li><strong>Initialize:</strong> Place K random centroids</li>
-<li><strong>Assign:</strong> Each point to nearest centroid</li>
-<li><strong>Update:</strong> Move centroids to cluster means</li>
-<li><strong>Repeat</strong> until convergence</li>
-</ol>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="58" data-paginate="true" data-class="section-divider" data-theme="iitgn-modern" lang="en-IN" class="section-divider" data-marpit-pagination="58" style="--paginate:true;--class:section-divider;--theme:iitgn-modern;" data-marpit-pagination-total="76">
+<h1 id="part-5-unsupervised-learning">Part 5: Unsupervised Learning</h1>
+<h2 id="learning-without-labels">Learning Without Labels</h2>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="43" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="43" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="50">
-<h1 id="choosing-k">Choosing K</h1>
-<p><strong>Elbow Method:</strong> Plot inertia vs K</p>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="59" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="59" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="76">
+<h1 id="the-unsupervised-problem">The Unsupervised Problem</h1>
+<p><strong>Supervised:</strong> You have X (features) and y (labels)</p>
+<p><strong>Unsupervised:</strong> You only have X (no labels!)</p>
+<table>
+<thead>
+<tr>
+<th>Supervised</th>
+<th>Unsupervised</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Email → Spam/Not Spam</td>
+<td>Email → ???</td>
+</tr>
+<tr>
+<td>Image → Cat/Dog</td>
+<td>Customers → ???</td>
+</tr>
+<tr>
+<td>Price history → Next price</td>
+<td>Similar items → ???</td>
+</tr>
+</tbody>
+</table>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="60" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="60" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="76">
+<h1 id="why-unsupervised">Why Unsupervised?</h1>
+<table>
+<thead>
+<tr>
+<th>Use Case</th>
+<th>What You Want</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Customer Segmentation</strong></td>
+<td>Group similar customers</td>
+</tr>
+<tr>
+<td><strong>Anomaly Detection</strong></td>
+<td>Find unusual patterns</td>
+</tr>
+<tr>
+<td><strong>Data Compression</strong></td>
+<td>Reduce dimensions</td>
+</tr>
+<tr>
+<td><strong>Visualization</strong></td>
+<td>Plot high-dimensional data</td>
+</tr>
+<tr>
+<td><strong>Feature Learning</strong></td>
+<td>Discover useful features</td>
+</tr>
+</tbody>
+</table>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="61" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="61" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="76">
+<h1 id="clustering-finding-groups">Clustering: Finding Groups</h1>
+<p><strong>Goal:</strong> Group similar items together automatically.</p>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code>Before Clustering:           After Clustering:
+   ●   ●                        ●   ●
+  ●  ●  ●                      ● ● ● ← Cluster A
+    ●                            ●
+
+  ○  ○                          ○ ○
+   ○  ○  ○         →            ○ ○ ○ ← Cluster B
+     ○                            ○
+
+  △  △                          △ △
+   △    △                       △   △ ← Cluster C
+</code></pre>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="62" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="62" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="76">
+<h1 id="k-means-the-most-popular">K-Means: The Most Popular</h1>
+<p><strong>Algorithm:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Step</th>
+<th>What Happens</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. Initialize</td>
+<td>Place K random centroids</td>
+</tr>
+<tr>
+<td>2. Assign</td>
+<td>Each point → nearest centroid</td>
+</tr>
+<tr>
+<td>3. Update</td>
+<td>Move centroids to cluster mean</td>
+</tr>
+<tr>
+<td>4. Repeat</td>
+<td>Until centroids stop moving</td>
+</tr>
+</tbody>
+</table>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="63" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="63" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="76">
+<h1 id="k-means-visualization">K-Means Visualization</h1>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code>Step 1: Random centroids      Step 2: Assign points
+     ★                              ★
+   ●   ●                          ●●●● (all near ★)
+  ● ●   ●
+              ★               ★
+        ○ ○ ○                     ○○○ (all near ★)
+         ○
+
+Step 3: Move centroids        Step 4: Converged!
+       ★                            ★
+    ●●●●                          ●●●●
+
+        ★                          ★
+        ○○○○                       ○○○○
+</code></pre>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="64" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="64" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="76">
+<h1 id="k-means-in-sklearn">K-Means in sklearn</h1>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-python"><span class="hljs-keyword">from</span> sklearn.cluster <span class="hljs-keyword">import</span> KMeans
+
+<span class="hljs-comment"># Create and fit</span>
+model = KMeans(
+    n_clusters=<span class="hljs-number">3</span>,        <span class="hljs-comment"># How many clusters?</span>
+    random_state=<span class="hljs-number">42</span>
+)
+model.fit(X)
+
+<span class="hljs-comment"># Get results</span>
+labels = model.labels_           <span class="hljs-comment"># Which cluster is each point in?</span>
+centers = model.cluster_centers_ <span class="hljs-comment"># Where are the centers?</span>
+
+<span class="hljs-comment"># Assign new points</span>
+new_labels = model.predict(X_new)
+</code></pre>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="65" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="65" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="76">
+<h1 id="choosing-k-the-elbow-method">Choosing K: The Elbow Method</h1>
+<p><strong>Plot &quot;inertia&quot; (within-cluster sum of squares) vs K:</strong></p>
 <pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-python">inertias = []
 <span class="hljs-keyword">for</span> k <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1</span>, <span class="hljs-number">11</span>):
-    model = KMeans(n_clusters=k)
+    model = KMeans(n_clusters=k, random_state=<span class="hljs-number">42</span>)
     model.fit(X)
     inertias.append(model.inertia_)
 
-<span class="hljs-comment"># Plot and look for &quot;elbow&quot;</span>
-plt.plot(<span class="hljs-built_in">range</span>(<span class="hljs-number">1</span>, <span class="hljs-number">11</span>), inertias)
-plt.xlabel(<span class="hljs-string">&#x27;K&#x27;</span>)
+plt.plot(<span class="hljs-built_in">range</span>(<span class="hljs-number">1</span>, <span class="hljs-number">11</span>), inertias, marker=<span class="hljs-string">&#x27;o&#x27;</span>)
+plt.xlabel(<span class="hljs-string">&#x27;K (number of clusters)&#x27;</span>)
 plt.ylabel(<span class="hljs-string">&#x27;Inertia&#x27;</span>)
 </code></pre>
+<p><strong>Look for the &quot;elbow&quot; - where improvement slows down</strong></p>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="44" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="44" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="50">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="66" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="66" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="76">
+<h1 id="elbow-plot">Elbow Plot</h1>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code>Inertia
+  │
+  │●
+  │  ●
+  │     ●
+  │        ●
+  │          ● ← Elbow (K=4 is good)
+  │            ●──●──●──●
+  └──────────────────────────<img class="emoji" draggable="false" alt="▶" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/25b6.svg" data-marp-twemoji=""/>
+   1  2  3  4  5  6  7  8  9  K
+</code></pre>
+<p><strong>After the elbow, adding more clusters doesn't help much.</strong></p>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="67" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="67" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="76">
 <h1 id="dimensionality-reduction">Dimensionality Reduction</h1>
 <p><strong>Problem:</strong> Can't visualize 100 features!</p>
-<p><strong>Solution:</strong> Reduce to 2-3 dimensions.</p>
+<p><strong>Solution:</strong> Reduce to 2-3 dimensions while preserving structure.</p>
 <table>
 <thead>
 <tr>
 <th>Method</th>
-<th>What It Does</th>
+<th>Type</th>
+<th>Best For</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>PCA</td>
-<td>Linear projection, maximize variance</td>
+<td><strong>PCA</strong></td>
+<td>Linear</td>
+<td>General use, fast</td>
 </tr>
 <tr>
-<td>t-SNE</td>
-<td>Non-linear, preserve local structure</td>
+<td><strong>t-SNE</strong></td>
+<td>Non-linear</td>
+<td>Visualization</td>
 </tr>
 <tr>
-<td>UMAP</td>
-<td>Non-linear, fast, preserves global structure</td>
+<td><strong>UMAP</strong></td>
+<td>Non-linear</td>
+<td>Visualization + structure</td>
 </tr>
 </tbody>
 </table>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="45" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="45" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="50">
-<h1 id="pca-example">PCA Example</h1>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="68" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="68" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="76">
+<h1 id="pca-principal-component-analysis">PCA: Principal Component Analysis</h1>
+<p><strong>Idea:</strong> Find directions of maximum variance.</p>
 <pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-python"><span class="hljs-keyword">from</span> sklearn.decomposition <span class="hljs-keyword">import</span> PCA
 
-<span class="hljs-comment"># Reduce to 2 dimensions</span>
+<span class="hljs-comment"># Reduce 100 dimensions → 2 dimensions</span>
 pca = PCA(n_components=<span class="hljs-number">2</span>)
-X_2d = pca.fit_transform(X)
+X_2d = pca.fit_transform(X)  <span class="hljs-comment"># X was 100D, now 2D</span>
 
-<span class="hljs-comment"># Now we can plot!</span>
+<span class="hljs-comment"># Visualize</span>
 plt.scatter(X_2d[:, <span class="hljs-number">0</span>], X_2d[:, <span class="hljs-number">1</span>], c=labels)
 plt.xlabel(<span class="hljs-string">&#x27;PC1&#x27;</span>)
 plt.ylabel(<span class="hljs-string">&#x27;PC2&#x27;</span>)
 </code></pre>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="46" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="46" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="50">
-<h1 id="t-sne-for-visualization">t-SNE for Visualization</h1>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="69" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="69" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="76">
+<h1 id="how-much-variance-explained">How Much Variance Explained?</h1>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-python">pca = PCA(n_components=<span class="hljs-number">10</span>)
+pca.fit(X)
+
+<span class="hljs-comment"># How much does each component explain?</span>
+<span class="hljs-built_in">print</span>(pca.explained_variance_ratio_)
+<span class="hljs-comment"># [0.35, 0.20, 0.12, 0.08, 0.06, 0.05, 0.04, 0.03, 0.02, 0.02]</span>
+
+<span class="hljs-comment"># Cumulative</span>
+<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+<span class="hljs-built_in">print</span>(np.cumsum(pca.explained_variance_ratio_))
+<span class="hljs-comment"># [0.35, 0.55, 0.67, 0.75, 0.81, 0.86, 0.90, 0.93, 0.95, 0.97]</span>
+
+<span class="hljs-comment"># 10 components explain 97% of the variance!</span>
+</code></pre>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="70" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="70" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="76">
+<h1 id="t-sne-better-visualization">t-SNE: Better Visualization</h1>
 <pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-python"><span class="hljs-keyword">from</span> sklearn.manifold <span class="hljs-keyword">import</span> TSNE
 
-<span class="hljs-comment"># Better for visualization</span>
-tsne = TSNE(n_components=<span class="hljs-number">2</span>, random_state=<span class="hljs-number">42</span>)
+<span class="hljs-comment"># Better for visualization (preserves local structure)</span>
+tsne = TSNE(
+    n_components=<span class="hljs-number">2</span>,
+    perplexity=<span class="hljs-number">30</span>,      <span class="hljs-comment"># Balance local/global</span>
+    random_state=<span class="hljs-number">42</span>
+)
 X_2d = tsne.fit_transform(X)
 
 plt.scatter(X_2d[:, <span class="hljs-number">0</span>], X_2d[:, <span class="hljs-number">1</span>], c=labels)
 </code></pre>
-<div class="insight">
-t-SNE is great for visualizing high-dimensional data like MNIST digits!
-</div>
+<p><strong>t-SNE often reveals clusters that PCA misses!</strong></p>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="47" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="47" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="50">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="71" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="71" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="76">
+<h1 id="pca-vs-t-sne">PCA vs t-SNE</h1>
+<table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>PCA</th>
+<th>t-SNE</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Type</strong></td>
+<td>Linear</td>
+<td>Non-linear</td>
+</tr>
+<tr>
+<td><strong>Speed</strong></td>
+<td>Fast</td>
+<td>Slow</td>
+</tr>
+<tr>
+<td><strong>Interpretable</strong></td>
+<td>Yes (axes have meaning)</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>Best for</strong></td>
+<td>Preprocessing, reduction</td>
+<td>Visualization</td>
+</tr>
+<tr>
+<td><strong>New data</strong></td>
+<td>Can transform</td>
+<td>Need to refit</td>
+</tr>
+</tbody>
+</table>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="72" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="72" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="76">
 <h1 id="anomaly-detection">Anomaly Detection</h1>
 <p><strong>Goal:</strong> Find the &quot;odd ones out&quot;</p>
 <pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-python"><span class="hljs-keyword">from</span> sklearn.ensemble <span class="hljs-keyword">import</span> IsolationForest
 
-<span class="hljs-comment"># Fit on normal data</span>
-model = IsolationForest(contamination=<span class="hljs-number">0.1</span>)
+<span class="hljs-comment"># Detect anomalies</span>
+model = IsolationForest(
+    contamination=<span class="hljs-number">0.05</span>,  <span class="hljs-comment"># Expect 5% anomalies</span>
+    random_state=<span class="hljs-number">42</span>
+)
 model.fit(X)
 
 <span class="hljs-comment"># Predict: 1 = normal, -1 = anomaly</span>
-predictions = model.predict(X_new)
+predictions = model.predict(X)
+anomalies = X[predictions == -<span class="hljs-number">1</span>]
 </code></pre>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="48" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="48" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="50">
-<h1 id="summary-model-selection--ensembles">Summary: Model Selection &amp; Ensembles</h1>
-<ol>
-<li>
-<p><strong>Bias-Variance Tradeoff</strong> - Balance simplicity and complexity</p>
-</li>
-<li>
-<p><strong>Cross-Validation</strong> - More reliable than single split</p>
-</li>
-<li>
-<p><strong>Hyperparameter Tuning</strong> - Use GridSearchCV or RandomizedSearchCV</p>
-</li>
-<li>
-<p><strong>Ensembles</strong> - Combine models for better performance</p>
-<ul>
-<li>Bagging → Random Forest</li>
-<li>Boosting → XGBoost</li>
-</ul>
-</li>
-<li>
-<p><strong>Unsupervised</strong> - Clustering, dimensionality reduction</p>
-</li>
-</ol>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="73" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="73" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="76">
+<h1 id="summary-table">Summary Table</h1>
+<table>
+<thead>
+<tr>
+<th>Task</th>
+<th>No Labels</th>
+<th>With Labels</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Grouping</strong></td>
+<td>K-Means, DBSCAN</td>
+<td>-</td>
+</tr>
+<tr>
+<td><strong>Visualization</strong></td>
+<td>PCA, t-SNE</td>
+<td>-</td>
+</tr>
+<tr>
+<td><strong>Outlier detection</strong></td>
+<td>Isolation Forest</td>
+<td>-</td>
+</tr>
+<tr>
+<td><strong>Prediction</strong></td>
+<td>-</td>
+<td>All supervised methods</td>
+</tr>
+</tbody>
+</table>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="49" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="49" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="50">
-<h1 id="key-takeaways">Key Takeaways</h1>
-<div class="insight">
-<p><strong>&quot;No Free Lunch&quot;</strong> - There's no universally best model.</p>
-</div>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="74" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="74" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="76">
+<h1 id="putting-it-all-together">Putting It All Together</h1>
 <table>
 <thead>
 <tr>
 <th>Step</th>
 <th>What to Do</th>
+<th>Tools</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>1</td>
 <td>Start with simple baseline</td>
+<td>LogisticRegression, DecisionTree</td>
 </tr>
 <tr>
 <td>2</td>
-<td>Use cross-validation</td>
+<td>Evaluate with cross-validation</td>
+<td>cross_val_score</td>
 </tr>
 <tr>
 <td>3</td>
 <td>Tune hyperparameters</td>
+<td>GridSearchCV, RandomizedSearchCV</td>
 </tr>
 <tr>
 <td>4</td>
-<td>Try ensembles if needed</td>
+<td>Try ensembles</td>
+<td>RandomForest, XGBoost</td>
 </tr>
 <tr>
 <td>5</td>
-<td>Check for overfitting</td>
+<td>Final evaluation on test set</td>
+<td>accuracy_score, etc.</td>
 </tr>
 </tbody>
 </table>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="50" data-paginate="true" data-class="title-slide" data-theme="iitgn-modern" lang="en-IN" class="title-slide" data-marpit-pagination="50" style="--paginate:true;--class:title-slide;--theme:iitgn-modern;" data-marpit-pagination-total="50">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="75" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="75" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="76">
+<h1 id="key-takeaways">Key Takeaways</h1>
+<ol>
+<li>
+<p><strong>Bias-Variance Tradeoff:</strong> Can't minimize both - find the balance</p>
+</li>
+<li>
+<p><strong>Cross-Validation:</strong> Always use it - single split is unreliable</p>
+</li>
+<li>
+<p><strong>Hyperparameter Tuning:</strong> Grid search for small spaces, random for large</p>
+</li>
+<li>
+<p><strong>Ensembles:</strong> Combine models for better performance</p>
+<ul>
+<li>Bagging (Random Forest) reduces variance</li>
+<li>Boosting (XGBoost) reduces bias</li>
+</ul>
+</li>
+<li>
+<p><strong>Unsupervised:</strong> Clustering and dimensionality reduction when no labels</p>
+</li>
+</ol>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="76" data-paginate="true" data-class="title-slide" data-theme="iitgn-modern" lang="en-IN" class="title-slide" data-marpit-pagination="76" style="--paginate:true;--class:title-slide;--theme:iitgn-modern;" data-marpit-pagination-total="76">
 <h1 id="you-can-now-select--tune-models">You Can Now Select &amp; Tune Models!</h1>
 <h2 id="next-neural-networks---deep-learning-begins">Next: Neural Networks - Deep Learning Begins</h2>
 <p><strong>Lab:</strong> Cross-validation, hyperparameter tuning, Random Forest</p>
