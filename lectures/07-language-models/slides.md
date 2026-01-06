@@ -11,7 +11,7 @@ math: mathjax
 # Language Models
 # How Machines Understand Text
 
-## From Bigrams to Transformers
+## From Next Token Prediction to GPT
 
 **Nipun Batra** | IIT Gandhinagar
 
@@ -26,14 +26,65 @@ math: mathjax
 
 ---
 
+# A Shocking Revelation
+
+**ChatGPT, Claude, Gemini, LLaMA...**
+
+These AI systems that can:
+- Write essays and code
+- Answer complex questions
+- Translate languages
+- Have conversations
+
+**Are all playing ONE simple game:**
+
+<div class="insight">
+Guess the next word. Repeat.
+</div>
+
+---
+
+# Wait, That's It?
+
+Yes. The entire field of Large Language Models is built on:
+
+**"Given some text, predict what word comes next."**
+
+```
+"The capital of France is ___"  →  "Paris"
+"To be or not to ___"          →  "be"
+"print('Hello ___"             →  "World')"
+```
+
+---
+
+# But How Does Prediction = Intelligence?
+
+If you're **really good** at predicting what comes next...
+
+| You need to "know" | To predict |
+|-------------------|------------|
+| Geography | "The capital of France is **Paris**" |
+| Shakespeare | "To be or not to **be**" |
+| Python syntax | "print('Hello **World')**" |
+| Physics | "F = m**a**" |
+| Reasoning | "2 + 2 = **4**" |
+
+<div class="insight">
+Good prediction requires implicit understanding.
+</div>
+
+---
+
 # Today's Agenda
 
 1. **The Core Idea** - Next token prediction
-2. **The Counting Era** - Bigrams and N-grams
-3. **Word Embeddings** - Words as vectors
-4. **The Memory Problem** - RNNs
-5. **The Attention Revolution** - Transformers
-6. **Modern LLMs** - From GPT to ChatGPT
+2. **Building a Character-Level LM** - From scratch
+3. **The Counting Era** - Bigrams and N-grams
+4. **Word Embeddings** - Words as vectors
+5. **The Attention Revolution** - Transformers (intuition)
+6. **Temperature & Sampling** - Controlling generation
+7. **Modern LLMs** - Scale is all you need
 
 ---
 
@@ -186,6 +237,146 @@ Result: "abid" ← Looks like a real name!
 
 <div class="warning">
 Bigrams have NO MEMORY of earlier context!
+</div>
+
+---
+
+# Let's Train a Character-Level LM!
+
+**Dataset:** Shakespeare's complete works (~1MB of text)
+
+```python
+# Download Shakespeare
+import urllib.request
+url = "https://raw.githubusercontent.com/karpathy/char-rnn/master/data/tinyshakespeare/input.txt"
+text = urllib.request.urlopen(url).read().decode('utf-8')
+
+print(len(text))  # 1,115,394 characters
+print(text[:200])
+```
+
+```
+First Citizen:
+Before we proceed any further, hear me speak.
+
+All:
+Speak, speak.
+
+First Citizen:
+You are all resolved rather to die than to famish?
+```
+
+---
+
+# Shakespeare Character Statistics
+
+```python
+chars = sorted(list(set(text)))
+vocab_size = len(chars)
+print(f"Vocabulary: {vocab_size} characters")
+print(chars)
+```
+
+```
+Vocabulary: 65 characters
+['\n', ' ', '!', '$', '&', "'", ',', '-', '.', '3', ':', ';', '?',
+ 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
+ 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
+ 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
+ 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+```
+
+Only 65 unique characters! Much simpler than 50K words.
+
+---
+
+# Character to Number Mapping
+
+```python
+# Create mappings
+stoi = {ch: i for i, ch in enumerate(chars)}  # string to int
+itos = {i: ch for i, ch in enumerate(chars)}  # int to string
+
+# Encode text
+encode = lambda s: [stoi[c] for c in s]
+decode = lambda l: ''.join([itos[i] for i in l])
+
+# Example
+print(encode("hello"))  # [46, 43, 50, 50, 53]
+print(decode([46, 43, 50, 50, 53]))  # "hello"
+```
+
+---
+
+# Training Data: Predict Next Character
+
+**Input:** "First Citize"
+**Target:** "irst Citizen"
+
+```python
+# Create training pairs
+block_size = 8  # Context length
+
+for i in range(len(text) - block_size):
+    context = text[i : i + block_size]
+    target = text[i + block_size]
+    print(f"'{context}' → '{target}'")
+```
+
+```
+'First Ci' → 't'
+'irst Cit' → 'i'
+'rst Citi' → 'z'
+'st Citiz' → 'e'
+```
+
+---
+
+# Simple Character-Level LM in PyTorch
+
+```python
+import torch
+import torch.nn as nn
+
+class CharLM(nn.Module):
+    def __init__(self, vocab_size, embed_dim, hidden_dim):
+        super().__init__()
+        self.embed = nn.Embedding(vocab_size, embed_dim)
+        self.rnn = nn.GRU(embed_dim, hidden_dim, batch_first=True)
+        self.output = nn.Linear(hidden_dim, vocab_size)
+
+    def forward(self, x):
+        x = self.embed(x)          # [batch, seq, embed]
+        out, _ = self.rnn(x)       # [batch, seq, hidden]
+        logits = self.output(out)  # [batch, seq, vocab]
+        return logits
+```
+
+---
+
+# Generated Shakespeare (After Training)
+
+**Untrained model:** Random garbage
+```
+xZk$
+;3q!Ybz:FwM'hUiP-Rn
+```
+
+**After 1000 steps:**
+```
+HARKE:
+The soun the of the have bea the me
+```
+
+**After 10000 steps:**
+```
+ROMEO:
+What light through yonder window breaks?
+It is the east, and Juliet is the sun!
+```
+
+<div class="insight">
+Same model, just more training = better predictions!
 </div>
 
 ---
@@ -485,23 +676,94 @@ This is what makes ChatGPT **conversational**!
 
 ---
 
-# Temperature: Creativity Knob
+# Temperature: The Creativity Knob
 
-When sampling the next token:
+When sampling the next token, we apply temperature `T`:
 
-| Temperature | Effect | Use Case |
+$$P_{\text{adjusted}}(w) = \frac{\exp(\text{logit}_w / T)}{\sum_i \exp(\text{logit}_i / T)}$$
+
+| Temperature | Effect | Best For |
 |-------------|--------|----------|
-| 0.0 | Always pick most likely | Facts, code |
-| 0.7 | Some randomness | Balanced |
-| 1.0+ | Very random | Creative writing |
+| **T = 0** | Always pick highest prob | Facts, code, math |
+| **T = 0.7** | Some randomness | Conversation |
+| **T = 1.0** | Original distribution | Creative writing |
+| **T > 1.0** | More random | Brainstorming |
+
+---
+
+# Temperature Visualization
+
+```
+Prompt: "The cat sat on the ___"
+
+Original probabilities (T=1.0):
+  mat: ████████████████ 40%
+  bed: ████████ 20%
+  floor: ██████ 15%
+  sofa: ████ 10%
+  other: ██████ 15%
+
+Low temperature (T=0.3):
+  mat: █████████████████████████ 85%
+  bed: ██ 8%
+  floor: █ 4%
+  sofa: ░ 2%
+  other: ░ 1%
+
+High temperature (T=2.0):
+  mat: ██████ 25%
+  bed: █████ 22%
+  floor: ████ 18%
+  sofa: ████ 17%
+  other: ████ 18%
+```
+
+---
+
+# Sampling Strategies
+
+| Strategy | How It Works | Effect |
+|----------|--------------|--------|
+| **Greedy** | Always pick max prob | Deterministic, boring |
+| **Temperature** | Scale logits by 1/T | Control randomness |
+| **Top-k** | Only sample from top k | Avoid rare tokens |
+| **Top-p (nucleus)** | Sample from smallest set with prob ≥ p | Dynamic cutoff |
 
 ```python
-response = client.chat.completions.create(
-    model="gpt-4",
-    messages=[...],
-    temperature=0.7
+# Using HuggingFace transformers
+output = model.generate(
+    input_ids,
+    temperature=0.7,
+    top_k=50,
+    top_p=0.95,
+    do_sample=True
 )
 ```
+
+---
+
+# Why Sampling Matters
+
+**Prompt:** "Write a poem about the ocean"
+
+**Greedy (T=0):**
+```
+The ocean is blue.
+The ocean is deep.
+The ocean is big.
+```
+
+**With sampling (T=0.8):**
+```
+Azure whispers dance on moonlit waves,
+Where ancient secrets swim in salty caves,
+The tide embraces shores with gentle might,
+As starfish dream beneath the fading light.
+```
+
+<div class="insight">
+Same model, same prompt — temperature changes everything!
+</div>
 
 ---
 
@@ -531,7 +793,69 @@ All from the same objective: **predict the next token!**
 
 5. **Scale matters** — same algorithm, more parameters
 
-6. **RLHF** makes models follow instructions
+6. **Temperature** controls creativity vs. accuracy
+
+---
+
+# The Big Picture: What Makes ChatGPT "Chat"?
+
+We now have a model that predicts text well. But...
+
+| What Base Model Does | What We Want |
+|---------------------|--------------|
+| "The capital of France is" → "Paris" | Great! |
+| "What is 2+2?" → "? I don't know..." | Bad! |
+| "Help me write code" → Random code | Not helpful! |
+
+<div class="warning">
+Base models are great at completing text, but terrible at following instructions!
+</div>
+
+**Next week: How do we fix this?**
+
+---
+
+# Preview: The LLM Training Pipeline
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                                                                 │
+│  STEP 1: Pre-training           (This week!)                    │
+│  ─────────────────────                                          │
+│  • Predict next token on internet text                          │
+│  • Learns grammar, facts, reasoning                             │
+│  • Result: "Base model" (text completer)                        │
+│                                                                 │
+│  STEP 2: Supervised Fine-Tuning (SFT)    (Next week!)           │
+│  ─────────────────────────────────────                          │
+│  • Train on (instruction, response) pairs                       │
+│  • Learns to follow instructions                                │
+│  • Result: "Instruction model"                                  │
+│                                                                 │
+│  STEP 3: Alignment (RLHF/DPO)            (Next week!)           │
+│  ─────────────────────────────                                  │
+│  • Human feedback on what's "good"                              │
+│  • Learns to be helpful, harmless, honest                       │
+│  • Result: "AI Assistant" (ChatGPT, Claude)                     │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+# The Journey of a Language Model
+
+| Stage | Data | Output |
+|-------|------|--------|
+| **Base model** | Trillions of web tokens | Text completion |
+| **+ SFT** | ~100K instruction pairs | Follows instructions |
+| **+ RLHF** | Human preferences | Helpful assistant |
+
+<div class="insight">
+Same architecture, different training = very different behavior!
+</div>
+
+**Next week:** We'll see how SFT and RLHF transform a text predictor into ChatGPT.
 
 ---
 
@@ -539,10 +863,18 @@ All from the same objective: **predict the next token!**
 
 # You Now Understand LLMs!
 
-## Next: Generative AI - How Machines Create
+## Next: From Language Model to Assistant
 
-**Lab:** Build a small language model, use GPT API
+**What we learned:**
+- Next token prediction is the core idea
+- Embeddings, attention, transformers
+- Temperature controls generation
 
-*"The question is no longer whether machines can think, but what will they think about."*
+**Next week:**
+- How to make models follow instructions (SFT)
+- How to align models with human values (RLHF)
+- The full ChatGPT training pipeline
+
+**Lab:** Build a character-level LM, experiment with generation
 
 **Questions?**

@@ -26,13 +26,51 @@ math: mathjax
 
 ---
 
+# A Child vs. A Computer
+
+**A 3-year-old child can:**
+- Recognize their parent in any photo
+- Spot a dog across the street
+- Know if a picture is upside down
+
+**A computer sees:**
+- Just numbers (pixels)
+- No concept of "dog" or "parent"
+- 224 × 224 × 3 = 150,528 values
+
+<div class="insight">
+Today: How do we bridge this gap?
+</div>
+
+---
+
+# Why Computer Vision Matters
+
+| Application | What CV Does | Impact |
+|-------------|--------------|--------|
+| Self-driving cars | Detect pedestrians, signs | Safety |
+| Medical imaging | Find tumors, diagnose | Healthcare |
+| Instagram filters | Face detection, AR | Entertainment |
+| Security cameras | Person tracking | Safety |
+| Quality control | Defect detection | Manufacturing |
+| Agriculture | Crop disease detection | Food security |
+
+---
+
+# The Big Picture: Vision Tasks
+
+![w:900 center](diagrams/svg/vision_tasks_comparison.svg)
+
+---
+
 # Today's Agenda
 
 1. **Images as Data** - How computers "see"
-2. **Convolutional Neural Networks** - The breakthrough
+2. **Convolution: The Key Insight** - Why it works
 3. **CNN Architecture** - Building blocks
-4. **Object Detection** - What + Where
-5. **YOLO** - Real-time detection
+4. **From Classification to Detection** - The progression
+5. **Object Detection** - What + Where
+6. **YOLO** - Real-time magic
 
 ---
 
@@ -46,19 +84,7 @@ math: mathjax
 
 # What Is an Image to a Computer?
 
-**To humans:** A scene, objects, colors, emotions
-
-**To computers:** A grid of numbers!
-
-```
-┌─────────────────────────────┐
-│ 145  148  152  155  159 ... │  Row 0
-│ 147  151  156  159  162 ... │  Row 1
-│ 149  153  158  162  166 ... │  Row 2
-│ ...  ...  ...  ...  ...     │
-└─────────────────────────────┘
-Each number = pixel brightness (0-255)
-```
+![w:950 center](diagrams/svg/image_as_pixels.svg)
 
 ---
 
@@ -71,26 +97,77 @@ Each number = pixel brightness (0-255)
 
 **RGB = Red, Green, Blue channels**
 
-```
-Image shape: (224, 224, 3)
-             height, width, channels
+```python
+img = np.array(Image.open('cat.jpg'))
+print(img.shape)  # (224, 224, 3) → height, width, channels
+print(img[100, 200])  # [142, 87, 34] → R, G, B values
 ```
 
 ---
 
 # MNIST: The "Hello World" of Vision
 
-```
-┌─────────┐
-│ 28 × 28 │ = 784 pixels
-│ 0  0  0  7 │
-│ 0  0 23 155│  Each pixel: 0-255
-│ 0  0 89 254│  (grayscale)
-│ ...       │
-└─────────┘
+Each MNIST digit is a 28×28 grayscale image = 784 pixels
 
-Label: "5"
+| Property | Value |
+|----------|-------|
+| Image size | 28 × 28 |
+| Channels | 1 (grayscale) |
+| Pixel range | 0-255 |
+| Total pixels | 784 |
+
+**Task:** Given 784 numbers, predict which digit (0-9)
+
+---
+
+# Image Representation in Python
+
+```python
+import numpy as np
+from PIL import Image
+
+# Load an image
+img = Image.open('cat.jpg')
+pixels = np.array(img)
+
+print(pixels.shape)  # (480, 640, 3)
+#                      Height, Width, RGB
+
+# What does a pixel look like?
+print(pixels[100, 200])  # [142, 87, 34]
+#                          Red=142, Green=87, Blue=34 (brownish)
+
+# Normalize for neural networks
+pixels_normalized = pixels / 255.0  # Scale to 0-1
 ```
+
+---
+
+# Quiz: What's the Difference?
+
+**Image A:** A photo of a dog
+**Image B:** The same photo, but flipped horizontally
+
+To a human: Same dog!
+To a computer: **Completely different numbers!**
+
+```python
+np.array_equal(img_A, img_B)  # False!
+```
+
+<div class="insight">
+This is the fundamental challenge: same concept, different pixels.
+</div>
+
+---
+
+# The Three Challenges
+
+| Challenge | Why It's Hard | What We Need |
+|-----------|--------------|--------------|
+| **Too many pixels** | 224×224×3 = 150K features | Efficient architecture |
+| **Position doesn't matter** | Cat on left = Cat on right | Translation invariance |
+| **Local patterns matter** | Edges, textures, shapes | Local feature detection |
 
 ---
 
@@ -189,6 +266,37 @@ Image           Filter         Output
 
 ---
 
+# Weight Sharing: The Big Win
+
+**Without sharing (MLP):**
+- 150,528 inputs × 1000 hidden = 150 million weights
+- Each position has different weights
+
+**With sharing (CNN):**
+- 3×3 filter × 3 channels × 32 filters = 864 weights!
+- Same filter slides across entire image
+
+```
+┌───────────────────────────────────────────────┐
+│  150,000,000  vs  864  parameters             │
+│  (MLP)            (CNN)                        │
+│                                               │
+│  That's 173,000× fewer parameters!            │
+└───────────────────────────────────────────────┘
+```
+
+---
+
+# Translation Equivariance
+
+**If the input shifts, the output shifts the same way:**
+
+![w:950 center](diagrams/svg/translation_equivariance.svg)
+
+**Same filter detects the cat regardless of position!**
+
+---
+
 # Filters Learn Features
 
 Different filters detect different patterns:
@@ -262,18 +370,7 @@ Input Image     32 Filters        32 Feature Maps
 
 Take the maximum value in each region:
 
-```
-Input (4×4):         Max Pool (2×2):
-┌───┬───┬───┬───┐    ┌───┬───┐
-│ 1 │ 3 │ 2 │ 1 │    │ 4 │ 6 │
-├───┼───┼───┼───┤ →  ├───┼───┤
-│ 4 │ 2 │ 6 │ 5 │    │ 8 │ 9 │
-├───┼───┼───┼───┤    └───┴───┘
-│ 7 │ 8 │ 1 │ 0 │
-├───┼───┼───┼───┤
-│ 3 │ 5 │ 9 │ 2 │
-└───┴───┴───┴───┘
-```
+![w:950 center](diagrams/svg/max_pooling.svg)
 
 **Reduces spatial size by 2×**
 
@@ -315,19 +412,7 @@ class SimpleCNN(nn.Module):
 
 # CNN for MNIST
 
-```
-Input: 28×28×1
-    ↓ Conv1 (32 filters)
-28×28×32
-    ↓ MaxPool (2×2)
-14×14×32
-    ↓ Conv2 (64 filters)
-14×14×64
-    ↓ MaxPool (2×2)
-7×7×64 = 3136
-    ↓ Flatten + Linear
-10 class scores
-```
+![w:1100 center](diagrams/svg/cnn_pipeline.svg)
 
 ---
 
@@ -378,18 +463,45 @@ model.fc = nn.Linear(2048, num_classes)
 
 <!-- _class: section-divider -->
 
-# Part 4: Object Detection
+# Part 4: From Classification to Detection
 
-## What + Where
+## The Journey from "What" to "What + Where"
 
 ---
 
-# Classification vs Detection
+# The Progression of Vision Tasks
 
-| Task | Question | Output |
-|------|----------|--------|
-| Classification | "What is this?" | One label |
-| Detection | "What + Where?" | Boxes + labels |
+![w:950 center](diagrams/svg/vision_tasks_comparison.svg)
+
+**Classification → Localization → Detection**
+
+Each step adds more information about the objects in an image.
+
+---
+
+# Classification vs Localization vs Detection
+
+| Task | # Objects | Output | Example |
+|------|-----------|--------|---------|
+| **Classification** | 1 (assumed) | Class label | "This is a cat" |
+| **Localization** | 1 | Class + 1 box | "Cat at (x,y,w,h)" |
+| **Detection** | 0 to many | Classes + boxes | "Cat at..., Dog at..." |
+
+<div class="insight">
+Detection = Classification + Localization + Handle multiple objects
+</div>
+
+---
+
+# Why Detection is Harder
+
+| Challenge | Why It's Difficult |
+|-----------|-------------------|
+| **Variable count** | 0, 1, 5, or 100 objects in an image |
+| **Variable sizes** | Same object can be huge or tiny |
+| **Overlapping objects** | Objects can occlude each other |
+| **Background clutter** | Must ignore non-objects |
+| **Real-time requirement** | Self-driving cars need 30+ FPS |
 
 ---
 
@@ -408,17 +520,7 @@ model.fc = nn.Linear(2048, num_classes)
 
 A bounding box = 4 numbers describing a rectangle:
 
-```
-┌─────────────────────────────┐
-│ (x1, y1)                    │
-│    ┌───────────────┐        │
-│    │               │        │
-│    │    DOG        │        │
-│    │               │        │
-│    └───────────────┘        │
-│                (x2, y2)     │
-└─────────────────────────────┘
-```
+![w:700 center](diagrams/svg/bounding_box_diagram.svg)
 
 ---
 
@@ -440,15 +542,57 @@ detections = [
 
 # IoU: Measuring Box Overlap
 
-**Intersection over Union**:
+**Intersection over Union** - How good is a predicted box?
 
 $$\text{IoU} = \frac{\text{Area of Overlap}}{\text{Area of Union}}$$
 
-| IoU | Interpretation |
-|-----|----------------|
+| IoU Value | Quality |
+|-----------|---------|
 | 1.0 | Perfect match |
-| 0.5 | Good detection |
-| 0.0 | No overlap |
+| > 0.5 | Good detection |
+| < 0.3 | Poor detection |
+
+---
+
+# IoU Examples
+
+![w:950 center](diagrams/svg/iou_examples.svg)
+
+---
+
+# IoU Thresholds
+
+| IoU Threshold | Meaning | Use Case |
+|---------------|---------|----------|
+| **IoU ≥ 0.5** | "Good enough" | Standard detection (PASCAL VOC) |
+| **IoU ≥ 0.75** | "Precise" | High-quality detection |
+| **IoU ≥ 0.95** | "Near perfect" | Fine-grained applications |
+
+**mAP@0.5:0.95** averages performance across multiple IoU thresholds.
+
+---
+
+# Computing IoU in Python
+
+```python
+def compute_iou(box1, box2):
+    """
+    Boxes are [x1, y1, x2, y2] format
+    """
+    # Intersection coordinates
+    x1 = max(box1[0], box2[0])
+    y1 = max(box1[1], box2[1])
+    x2 = min(box1[2], box2[2])
+    y2 = min(box1[3], box2[3])
+
+    # Areas
+    intersection = max(0, x2-x1) * max(0, y2-y1)
+    area1 = (box1[2]-box1[0]) * (box1[3]-box1[1])
+    area2 = (box2[2]-box2[0]) * (box2[3]-box2[1])
+    union = area1 + area2 - intersection
+
+    return intersection / union if union > 0 else 0
+```
 
 ---
 
@@ -505,17 +649,7 @@ After YOLO: **Real-time detection** (30-60 FPS!)
 
 # YOLO Grid
 
-```
-┌──┬──┬──┬──┬──┬──┬──┐
-│  │  │  │  │  │  │  │
-├──┼──┼──┼──┼──┼──┼──┤
-│  │  │  │☺ │  │  │  │  ← This cell detects face
-├──┼──┼──┼──┼──┼──┼──┤
-│  │  │  │  │  │  │  │
-└──┴──┴──┴──┴──┴──┴──┘
-
-Cell predicts: box coords + confidence + class
-```
+![w:700 center](diagrams/svg/yolo_grid.svg)
 
 ---
 
@@ -586,19 +720,172 @@ print(f"mAP@0.5: {metrics.box.map50:.3f}")
 
 ---
 
+# Detection Speed Evolution
+
+![w:950 center](diagrams/svg/detection_history.svg)
+
+---
+
+# Real-World Detection Applications
+
+| Application | Objects Detected | Speed Requirement |
+|-------------|-----------------|-------------------|
+| **Self-driving cars** | Cars, pedestrians, signs | Real-time (30+ FPS) |
+| **Retail analytics** | People, products | Near real-time |
+| **Medical imaging** | Tumors, lesions | Accuracy > speed |
+| **Sports analysis** | Players, ball | Real-time |
+| **Security cameras** | People, vehicles | Real-time |
+| **Manufacturing QC** | Defects, parts | High accuracy |
+
+---
+
+# Beyond Detection: Segmentation
+
+**Instance Segmentation** = Detection + Pixel-level masks
+
+| Task | Output | Use Case |
+|------|--------|----------|
+| Detection | Bounding boxes | "Where are objects?" |
+| Semantic Seg. | Pixel classes | "What is each pixel?" |
+| Instance Seg. | Pixel masks per object | "Which pixels belong to which object?" |
+
+---
+
+# Segmentation Variants Comparison
+
+![w:1000 center](diagrams/svg/segmentation_variants.svg)
+
+---
+
+# Segmentation with YOLO
+
+```python
+from ultralytics import YOLO
+
+# Load segmentation model
+model = YOLO('yolov8n-seg.pt')
+
+# Run segmentation
+results = model('image.jpg')
+
+# Access masks
+for result in results:
+    masks = result.masks  # Segmentation masks
+    boxes = result.boxes  # Bounding boxes
+```
+
+---
+
+# Pose Estimation
+
+**Beyond "what" and "where" → "how is it positioned?"**
+
+Pose estimation detects keypoints (joints) on bodies:
+- 17 keypoints for humans (COCO format)
+- Enables gesture recognition, action detection
+- Used in sports, healthcare, gaming
+
+```python
+# Pose estimation with YOLO
+model = YOLO('yolov8n-pose.pt')
+results = model('person.jpg')
+
+# Get keypoints
+for result in results:
+    keypoints = result.keypoints  # Shape: (n_persons, 17, 3)
+```
+
+---
+
+# The Vision AI Stack
+
+| Layer | Components |
+|-------|------------|
+| **Applications** | Self-driving, Medical, Retail, Security, Robotics |
+| **High-Level Tasks** | Pose Estimation, Tracking, Action Recognition |
+| **Core Tasks** | Classification, Detection, Segmentation |
+| **Building Blocks** | CNNs, Transformers (ViT), Feature Extractors |
+| **Fundamentals** | Images as Tensors, Convolutions, Pooling |
+
+<div class="insight">
+Each layer builds on the ones below it!
+</div>
+
+---
+
+# From Images to Video
+
+**Video = Sequence of Images (Frames)**
+
+| Task | Description | Challenge |
+|------|-------------|-----------|
+| **Object Tracking** | Follow objects across frames | Maintain ID consistency |
+| **Action Recognition** | Classify what's happening | Temporal understanding |
+| **Video Object Detection** | Detect objects in video | Real-time processing |
+
+**Tracking adds a new dimension: TIME**
+
+---
+
+# Multi-Object Tracking (MOT)
+
+**Challenge:** Same dog appears in frame 1, 2, 3...
+How do we know it's the SAME dog?
+
+**Solution:** Track IDs
+
+```python
+from ultralytics import YOLO
+
+model = YOLO('yolov8n.pt')
+
+# Track objects across video frames
+results = model.track(source='video.mp4', persist=True)
+
+# Each detection now has a track ID
+for result in results:
+    for box in result.boxes:
+        track_id = box.id  # Consistent across frames!
+```
+
+---
+
 # Key Takeaways
 
 1. **Images = grids of numbers** (pixels)
 
 2. **CNNs use convolutions** for efficient image processing
-   - Weight sharing
-   - Translation equivariance
+   - Weight sharing (fewer parameters)
+   - Translation equivariance (detect anywhere)
 
 3. **CNN building blocks**: Conv → ReLU → Pool → Flatten → Linear
 
 4. **Detection = Classification + Localization**
+   - Bounding boxes + class labels + confidence
 
-5. **YOLO** enables real-time object detection
+5. **IoU** measures box overlap (threshold typically 0.5)
+
+6. **YOLO** enables real-time detection (single forward pass)
+
+7. **Beyond detection:** Segmentation, Pose, Tracking
+
+---
+
+# Connecting to Next Week
+
+**Computer Vision answers:** "What's in this image?"
+
+**Next question:** "What does this text mean?"
+
+| This Week | Next Week |
+|-----------|-----------|
+| Images → Pixels → CNNs | Text → Tokens → Transformers |
+| Object Detection | Next Token Prediction |
+| YOLO (real-time vision) | LLMs (language understanding) |
+
+<div class="insight">
+Same principle: Learn patterns from data to make predictions!
+</div>
 
 ---
 

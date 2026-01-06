@@ -14,7 +14,7 @@
 <h2 id="from-pixels-to-object-detection">From Pixels to Object Detection</h2>
 <p><strong>Nipun Batra</strong> | IIT Gandhinagar</p>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="2" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="2" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="43">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="2" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="2" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="66">
 <h1 id="the-story-so-far">The Story So Far</h1>
 <table>
 <thead>
@@ -35,34 +35,92 @@
 </tbody>
 </table>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="3" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="3" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="43">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="3" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="3" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="66">
+<h1 id="a-child-vs-a-computer">A Child vs. A Computer</h1>
+<p><strong>A 3-year-old child can:</strong></p>
+<ul>
+<li>Recognize their parent in any photo</li>
+<li>Spot a dog across the street</li>
+<li>Know if a picture is upside down</li>
+</ul>
+<p><strong>A computer sees:</strong></p>
+<ul>
+<li>Just numbers (pixels)</li>
+<li>No concept of &quot;dog&quot; or &quot;parent&quot;</li>
+<li>224 × 224 × 3 = 150,528 values</li>
+</ul>
+<div class="insight">
+Today: How do we bridge this gap?
+</div>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="4" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="4" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="66">
+<h1 id="why-computer-vision-matters">Why Computer Vision Matters</h1>
+<table>
+<thead>
+<tr>
+<th>Application</th>
+<th>What CV Does</th>
+<th>Impact</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Self-driving cars</td>
+<td>Detect pedestrians, signs</td>
+<td>Safety</td>
+</tr>
+<tr>
+<td>Medical imaging</td>
+<td>Find tumors, diagnose</td>
+<td>Healthcare</td>
+</tr>
+<tr>
+<td>Instagram filters</td>
+<td>Face detection, AR</td>
+<td>Entertainment</td>
+</tr>
+<tr>
+<td>Security cameras</td>
+<td>Person tracking</td>
+<td>Safety</td>
+</tr>
+<tr>
+<td>Quality control</td>
+<td>Defect detection</td>
+<td>Manufacturing</td>
+</tr>
+<tr>
+<td>Agriculture</td>
+<td>Crop disease detection</td>
+<td>Food security</td>
+</tr>
+</tbody>
+</table>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="5" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="5" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="66">
+<h1 id="the-big-picture-vision-tasks">The Big Picture: Vision Tasks</h1>
+<p><img src="diagrams/svg/vision_tasks_comparison.svg" alt="center" style="width:900px;" /></p>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="6" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="6" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="66">
 <h1 id="todays-agenda">Today's Agenda</h1>
 <ol>
 <li><strong>Images as Data</strong> - How computers &quot;see&quot;</li>
-<li><strong>Convolutional Neural Networks</strong> - The breakthrough</li>
+<li><strong>Convolution: The Key Insight</strong> - Why it works</li>
 <li><strong>CNN Architecture</strong> - Building blocks</li>
+<li><strong>From Classification to Detection</strong> - The progression</li>
 <li><strong>Object Detection</strong> - What + Where</li>
-<li><strong>YOLO</strong> - Real-time detection</li>
+<li><strong>YOLO</strong> - Real-time magic</li>
 </ol>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="4" data-paginate="true" data-class="section-divider" data-theme="iitgn-modern" lang="en-IN" class="section-divider" data-marpit-pagination="4" style="--paginate:true;--class:section-divider;--theme:iitgn-modern;" data-marpit-pagination-total="43">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="7" data-paginate="true" data-class="section-divider" data-theme="iitgn-modern" lang="en-IN" class="section-divider" data-marpit-pagination="7" style="--paginate:true;--class:section-divider;--theme:iitgn-modern;" data-marpit-pagination-total="66">
 <h1 id="part-1-images-as-data">Part 1: Images as Data</h1>
 <h2 id="how-computers-see">How Computers &quot;See&quot;</h2>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="5" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="5" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="43">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="8" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="8" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="66">
 <h1 id="what-is-an-image-to-a-computer">What Is an Image to a Computer?</h1>
-<p><strong>To humans:</strong> A scene, objects, colors, emotions</p>
-<p><strong>To computers:</strong> A grid of numbers!</p>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>┌─────────────────────────────┐
-│ 145  148  152  155  159 ... │  Row 0
-│ 147  151  156  159  162 ... │  Row 1
-│ 149  153  158  162  166 ... │  Row 2
-│ ...  ...  ...  ...  ...     │
-└─────────────────────────────┘
-Each number = pixel brightness (0-255)
-</code></pre>
+<p><img src="diagrams/svg/image_as_pixels.svg" alt="center" style="width:950px;" /></p>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="6" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="6" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="43">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="9" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="9" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="66">
 <h1 id="grayscale-vs-color">Grayscale vs Color</h1>
 <table>
 <thead>
@@ -86,24 +144,104 @@ Each number = pixel brightness (0-255)
 </tbody>
 </table>
 <p><strong>RGB = Red, Green, Blue channels</strong></p>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>Image shape: (224, 224, 3)
-             height, width, channels
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-python">img = np.array(Image.<span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;cat.jpg&#x27;</span>))
+<span class="hljs-built_in">print</span>(img.shape)  <span class="hljs-comment"># (224, 224, 3) → height, width, channels</span>
+<span class="hljs-built_in">print</span>(img[<span class="hljs-number">100</span>, <span class="hljs-number">200</span>])  <span class="hljs-comment"># [142, 87, 34] → R, G, B values</span>
 </code></pre>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="7" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="7" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="43">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="10" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="10" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="66">
 <h1 id="mnist-the-hello-world-of-vision">MNIST: The &quot;Hello World&quot; of Vision</h1>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>┌─────────┐
-│ 28 × 28 │ = 784 pixels
-│ 0  0  0  7 │
-│ 0  0 23 155│  Each pixel: 0-255
-│ 0  0 89 254│  (grayscale)
-│ ...       │
-└─────────┘
+<p>Each MNIST digit is a 28×28 grayscale image = 784 pixels</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Image size</td>
+<td>28 × 28</td>
+</tr>
+<tr>
+<td>Channels</td>
+<td>1 (grayscale)</td>
+</tr>
+<tr>
+<td>Pixel range</td>
+<td>0-255</td>
+</tr>
+<tr>
+<td>Total pixels</td>
+<td>784</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Task:</strong> Given 784 numbers, predict which digit (0-9)</p>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="11" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="11" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="66">
+<h1 id="image-representation-in-python">Image Representation in Python</h1>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+<span class="hljs-keyword">from</span> PIL <span class="hljs-keyword">import</span> Image
 
-Label: &quot;5&quot;
+<span class="hljs-comment"># Load an image</span>
+img = Image.<span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;cat.jpg&#x27;</span>)
+pixels = np.array(img)
+
+<span class="hljs-built_in">print</span>(pixels.shape)  <span class="hljs-comment"># (480, 640, 3)</span>
+<span class="hljs-comment">#                      Height, Width, RGB</span>
+
+<span class="hljs-comment"># What does a pixel look like?</span>
+<span class="hljs-built_in">print</span>(pixels[<span class="hljs-number">100</span>, <span class="hljs-number">200</span>])  <span class="hljs-comment"># [142, 87, 34]</span>
+<span class="hljs-comment">#                          Red=142, Green=87, Blue=34 (brownish)</span>
+
+<span class="hljs-comment"># Normalize for neural networks</span>
+pixels_normalized = pixels / <span class="hljs-number">255.0</span>  <span class="hljs-comment"># Scale to 0-1</span>
 </code></pre>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="8" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="8" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="43">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="12" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="12" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="66">
+<h1 id="quiz-whats-the-difference">Quiz: What's the Difference?</h1>
+<p><strong>Image A:</strong> A photo of a dog<br />
+<strong>Image B:</strong> The same photo, but flipped horizontally</p>
+<p>To a human: Same dog!<br />
+To a computer: <strong>Completely different numbers!</strong></p>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-python">np.array_equal(img_A, img_B)  <span class="hljs-comment"># False!</span>
+</code></pre>
+<div class="insight">
+This is the fundamental challenge: same concept, different pixels.
+</div>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="13" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="13" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="66">
+<h1 id="the-three-challenges">The Three Challenges</h1>
+<table>
+<thead>
+<tr>
+<th>Challenge</th>
+<th>Why It's Hard</th>
+<th>What We Need</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Too many pixels</strong></td>
+<td>224×224×3 = 150K features</td>
+<td>Efficient architecture</td>
+</tr>
+<tr>
+<td><strong>Position doesn't matter</strong></td>
+<td>Cat on left = Cat on right</td>
+<td>Translation invariance</td>
+</tr>
+<tr>
+<td><strong>Local patterns matter</strong></td>
+<td>Edges, textures, shapes</td>
+<td>Local feature detection</td>
+</tr>
+</tbody>
+</table>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="14" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="14" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="66">
 <h1 id="why-not-use-mlps-for-images">Why Not Use MLPs for Images?</h1>
 <p><strong>Problem 1: Too many parameters</strong></p>
 <ul>
@@ -112,7 +250,7 @@ Label: &quot;5&quot;
 <li>Parameters: 150,528 × 1,000 = <strong>150 million weights!</strong></li>
 </ul>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="9" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="9" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="43">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="15" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="15" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="66">
 <h1 id="why-not-use-mlps-for-images-cont">Why Not Use MLPs for Images? (cont.)</h1>
 <p><strong>Problem 2: No spatial awareness</strong></p>
 <pre is="marp-pre" data-auto-scaling="downscale-only"><code>Original:    Shifted:
@@ -125,7 +263,7 @@ MLP sees completely different pixels!
 </code></pre>
 <p>The same object at different positions looks completely different to an MLP.</p>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="10" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="10" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="43">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="16" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="16" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="66">
 <h1 id="what-we-need">What We Need</h1>
 <table>
 <thead>
@@ -151,11 +289,11 @@ MLP sees completely different pixels!
 </table>
 <p><strong>Enter: Convolutional Neural Networks (CNNs)</strong></p>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="11" data-paginate="true" data-class="section-divider" data-theme="iitgn-modern" lang="en-IN" class="section-divider" data-marpit-pagination="11" style="--paginate:true;--class:section-divider;--theme:iitgn-modern;" data-marpit-pagination-total="43">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="17" data-paginate="true" data-class="section-divider" data-theme="iitgn-modern" lang="en-IN" class="section-divider" data-marpit-pagination="17" style="--paginate:true;--class:section-divider;--theme:iitgn-modern;" data-marpit-pagination-total="66">
 <h1 id="part-2-convolutional-neural-networks">Part 2: Convolutional Neural Networks</h1>
 <h2 id="the-breakthrough-2012">The Breakthrough (2012)</h2>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="12" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="12" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="43">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="18" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="18" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="66">
 <h1 id="the-key-insight">The Key Insight</h1>
 <p><strong>Instead of connecting every pixel to every neuron...</strong></p>
 <p>Connect small <strong>local regions</strong> to neurons!</p>
@@ -168,7 +306,7 @@ MLP sees completely different pixels!
 └─────────────┘      3×3 filter
 </code></pre>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="13" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="13" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="43">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="19" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="19" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="66">
 <h1 id="convolution-operation">Convolution Operation</h1>
 <p>Slide a small filter across the image:</p>
 <pre is="marp-pre" data-auto-scaling="downscale-only"><code>Image           Filter         Output
@@ -183,7 +321,7 @@ MLP sees completely different pixels!
 1×1 + 2×0 + 3×1 + 0×0 + 1×1 + 2×0 + 1×1 + 2×0 + 1×1 = 12
 </code></pre>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="14" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="14" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="43">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="20" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="20" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="66">
 <h1 id="why-convolution-works">Why Convolution Works</h1>
 <table>
 <thead>
@@ -208,7 +346,33 @@ MLP sees completely different pixels!
 </tbody>
 </table>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="15" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="15" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="43">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="21" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="21" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="66">
+<h1 id="weight-sharing-the-big-win">Weight Sharing: The Big Win</h1>
+<p><strong>Without sharing (MLP):</strong></p>
+<ul>
+<li>150,528 inputs × 1000 hidden = 150 million weights</li>
+<li>Each position has different weights</li>
+</ul>
+<p><strong>With sharing (CNN):</strong></p>
+<ul>
+<li>3×3 filter × 3 channels × 32 filters = 864 weights!</li>
+<li>Same filter slides across entire image</li>
+</ul>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code>┌───────────────────────────────────────────────┐
+│  150,000,000  vs  864  parameters             │
+│  (MLP)            (CNN)                        │
+│                                               │
+│  That's 173,000× fewer parameters!            │
+└───────────────────────────────────────────────┘
+</code></pre>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="22" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="22" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="66">
+<h1 id="translation-equivariance">Translation Equivariance</h1>
+<p><strong>If the input shifts, the output shifts the same way:</strong></p>
+<p><img src="diagrams/svg/translation_equivariance.svg" alt="center" style="width:950px;" /></p>
+<p><strong>Same filter detects the cat regardless of position!</strong></p>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="23" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="23" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="66">
 <h1 id="filters-learn-features">Filters Learn Features</h1>
 <p>Different filters detect different patterns:</p>
 <table>
@@ -235,7 +399,7 @@ MLP sees completely different pixels!
 </table>
 <p><strong>The network LEARNS which filters are useful!</strong></p>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="16" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="16" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="43">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="24" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="24" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="66">
 <h1 id="convolution-in-code">Convolution in Code</h1>
 <pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-python"><span class="hljs-keyword">import</span> torch.nn <span class="hljs-keyword">as</span> nn
 
@@ -252,7 +416,7 @@ x = torch.randn(<span class="hljs-number">1</span>, <span class="hljs-number">3<
 out = conv(x)  <span class="hljs-comment"># [1, 32, 224, 224]</span>
 </code></pre>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="17" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="17" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="43">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="25" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="25" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="66">
 <h1 id="feature-maps">Feature Maps</h1>
 <p>Each filter produces a <strong>feature map</strong>:</p>
 <pre is="marp-pre" data-auto-scaling="downscale-only"><code>Input Image     32 Filters        32 Feature Maps
@@ -263,11 +427,11 @@ out = conv(x)  <span class="hljs-comment"># [1, 32, 224, 224]</span>
 └───────┘                         └───────┘
 </code></pre>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="18" data-paginate="true" data-class="section-divider" data-theme="iitgn-modern" lang="en-IN" class="section-divider" data-marpit-pagination="18" style="--paginate:true;--class:section-divider;--theme:iitgn-modern;" data-marpit-pagination-total="43">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="26" data-paginate="true" data-class="section-divider" data-theme="iitgn-modern" lang="en-IN" class="section-divider" data-marpit-pagination="26" style="--paginate:true;--class:section-divider;--theme:iitgn-modern;" data-marpit-pagination-total="66">
 <h1 id="part-3-cnn-architecture">Part 3: CNN Architecture</h1>
 <h2 id="the-building-blocks">The Building Blocks</h2>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="19" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="19" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="43">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="27" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="27" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="66">
 <h1 id="cnn-building-blocks">CNN Building Blocks</h1>
 <table>
 <thead>
@@ -306,23 +470,13 @@ out = conv(x)  <span class="hljs-comment"># [1, 32, 224, 224]</span>
 </tbody>
 </table>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="20" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="20" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="43">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="28" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="28" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="66">
 <h1 id="max-pooling">Max Pooling</h1>
 <p>Take the maximum value in each region:</p>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>Input (4×4):         Max Pool (2×2):
-┌───┬───┬───┬───┐    ┌───┬───┐
-│ 1 │ 3 │ 2 │ 1 │    │ 4 │ 6 │
-├───┼───┼───┼───┤ →  ├───┼───┤
-│ 4 │ 2 │ 6 │ 5 │    │ 8 │ 9 │
-├───┼───┼───┼───┤    └───┴───┘
-│ 7 │ 8 │ 1 │ 0 │
-├───┼───┼───┼───┤
-│ 3 │ 5 │ 9 │ 2 │
-└───┴───┴───┴───┘
-</code></pre>
+<p><img src="diagrams/svg/max_pooling.svg" alt="center" style="width:950px;" /></p>
 <p><strong>Reduces spatial size by 2×</strong></p>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="21" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="21" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="43">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="29" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="29" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="66">
 <h1 id="why-pooling">Why Pooling?</h1>
 <table>
 <thead>
@@ -347,7 +501,7 @@ out = conv(x)  <span class="hljs-comment"># [1, 32, 224, 224]</span>
 </tbody>
 </table>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="22" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="22" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="43">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="30" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="30" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="66">
 <h1 id="a-simple-cnn">A Simple CNN</h1>
 <pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">SimpleCNN</span>(nn.Module):
     <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self</span>):
@@ -368,22 +522,11 @@ out = conv(x)  <span class="hljs-comment"># [1, 32, 224, 224]</span>
         <span class="hljs-keyword">return</span> x
 </code></pre>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="23" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="23" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="43">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="31" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="31" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="66">
 <h1 id="cnn-for-mnist">CNN for MNIST</h1>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>Input: 28×28×1
-    ↓ Conv1 (32 filters)
-28×28×32
-    ↓ MaxPool (2×2)
-14×14×32
-    ↓ Conv2 (64 filters)
-14×14×64
-    ↓ MaxPool (2×2)
-7×7×64 = 3136
-    ↓ Flatten + Linear
-10 class scores
-</code></pre>
+<p><img src="diagrams/svg/cnn_pipeline.svg" alt="center" style="width:1100px;" /></p>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="24" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="24" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="43">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="32" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="32" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="66">
 <h1 id="famous-cnn-architectures">Famous CNN Architectures</h1>
 <table>
 <thead>
@@ -422,7 +565,7 @@ out = conv(x)  <span class="hljs-comment"># [1, 32, 224, 224]</span>
 </tbody>
 </table>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="25" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="25" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="43">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="33" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="33" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="66">
 <h1 id="alexnet-the-game-changer">AlexNet: The Game Changer</h1>
 <pre is="marp-pre" data-auto-scaling="downscale-only"><code>ImageNet 2012:
 ┌─────────────────────────────────────┐
@@ -433,7 +576,7 @@ out = conv(x)  <span class="hljs-comment"># [1, 32, 224, 224]</span>
 </code></pre>
 <p><strong>This started the deep learning revolution!</strong></p>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="26" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="26" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="43">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="34" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="34" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="66">
 <h1 id="transfer-learning">Transfer Learning</h1>
 <p><strong>Don't train from scratch!</strong> Use pre-trained models:</p>
 <pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-python"><span class="hljs-keyword">import</span> torchvision.models <span class="hljs-keyword">as</span> models
@@ -447,35 +590,86 @@ model.fc = nn.Linear(<span class="hljs-number">2048</span>, num_classes)
 <span class="hljs-comment"># Fine-tune on your data</span>
 </code></pre>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="27" data-paginate="true" data-class="section-divider" data-theme="iitgn-modern" lang="en-IN" class="section-divider" data-marpit-pagination="27" style="--paginate:true;--class:section-divider;--theme:iitgn-modern;" data-marpit-pagination-total="43">
-<h1 id="part-4-object-detection">Part 4: Object Detection</h1>
-<h2 id="what--where">What + Where</h2>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="35" data-paginate="true" data-class="section-divider" data-theme="iitgn-modern" lang="en-IN" class="section-divider" data-marpit-pagination="35" style="--paginate:true;--class:section-divider;--theme:iitgn-modern;" data-marpit-pagination-total="66">
+<h1 id="part-4-from-classification-to-detection">Part 4: From Classification to Detection</h1>
+<h2 id="the-journey-from-what-to-what--where">The Journey from &quot;What&quot; to &quot;What + Where&quot;</h2>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="28" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="28" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="43">
-<h1 id="classification-vs-detection">Classification vs Detection</h1>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="36" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="36" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="66">
+<h1 id="the-progression-of-vision-tasks">The Progression of Vision Tasks</h1>
+<p><img src="diagrams/svg/vision_tasks_comparison.svg" alt="center" style="width:950px;" /></p>
+<p><strong>Classification → Localization → Detection</strong></p>
+<p>Each step adds more information about the objects in an image.</p>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="37" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="37" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="66">
+<h1 id="classification-vs-localization-vs-detection">Classification vs Localization vs Detection</h1>
 <table>
 <thead>
 <tr>
 <th>Task</th>
-<th>Question</th>
+<th># Objects</th>
 <th>Output</th>
+<th>Example</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Classification</td>
-<td>&quot;What is this?&quot;</td>
-<td>One label</td>
+<td><strong>Classification</strong></td>
+<td>1 (assumed)</td>
+<td>Class label</td>
+<td>&quot;This is a cat&quot;</td>
 </tr>
 <tr>
-<td>Detection</td>
-<td>&quot;What + Where?&quot;</td>
-<td>Boxes + labels</td>
+<td><strong>Localization</strong></td>
+<td>1</td>
+<td>Class + 1 box</td>
+<td>&quot;Cat at (x,y,w,h)&quot;</td>
+</tr>
+<tr>
+<td><strong>Detection</strong></td>
+<td>0 to many</td>
+<td>Classes + boxes</td>
+<td>&quot;Cat at..., Dog at...&quot;</td>
+</tr>
+</tbody>
+</table>
+<div class="insight">
+Detection = Classification + Localization + Handle multiple objects
+</div>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="38" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="38" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="66">
+<h1 id="why-detection-is-harder">Why Detection is Harder</h1>
+<table>
+<thead>
+<tr>
+<th>Challenge</th>
+<th>Why It's Difficult</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Variable count</strong></td>
+<td>0, 1, 5, or 100 objects in an image</td>
+</tr>
+<tr>
+<td><strong>Variable sizes</strong></td>
+<td>Same object can be huge or tiny</td>
+</tr>
+<tr>
+<td><strong>Overlapping objects</strong></td>
+<td>Objects can occlude each other</td>
+</tr>
+<tr>
+<td><strong>Background clutter</strong></td>
+<td>Must ignore non-objects</td>
+</tr>
+<tr>
+<td><strong>Real-time requirement</strong></td>
+<td>Self-driving cars need 30+ FPS</td>
 </tr>
 </tbody>
 </table>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="29" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="29" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="43">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="39" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="39" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="66">
 <h1 id="why-detection-matters">Why Detection Matters</h1>
 <p><strong>Self-driving car needs to know:</strong></p>
 <ul>
@@ -485,21 +679,12 @@ model.fc = nn.Linear(<span class="hljs-number">2048</span>, num_classes)
 </ul>
 <p><strong>Classification can't answer &quot;where&quot;!</strong></p>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="30" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="30" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="43">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="40" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="40" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="66">
 <h1 id="bounding-boxes">Bounding Boxes</h1>
 <p>A bounding box = 4 numbers describing a rectangle:</p>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>┌─────────────────────────────┐
-│ (x1, y1)                    │
-│    ┌───────────────┐        │
-│    │               │        │
-│    │    DOG        │        │
-│    │               │        │
-│    └───────────────┘        │
-│                (x2, y2)     │
-└─────────────────────────────┘
-</code></pre>
+<p><img src="diagrams/svg/bounding_box_diagram.svg" alt="center" style="width:700px;" /></p>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="31" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="31" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="43">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="41" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="41" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="66">
 <h1 id="detection-output">Detection Output</h1>
 <p>For each object:</p>
 <ul>
@@ -513,14 +698,14 @@ model.fc = nn.Linear(<span class="hljs-number">2048</span>, num_classes)
 ]
 </code></pre>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="32" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="32" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="43">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="42" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="42" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="66">
 <h1 id="iou-measuring-box-overlap">IoU: Measuring Box Overlap</h1>
-<p><strong>Intersection over Union</strong>:</p>
+<p><strong>Intersection over Union</strong> - How good is a predicted box?</p>
 <p><mjx-container class="MathJax" jax="SVG" display="true" style="margin: 0;"><svg style="vertical-align: -1.602ex; display: block; width: 100%; height: auto; max-height: 4.751ex;" xmlns="http://www.w3.org/2000/svg" width="23.196ex" height="4.751ex" role="img" focusable="false" viewBox="0 -1392 10252.6 2100"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mtext"><path data-c="49" d="M328 0Q307 3 180 3T32 0H21V46H43Q92 46 106 49T126 60Q128 63 128 342Q128 620 126 623Q122 628 118 630T96 635T43 637H21V683H32Q53 680 180 680T328 683H339V637H317Q268 637 254 634T234 623Q232 620 232 342Q232 63 234 60Q238 55 242 53T264 48T317 46H339V0H328Z"></path><path data-c="6F" d="M28 214Q28 309 93 378T250 448Q340 448 405 380T471 215Q471 120 407 55T250 -10Q153 -10 91 57T28 214ZM250 30Q372 30 372 193V225V250Q372 272 371 288T364 326T348 362T317 390T268 410Q263 411 252 411Q222 411 195 399Q152 377 139 338T126 246V226Q126 130 145 91Q177 30 250 30Z" transform="translate(361,0)"></path><path data-c="55" d="M128 622Q121 629 117 631T101 634T58 637H25V683H36Q57 680 180 680Q315 680 324 683H335V637H302Q262 636 251 634T233 622L232 418V291Q232 189 240 145T280 67Q325 24 389 24Q454 24 506 64T571 183Q575 206 575 410V598Q569 608 565 613T541 627T489 637H472V683H481Q496 680 598 680T715 683H724V637H707Q634 633 622 598L621 399Q620 194 617 180Q617 179 615 171Q595 83 531 31T389 -22Q304 -22 226 33T130 192Q129 201 128 412V622Z" transform="translate(861,0)"></path></g><g data-mml-node="mo" transform="translate(1888.8,0)"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path></g><g data-mml-node="mfrac" transform="translate(2944.6,0)"><g data-mml-node="mtext" transform="translate(220,676)"><path data-c="41" d="M255 0Q240 3 140 3Q48 3 39 0H32V46H47Q119 49 139 88Q140 91 192 245T295 553T348 708Q351 716 366 716H376Q396 715 400 709Q402 707 508 390L617 67Q624 54 636 51T687 46H717V0H708Q699 3 581 3Q458 3 437 0H427V46H440Q510 46 510 64Q510 66 486 138L462 209H229L209 150Q189 91 189 85Q189 72 209 59T259 46H264V0H255ZM447 255L345 557L244 256Q244 255 345 255H447Z"></path><path data-c="72" d="M36 46H50Q89 46 97 60V68Q97 77 97 91T98 122T98 161T98 203Q98 234 98 269T98 328L97 351Q94 370 83 376T38 385H20V408Q20 431 22 431L32 432Q42 433 60 434T96 436Q112 437 131 438T160 441T171 442H174V373Q213 441 271 441H277Q322 441 343 419T364 373Q364 352 351 337T313 322Q288 322 276 338T263 372Q263 381 265 388T270 400T273 405Q271 407 250 401Q234 393 226 386Q179 341 179 207V154Q179 141 179 127T179 101T180 81T180 66V61Q181 59 183 57T188 54T193 51T200 49T207 48T216 47T225 47T235 46T245 46H276V0H267Q249 3 140 3Q37 3 28 0H20V46H36Z" transform="translate(750,0)"></path><path data-c="65" d="M28 218Q28 273 48 318T98 391T163 433T229 448Q282 448 320 430T378 380T406 316T415 245Q415 238 408 231H126V216Q126 68 226 36Q246 30 270 30Q312 30 342 62Q359 79 369 104L379 128Q382 131 395 131H398Q415 131 415 121Q415 117 412 108Q393 53 349 21T250 -11Q155 -11 92 58T28 218ZM333 275Q322 403 238 411H236Q228 411 220 410T195 402T166 381T143 340T127 274V267H333V275Z" transform="translate(1142,0)"></path><path data-c="61" d="M137 305T115 305T78 320T63 359Q63 394 97 421T218 448Q291 448 336 416T396 340Q401 326 401 309T402 194V124Q402 76 407 58T428 40Q443 40 448 56T453 109V145H493V106Q492 66 490 59Q481 29 455 12T400 -6T353 12T329 54V58L327 55Q325 52 322 49T314 40T302 29T287 17T269 6T247 -2T221 -8T190 -11Q130 -11 82 20T34 107Q34 128 41 147T68 188T116 225T194 253T304 268H318V290Q318 324 312 340Q290 411 215 411Q197 411 181 410T156 406T148 403Q170 388 170 359Q170 334 154 320ZM126 106Q126 75 150 51T209 26Q247 26 276 49T315 109Q317 116 318 175Q318 233 317 233Q309 233 296 232T251 223T193 203T147 166T126 106Z" transform="translate(1586,0)"></path><path data-c="20" d="" transform="translate(2086,0)"></path><path data-c="6F" d="M28 214Q28 309 93 378T250 448Q340 448 405 380T471 215Q471 120 407 55T250 -10Q153 -10 91 57T28 214ZM250 30Q372 30 372 193V225V250Q372 272 371 288T364 326T348 362T317 390T268 410Q263 411 252 411Q222 411 195 399Q152 377 139 338T126 246V226Q126 130 145 91Q177 30 250 30Z" transform="translate(2336,0)"></path><path data-c="66" d="M273 0Q255 3 146 3Q43 3 34 0H26V46H42Q70 46 91 49Q99 52 103 60Q104 62 104 224V385H33V431H104V497L105 564L107 574Q126 639 171 668T266 704Q267 704 275 704T289 705Q330 702 351 679T372 627Q372 604 358 590T321 576T284 590T270 627Q270 647 288 667H284Q280 668 273 668Q245 668 223 647T189 592Q183 572 182 497V431H293V385H185V225Q185 63 186 61T189 57T194 54T199 51T206 49T213 48T222 47T231 47T241 46T251 46H282V0H273Z" transform="translate(2836,0)"></path><path data-c="20" d="" transform="translate(3142,0)"></path><path data-c="4F" d="M56 340Q56 423 86 494T164 610T270 680T388 705Q521 705 621 601T722 341Q722 260 693 191T617 75T510 4T388 -22T267 3T160 74T85 189T56 340ZM467 647Q426 665 388 665Q360 665 331 654T269 620T213 549T179 439Q174 411 174 354Q174 144 277 61Q327 20 385 20H389H391Q474 20 537 99Q603 188 603 354Q603 411 598 439Q577 592 467 647Z" transform="translate(3392,0)"></path><path data-c="76" d="M338 431Q344 429 422 429Q479 429 503 431H508V385H497Q439 381 423 345Q421 341 356 172T288 -2Q283 -11 263 -11Q244 -11 239 -2Q99 359 98 364Q93 378 82 381T43 385H19V431H25L33 430Q41 430 53 430T79 430T104 429T122 428Q217 428 232 431H240V385H226Q187 384 184 370Q184 366 235 234L286 102L377 341V349Q377 363 367 372T349 383T335 385H331V431H338Z" transform="translate(4170,0)"></path><path data-c="65" d="M28 218Q28 273 48 318T98 391T163 433T229 448Q282 448 320 430T378 380T406 316T415 245Q415 238 408 231H126V216Q126 68 226 36Q246 30 270 30Q312 30 342 62Q359 79 369 104L379 128Q382 131 395 131H398Q415 131 415 121Q415 117 412 108Q393 53 349 21T250 -11Q155 -11 92 58T28 218ZM333 275Q322 403 238 411H236Q228 411 220 410T195 402T166 381T143 340T127 274V267H333V275Z" transform="translate(4698,0)"></path><path data-c="72" d="M36 46H50Q89 46 97 60V68Q97 77 97 91T98 122T98 161T98 203Q98 234 98 269T98 328L97 351Q94 370 83 376T38 385H20V408Q20 431 22 431L32 432Q42 433 60 434T96 436Q112 437 131 438T160 441T171 442H174V373Q213 441 271 441H277Q322 441 343 419T364 373Q364 352 351 337T313 322Q288 322 276 338T263 372Q263 381 265 388T270 400T273 405Q271 407 250 401Q234 393 226 386Q179 341 179 207V154Q179 141 179 127T179 101T180 81T180 66V61Q181 59 183 57T188 54T193 51T200 49T207 48T216 47T225 47T235 46T245 46H276V0H267Q249 3 140 3Q37 3 28 0H20V46H36Z" transform="translate(5142,0)"></path><path data-c="6C" d="M42 46H56Q95 46 103 60V68Q103 77 103 91T103 124T104 167T104 217T104 272T104 329Q104 366 104 407T104 482T104 542T103 586T103 603Q100 622 89 628T44 637H26V660Q26 683 28 683L38 684Q48 685 67 686T104 688Q121 689 141 690T171 693T182 694H185V379Q185 62 186 60Q190 52 198 49Q219 46 247 46H263V0H255L232 1Q209 2 183 2T145 3T107 3T57 1L34 0H26V46H42Z" transform="translate(5534,0)"></path><path data-c="61" d="M137 305T115 305T78 320T63 359Q63 394 97 421T218 448Q291 448 336 416T396 340Q401 326 401 309T402 194V124Q402 76 407 58T428 40Q443 40 448 56T453 109V145H493V106Q492 66 490 59Q481 29 455 12T400 -6T353 12T329 54V58L327 55Q325 52 322 49T314 40T302 29T287 17T269 6T247 -2T221 -8T190 -11Q130 -11 82 20T34 107Q34 128 41 147T68 188T116 225T194 253T304 268H318V290Q318 324 312 340Q290 411 215 411Q197 411 181 410T156 406T148 403Q170 388 170 359Q170 334 154 320ZM126 106Q126 75 150 51T209 26Q247 26 276 49T315 109Q317 116 318 175Q318 233 317 233Q309 233 296 232T251 223T193 203T147 166T126 106Z" transform="translate(5812,0)"></path><path data-c="70" d="M36 -148H50Q89 -148 97 -134V-126Q97 -119 97 -107T97 -77T98 -38T98 6T98 55T98 106Q98 140 98 177T98 243T98 296T97 335T97 351Q94 370 83 376T38 385H20V408Q20 431 22 431L32 432Q42 433 61 434T98 436Q115 437 135 438T165 441T176 442H179V416L180 390L188 397Q247 441 326 441Q407 441 464 377T522 216Q522 115 457 52T310 -11Q242 -11 190 33L182 40V-45V-101Q182 -128 184 -134T195 -145Q216 -148 244 -148H260V-194H252L228 -193Q205 -192 178 -192T140 -191Q37 -191 28 -194H20V-148H36ZM424 218Q424 292 390 347T305 402Q234 402 182 337V98Q222 26 294 26Q345 26 384 80T424 218Z" transform="translate(6312,0)"></path></g><g data-mml-node="mtext" transform="translate(638,-686)"><path data-c="41" d="M255 0Q240 3 140 3Q48 3 39 0H32V46H47Q119 49 139 88Q140 91 192 245T295 553T348 708Q351 716 366 716H376Q396 715 400 709Q402 707 508 390L617 67Q624 54 636 51T687 46H717V0H708Q699 3 581 3Q458 3 437 0H427V46H440Q510 46 510 64Q510 66 486 138L462 209H229L209 150Q189 91 189 85Q189 72 209 59T259 46H264V0H255ZM447 255L345 557L244 256Q244 255 345 255H447Z"></path><path data-c="72" d="M36 46H50Q89 46 97 60V68Q97 77 97 91T98 122T98 161T98 203Q98 234 98 269T98 328L97 351Q94 370 83 376T38 385H20V408Q20 431 22 431L32 432Q42 433 60 434T96 436Q112 437 131 438T160 441T171 442H174V373Q213 441 271 441H277Q322 441 343 419T364 373Q364 352 351 337T313 322Q288 322 276 338T263 372Q263 381 265 388T270 400T273 405Q271 407 250 401Q234 393 226 386Q179 341 179 207V154Q179 141 179 127T179 101T180 81T180 66V61Q181 59 183 57T188 54T193 51T200 49T207 48T216 47T225 47T235 46T245 46H276V0H267Q249 3 140 3Q37 3 28 0H20V46H36Z" transform="translate(750,0)"></path><path data-c="65" d="M28 218Q28 273 48 318T98 391T163 433T229 448Q282 448 320 430T378 380T406 316T415 245Q415 238 408 231H126V216Q126 68 226 36Q246 30 270 30Q312 30 342 62Q359 79 369 104L379 128Q382 131 395 131H398Q415 131 415 121Q415 117 412 108Q393 53 349 21T250 -11Q155 -11 92 58T28 218ZM333 275Q322 403 238 411H236Q228 411 220 410T195 402T166 381T143 340T127 274V267H333V275Z" transform="translate(1142,0)"></path><path data-c="61" d="M137 305T115 305T78 320T63 359Q63 394 97 421T218 448Q291 448 336 416T396 340Q401 326 401 309T402 194V124Q402 76 407 58T428 40Q443 40 448 56T453 109V145H493V106Q492 66 490 59Q481 29 455 12T400 -6T353 12T329 54V58L327 55Q325 52 322 49T314 40T302 29T287 17T269 6T247 -2T221 -8T190 -11Q130 -11 82 20T34 107Q34 128 41 147T68 188T116 225T194 253T304 268H318V290Q318 324 312 340Q290 411 215 411Q197 411 181 410T156 406T148 403Q170 388 170 359Q170 334 154 320ZM126 106Q126 75 150 51T209 26Q247 26 276 49T315 109Q317 116 318 175Q318 233 317 233Q309 233 296 232T251 223T193 203T147 166T126 106Z" transform="translate(1586,0)"></path><path data-c="20" d="" transform="translate(2086,0)"></path><path data-c="6F" d="M28 214Q28 309 93 378T250 448Q340 448 405 380T471 215Q471 120 407 55T250 -10Q153 -10 91 57T28 214ZM250 30Q372 30 372 193V225V250Q372 272 371 288T364 326T348 362T317 390T268 410Q263 411 252 411Q222 411 195 399Q152 377 139 338T126 246V226Q126 130 145 91Q177 30 250 30Z" transform="translate(2336,0)"></path><path data-c="66" d="M273 0Q255 3 146 3Q43 3 34 0H26V46H42Q70 46 91 49Q99 52 103 60Q104 62 104 224V385H33V431H104V497L105 564L107 574Q126 639 171 668T266 704Q267 704 275 704T289 705Q330 702 351 679T372 627Q372 604 358 590T321 576T284 590T270 627Q270 647 288 667H284Q280 668 273 668Q245 668 223 647T189 592Q183 572 182 497V431H293V385H185V225Q185 63 186 61T189 57T194 54T199 51T206 49T213 48T222 47T231 47T241 46T251 46H282V0H273Z" transform="translate(2836,0)"></path><path data-c="20" d="" transform="translate(3142,0)"></path><path data-c="55" d="M128 622Q121 629 117 631T101 634T58 637H25V683H36Q57 680 180 680Q315 680 324 683H335V637H302Q262 636 251 634T233 622L232 418V291Q232 189 240 145T280 67Q325 24 389 24Q454 24 506 64T571 183Q575 206 575 410V598Q569 608 565 613T541 627T489 637H472V683H481Q496 680 598 680T715 683H724V637H707Q634 633 622 598L621 399Q620 194 617 180Q617 179 615 171Q595 83 531 31T389 -22Q304 -22 226 33T130 192Q129 201 128 412V622Z" transform="translate(3392,0)"></path><path data-c="6E" d="M41 46H55Q94 46 102 60V68Q102 77 102 91T102 122T103 161T103 203Q103 234 103 269T102 328V351Q99 370 88 376T43 385H25V408Q25 431 27 431L37 432Q47 433 65 434T102 436Q119 437 138 438T167 441T178 442H181V402Q181 364 182 364T187 369T199 384T218 402T247 421T285 437Q305 442 336 442Q450 438 463 329Q464 322 464 190V104Q464 66 466 59T477 49Q498 46 526 46H542V0H534L510 1Q487 2 460 2T422 3Q319 3 310 0H302V46H318Q379 46 379 62Q380 64 380 200Q379 335 378 343Q372 371 358 385T334 402T308 404Q263 404 229 370Q202 343 195 315T187 232V168V108Q187 78 188 68T191 55T200 49Q221 46 249 46H265V0H257L234 1Q210 2 183 2T145 3Q42 3 33 0H25V46H41Z" transform="translate(4142,0)"></path><path data-c="69" d="M69 609Q69 637 87 653T131 669Q154 667 171 652T188 609Q188 579 171 564T129 549Q104 549 87 564T69 609ZM247 0Q232 3 143 3Q132 3 106 3T56 1L34 0H26V46H42Q70 46 91 49Q100 53 102 60T104 102V205V293Q104 345 102 359T88 378Q74 385 41 385H30V408Q30 431 32 431L42 432Q52 433 70 434T106 436Q123 437 142 438T171 441T182 442H185V62Q190 52 197 50T232 46H255V0H247Z" transform="translate(4698,0)"></path><path data-c="6F" d="M28 214Q28 309 93 378T250 448Q340 448 405 380T471 215Q471 120 407 55T250 -10Q153 -10 91 57T28 214ZM250 30Q372 30 372 193V225V250Q372 272 371 288T364 326T348 362T317 390T268 410Q263 411 252 411Q222 411 195 399Q152 377 139 338T126 246V226Q126 130 145 91Q177 30 250 30Z" transform="translate(4976,0)"></path><path data-c="6E" d="M41 46H55Q94 46 102 60V68Q102 77 102 91T102 122T103 161T103 203Q103 234 103 269T102 328V351Q99 370 88 376T43 385H25V408Q25 431 27 431L37 432Q47 433 65 434T102 436Q119 437 138 438T167 441T178 442H181V402Q181 364 182 364T187 369T199 384T218 402T247 421T285 437Q305 442 336 442Q450 438 463 329Q464 322 464 190V104Q464 66 466 59T477 49Q498 46 526 46H542V0H534L510 1Q487 2 460 2T422 3Q319 3 310 0H302V46H318Q379 46 379 62Q380 64 380 200Q379 335 378 343Q372 371 358 385T334 402T308 404Q263 404 229 370Q202 343 195 315T187 232V168V108Q187 78 188 68T191 55T200 49Q221 46 249 46H265V0H257L234 1Q210 2 183 2T145 3Q42 3 33 0H25V46H41Z" transform="translate(5476,0)"></path></g><rect width="7068" height="60" x="120" y="220"></rect></g></g></g></svg></mjx-container></p><table>
 <thead>
 <tr>
-<th>IoU</th>
-<th>Interpretation</th>
+<th>IoU Value</th>
+<th>Quality</th>
 </tr>
 </thead>
 <tbody>
@@ -529,17 +714,72 @@ model.fc = nn.Linear(<span class="hljs-number">2048</span>, num_classes)
 <td>Perfect match</td>
 </tr>
 <tr>
-<td>0.5</td>
+<td>&gt; 0.5</td>
 <td>Good detection</td>
 </tr>
 <tr>
-<td>0.0</td>
-<td>No overlap</td>
+<td>&lt; 0.3</td>
+<td>Poor detection</td>
 </tr>
 </tbody>
 </table>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="33" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="33" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="43">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="43" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="43" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="66">
+<h1 id="iou-examples">IoU Examples</h1>
+<p><img src="diagrams/svg/iou_examples.svg" alt="center" style="width:950px;" /></p>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="44" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="44" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="66">
+<h1 id="iou-thresholds">IoU Thresholds</h1>
+<table>
+<thead>
+<tr>
+<th>IoU Threshold</th>
+<th>Meaning</th>
+<th>Use Case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>IoU ≥ 0.5</strong></td>
+<td>&quot;Good enough&quot;</td>
+<td>Standard detection (PASCAL VOC)</td>
+</tr>
+<tr>
+<td><strong>IoU ≥ 0.75</strong></td>
+<td>&quot;Precise&quot;</td>
+<td>High-quality detection</td>
+</tr>
+<tr>
+<td><strong>IoU ≥ 0.95</strong></td>
+<td>&quot;Near perfect&quot;</td>
+<td>Fine-grained applications</td>
+</tr>
+</tbody>
+</table>
+<p><strong>mAP@0.5:0.95</strong> averages performance across multiple IoU thresholds.</p>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="45" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="45" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="66">
+<h1 id="computing-iou-in-python">Computing IoU in Python</h1>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">compute_iou</span>(<span class="hljs-params">box1, box2</span>):
+    <span class="hljs-string">&quot;&quot;&quot;
+    Boxes are [x1, y1, x2, y2] format
+    &quot;&quot;&quot;</span>
+    <span class="hljs-comment"># Intersection coordinates</span>
+    x1 = <span class="hljs-built_in">max</span>(box1[<span class="hljs-number">0</span>], box2[<span class="hljs-number">0</span>])
+    y1 = <span class="hljs-built_in">max</span>(box1[<span class="hljs-number">1</span>], box2[<span class="hljs-number">1</span>])
+    x2 = <span class="hljs-built_in">min</span>(box1[<span class="hljs-number">2</span>], box2[<span class="hljs-number">2</span>])
+    y2 = <span class="hljs-built_in">min</span>(box1[<span class="hljs-number">3</span>], box2[<span class="hljs-number">3</span>])
+
+    <span class="hljs-comment"># Areas</span>
+    intersection = <span class="hljs-built_in">max</span>(<span class="hljs-number">0</span>, x2-x1) * <span class="hljs-built_in">max</span>(<span class="hljs-number">0</span>, y2-y1)
+    area1 = (box1[<span class="hljs-number">2</span>]-box1[<span class="hljs-number">0</span>]) * (box1[<span class="hljs-number">3</span>]-box1[<span class="hljs-number">1</span>])
+    area2 = (box2[<span class="hljs-number">2</span>]-box2[<span class="hljs-number">0</span>]) * (box2[<span class="hljs-number">3</span>]-box2[<span class="hljs-number">1</span>])
+    union = area1 + area2 - intersection
+
+    <span class="hljs-keyword">return</span> intersection / union <span class="hljs-keyword">if</span> union &gt; <span class="hljs-number">0</span> <span class="hljs-keyword">else</span> <span class="hljs-number">0</span>
+</code></pre>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="46" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="46" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="66">
 <h1 id="non-maximum-suppression-nms">Non-Maximum Suppression (NMS)</h1>
 <p><strong>Problem:</strong> Model often detects the same object multiple times.</p>
 <p><strong>Solution:</strong> Keep only the best detection, remove overlapping ones.</p>
@@ -550,11 +790,11 @@ confs = [<span class="hljs-number">0.95</span>, <span class="hljs-number">0.92</
 <span class="hljs-comment"># After NMS: keep only [100,50,300,200] with conf 0.95</span>
 </code></pre>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="34" data-paginate="true" data-class="section-divider" data-theme="iitgn-modern" lang="en-IN" class="section-divider" data-marpit-pagination="34" style="--paginate:true;--class:section-divider;--theme:iitgn-modern;" data-marpit-pagination-total="43">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="47" data-paginate="true" data-class="section-divider" data-theme="iitgn-modern" lang="en-IN" class="section-divider" data-marpit-pagination="47" style="--paginate:true;--class:section-divider;--theme:iitgn-modern;" data-marpit-pagination-total="66">
 <h1 id="part-5-yolo">Part 5: YOLO</h1>
 <h2 id="you-only-look-once">You Only Look Once</h2>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="35" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="35" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="43">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="48" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="48" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="66">
 <h1 id="yolo-the-revolution">YOLO: The Revolution</h1>
 <p>Before YOLO (2015): Detection was SLOW (seconds per image)</p>
 <p>After YOLO: <strong>Real-time detection</strong> (30-60 FPS!)</p>
@@ -585,7 +825,7 @@ confs = [<span class="hljs-number">0.95</span>, <span class="hljs-number">0.92</
 </tbody>
 </table>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="36" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="36" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="43">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="49" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="49" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="66">
 <h1 id="yolo-key-idea">YOLO Key Idea</h1>
 <p><strong>Process the entire image in one forward pass:</strong></p>
 <ol>
@@ -600,20 +840,11 @@ confs = [<span class="hljs-number">0.95</span>, <span class="hljs-number">0.92</
 <li>Single neural network does everything!</li>
 </ol>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="37" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="37" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="43">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="50" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="50" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="66">
 <h1 id="yolo-grid">YOLO Grid</h1>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>┌──┬──┬──┬──┬──┬──┬──┐
-│  │  │  │  │  │  │  │
-├──┼──┼──┼──┼──┼──┼──┤
-│  │  │  │<img class="emoji" draggable="false" alt="☺" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/263a.svg" data-marp-twemoji=""/> │  │  │  │  ← This cell detects face
-├──┼──┼──┼──┼──┼──┼──┤
-│  │  │  │  │  │  │  │
-└──┴──┴──┴──┴──┴──┴──┘
-
-Cell predicts: box coords + confidence + class
-</code></pre>
+<p><img src="diagrams/svg/yolo_grid.svg" alt="center" style="width:700px;" /></p>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="38" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="38" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="43">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="51" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="51" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="66">
 <h1 id="using-yolo-in-practice">Using YOLO in Practice</h1>
 <pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-python"><span class="hljs-keyword">from</span> ultralytics <span class="hljs-keyword">import</span> YOLO
 
@@ -632,7 +863,7 @@ results = model(<span class="hljs-string">&#x27;image.jpg&#x27;</span>)
         <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Class <span class="hljs-subst">{cls}</span>: (<span class="hljs-subst">{x1:<span class="hljs-number">.0</span>f}</span>,<span class="hljs-subst">{y1:<span class="hljs-number">.0</span>f}</span>) to (<span class="hljs-subst">{x2:<span class="hljs-number">.0</span>f}</span>,<span class="hljs-subst">{y2:<span class="hljs-number">.0</span>f}</span>)&quot;</span>)
 </code></pre>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="39" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="39" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="43">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="52" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="52" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="66">
 <h1 id="yolo-model-sizes">YOLO Model Sizes</h1>
 <table>
 <thead>
@@ -677,7 +908,7 @@ results = model(<span class="hljs-string">&#x27;image.jpg&#x27;</span>)
 </tbody>
 </table>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="40" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="40" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="43">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="53" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="53" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="66">
 <h1 id="training-your-own-detector">Training Your Own Detector</h1>
 <pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-python"><span class="hljs-keyword">from</span> ultralytics <span class="hljs-keyword">import</span> YOLO
 
@@ -696,7 +927,7 @@ metrics = model.val()
 <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;mAP@0.5: <span class="hljs-subst">{metrics.box.map50:<span class="hljs-number">.3</span>f}</span>&quot;</span>)
 </code></pre>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="41" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="41" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="43">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="54" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="54" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="66">
 <h1 id="detection-metrics">Detection Metrics</h1>
 <table>
 <thead>
@@ -725,7 +956,208 @@ metrics = model.val()
 </tbody>
 </table>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="42" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="42" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="43">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="55" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="55" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="66">
+<h1 id="detection-speed-evolution">Detection Speed Evolution</h1>
+<p><img src="diagrams/svg/detection_history.svg" alt="center" style="width:950px;" /></p>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="56" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="56" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="66">
+<h1 id="real-world-detection-applications">Real-World Detection Applications</h1>
+<table>
+<thead>
+<tr>
+<th>Application</th>
+<th>Objects Detected</th>
+<th>Speed Requirement</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Self-driving cars</strong></td>
+<td>Cars, pedestrians, signs</td>
+<td>Real-time (30+ FPS)</td>
+</tr>
+<tr>
+<td><strong>Retail analytics</strong></td>
+<td>People, products</td>
+<td>Near real-time</td>
+</tr>
+<tr>
+<td><strong>Medical imaging</strong></td>
+<td>Tumors, lesions</td>
+<td>Accuracy &gt; speed</td>
+</tr>
+<tr>
+<td><strong>Sports analysis</strong></td>
+<td>Players, ball</td>
+<td>Real-time</td>
+</tr>
+<tr>
+<td><strong>Security cameras</strong></td>
+<td>People, vehicles</td>
+<td>Real-time</td>
+</tr>
+<tr>
+<td><strong>Manufacturing QC</strong></td>
+<td>Defects, parts</td>
+<td>High accuracy</td>
+</tr>
+</tbody>
+</table>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="57" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="57" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="66">
+<h1 id="beyond-detection-segmentation">Beyond Detection: Segmentation</h1>
+<p><strong>Instance Segmentation</strong> = Detection + Pixel-level masks</p>
+<table>
+<thead>
+<tr>
+<th>Task</th>
+<th>Output</th>
+<th>Use Case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Detection</td>
+<td>Bounding boxes</td>
+<td>&quot;Where are objects?&quot;</td>
+</tr>
+<tr>
+<td>Semantic Seg.</td>
+<td>Pixel classes</td>
+<td>&quot;What is each pixel?&quot;</td>
+</tr>
+<tr>
+<td>Instance Seg.</td>
+<td>Pixel masks per object</td>
+<td>&quot;Which pixels belong to which object?&quot;</td>
+</tr>
+</tbody>
+</table>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="58" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="58" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="66">
+<h1 id="segmentation-variants-comparison">Segmentation Variants Comparison</h1>
+<p><img src="diagrams/svg/segmentation_variants.svg" alt="center" style="width:1000px;" /></p>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="59" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="59" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="66">
+<h1 id="segmentation-with-yolo">Segmentation with YOLO</h1>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-python"><span class="hljs-keyword">from</span> ultralytics <span class="hljs-keyword">import</span> YOLO
+
+<span class="hljs-comment"># Load segmentation model</span>
+model = YOLO(<span class="hljs-string">&#x27;yolov8n-seg.pt&#x27;</span>)
+
+<span class="hljs-comment"># Run segmentation</span>
+results = model(<span class="hljs-string">&#x27;image.jpg&#x27;</span>)
+
+<span class="hljs-comment"># Access masks</span>
+<span class="hljs-keyword">for</span> result <span class="hljs-keyword">in</span> results:
+    masks = result.masks  <span class="hljs-comment"># Segmentation masks</span>
+    boxes = result.boxes  <span class="hljs-comment"># Bounding boxes</span>
+</code></pre>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="60" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="60" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="66">
+<h1 id="pose-estimation">Pose Estimation</h1>
+<p><strong>Beyond &quot;what&quot; and &quot;where&quot; → &quot;how is it positioned?&quot;</strong></p>
+<p>Pose estimation detects keypoints (joints) on bodies:</p>
+<ul>
+<li>17 keypoints for humans (COCO format)</li>
+<li>Enables gesture recognition, action detection</li>
+<li>Used in sports, healthcare, gaming</li>
+</ul>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-python"><span class="hljs-comment"># Pose estimation with YOLO</span>
+model = YOLO(<span class="hljs-string">&#x27;yolov8n-pose.pt&#x27;</span>)
+results = model(<span class="hljs-string">&#x27;person.jpg&#x27;</span>)
+
+<span class="hljs-comment"># Get keypoints</span>
+<span class="hljs-keyword">for</span> result <span class="hljs-keyword">in</span> results:
+    keypoints = result.keypoints  <span class="hljs-comment"># Shape: (n_persons, 17, 3)</span>
+</code></pre>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="61" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="61" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="66">
+<h1 id="the-vision-ai-stack">The Vision AI Stack</h1>
+<table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>Components</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Applications</strong></td>
+<td>Self-driving, Medical, Retail, Security, Robotics</td>
+</tr>
+<tr>
+<td><strong>High-Level Tasks</strong></td>
+<td>Pose Estimation, Tracking, Action Recognition</td>
+</tr>
+<tr>
+<td><strong>Core Tasks</strong></td>
+<td>Classification, Detection, Segmentation</td>
+</tr>
+<tr>
+<td><strong>Building Blocks</strong></td>
+<td>CNNs, Transformers (ViT), Feature Extractors</td>
+</tr>
+<tr>
+<td><strong>Fundamentals</strong></td>
+<td>Images as Tensors, Convolutions, Pooling</td>
+</tr>
+</tbody>
+</table>
+<div class="insight">
+Each layer builds on the ones below it!
+</div>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="62" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="62" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="66">
+<h1 id="from-images-to-video">From Images to Video</h1>
+<p><strong>Video = Sequence of Images (Frames)</strong></p>
+<table>
+<thead>
+<tr>
+<th>Task</th>
+<th>Description</th>
+<th>Challenge</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Object Tracking</strong></td>
+<td>Follow objects across frames</td>
+<td>Maintain ID consistency</td>
+</tr>
+<tr>
+<td><strong>Action Recognition</strong></td>
+<td>Classify what's happening</td>
+<td>Temporal understanding</td>
+</tr>
+<tr>
+<td><strong>Video Object Detection</strong></td>
+<td>Detect objects in video</td>
+<td>Real-time processing</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Tracking adds a new dimension: TIME</strong></p>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="63" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="63" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="66">
+<h1 id="multi-object-tracking-mot">Multi-Object Tracking (MOT)</h1>
+<p><strong>Challenge:</strong> Same dog appears in frame 1, 2, 3...<br />
+How do we know it's the SAME dog?</p>
+<p><strong>Solution:</strong> Track IDs</p>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-python"><span class="hljs-keyword">from</span> ultralytics <span class="hljs-keyword">import</span> YOLO
+
+model = YOLO(<span class="hljs-string">&#x27;yolov8n.pt&#x27;</span>)
+
+<span class="hljs-comment"># Track objects across video frames</span>
+results = model.track(source=<span class="hljs-string">&#x27;video.mp4&#x27;</span>, persist=<span class="hljs-literal">True</span>)
+
+<span class="hljs-comment"># Each detection now has a track ID</span>
+<span class="hljs-keyword">for</span> result <span class="hljs-keyword">in</span> results:
+    <span class="hljs-keyword">for</span> box <span class="hljs-keyword">in</span> result.boxes:
+        track_id = box.<span class="hljs-built_in">id</span>  <span class="hljs-comment"># Consistent across frames!</span>
+</code></pre>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="64" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="64" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="66">
 <h1 id="key-takeaways">Key Takeaways</h1>
 <ol>
 <li>
@@ -734,8 +1166,8 @@ metrics = model.val()
 <li>
 <p><strong>CNNs use convolutions</strong> for efficient image processing</p>
 <ul>
-<li>Weight sharing</li>
-<li>Translation equivariance</li>
+<li>Weight sharing (fewer parameters)</li>
+<li>Translation equivariance (detect anywhere)</li>
 </ul>
 </li>
 <li>
@@ -743,13 +1175,52 @@ metrics = model.val()
 </li>
 <li>
 <p><strong>Detection = Classification + Localization</strong></p>
+<ul>
+<li>Bounding boxes + class labels + confidence</li>
+</ul>
 </li>
 <li>
-<p><strong>YOLO</strong> enables real-time object detection</p>
+<p><strong>IoU</strong> measures box overlap (threshold typically 0.5)</p>
+</li>
+<li>
+<p><strong>YOLO</strong> enables real-time detection (single forward pass)</p>
+</li>
+<li>
+<p><strong>Beyond detection:</strong> Segmentation, Pose, Tracking</p>
 </li>
 </ol>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="43" data-paginate="true" data-class="title-slide" data-theme="iitgn-modern" lang="en-IN" class="title-slide" data-marpit-pagination="43" style="--paginate:true;--class:title-slide;--theme:iitgn-modern;" data-marpit-pagination-total="43">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="65" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="65" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="66">
+<h1 id="connecting-to-next-week">Connecting to Next Week</h1>
+<p><strong>Computer Vision answers:</strong> &quot;What's in this image?&quot;</p>
+<p><strong>Next question:</strong> &quot;What does this text mean?&quot;</p>
+<table>
+<thead>
+<tr>
+<th>This Week</th>
+<th>Next Week</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Images → Pixels → CNNs</td>
+<td>Text → Tokens → Transformers</td>
+</tr>
+<tr>
+<td>Object Detection</td>
+<td>Next Token Prediction</td>
+</tr>
+<tr>
+<td>YOLO (real-time vision)</td>
+<td>LLMs (language understanding)</td>
+</tr>
+</tbody>
+</table>
+<div class="insight">
+Same principle: Learn patterns from data to make predictions!
+</div>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="66" data-paginate="true" data-class="title-slide" data-theme="iitgn-modern" lang="en-IN" class="title-slide" data-marpit-pagination="66" style="--paginate:true;--class:title-slide;--theme:iitgn-modern;" data-marpit-pagination-total="66">
 <h1 id="you-can-now-make-computers-see">You Can Now Make Computers See!</h1>
 <h2 id="next-language-models---how-machines-understand-text">Next: Language Models - How Machines Understand Text</h2>
 <p><strong>Lab:</strong> Build a CNN classifier and run YOLO detection</p>
