@@ -490,6 +490,24 @@ Decision Tree:       0.820 ± 0.045  ← More variable!
 
 ---
 
+# Interpreting Cross-Validation Results
+
+```
+Model A: 0.85 ± 0.02   ← Low variance, reliable
+Model B: 0.87 ± 0.15   ← High variance, unstable!
+```
+
+| What to Look For | Interpretation |
+|------------------|----------------|
+| High mean, low std | Great! Reliable model |
+| High mean, high std | Risky — unstable |
+| Low mean, low std | Consistently bad |
+| Low mean, high std | Very unstable |
+
+**Prefer consistent models over slightly better but unstable ones!**
+
+---
+
 <!-- _class: section-divider -->
 
 # Part 4: Practical Guidelines

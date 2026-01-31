@@ -274,6 +274,39 @@ class SimpleCNN(nn.Module):
 
 ---
 
+# The Feature Hierarchy: A Deep Dive
+
+**What each layer learns:**
+
+| Layer | What It Sees | Example |
+|-------|--------------|---------|
+| **Layer 1** | Edges, gradients | Horizontal lines, vertical lines |
+| **Layer 2** | Corners, textures | Corners, stripes, dots |
+| **Layer 3** | Parts | Eyes, ears, wheels |
+| **Layer 4** | Objects | Faces, cars, dogs |
+| **Layer 5+** | Concepts | "Happy face", "Running dog" |
+
+**Deeper = More abstract!**
+
+---
+
+# Visualizing CNN Layers
+
+**What a face detector learns:**
+
+```
+Layer 1         Layer 2         Layer 3         Layer 4
+│ ─ / \ │      ┌─┐ └─┘ ╱╲      👁 👄 👃       🙂 😊 😢
+   ─ │ ─       │ │ ◯ △        (parts)       (full faces)
+(edges)        (shapes)
+```
+
+**Early layers are SHARED across all object types!**
+
+An edge detector works for faces, cars, and dogs.
+
+---
+
 # Famous CNN Moment: ImageNet 2012
 
 ```
@@ -510,6 +543,40 @@ for result in results:
 | YOLOv8x | Slowest | Best | Maximum accuracy |
 
 **"n" = nano (smallest), "x" = extra-large**
+
+---
+
+# Speed vs Accuracy Trade-off
+
+**Why does this matter?**
+
+| Application | Needs | Model Choice |
+|-------------|-------|--------------|
+| Self-driving car | Real-time (30+ FPS) | YOLOv8n or s |
+| Medical diagnosis | High accuracy | YOLOv8x |
+| Phone app | Low battery usage | YOLOv8n |
+| Surveillance | Balance | YOLOv8s or m |
+
+**You choose based on your constraints!**
+
+---
+
+# IoU Calculation: Step by Step
+
+**Ground Truth box:** (30, 30) to (100, 100)
+**Predicted box:** (50, 50) to (120, 120)
+
+| Step | Calculation |
+|------|-------------|
+| **1. Find intersection** | x: max(30,50)=50 to min(100,120)=100 |
+| | y: max(30,50)=50 to min(100,120)=100 |
+| | Area = 50 × 50 = 2,500 |
+| **2. Find union** | GT area = 70×70 = 4,900 |
+| | Pred area = 70×70 = 4,900 |
+| | Union = 4,900 + 4,900 - 2,500 = 7,300 |
+| **3. IoU** | 2,500 / 7,300 = **0.34** |
+
+**IoU = 0.34 → Not a good match (need > 0.5)**
 
 ---
 
