@@ -10,7 +10,7 @@ MARP_NPX = npx @marp-team/marp-cli
 
 .PHONY: all clean lectures ml-tasks ntp objdet diagrams help stats
 .PHONY: l01 l02 l03 l04 l05 l06 l07 l08
-.PHONY: diagrams-l02 diagrams-l03 diagrams-l04 diagrams-l05 diagrams-l06 diagrams-l08
+.PHONY: diagrams-l02 diagrams-l03 diagrams-l04 diagrams-l05 diagrams-l06 diagrams-l07 diagrams-l08
 .PHONY: diagrams-ml-tasks diagrams-object-detection diagrams-next-token
 .PHONY: watch-l01 watch-l02 watch-l03 watch-l04 watch-l05 watch-l06 watch-l07 watch-l08
 .PHONY: serve-l01 serve-l02 serve-l03 serve-l04 serve-l05 serve-l06 serve-l07 serve-l08
@@ -70,7 +70,7 @@ l08:
 # ============================================================================
 
 # Generate all diagrams
-diagrams: diagrams-l02 diagrams-l03 diagrams-l04 diagrams-l05 diagrams-l06 diagrams-l08 diagrams-ml-tasks diagrams-object-detection diagrams-next-token
+diagrams: diagrams-l02 diagrams-l03 diagrams-l04 diagrams-l05 diagrams-l06 diagrams-l07 diagrams-l08 diagrams-ml-tasks diagrams-object-detection diagrams-next-token
 
 # Lecture-specific diagram generation
 diagrams-l02:
@@ -92,6 +92,10 @@ diagrams-l05:
 diagrams-l06:
 	@echo "Generating L06 diagrams..."
 	cd lectures/06-computer-vision && python generate_diagrams.py
+
+diagrams-l07:
+	@echo "Generating L07 diagrams..."
+	cd lectures/07-language-models && python generate_diagrams.py
 
 diagrams-l08:
 	@echo "Generating L08 diagrams..."

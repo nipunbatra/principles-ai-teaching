@@ -1,4 +1,4 @@
-name: Publish Quarto Website
+name: Build & Deploy Course Website
 
 on:
   push:
@@ -22,6 +22,71 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Marp CLI
+        run: npm install -g @marp-team/marp-cli
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Python dependencies
+        run: |
+          pip install matplotlib numpy scikit-learn pillow
+
+      - name: Generate diagrams
+        run: |
+          for script in lectures/*/generate_diagrams.py; do
+            if [ -f "$script" ]; then
+              echo "Running $script..."
+              cd "$(dirname "$script")" && python "$(basename "$script")" && cd - > /dev/null
+            fi
+          done
+
+      - name: Build Marp slides (HTML)
+        run: |
+          for lecture_dir in lectures/*/; do
+            if [ -f "${lecture_dir}slides.md" ]; then
+              echo "Building HTML: ${lecture_dir}slides.md"
+              marp "${lecture_dir}slides.md" -o "${lecture_dir}slides.html" --allow-local-files --theme-set themes/iitgn-modern.css || true
+            fi
+          done
+          # Build legacy slides
+          for md in ml-tasks/ml-tasks.md next-token-prediction/next-token-prediction.md object-detection/object-detection-basics.md; do
+            if [ -f "$md" ]; then
+              dir=$(dirname "$md")
+              name=$(basename "$md" .md)
+              echo "Building HTML: $md"
+              marp "$md" -o "${dir}/${name}.html" --allow-local-files --theme-set themes/iitgn-modern.css || true
+            fi
+          done
+
+      - name: Build Marp slides (PDF)
+        env:
+          PUPPETEER_TIMEOUT: 180000
+        run: |
+          npx playwright install chromium
+          for lecture_dir in lectures/*/; do
+            if [ -f "${lecture_dir}slides.md" ]; then
+              echo "Building PDF: ${lecture_dir}slides.md"
+              marp "${lecture_dir}slides.md" -o "${lecture_dir}slides.pdf" --allow-local-files --theme-set themes/iitgn-modern.css --pdf || echo "Warning: PDF build failed for ${lecture_dir}"
+            fi
+          done
+          # Build legacy PDFs
+          for md in ml-tasks/ml-tasks.md next-token-prediction/next-token-prediction.md object-detection/object-detection-basics.md; do
+            if [ -f "$md" ]; then
+              dir=$(dirname "$md")
+              name=$(basename "$md" .md)
+              echo "Building PDF: $md"
+              marp "$md" -o "${dir}/${name}.pdf" --allow-local-files --theme-set themes/iitgn-modern.css --pdf || echo "Warning: PDF build failed for $md"
+            fi
+          done
+
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
         with:
@@ -32,13 +97,38 @@ jobs:
 
       - name: Copy lecture slides to _site
         run: |
+          # Copy lecture slides (HTML + PDF)
+          for i in 01 02 03 04 05 06 07 08; do
+            dir="lectures/${i}-*"
+            for lecture_dir in $dir; do
+              if [ -d "$lecture_dir" ]; then
+                name=$(basename "$lecture_dir")
+                mkdir -p "_site/lectures/${name}"
+                cp "${lecture_dir}/slides.html" "_site/lectures/${name}/" 2>/dev/null || true
+                cp "${lecture_dir}/slides.pdf" "_site/lectures/${name}/" 2>/dev/null || true
+                # Copy diagrams
+                if [ -d "${lecture_dir}/diagrams" ]; then
+                  cp -r "${lecture_dir}/diagrams" "_site/lectures/${name}/" 2>/dev/null || true
+                fi
+              fi
+            done
+          done
+
+          # Copy legacy materials
           mkdir -p _site/ml-tasks _site/next-token-prediction _site/object-detection
-          cp ml-tasks/ml-tasks.html ml-tasks/ml-tasks.pdf _site/ml-tasks/
+          cp ml-tasks/ml-tasks.html ml-tasks/ml-tasks.pdf _site/ml-tasks/ 2>/dev/null || true
           cp -r ml-tasks/diagrams ml-tasks/examples _site/ml-tasks/ 2>/dev/null || true
-          cp next-token-prediction/next-token-prediction.html next-token-prediction/next-token-prediction.pdf _site/next-token-prediction/
+          cp next-token-prediction/next-token-prediction.html next-token-prediction/next-token-prediction.pdf _site/next-token-prediction/ 2>/dev/null || true
           cp -r next-token-prediction/diagrams _site/next-token-prediction/ 2>/dev/null || true
-          cp object-detection/object-detection-basics.html object-detection/object-detection-basics.pdf _site/object-detection/
+          cp object-detection/object-detection-basics.html object-detection/object-detection-basics.pdf _site/object-detection/ 2>/dev/null || true
           cp -r object-detection/diagrams object-detection/examples _site/object-detection/ 2>/dev/null || true
+
+          # Copy lecture demos
+          if [ -d "lecture_demo" ]; then
+            mkdir -p _site/lecture_demo
+            cp lecture_demo/*.ipynb _site/lecture_demo/ 2>/dev/null || true
+            cp lecture_demo/README.md _site/lecture_demo/ 2>/dev/null || true
+          fi
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
