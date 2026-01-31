@@ -58,6 +58,8 @@ You trained a model. It looks great on your data.
 
 # A Simple Example
 
+![bg right:50% 90%](diagrams/overfitting_underfitting.png)
+
 **Task:** Predict house prices from size
 
 You have 10 houses with prices. You fit a model.

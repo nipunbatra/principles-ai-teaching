@@ -204,6 +204,8 @@ Image:                    Look for:
 
 # Filters (Kernels)
 
+![bg right:45% 90%](diagrams/cnn_convolution.png)
+
 A **filter** is a small grid of numbers that detects a pattern:
 
 | Filter Type | What It Detects |
@@ -438,6 +440,8 @@ Ground Truth:        Prediction:          IoU:
 ---
 
 # YOLO Grid
+
+![bg right:50% 90%](diagrams/yolo_grid.png)
 
 ```
 ┌───┬───┬───┬───┬───┬───┬───┐

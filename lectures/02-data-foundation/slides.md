@@ -48,6 +48,8 @@ math: mathjax
 
 # Traditional Programming
 
+![bg right:45% 90%](diagrams/ml_vs_programming.png)
+
 **You write explicit rules:**
 
 ```
@@ -471,6 +473,8 @@ pd.get_dummies(df['Color'])
 
 # The Solution: Split Your Data
 
+![bg right:50% 90%](diagrams/train_test_split.png)
+
 **Don't test on data you trained on!**
 
 | Training Set (80%) | Test Set (20%) |
@@ -563,7 +567,9 @@ $$\text{Accuracy} = \frac{\text{Correct Predictions}}{\text{Total Predictions}}$
 
 # The Confusion Matrix
 
-|  | **Predicted: Positive** | **Predicted: Negative** |
+![bg right:40% 90%](diagrams/confusion_matrix.png)
+
+|  | **Pred: Positive** | **Pred: Negative** |
 |--|------------------------|------------------------|
 | **Actual: Positive** | TP (True Positive) ✓ | FN (False Negative) ✗ |
 | **Actual: Negative** | FP (False Positive) ✗ | TN (True Negative) ✓ |

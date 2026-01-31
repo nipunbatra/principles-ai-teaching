@@ -144,17 +144,19 @@ A model that can predict text well has **implicitly learned**:
 
 # Not Just ONE Prediction...
 
-The model doesn't just predict ONE word. It predicts **probabilities for ALL possible words**:
+![bg right:45% 90%](diagrams/next_token_prediction.png)
 
-**"The capital of France is ___"**
+The model predicts **probabilities for ALL possible words**:
+
+**"The cat sat on the ___"**
 
 | Word | Probability |
 |------|-------------|
-| Paris | 85% |
-| the | 2% |
-| London | 1% |
-| beautiful | 1% |
-| ... | 11% |
+| mat | 35% |
+| floor | 25% |
+| bed | 20% |
+| roof | 15% |
+| dog | 5% |
 
 **All probabilities sum to 100%**
 
@@ -395,6 +397,8 @@ Embeddings are learned automatically — the model figures out what each dimensi
 ---
 
 # The Problem with Sequences
+
+![bg right:45% 90%](diagrams/attention_intuition.png)
 
 **"The animal didn't cross the street because it was too tired."**
 

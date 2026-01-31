@@ -22,10 +22,9 @@ math: mathjax
 By the end of this lecture, you will:
 
 1. **Understand** how linear regression finds the best line
-2. **Interpret** weights and what they mean
+2. **Learn** how to find optimal weights (optimization!)
 3. **Apply** logistic regression for classification
-4. **Use** the sigmoid function to get probabilities
-5. **Evaluate** models with appropriate metrics
+4. **Connect** sklearn to PyTorch for neural networks
 
 ---
 
@@ -48,7 +47,7 @@ By the end of this lecture, you will:
 
 # Part 1: Linear Regression
 
-## Fitting a Line to Data
+## Finding the Best Line
 
 ---
 
@@ -71,6 +70,20 @@ You have data from recent sales:
 
 ---
 
+# Visualizing the Data
+
+![bg right:50% 90%](diagrams/linear_regression.png)
+
+When we plot the data:
+- X-axis: House size
+- Y-axis: Price
+
+The points seem to follow a line!
+
+**Linear regression = finding the best line through the points**
+
+---
+
 # The Pattern is Clear!
 
 Every 500 sqft adds ₹20 lakhs.
@@ -90,10 +103,6 @@ You just did linear regression in your head.
 
 # The Equation of a Line
 
-$$\text{Price} = 0.04 \times \text{Size} + 0$$
-
-Or more generally:
-
 $$\hat{y} = w \cdot x + b$$
 
 | Symbol | Name | Meaning | Our Example |
@@ -102,6 +111,8 @@ $$\hat{y} = w \cdot x + b$$
 | $\hat{y}$ | Output | Predicted value | Price |
 | $w$ | Weight | Slope | 0.04 |
 | $b$ | Bias | Intercept | 0 |
+
+**The "hat" on y means it's our prediction!**
 
 ---
 
@@ -137,38 +148,51 @@ If b = 10, then even a tiny house costs at least ₹10 lakhs.
 
 ---
 
-# Linear Regression in Python
+# Multiple Features: The General Form
 
-```python
-from sklearn.linear_model import LinearRegression
-import numpy as np
+What if price depends on more than just size?
 
-# Our data
-X = np.array([[1000], [1500], [2000], [2500]])  # Size
-y = np.array([40, 60, 80, 100])                  # Price
+$$\hat{y} = w_1 x_1 + w_2 x_2 + \ldots + w_d x_d + b$$
 
-# Create and train model
-model = LinearRegression()
-model.fit(X, y)
+Or in **vector form**:
 
-# Now predict!
-model.predict([[1750]])  # → 70.0 (₹70 lakhs)
-```
+$$\hat{y} = \mathbf{w}^\top \mathbf{x} + b$$
+
+| Symbol | Shape | Example |
+|--------|-------|---------|
+| $\mathbf{x}$ | (d,) | [1500, 3, 2] — size, beds, baths |
+| $\mathbf{w}$ | (d,) | [0.03, 5.0, 8.0] — learned weights |
+| $b$ | scalar | -10 |
 
 ---
 
-# Understanding What the Model Learned
+# Interpreting Multiple Weights
 
 ```python
-print(f"Weight (w): {model.coef_[0]}")      # 0.04
-print(f"Intercept (b): {model.intercept_}")  # 0.0
+# After training on multiple features:
+# coef_ = [0.03, 5.0, 8.0]
+# intercept_ = -10
 ```
 
-**The equation it learned:**
-$$\text{Price} = 0.04 \times \text{Size} + 0$$
+| Feature | Weight | Interpretation |
+|---------|--------|----------------|
+| Size (sqft) | 0.03 | +100 sqft → +₹3 lakhs |
+| Bedrooms | 5.0 | +1 bedroom → +₹5 lakhs |
+| Bathrooms | 8.0 | +1 bathroom → +₹8 lakhs |
 
-**Verify:**
-- 1750 sqft → 0.04 × 1750 + 0 = **₹70 lakhs** ✓
+<div class="insight">
+
+Each weight shows that feature's **independent contribution** to price!
+
+</div>
+
+---
+
+<!-- _class: section-divider -->
+
+# Part 2: Finding the Best Weights
+
+## The Optimization Problem
 
 ---
 
@@ -204,68 +228,195 @@ Real data has **noise** — points don't fall exactly on a line.
 
 # Why Squared Errors?
 
-We minimize **Sum of Squared Errors**:
+We minimize **Sum of Squared Errors** (SSE):
 
 $$\text{SSE} = \sum_{i=1}^{n} (y_i - \hat{y}_i)^2$$
 
 | Why Square? | Reason |
 |-------------|--------|
-| Errors don't cancel | +3 and -3 both contribute |
+| Errors don't cancel | +3 and -3 both contribute positively |
 | Penalizes big errors more | Error of 10 costs 100, not 10 |
-| Has nice math properties | Can solve with calculus |
+| Has nice math properties | Differentiable, convex |
 
 ---
 
-# Multiple Features
+# Mean Squared Error (MSE)
 
-What if price depends on more than just size?
+**More commonly, we use MSE (average of squared errors):**
 
-| Size | Bedrooms | Bathrooms | Price |
-|------|----------|-----------|-------|
-| 1500 | 3 | 2 | 60 |
-| 2000 | 4 | 3 | 90 |
-| 1200 | 2 | 1 | 45 |
+$$\text{MSE} = \frac{1}{n}\sum_{i=1}^{n} (y_i - \hat{y}_i)^2$$
 
-**The equation becomes:**
+This is also called the **Loss Function** or **Cost Function**:
 
-$$\text{Price} = w_1 \times \text{Size} + w_2 \times \text{Beds} + w_3 \times \text{Baths} + b$$
-
----
-
-# Interpreting Multiple Weights
-
-```python
-# After training on multiple features:
-# coef_ = [0.03, 5.0, 8.0]
-# intercept_ = -10
-```
-
-| Feature | Weight | Interpretation |
-|---------|--------|----------------|
-| Size (sqft) | 0.03 | +100 sqft → +₹3 lakhs |
-| Bedrooms | 5.0 | +1 bedroom → +₹5 lakhs |
-| Bathrooms | 8.0 | +1 bathroom → +₹8 lakhs |
+$$\mathcal{L}(\mathbf{w}, b) = \frac{1}{n}\sum_{i=1}^{n} (y_i - (\mathbf{w}^\top \mathbf{x}_i + b))^2$$
 
 <div class="insight">
 
-Each weight shows that feature's **independent contribution** to price!
+**Our goal:** Find $\mathbf{w}$ and $b$ that minimize $\mathcal{L}$
 
 </div>
 
 ---
 
-# When Does Linear Regression Work?
+# Two Ways to Find the Best Weights
 
-| Scenario | Works? | Why |
-|----------|--------|-----|
-| Price vs Size (roughly linear) | ✅ Yes | Points follow a line |
-| Height vs Weight | ✅ Yes | Roughly linear |
-| Study hours vs Exam score | ✅ Mostly | Roughly linear |
-| Age vs Happiness | ❌ No | U-shaped relationship |
+| Method | How It Works | When to Use |
+|--------|--------------|-------------|
+| **Normal Equation** | Direct formula, one-shot | Small datasets |
+| **Gradient Descent** | Iterative, step-by-step | Large datasets, neural nets |
+
+**Let's learn both!**
+
+---
+
+# Method 1: The Normal Equation
+
+For linear regression, there's a **closed-form solution**:
+
+$$\mathbf{w} = (\mathbf{X}^\top \mathbf{X})^{-1} \mathbf{X}^\top \mathbf{y}$$
+
+**In plain English:**
+1. Take your data matrix X and labels y
+2. Do some matrix math
+3. Get the optimal weights directly!
+
+---
+
+# Normal Equation: The Intuition
+
+Why does this work?
+
+1. We want to minimize $(y - Xw)^2$
+2. Take derivative with respect to w
+3. Set derivative = 0 (finding the minimum)
+4. Solve for w
+
+**Result:** $\mathbf{w} = (\mathbf{X}^\top \mathbf{X})^{-1} \mathbf{X}^\top \mathbf{y}$
 
 <div class="warning">
 
-Linear regression assumes the relationship is a **straight line**!
+**Limitation:** Matrix inversion is expensive for large datasets (O(n³))
+
+</div>
+
+---
+
+# Normal Equation in NumPy
+
+```python
+import numpy as np
+
+# Our data
+X = np.array([[1000], [1500], [2000], [2500]])
+y = np.array([40, 60, 80, 100])
+
+# Add column of 1s for bias term
+X_bias = np.column_stack([np.ones(len(X)), X])
+
+# Normal equation!
+w = np.linalg.inv(X_bias.T @ X_bias) @ X_bias.T @ y
+
+print(f"Bias (b): {w[0]:.2f}")    # ≈ 0
+print(f"Weight (w): {w[1]:.4f}")  # ≈ 0.04
+```
+
+---
+
+# Method 2: Gradient Descent
+
+**The idea:** Take small steps downhill until you reach the minimum!
+
+![bg right:50% 90%](diagrams/gradient_descent.png)
+
+1. Start with random weights
+2. Compute the gradient (slope)
+3. Take a step opposite to gradient
+4. Repeat until converged
+
+---
+
+# Gradient Descent: The Algorithm
+
+**Update rule:**
+
+$$w_{\text{new}} = w_{\text{old}} - \eta \cdot \nabla \mathcal{L}$$
+
+| Symbol | Name | Meaning |
+|--------|------|---------|
+| $\eta$ | Learning rate | How big each step is |
+| $\nabla \mathcal{L}$ | Gradient | Direction of steepest increase |
+| $-\nabla \mathcal{L}$ | | Direction of steepest decrease |
+
+---
+
+# The Gradient for MSE
+
+For our loss $\mathcal{L} = \frac{1}{n}\sum(y_i - \hat{y}_i)^2$:
+
+$$\frac{\partial \mathcal{L}}{\partial w} = -\frac{2}{n}\sum_{i=1}^{n} (y_i - \hat{y}_i) \cdot x_i$$
+
+**Intuition:**
+- If predictions are too low ($y > \hat{y}$), increase w
+- If predictions are too high ($y < \hat{y}$), decrease w
+- Larger errors → larger updates
+
+---
+
+# Gradient Descent in NumPy
+
+```python
+import numpy as np
+
+def gradient_descent(X, y, lr=0.0001, epochs=1000):
+    w = 0.0  # Start with random weight
+    b = 0.0  # Start with random bias
+    n = len(y)
+
+    for epoch in range(epochs):
+        # Predictions
+        y_pred = w * X + b
+
+        # Gradients
+        dw = (-2/n) * np.sum((y - y_pred) * X)
+        db = (-2/n) * np.sum(y - y_pred)
+
+        # Update weights
+        w = w - lr * dw
+        b = b - lr * db
+
+    return w, b
+```
+
+---
+
+# Learning Rate: The Key Hyperparameter
+
+| Learning Rate | Effect |
+|---------------|--------|
+| Too small | Very slow convergence |
+| Just right | Fast convergence to minimum |
+| Too large | Overshoots, may diverge! |
+
+<div class="insight">
+
+**Rule of thumb:** Start with 0.01, adjust if loss doesn't decrease
+
+</div>
+
+---
+
+# Why Gradient Descent Matters
+
+| Normal Equation | Gradient Descent |
+|-----------------|------------------|
+| One-shot computation | Iterative process |
+| Exact solution | Approximate (but close enough) |
+| O(n³) complexity | O(n) per iteration |
+| Only works for linear models | **Works for ANY differentiable model!** |
+
+<div class="insight">
+
+**This is the foundation of neural network training!**
 
 </div>
 
@@ -273,7 +424,137 @@ Linear regression assumes the relationship is a **straight line**!
 
 <!-- _class: section-divider -->
 
-# Part 2: Logistic Regression
+# Part 3: From sklearn to PyTorch
+
+## Building the Bridge
+
+---
+
+# Linear Regression in sklearn
+
+```python
+from sklearn.linear_model import LinearRegression
+import numpy as np
+
+# Our data
+X = np.array([[1000], [1500], [2000], [2500]])
+y = np.array([40, 60, 80, 100])
+
+# Create and train model
+model = LinearRegression()
+model.fit(X, y)
+
+# Now predict!
+model.predict([[1750]])  # → 70.0 (₹70 lakhs)
+```
+
+---
+
+# Understanding What sklearn Learned
+
+```python
+print(f"Weight (w): {model.coef_[0]}")      # 0.04
+print(f"Intercept (b): {model.intercept_}")  # 0.0
+```
+
+**The equation it learned:**
+$$\text{Price} = 0.04 \times \text{Size} + 0$$
+
+**Verify:**
+- 1750 sqft → 0.04 × 1750 + 0 = **₹70 lakhs** ✓
+
+---
+
+# The Same Thing in PyTorch!
+
+```python
+import torch
+import torch.nn as nn
+
+# Data as tensors
+X = torch.tensor([[1000.], [1500.], [2000.], [2500.]])
+y = torch.tensor([[40.], [60.], [80.], [100.]])
+
+# Normalize for stable training
+X_norm = X / 1000
+
+# Linear model: y = wx + b
+model = nn.Linear(1, 1)  # 1 input, 1 output
+```
+
+---
+
+# Training in PyTorch
+
+```python
+# Loss function: Mean Squared Error
+criterion = nn.MSELoss()
+
+# Optimizer: Gradient Descent!
+optimizer = torch.optim.SGD(model.parameters(), lr=0.1)
+
+# Training loop
+for epoch in range(100):
+    # Forward pass: compute predictions
+    y_pred = model(X_norm)
+
+    # Compute loss
+    loss = criterion(y_pred, y)
+
+    # Backward pass: compute gradients
+    optimizer.zero_grad()
+    loss.backward()
+
+    # Update weights
+    optimizer.step()
+```
+
+---
+
+# The PyTorch Training Loop
+
+```
+┌─────────────────────────────────────────────────────┐
+│  for epoch in range(epochs):                        │
+│                                                     │
+│    1. y_pred = model(X)     # Forward pass          │
+│                                                     │
+│    2. loss = criterion(y_pred, y)  # Compute loss   │
+│                                                     │
+│    3. loss.backward()       # Compute gradients     │
+│                                                     │
+│    4. optimizer.step()      # Update weights        │
+│                                                     │
+│    5. optimizer.zero_grad() # Clear gradients       │
+│                                                     │
+└─────────────────────────────────────────────────────┘
+```
+
+<div class="insight">
+
+**This same loop works for neural networks!**
+
+</div>
+
+---
+
+# Comparing sklearn vs PyTorch
+
+| Aspect | sklearn | PyTorch |
+|--------|---------|---------|
+| **Simplicity** | 2 lines of code | 10+ lines |
+| **Method** | Normal equation | Gradient descent |
+| **Customization** | Limited | Full control |
+| **Neural nets** | Basic only | Full support |
+| **GPU support** | No | Yes! |
+
+**Start with sklearn, move to PyTorch when you need more power!**
+
+---
+
+<!-- _class: section-divider -->
+
+# Part 4: Logistic Regression
 
 ## From Numbers to Categories
 
@@ -315,17 +596,17 @@ We need something between 0 and 1 (a probability)!
 
 # The Sigmoid Function
 
+![bg right:45% 90%](diagrams/sigmoid_function.png)
+
 **Solution:** Squash any number to range (0, 1)
 
 $$\sigma(z) = \frac{1}{1 + e^{-z}}$$
 
-| Input (z) | Output σ(z) | Interpretation |
-|-----------|-------------|----------------|
-| -10 | 0.00005 | Almost certainly NOT spam |
-| -2 | 0.12 | Probably not spam |
-| 0 | 0.50 | 50-50 |
-| +2 | 0.88 | Probably spam |
-| +10 | 0.99995 | Almost certainly spam |
+| Input (z) | Output σ(z) |
+|-----------|-------------|
+| -10 | 0.00005 |
+| 0 | 0.50 |
+| +10 | 0.99995 |
 
 ---
 
@@ -336,10 +617,14 @@ The sigmoid is an **S-curve**:
 | Region | Behavior |
 |--------|----------|
 | Very negative z | Output ≈ 0 |
-| z near 0 | Output changes rapidly |
+| z near 0 | Output changes rapidly (decision boundary) |
 | Very positive z | Output ≈ 1 |
 
+<div class="insight">
+
 **Key insight:** It converts any number to a probability!
+
+</div>
 
 ---
 
@@ -347,7 +632,7 @@ The sigmoid is an **S-curve**:
 
 **Two steps:**
 
-1. **Linear:** Compute a score
+1. **Linear:** Compute a score (same as linear regression!)
    $$z = w_1 x_1 + w_2 x_2 + b$$
 
 2. **Sigmoid:** Convert to probability
@@ -357,7 +642,7 @@ The sigmoid is an **S-curve**:
 
 # A Concrete Example
 
-**Email features:** 5 exclamation marks, has "FREE"
+**Email features:** 5 exclamation marks, has "FREE" (=1)
 
 **Learned weights:** $w_1 = 0.5$, $w_2 = 2.0$, $b = -1.0$
 
@@ -365,7 +650,7 @@ The sigmoid is an **S-curve**:
 $$z = 0.5 \times 5 + 2.0 \times 1 + (-1.0) = 3.5$$
 
 **Step 2: Sigmoid**
-$$P(\text{spam}) = \sigma(3.5) = 0.97$$
+$$P(\text{spam}) = \sigma(3.5) = \frac{1}{1 + e^{-3.5}} = 0.97$$
 
 **Decision:** 97% → This is spam!
 
@@ -378,7 +663,7 @@ $$P(\text{spam}) = \sigma(3.5) = 0.97$$
 | > 0.5 | Predict SPAM |
 | ≤ 0.5 | Predict NOT SPAM |
 
-**The threshold 0.5 is a hyperparameter** — you can adjust it!
+**The threshold 0.5 is adjustable!**
 
 | Threshold | Effect |
 |-----------|--------|
@@ -388,7 +673,7 @@ $$P(\text{spam}) = \sigma(3.5) = 0.97$$
 
 ---
 
-# Logistic Regression in Python
+# Logistic Regression in sklearn
 
 ```python
 from sklearn.linear_model import LogisticRegression
@@ -411,60 +696,68 @@ model.predict_proba([[4, 1]])  # → [[0.12, 0.88]]
 
 ---
 
-# Understanding predict_proba
+# Logistic Regression in PyTorch
 
 ```python
-probs = model.predict_proba([[4, 1]])
-# → [[0.12, 0.88]]
+import torch
+import torch.nn as nn
 
-print(f"P(not spam) = {probs[0][0]:.2f}")  # 0.12
-print(f"P(spam) = {probs[0][1]:.2f}")      # 0.88
+# Model: Linear + Sigmoid
+class LogisticRegression(nn.Module):
+    def __init__(self, input_dim):
+        super().__init__()
+        self.linear = nn.Linear(input_dim, 1)
+        self.sigmoid = nn.Sigmoid()
+
+    def forward(self, x):
+        return self.sigmoid(self.linear(x))
+
+model = LogisticRegression(input_dim=2)
 ```
-
-| Class | Probability |
-|-------|-------------|
-| Not Spam (class 0) | 12% |
-| Spam (class 1) | 88% |
-
-**Always sums to 1.0!**
 
 ---
 
-# Interpreting the Weights
+# Training Logistic Regression
 
 ```python
-print(f"Weights: {model.coef_}")      # [[0.8, 2.1]]
-print(f"Intercept: {model.intercept_}") # [-1.5]
+# Binary Cross-Entropy Loss (for classification)
+criterion = nn.BCELoss()
+optimizer = torch.optim.SGD(model.parameters(), lr=0.1)
+
+for epoch in range(100):
+    # Forward pass
+    y_pred = model(X)
+
+    # Compute loss (cross-entropy, not MSE!)
+    loss = criterion(y_pred, y)
+
+    # Backward pass
+    optimizer.zero_grad()
+    loss.backward()
+    optimizer.step()
 ```
-
-| Feature | Weight | Effect |
-|---------|--------|--------|
-| Exclamations | +0.8 | More ! → Higher spam probability |
-| Has FREE | +2.1 | "FREE" present → Much higher spam probability |
-
-**Positive weight** → Increases P(spam)
-**Negative weight** → Decreases P(spam)
 
 ---
 
-# The Intuition
+# Why Cross-Entropy Loss?
 
-**Why does this work?**
+For classification, MSE doesn't work well!
 
-The linear part finds a **decision boundary**:
+| Loss Function | Best For | Why |
+|---------------|----------|-----|
+| MSE | Regression | Measures distance |
+| Cross-Entropy | Classification | Measures probability mismatch |
 
-$$w_1 x_1 + w_2 x_2 + b = 0$$
+**Cross-Entropy:**
+$$\mathcal{L} = -\frac{1}{n}\sum[y_i \log(\hat{y}_i) + (1-y_i)\log(1-\hat{y}_i)]$$
 
-Points on one side → Class 0
-Points on other side → Class 1
-
-The sigmoid tells us **how confident** we are.
+*Penalizes confident wrong predictions severely!*
 
 ---
 
 <!-- _class: section-divider -->
 
-# Part 3: Model Evaluation
+# Part 5: Model Evaluation
 
 ## How Good is Our Model?
 
@@ -502,7 +795,7 @@ For regression (predicting numbers):
 |--------|---------|---------|
 | **MSE** | $\frac{1}{n}\sum(y - \hat{y})^2$ | Average squared error |
 | **RMSE** | $\sqrt{MSE}$ | Error in same units as y |
-| **MAE** | $\frac{1}{n}\sum|y - \hat{y}|$ | Average absolute error |
+| **MAE** | $\frac{1}{n}\sum\|y - \hat{y}\|$ | Average absolute error |
 
 ```python
 from sklearn.metrics import mean_squared_error, mean_absolute_error
@@ -515,9 +808,7 @@ mae = mean_absolute_error(y_test, predictions)
 
 ---
 
-# Classification Metrics
-
-For classification (predicting categories):
+# Classification Metrics: Accuracy
 
 $$\text{Accuracy} = \frac{\text{Correct Predictions}}{\text{Total Predictions}}$$
 
@@ -549,22 +840,6 @@ The "dumb" model has 99% accuracy but **misses ALL sick patients!**
 
 ---
 
-# The Confusion Matrix
-
-|  | Predicted: No | Predicted: Yes |
-|--|---------------|----------------|
-| **Actual: No** | TN (Correct!) | FP (False Alarm) |
-| **Actual: Yes** | FN (Missed!) | TP (Correct!) |
-
-| Term | Meaning |
-|------|---------|
-| TP | True Positive — Correctly detected |
-| TN | True Negative — Correctly ruled out |
-| FP | False Positive — False alarm |
-| FN | False Negative — Missed case |
-
----
-
 # Precision and Recall
 
 **Precision:** Of those I flagged, how many were correct?
@@ -580,9 +855,7 @@ $$\text{Recall} = \frac{TP}{TP + FN}$$
 
 ---
 
-# F1 Score
-
-**Balances precision and recall:**
+# F1 Score: The Balance
 
 $$\text{F1} = 2 \times \frac{\text{Precision} \times \text{Recall}}{\text{Precision} + \text{Recall}}$$
 
@@ -596,54 +869,34 @@ $$\text{F1} = 2 \times \frac{\text{Precision} \times \text{Recall}}{\text{Precis
 
 ---
 
-# Complete Example
+# Summary: The Big Picture
 
-```python
-from sklearn.linear_model import LogisticRegression
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import accuracy_score, classification_report
-
-# 1. Split data
-X_train, X_test, y_train, y_test = train_test_split(
-    X, y, test_size=0.2, random_state=42)
-
-# 2. Train
-model = LogisticRegression()
-model.fit(X_train, y_train)
-
-# 3. Predict and evaluate
-predictions = model.predict(X_test)
-print(f"Accuracy: {accuracy_score(y_test, predictions):.1%}")
-print(classification_report(y_test, predictions))
-```
-
----
-
-# Linear vs Logistic: Summary
-
-| Aspect | Linear Regression | Logistic Regression |
-|--------|-------------------|---------------------|
-| **Output** | Any number | Probability (0 to 1) |
-| **Task** | Regression | Classification |
-| **Equation** | $\hat{y} = wx + b$ | $P = \sigma(wx + b)$ |
-| **Example** | Predict price | Predict spam/not spam |
-| **Metric** | MSE, RMSE, MAE | Accuracy, Precision, Recall |
+| Concept | Key Takeaway |
+|---------|--------------|
+| **Linear Regression** | $\hat{y} = \mathbf{w}^\top\mathbf{x} + b$ |
+| **Loss Function** | MSE measures how wrong we are |
+| **Normal Equation** | Direct solution (small data) |
+| **Gradient Descent** | Iterative solution (any data, any model!) |
+| **Logistic Regression** | Linear + Sigmoid for classification |
+| **Cross-Entropy** | Loss for classification |
+| **PyTorch** | Same concepts, more flexible |
 
 ---
 
 # Key Takeaways
 
 1. **Linear Regression** fits a line through data
-   - Weight = sensitivity (how much output changes per unit input)
+   - Weight = sensitivity (how much output changes per input)
    - Minimize squared errors
 
-2. **Logistic Regression** classifies using the sigmoid
-   - Converts any score to probability (0-1)
-   - Decision threshold (usually 0.5)
+2. **Two ways to find optimal weights**
+   - Normal equation (direct)
+   - Gradient descent (iterative) — **foundation of deep learning!**
 
-3. **Evaluation matters**
-   - Always use test data
-   - Accuracy isn't everything — consider precision/recall
+3. **Logistic Regression** classifies using the sigmoid
+   - Converts any score to probability (0-1)
+
+4. **sklearn → PyTorch** uses the same concepts!
 
 ---
 
@@ -651,13 +904,16 @@ print(classification_report(y_test, predictions))
 
 # You Now Understand the Basics!
 
-## Next: Neural Networks
+## Next: Model Selection & Evaluation
 
-**Lab:** Implement linear and logistic regression on real data
+**Key insight:** Gradient descent is how we train neural networks!
 
-**Interactive Notebook:** [L03_supervised_learning.ipynb](../../lecture_demo/L03_supervised_learning.ipynb)
-
-*"All models are wrong, but some are useful."*
-— George Box
+```python
+# The universal training loop:
+for epoch in epochs:
+    loss = compute_loss(model(x), y)
+    loss.backward()      # Compute gradients
+    optimizer.step()     # Update weights
+```
 
 **Questions?**

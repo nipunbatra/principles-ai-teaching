@@ -292,20 +292,17 @@ print(output)                 # = max(0, 1.5) = 1.5
 
 # The Multi-Layer Perceptron (MLP)
 
-```
-Input Layer      Hidden Layer       Output Layer
-   (3)              (4)                (2)
+![bg right:45% 90%](diagrams/neural_network_architecture.png)
 
-   ○ ─────────╲
-              ─○───────╲
-   ○ ─────────╳      ○────▶ Class A probability
-              ─○───────╱
-   ○ ─────────╱      ○────▶ Class B probability
-              ─○──────╱
+**Three types of layers:**
 
-  Features      Learned         Predictions
-               "features"
-```
+| Layer | Role |
+|-------|------|
+| **Input** | Receives raw features |
+| **Hidden** | Learns useful patterns |
+| **Output** | Makes final prediction |
+
+Each connection has a **weight** — these are what the network learns!
 
 ---
 
