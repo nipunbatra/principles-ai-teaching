@@ -233,6 +233,20 @@ Image → [Conv → ReLU → Pool] → [Conv → ReLU → Pool] → FC → Outpu
 
 ---
 
+# Pooling: Shrinking the Image
+
+![bg right:50% 90%](diagrams/max_pooling_20260131_183940.png)
+
+**Max Pooling:** Take the maximum value from each region
+
+| Why Pool? | Benefit |
+|-----------|---------|
+| Reduces size | Fewer parameters, faster |
+| Translation invariance | Small shifts don't matter |
+| Keeps important features | Max = strongest signal |
+
+---
+
 # A Simple CNN in PyTorch
 
 ```python

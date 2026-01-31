@@ -80,12 +80,14 @@ Your Rules:
 
 # The ML Approach
 
+![bg right:45% 90%](diagrams/spam_detection_example_20260131_183552.png)
+
 **Instead of writing rules... let the computer learn them!**
 
 ```python
 # You provide examples
-emails = ["FREE MONEY!!!", "Meeting at 3pm", "You've won!", ...]
-labels = ["spam", "not spam", "spam", ...]
+emails = ["FREE MONEY!!!", "Meeting at 3pm", ...]
+labels = ["spam", "not spam", ...]
 
 # Computer learns patterns
 model.learn(emails, labels)
@@ -94,11 +96,7 @@ model.learn(emails, labels)
 model.predict("FR33 M0N3Y")  # → "spam"
 ```
 
-<div class="insight">
-
-**ML = Learning patterns from examples, not following explicit rules**
-
-</div>
+**ML = Learning patterns from examples!**
 
 ---
 
@@ -243,6 +241,8 @@ Over time, learns: "Don't move right near pits"
 
 # Our Focus: Supervised Learning
 
+![bg right:50% 90%](diagrams/classification_vs_regression_20260131_183508.png)
+
 Supervised learning has two main types:
 
 | Type | Output | Example |
@@ -250,12 +250,7 @@ Supervised learning has two main types:
 | **Classification** | Category | "Cat" or "Dog" |
 | **Regression** | Number | House price: ₹45 lakhs |
 
-<div class="insight">
-
-**Classification:** "Which bucket?"
-**Regression:** "How much?"
-
-</div>
+**Classification:** "Which bucket?" | **Regression:** "How much?"
 
 ---
 
@@ -417,6 +412,8 @@ This is called **one-hot encoding**.
 
 # Why One-Hot Encoding?
 
+![bg right:45% 90%](diagrams/one_hot_encoding_20260131_183634.png)
+
 **Bad idea:** Red=1, Orange=2, Yellow=3
 
 **Problem:** This implies Orange is "between" Red and Yellow!
@@ -426,11 +423,9 @@ This is called **one-hot encoding**.
 ```python
 # In Python (pandas):
 pd.get_dummies(df['Color'])
-
 #    Red  Orange  Yellow
 # 0    0       1       0
 # 1    1       0       0
-# ...
 ```
 
 ---
@@ -723,10 +718,12 @@ $$\text{Recall} = \frac{TP}{TP + FN}$$
 
 # Precision vs Recall Trade-off
 
+![bg right:40% 90%](diagrams/precision_recall_venn_20260131_183844.png)
+
 | Metric | Focus | When to Prioritize |
 |--------|-------|-------------------|
-| **Precision** | Don't cry wolf | Spam filter (don't delete good emails!) |
-| **Recall** | Don't miss any | Cancer screening (catch every case!) |
+| **Precision** | Don't cry wolf | Spam filter |
+| **Recall** | Don't miss any | Cancer screening |
 
 **You usually can't have both perfect!**
 

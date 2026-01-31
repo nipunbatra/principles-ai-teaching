@@ -501,6 +501,8 @@ trainer.train()
 
 # The Alignment Tax
 
+![bg right:40% 90%](diagrams/ai_alignment_20260131_184310.png)
+
 **Trade-off:** Alignment can slightly reduce raw capability
 
 | Task | Base Model | Aligned Model |
@@ -578,24 +580,12 @@ $$P(\text{data}) \text{ or } P(\text{data} | \text{prompt})$$
 
 # GANs: The Generator-Discriminator Game
 
-<div class="columns">
-<div>
+![bg right:45% 90%](diagrams/gan_concept_20260131_184227.png)
 
-**Generator**
-- Creates fake images
-- Tries to fool discriminator
-- Gets better at faking
-
-</div>
-<div>
-
-**Discriminator**
-- Tells real from fake
-- Tries to catch generator
-- Gets better at detecting
-
-</div>
-</div>
+| Component | Role |
+|-----------|------|
+| **Generator** | Creates fake images, tries to fool discriminator |
+| **Discriminator** | Tells real from fake, tries to catch generator |
 
 **Both improve until generated images are indistinguishable from real!**
 

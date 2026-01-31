@@ -362,6 +362,8 @@ Fish has a very different vector (aquatic animal)
 
 # The Magic of Embeddings
 
+![bg right:45% 90%](diagrams/embedding_space_20260131_184112.png)
+
 **These vectors capture meaning!**
 
 Famous example from Word2Vec (2013):
@@ -372,11 +374,7 @@ $$\text{king} - \text{man} + \text{woman} ≈ \text{queen}$$
 - (king - man) = "royal-ness"
 - (royal-ness) + woman = queen!
 
-<div class="insight">
-
-Embeddings are learned automatically — the model figures out what each dimension should mean!
-
-</div>
+**Embeddings are learned automatically!**
 
 ---
 
@@ -503,14 +501,11 @@ The model looks back at all previous words and calculates attention weights.
 
 # The Transformer (2017)
 
+![bg right:45% 90%](diagrams/transformer_architecture_20260131_184151.png)
+
 **The paper:** "Attention Is All You Need"
 
 **The architecture:** Stack many attention layers
-
-```
-Input → [Attention + Feed-Forward] → [Attention + Feed-Forward] → ... → Output
-            Layer 1                      Layer 2                   Layer N
-```
 
 | Model | Number of Layers |
 |-------|------------------|
@@ -670,6 +665,8 @@ As starfish dream beneath the fading light.
 
 # Tokenization: Not Words, Not Characters
 
+![bg right:45% 90%](diagrams/tokenization_example_20260131_184029.png)
+
 **LLMs use "tokens" — pieces of words:**
 
 | Text | Tokens |
@@ -677,7 +674,6 @@ As starfish dream beneath the fading light.
 | "Hello world" | ["Hello", " world"] |
 | "ChatGPT" | ["Chat", "G", "PT"] |
 | "unhappiness" | ["un", "happiness"] |
-| "Anthropic" | ["Anthrop", "ic"] |
 
 **Why?** Balance between characters (too slow) and words (too many)
 

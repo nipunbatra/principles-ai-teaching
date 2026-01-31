@@ -213,6 +213,8 @@ Real data has **noise** — points don't fall exactly on a line.
 
 # The Goal: Minimize Errors
 
+![bg right:45% 90%](diagrams/linear_regression_residuals_20260131_183720.png)
+
 **Residual** = Actual - Predicted = $y - \hat{y}$
 
 | Size | Actual | Predicted | Residual |
@@ -220,9 +222,8 @@ Real data has **noise** — points don't fall exactly on a line.
 | 1000 | 42 | 40 | +2 |
 | 1500 | 58 | 60 | -2 |
 | 2000 | 83 | 80 | +3 |
-| 2500 | 97 | 100 | -3 |
 
-**Goal:** Find w and b that make residuals as small as possible!
+**Goal:** Find w and b that minimize residuals!
 
 ---
 
@@ -740,12 +741,14 @@ $$P(\text{spam}) = \sigma(3.5) = \frac{1}{1 + e^{-3.5}} = 0.97$$
 
 # The Decision Rule
 
+![bg right:45% 90%](diagrams/decision_boundary_20260131_183803.png)
+
 | If P(spam) | Decision |
 |------------|----------|
 | > 0.5 | Predict SPAM |
 | ≤ 0.5 | Predict NOT SPAM |
 
-**The threshold 0.5 is adjustable!**
+**The threshold 0.5 creates a decision boundary!**
 
 | Threshold | Effect |
 |-----------|--------|
