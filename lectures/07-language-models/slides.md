@@ -11,7 +11,7 @@ math: mathjax
 # Language Models
 # How Machines Understand Text
 
-## From Next Token Prediction to GPT
+## The Secret Behind ChatGPT
 
 **Nipun Batra** | IIT Gandhinagar
 
@@ -19,72 +19,65 @@ math: mathjax
 
 # The Story So Far
 
-| Week | Domain | Key Insight |
-|------|--------|-------------|
-| 6 | Vision | Images = grids of pixels → CNNs |
-| **7** | **Language** | **Text = sequences of tokens → ?** |
+| Lecture | What We Learned |
+|---------|-----------------|
+| 6 | Computer Vision: Images → Pixels → CNNs |
+| **7** | **Language: Text → ? → LLMs** |
+
+**Today's big reveal:** What makes ChatGPT, Claude, and Gemini work!
 
 ---
 
-# A Shocking Revelation
+# A Mind-Blowing Fact
 
 **ChatGPT, Claude, Gemini, LLaMA...**
 
-These AI systems that can:
+These AI systems can:
 - Write essays and code
 - Answer complex questions
 - Translate languages
 - Have conversations
 
-**Are all playing ONE simple game:**
+**But here's the shocking truth:**
 
 <div class="insight">
-Guess the next word. Repeat.
+
+They're ALL playing ONE simple game: **Guess the next word. Repeat.**
+
 </div>
 
 ---
 
-# Wait, That's It?
+# Wait, That's Really It?
 
-Yes. The entire field of Large Language Models is built on:
+Yes. **The entire field of Large Language Models is built on:**
 
-**"Given some text, predict what word comes next."**
+> "Given some text, predict what word comes next."
 
 ```
 "The capital of France is ___"  →  "Paris"
-"To be or not to ___"          →  "be"
-"print('Hello ___"             →  "World')"
+"To be or not to ___"           →  "be"
+"print('Hello ___"              →  "World')"
 ```
 
+**That's the whole trick!**
+
 ---
 
-# But How Does Prediction = Intelligence?
+# You Already Use This Every Day!
 
-If you're **really good** at predicting what comes next...
-
-| You need to "know" | To predict |
-|-------------------|------------|
-| Geography | "The capital of France is **Paris**" |
-| Shakespeare | "To be or not to **be**" |
-| Python syntax | "print('Hello **World')**" |
-| Physics | "F = m**a**" |
-| Reasoning | "2 + 2 = **4**" |
+| Application | You Type... | It Predicts... |
+|-------------|-------------|----------------|
+| Phone keyboard | "I'm running" | `late`, `now`, `away` |
+| Google Search | "how to make" | `money`, `pancakes`, `coffee` |
+| Gmail | "Thanks for the" | `quick response!` |
+| YouTube | "How to" | `cook`, `code`, `dance` |
 
 <div class="insight">
-Good prediction requires implicit understanding.
+
+All of these are next-word prediction models!
+
 </div>
-
----
-
-# Today's Agenda
-
-1. **The Core Idea** - Next token prediction
-2. **Building a Character-Level LM** - From scratch
-3. **The Counting Era** - Bigrams and N-grams
-4. **Word Embeddings** - Words as vectors
-5. **The Attention Revolution** - Transformers (intuition)
-6. **Temperature & Sampling** - Controlling generation
-7. **Modern LLMs** - Scale is all you need
 
 ---
 
@@ -92,635 +85,511 @@ Good prediction requires implicit understanding.
 
 # Part 1: The Core Idea
 
-## It's All About Prediction
+## Next Token Prediction
 
 ---
 
-# The One Question
+# The One Question Every LLM Answers
 
 Every language model answers **one simple question**:
 
 <div class="insight">
 
-**"Given what I have seen so far, what word comes next?"**
+**"Given the text so far, what word is most likely to come next?"**
 
 </div>
 
-**Example:** "The capital of France is ___" → **"Paris"**
+**Example:**
 
-That's it. **Predict the next word. Repeat until done.**
+> "The capital of France is ___"
+
+A good language model should predict: **"Paris"**
 
 ---
 
-# You Already Use This!
+# But Wait... How Does Prediction = Understanding?
 
-| Application | You type... | Suggestion |
-|-------------|------------|------------|
-| Phone Keyboard | "I'm running ___" | `late` |
-| Google Search | "how to make ___" | `money`, `pancakes` |
-| Gmail | "Thanks for the ___" | `quick response!` |
+Here's the key insight:
+
+**If you're REALLY good at predicting what comes next...**
+
+You need to **understand** the content!
+
+| To Predict... | You Need to Know... |
+|---------------|---------------------|
+| "The capital of France is **Paris**" | Geography |
+| "To be or not to **be**" | Shakespeare |
+| "print('Hello **World')**" | Python syntax |
+| "F = m**a**" | Physics |
+| "2 + 2 = **4**" | Math |
+
+---
+
+# The Philosophical Point
+
+A model that can predict text well has **implicitly learned**:
+- Facts about the world
+- Grammar and language rules
+- Logic and reasoning patterns
+- Programming syntax
+- And much more!
 
 <div class="insight">
-All of these are next-word prediction models!
+
+**Good prediction requires implicit understanding.**
+
 </div>
 
 ---
 
-# The Mathematical View
+# Not Just ONE Prediction...
 
-"The capital of France is ___" → Probability distribution:
+The model doesn't just predict ONE word. It predicts **probabilities for ALL possible words**:
 
-| Word | P(word | context) |
-|------|---------------------|
-| Paris | 0.85 |
-| the | 0.02 |
-| London | 0.01 |
-| beautiful | 0.01 |
-| ... | 0.11 |
+**"The capital of France is ___"**
 
-**All probabilities sum to 1.0**
+| Word | Probability |
+|------|-------------|
+| Paris | 85% |
+| the | 2% |
+| London | 1% |
+| beautiful | 1% |
+| ... | 11% |
 
----
-
-# ChatGPT: Just Prediction!
-
-| Prompt | Prediction | Appears to Know |
-|--------|------------|-----------------|
-| "F = m" | "a" | Physics |
-| "To be or not to" | "be" | Shakespeare |
-| "E = mc" | "²" | Einstein |
-| "print('Hello" | "')" | Python |
-
-<div class="insight">
-If you predict well enough, you <strong>appear</strong> to understand everything.
-</div>
+**All probabilities sum to 100%**
 
 ---
 
-# The Generation Algorithm
+# Generating Text: The Algorithm
+
+How does ChatGPT write a whole essay?
 
 ```python
 def generate_text(prompt, model):
-    tokens = tokenize(prompt)
+    text = prompt
 
     while not done:
-        # Step 1: Predict probabilities for ALL possible next tokens
-        probs = model(tokens)
+        # Step 1: Predict probabilities for ALL next words
+        probabilities = model.predict_next(text)
 
-        # Step 2: Sample one token
-        next_token = sample(probs)
+        # Step 2: Pick one word (sample from probabilities)
+        next_word = sample(probabilities)
 
-        # Step 3: Add to sequence and repeat
-        tokens.append(next_token)
+        # Step 3: Add it to the text
+        text = text + " " + next_word
 
-    return tokens
+    return text
 ```
 
-**That's ALL ChatGPT does!**
+**That's ALL ChatGPT does!** Predict → Sample → Repeat.
+
+---
+
+# Let's Walk Through an Example
+
+**Prompt:** "The weather today is"
+
+| Step | Current Text | Predicted | Added |
+|------|--------------|-----------|-------|
+| 1 | "The weather today is" | sunny (40%), cold (30%), ... | "sunny" |
+| 2 | "The weather today is sunny" | and (50%), . (30%), ... | "and" |
+| 3 | "The weather today is sunny and" | warm (45%), nice (30%), ... | "warm" |
+| 4 | "The weather today is sunny and warm" | . (60%), , (20%), ... | "." |
+
+**Final output:** "The weather today is sunny and warm."
+
+---
+
+# The Key Insight
+
+**ChatGPT has no internal "thoughts" or "beliefs".**
+
+It's just predicting: "Given everything before, what word is most likely next?"
+
+But when you predict REALLY well over BILLIONS of examples...
+
+**The result looks like intelligence!**
 
 ---
 
 <!-- _class: section-divider -->
 
-# Part 2: The Counting Era
+# Part 2: Building Intuition
 
-## Bigrams: The Simplest Model
-
----
-
-# The Simplest Language Model
-
-**Idea:** Count what letter usually follows each letter.
-
-**Training:** `aabid`, `priya`, `zeel`, `nipun`
-
-| After | Saw | Probability |
-|-------|-----|-------------|
-| `a` | `a` once, `b` once | P(a|a)=0.5, P(b|a)=0.5 |
-| `z` | `e` once | P(e|z)=1.0 |
-
-This is a **Bigram** model (pairs of 2 characters).
+## How Does a Model Learn to Predict?
 
 ---
 
-# Generating with Bigrams
+# Learning from Text
+
+**Training data:** Massive amounts of text from the internet
 
 ```
-Step 1: Start with "." (beginning token)
-        Sample from row "." → Got 'a'
+"The cat sat on the mat."
+"The dog ran in the park."
+"The capital of France is Paris."
+"To be or not to be, that is the question."
+... (billions of sentences)
+```
 
-Step 2: Current = 'a'
-        Sample from row "a" → Got 'b'
+**Training process:** Show the model tons of text. For each position, ask it to predict the next word. If wrong, adjust the model.
 
-Step 3: Current = 'b'
-        Sample from row "b" → Got 'i'
+---
 
-Step 4: Current = 'i'
-        Sample from row "i" → Got 'd'
+# A Simple Example: Character Prediction
 
-Step 5: Current = 'd'
-        Sample from row "d" → Got "." (DONE!)
+Let's start even simpler - predicting the **next character**!
+
+**Training text:** Names like "aabid", "priya", "zeel", "nipun"
+
+**Question:** After seeing 'a', what character comes next?
+
+| Character | Count | Probability |
+|-----------|-------|-------------|
+| 'a' | 2 times | 25% |
+| 'b' | 3 times | 38% |
+| 'd' | 1 time | 12% |
+| 'r' | 1 time | 12% |
+| 'n' | 1 time | 12% |
+
+---
+
+# Generating Names
+
+**Start with a random character, then keep predicting:**
+
+```
+Step 1: Start with 'a'
+Step 2: After 'a', sample → got 'b'
+Step 3: After 'b', sample → got 'i'
+Step 4: After 'i', sample → got 'd'
+Step 5: After 'd', sample → got '.' (END)
 
 Result: "abid" ← Looks like a real name!
 ```
 
----
-
-# Why Bigrams Fail
-
-**Sentence:** "Alice picked up the golden key. She walked to the door and tried to open it with the ___"
-
-| Model | What It Sees |
-|-------|--------------|
-| Bigram | Only "the" (previous word) |
-| Human | "golden key" (from earlier) |
-
-<div class="warning">
-Bigrams have NO MEMORY of earlier context!
-</div>
+**Same principle as ChatGPT, just simpler!**
 
 ---
 
-# Let's Train a Character-Level LM!
+# The Limitation: Memory
 
-**Dataset:** Shakespeare's complete works (~1MB of text)
+**Problem:** A simple model only looks at the LAST character!
 
-```python
-# Download Shakespeare
-import urllib.request
-url = "https://raw.githubusercontent.com/karpathy/char-rnn/master/data/tinyshakespeare/input.txt"
-text = urllib.request.urlopen(url).read().decode('utf-8')
+**"The cat sat on the ___"**
 
-print(len(text))  # 1,115,394 characters
-print(text[:200])
-```
+| Model Type | What It Sees | Problem |
+|------------|--------------|---------|
+| Looks at last character | "e " | Can't know it's about a cat! |
+| Looks at last word | "the" | Still not enough context! |
+| We need | Entire sentence | Full understanding |
 
-```
-First Citizen:
-Before we proceed any further, hear me speak.
-
-All:
-Speak, speak.
-
-First Citizen:
-You are all resolved rather to die than to famish?
-```
+**This is why we need better architectures!**
 
 ---
 
-# Shakespeare Character Statistics
+# The Memory Problem: A Story
 
-```python
-chars = sorted(list(set(text)))
-vocab_size = len(chars)
-print(f"Vocabulary: {vocab_size} characters")
-print(chars)
-```
+**Story:** "Alice picked up the golden key. She walked to the door. She tried to open it with the ___"
 
-```
-Vocabulary: 65 characters
-['\n', ' ', '!', '$', '&', "'", ',', '-', '.', '3', ':', ';', '?',
- 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
- 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
- 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
- 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
-```
+**What should fill the blank?** → "key"!
 
-Only 65 unique characters! Much simpler than 50K words.
+But a simple model that only sees "with the ___" might predict:
+- "key" (correct!)
+- "hammer"
+- "screwdriver"
+- "door"
 
----
-
-# Character to Number Mapping
-
-```python
-# Create mappings
-stoi = {ch: i for i, ch in enumerate(chars)}  # string to int
-itos = {i: ch for i, ch in enumerate(chars)}  # int to string
-
-# Encode text
-encode = lambda s: [stoi[c] for c in s]
-decode = lambda l: ''.join([itos[i] for i in l])
-
-# Example
-print(encode("hello"))  # [46, 43, 50, 50, 53]
-print(decode([46, 43, 50, 50, 53]))  # "hello"
-```
-
----
-
-# Training Data: Predict Next Character
-
-**Input:** "First Citize"
-**Target:** "irst Citizen"
-
-```python
-# Create training pairs
-block_size = 8  # Context length
-
-for i in range(len(text) - block_size):
-    context = text[i : i + block_size]
-    target = text[i + block_size]
-    print(f"'{context}' → '{target}'")
-```
-
-```
-'First Ci' → 't'
-'irst Cit' → 'i'
-'rst Citi' → 'z'
-'st Citiz' → 'e'
-```
-
----
-
-# Simple Character-Level LM in PyTorch
-
-```python
-import torch
-import torch.nn as nn
-
-class CharLM(nn.Module):
-    def __init__(self, vocab_size, embed_dim, hidden_dim):
-        super().__init__()
-        self.embed = nn.Embedding(vocab_size, embed_dim)
-        self.rnn = nn.GRU(embed_dim, hidden_dim, batch_first=True)
-        self.output = nn.Linear(hidden_dim, vocab_size)
-
-    def forward(self, x):
-        x = self.embed(x)          # [batch, seq, embed]
-        out, _ = self.rnn(x)       # [batch, seq, hidden]
-        logits = self.output(out)  # [batch, seq, vocab]
-        return logits
-```
-
----
-
-# Generated Shakespeare (After Training)
-
-**Untrained model:** Random garbage
-```
-xZk$
-;3q!Ybz:FwM'hUiP-Rn
-```
-
-**After 1000 steps:**
-```
-HARKE:
-The soun the of the have bea the me
-```
-
-**After 10000 steps:**
-```
-ROMEO:
-What light through yonder window breaks?
-It is the east, and Juliet is the sun!
-```
-
-<div class="insight">
-Same model, just more training = better predictions!
-</div>
-
----
-
-# N-grams: More Context
-
-| Model | Context | Limitation |
-|-------|---------|------------|
-| Bigram | 1 word | Too little |
-| Trigram | 2 words | Still limited |
-| 4-gram | 3 words | Better |
-| 10-gram | 9 words | Storage explodes! |
-
-**Problem:** With vocabulary 50K, 10-gram needs $50K^{10}$ entries!
+**To get this right, the model needs to "remember" the golden key from earlier!**
 
 ---
 
 <!-- _class: section-divider -->
 
-# Part 3: Word Embeddings
+# Part 3: Words as Vectors
 
-## Words as Vectors
-
----
-
-# The Representation Problem
-
-How do we represent words for a neural network?
-
-**Bad idea: One-hot encoding**
-```
-"cat" → [1, 0, 0, 0, ..., 0]  (50,000 zeros!)
-"dog" → [0, 1, 0, 0, ..., 0]
-
-cat · dog = 0  (orthogonal = unrelated!)
-```
-
-But cats and dogs ARE related!
+## The Embedding Trick
 
 ---
 
-# Word Embeddings
+# How Do We Feed Words to a Neural Network?
 
-**Idea:** Learn a dense vector for each word!
+**Problem:** Neural networks work with numbers, not words!
 
-```
-"cat" → [0.2, -0.5, 0.8, 0.1, ...]  (maybe 300 dims)
-"dog" → [0.3, -0.4, 0.7, 0.2, ...]
+**Bad idea: Number each word**
 
-cat · dog = 0.9  (similar!)
-```
+| Word | Number |
+|------|--------|
+| cat | 1 |
+| dog | 2 |
+| fish | 3 |
+
+**Problem:** This implies cat (1) and dog (2) are more similar than cat (1) and fish (3). But that's arbitrary!
 
 ---
 
-# Embeddings Capture Meaning
+# The Embedding Idea
+
+**Better idea:** Give each word a LIST of numbers (a vector)!
+
+| Word | Vector (simplified) |
+|------|---------------------|
+| cat | [0.8, 0.1, 0.9, 0.2] |
+| dog | [0.7, 0.2, 0.8, 0.3] |
+| fish | [0.2, 0.9, 0.1, 0.1] |
+
+**Notice:** Cat and dog have similar vectors (both are pets!)
+
+Fish has a very different vector (aquatic animal)
+
+---
+
+# The Magic of Embeddings
+
+**These vectors capture meaning!**
 
 Famous example from Word2Vec (2013):
 
 $$\text{king} - \text{man} + \text{woman} ≈ \text{queen}$$
 
-The vector arithmetic works because embeddings capture semantic relationships!
+**The vector arithmetic works because:**
+- (king - man) = "royal-ness"
+- (royal-ness) + woman = queen!
 
----
+<div class="insight">
 
-# Embedding in PyTorch
+Embeddings are learned automatically — the model figures out what each dimension should mean!
 
-```python
-import torch.nn as nn
-
-# Create embedding layer
-vocab_size = 50000
-embed_dim = 256
-
-embedding = nn.Embedding(vocab_size, embed_dim)
-
-# Get vector for word index 42
-word_idx = torch.tensor([42])
-vector = embedding(word_idx)  # shape: [1, 256]
-```
-
----
-
-<!-- _class: section-divider -->
-
-# Part 4: The Memory Problem
-
-## RNNs: Passing the Baton
-
----
-
-# Fixed Windows Aren't Enough
-
-**Story:** "Alice picked up the golden key. She walked to the door..."
-
-| Model Type | Sees | Missing |
-|------------|------|---------|
-| Fixed window (3 words) | "to the door" | "key" |
-| We need | Everything | - |
-
----
-
-# RNNs: The Relay Race
-
-**Idea:** Pass information forward like a baton.
-
-```
-"The"     "cat"     "sat"     "on"      "the"
-  ↓         ↓         ↓        ↓         ↓
- [h₀] →   [h₁]  →   [h₂]  →  [h₃]  →   [h₄]
-         (pass)    (pass)   (pass)    (pass)
-```
-
-Hidden state `h` carries "memory" of previous words.
-
----
-
-# RNN: The Telephone Game Problem
-
-| Sequence Length | Memory Quality |
-|-----------------|----------------|
-| 10 words | Clear |
-| 50 words | Fuzzy |
-| 100+ words | Lost! |
-
-<div class="warning">
-RNNs suffer from "vanishing gradients" — they forget old information!
 </div>
 
-*LSTM and GRU help but don't fully solve this.*
+---
+
+# Visualizing Word Embeddings
+
+**When we plot word vectors in 2D:**
+
+```
+                    "king" ●    ● "queen"
+
+                    "man" ●     ● "woman"
+
+
+    "cat" ●  ● "dog"
+
+
+                                    ● "python"
+                                    ● "java"
+                                    ● "code"
+```
+
+**Similar words cluster together!**
 
 ---
 
 <!-- _class: section-divider -->
 
-# Part 5: The Attention Revolution
+# Part 4: The Attention Breakthrough
 
-## "Just Look Back!"
-
----
-
-# The Brilliant Idea (2017)
-
-What if, instead of compressing everything...
-We could just **look back** at everything directly?
-
-| Approach | Sees | Limitation |
-|----------|------|------------|
-| Fixed window | Last few words | Very limited |
-| RNN | Blurry summary | Degrades over time |
-| **ATTENTION** | Any word directly! | None! |
+## Looking at What Matters
 
 ---
 
-# Attention: The Library Analogy
+# The Problem with Sequences
 
-**You're at a library with a question:**
+**"The animal didn't cross the street because it was too tired."**
 
-| Step | Action |
-|------|--------|
-| 1. Query | "What opens doors?" |
-| 2. Scan Keys | "key" (relevant!), "door" (related), "Alice" (not relevant) |
-| 3. Read Values | Mostly from "key"! |
+**Question:** What does "it" refer to?
 
-$$\text{Attention} = \text{softmax}(QK^T/\sqrt{d}) \cdot V$$
+| Option | Makes Sense? |
+|--------|--------------|
+| "it" = animal | ✓ (animals get tired) |
+| "it" = street | ✗ (streets don't get tired) |
+
+**The model needs to look BACK at "animal" to understand "it"!**
 
 ---
 
-# Why Attention is Powerful
+# The Attention Idea (2017)
 
-**Text:** "The animal didn't cross the street because **it** was too tired."
+**Instead of compressing everything into a fixed summary...**
 
-What does "it" refer to?
+**Let the model LOOK BACK at any previous word!**
 
-| Word | Attention Score |
+| Old Approach | Attention |
+|--------------|-----------|
+| Pass info through chain (like telephone game) | Look directly at any word |
+| Information gets lost | Nothing is lost |
+| "I remember something about an animal..." | "Let me check: yes, animal!" |
+
+---
+
+# How Attention Works: Intuition
+
+**When processing "it", the model asks:**
+
+> "Which previous words are relevant to understanding 'it'?"
+
+| Word | Relevance Score |
 |------|-----------------|
-| animal | **0.75** |
-| street | 0.15 |
-| other | 0.10 |
+| animal | **0.75** (very relevant!) |
+| street | 0.10 |
+| the | 0.05 |
+| didn't | 0.05 |
+| other words | 0.05 |
 
-The model **learns** to connect "it" to "animal"!
+**Then it pays most "attention" to "animal"!**
 
 ---
 
-# Self-Attention
+# Visual: Attention in Action
 
-Every word attends to **every other word**:
+```
+"The   animal   didn't   cross   the   street   because   it   was   tired"
+  ↑       ↑        ↑        ↑       ↑      ↑        ↑       ↑     ↑      ↑
+  │       │        │        │       │      │        │       │     │      │
+  │       │        │        │       │      │        │       │     │      │
+  └───────┴────────┴────────┴───────┴──────┴────────┴───────┤     │      │
+                                                            │     │      │
+                    When processing "it":                   ▼     │      │
+                    ═══════════════════                   "it" ───┘      │
+                           │                               │             │
+                     ┌─────┴─────┐                         │             │
+                  "animal"    "street"                     └─────────────┘
+                    75%         10%
+```
 
-![w:850 center](diagrams/self_attention_clean_20260131_141943.png)
+**"it" looks back and attends mostly to "animal"!**
 
-**All in parallel** — no sequential bottleneck!
+---
+
+# Why Attention is Revolutionary
+
+| Before Attention | With Attention |
+|------------------|----------------|
+| Information passes through a chain | Direct access to all words |
+| Long sentences lose context | No distance limitation |
+| Sequential processing (slow) | Parallel processing (fast!) |
+
+<div class="insight">
+
+**Attention lets the model "look up" any relevant information instantly!**
+
+</div>
 
 ---
 
 # The Transformer (2017)
 
-**"Attention Is All You Need"**
+**The paper:** "Attention Is All You Need"
 
-![w:700 center](diagrams/transformer_block_clean_20260131_142021.png)
+**The architecture:** Stack many attention layers
 
-GPT-4 has ~120 transformer layers!
+```
+Input → [Attention + Feed-Forward] → [Attention + Feed-Forward] → ... → Output
+            Layer 1                      Layer 2                   Layer N
+```
+
+| Model | Number of Layers |
+|-------|------------------|
+| Small | 6 layers |
+| GPT-2 | 48 layers |
+| GPT-4 | ~120 layers! |
+
+**More layers = more "thinking steps" = better understanding**
 
 ---
 
 <!-- _class: section-divider -->
 
-# Part 6: Modern LLMs
+# Part 5: Temperature
 
-## From GPT to ChatGPT
-
----
-
-# Scaling Up
-
-| Feature | Toy Model | GPT-4 |
-|---------|-----------|-------|
-| Vocabulary | 27 (letters) | 100,000 (tokens) |
-| Embedding size | 2 dims | 12,288 dims |
-| Layers | 1 | ~120 |
-| Parameters | ~1,000 | 175+ BILLION |
-| Training data | 1,000 names | 500B+ tokens |
-| Context | 3 chars | 128K tokens |
-
-<div class="insight">
-Same algorithm. Just MUCH bigger.
-</div>
+## Controlling Creativity
 
 ---
 
-# Tokenization: Not Words, Not Characters
+# The Creativity Knob
 
-| Approach | Example | Problem |
-|----------|---------|---------|
-| Characters | "hello" → 5 tokens | Too slow |
-| Words | "unhappiness" = 1 token | Millions needed |
-| **Subwords** | "un" + "happiness" | Best of both! |
+When the model predicts next word probabilities, we can adjust them!
 
-**LLMs use ~50K-100K tokens (subwords).**
+**Temperature** = how "creative" vs "safe" the model is
 
----
-
-# Tokenization Examples
-
-| Text | Tokens |
-|------|--------|
-| "Hello world" | ["Hello", " world"] |
-| "ChatGPT" | ["Chat", "G", "PT"] |
-| "unhappiness" | ["un", "happiness"] |
-
-<div class="warning">
-"How many r's in strawberry?" fails because the model sees ["str", "aw", "berry"]!
-</div>
+| Temperature | Effect |
+|-------------|--------|
+| **Low (0.1-0.3)** | Very predictable, picks top choice |
+| **Medium (0.7)** | Balanced, some variety |
+| **High (1.5+)** | Wild and creative, risky |
 
 ---
 
-# Training an LLM
+# Temperature Example
 
-```
-1. COLLECT DATA
-   - Web crawl (trillions of tokens)
-   - Books, Wikipedia, code
+**Prompt:** "The cat sat on the ___"
 
-2. PRE-TRAINING
-   - Objective: Predict next token
-   - Massive compute (thousands of GPUs)
+**Original probabilities:**
 
-3. FINE-TUNING
-   - Instruction following
-   - RLHF (Reinforcement Learning from Human Feedback)
-```
+| Word | Probability |
+|------|-------------|
+| mat | 40% |
+| floor | 25% |
+| couch | 20% |
+| moon | 1% |
 
 ---
 
-# RLHF: Making ChatGPT Helpful
+# Low Temperature (T=0.3)
 
-**Pre-trained model:** Great at next-word prediction
-**Problem:** Doesn't follow instructions well
+**Probabilities become SHARPER:**
 
-**Solution: RLHF**
-1. Humans rank model responses
-2. Train reward model on rankings
-3. Fine-tune LLM to maximize reward
+| Word | Original | After Low T |
+|------|----------|-------------|
+| mat | 40% | **85%** |
+| floor | 25% | 10% |
+| couch | 20% | 4% |
+| moon | 1% | <1% |
 
-This is what makes ChatGPT **conversational**!
-
----
-
-# Temperature: The Creativity Knob
-
-When sampling the next token, we apply temperature `T`:
-
-$$P_{\text{adjusted}}(w) = \frac{\exp(\text{logit}_w / T)}{\sum_i \exp(\text{logit}_i / T)}$$
-
-| Temperature | Effect | Best For |
-|-------------|--------|----------|
-| **T = 0** | Always pick highest prob | Facts, code, math |
-| **T = 0.7** | Some randomness | Conversation |
-| **T = 1.0** | Original distribution | Creative writing |
-| **T > 1.0** | More random | Brainstorming |
+**Result:** Almost always picks "mat" (boring but safe!)
 
 ---
 
-# Temperature Visualization
+# High Temperature (T=2.0)
 
-![w:900 center](diagrams/temperature_clean_20260131_142105.png)
+**Probabilities become FLATTER:**
 
-**Low T** = Predictable (always picks "mat")
-**High T** = Creative (explores alternatives)
+| Word | Original | After High T |
+|------|----------|--------------|
+| mat | 40% | 30% |
+| floor | 25% | 25% |
+| couch | 20% | 22% |
+| moon | 1% | **10%** |
 
----
-
-# Sampling Strategies
-
-| Strategy | How It Works | Effect |
-|----------|--------------|--------|
-| **Greedy** | Always pick max prob | Deterministic, boring |
-| **Temperature** | Scale logits by 1/T | Control randomness |
-| **Top-k** | Only sample from top k | Avoid rare tokens |
-| **Top-p (nucleus)** | Sample from smallest set with prob ≥ p | Dynamic cutoff |
-
-```python
-# Using HuggingFace transformers
-output = model.generate(
-    input_ids,
-    temperature=0.7,
-    top_k=50,
-    top_p=0.95,
-    do_sample=True
-)
-```
+**Result:** Might pick unusual words like "moon" (creative but risky!)
 
 ---
 
-# Why Sampling Matters
+# When to Use Each Temperature
+
+| Use Case | Temperature | Why |
+|----------|-------------|-----|
+| Math problems | 0 (greedy) | Need exact answer |
+| Code generation | 0.2-0.5 | Mostly correct, some variety |
+| Conversation | 0.7 | Natural, not boring |
+| Creative writing | 0.9-1.2 | Interesting and varied |
+| Brainstorming | 1.5+ | Wild ideas! |
+
+---
+
+# Temperature Demo
 
 **Prompt:** "Write a poem about the ocean"
 
-**Greedy (T=0):**
+**T=0 (Greedy):**
 ```
 The ocean is blue.
 The ocean is deep.
 The ocean is big.
 ```
 
-**With sampling (T=0.8):**
+**T=0.9:**
 ```
 Azure whispers dance on moonlit waves,
 Where ancient secrets swim in salty caves,
@@ -728,108 +597,163 @@ The tide embraces shores with gentle might,
 As starfish dream beneath the fading light.
 ```
 
+**Same model, same prompt — temperature changes everything!**
+
+---
+
+<!-- _class: section-divider -->
+
+# Part 6: The Full Picture
+
+## From Prediction to ChatGPT
+
+---
+
+# Scale Changes Everything
+
+| Feature | Toy Model | ChatGPT/GPT-4 |
+|---------|-----------|---------------|
+| Vocabulary | 27 letters | 100,000 tokens |
+| Embedding size | 2 | 12,288 |
+| Layers | 1 | ~120 |
+| Parameters | 1,000 | 175+ BILLION |
+| Training data | 1,000 words | 500B+ tokens |
+
 <div class="insight">
-Same model, same prompt — temperature changes everything!
+
+**Same algorithm. Same principle. Just MUCH bigger.**
+
 </div>
 
 ---
 
-# Emergent Abilities
+# Tokenization: Not Words, Not Characters
 
-As models get bigger, **new abilities emerge**:
+**LLMs use "tokens" — pieces of words:**
 
-| Size | Capabilities |
-|------|--------------|
-| Small (100M) | Grammar, simple completion |
-| Medium (1B) | Factual Q&A, basic reasoning |
-| Large (100B+) | Complex reasoning, code, creativity |
+| Text | Tokens |
+|------|--------|
+| "Hello world" | ["Hello", " world"] |
+| "ChatGPT" | ["Chat", "G", "PT"] |
+| "unhappiness" | ["un", "happiness"] |
+| "Anthropic" | ["Anthrop", "ic"] |
 
-All from the same objective: **predict the next token!**
+**Why?** Balance between characters (too slow) and words (too many)
+
+---
+
+# A Fun Limitation
+
+**"How many r's in 'strawberry'?"**
+
+The model sees: ["str", "aw", "berry"]
+
+**It doesn't see the individual letters!**
+
+This is why LLMs struggle with:
+- Counting letters
+- Spelling tasks
+- Character-level puzzles
+
+<div class="warning">
+
+Tokens ≠ Characters! The model doesn't "see" individual letters.
+
+</div>
+
+---
+
+# The Training Process
+
+| Stage | What Happens | Result |
+|-------|--------------|--------|
+| **Pre-training** | Predict next word on internet text | Good at completion |
+| **Fine-tuning** | Train on instruction-response pairs | Follows instructions |
+| **Alignment** | Learn from human preferences | Helpful and safe |
+
+```
+Raw internet → Pre-training → Fine-tuning → Alignment → ChatGPT
+```
+
+---
+
+# Why Pre-training Alone Isn't Enough
+
+**Pre-trained model:**
+- Great at completing text
+- Bad at following instructions
+
+**Example:**
+
+| Input | Pre-trained Output | ChatGPT Output |
+|-------|-------------------|----------------|
+| "What is 2+2?" | "...is a simple math question that..." | "2+2 equals 4." |
+| "Write Python code for..." | (random code snippets) | (working code) |
+
+**Fine-tuning teaches the model to be HELPFUL!**
+
+---
+
+# Summary: How LLMs Work
+
+1. **Text → Tokens → Numbers (embeddings)**
+
+2. **Transformer processes the sequence**
+   - Attention lets words look at other words
+   - Multiple layers = multiple "thinking steps"
+
+3. **Predict probability of next token**
+
+4. **Sample a token, add to sequence, repeat**
+
+5. **Temperature controls creativity**
 
 ---
 
 # Key Takeaways
 
-1. **LLMs predict the next token** — that's it!
+1. **LLMs predict the next token** — that's the whole trick!
 
-2. **Embeddings** represent words as vectors
+2. **Embeddings** turn words into meaningful vectors
 
-3. **Attention** lets models look at ALL context
+3. **Attention** lets the model look at all relevant context
 
-4. **Transformers** stack attention + feed-forward layers
+4. **Temperature** controls creativity vs. safety
 
-5. **Scale matters** — same algorithm, more parameters
+5. **Scale matters** — same algorithm, bigger = smarter
 
-6. **Temperature** controls creativity vs. accuracy
-
----
-
-# The Big Picture: What Makes ChatGPT "Chat"?
-
-We now have a model that predicts text well. But...
-
-| What Base Model Does | What We Want |
-|---------------------|--------------|
-| "The capital of France is" → "Paris" | Great! |
-| "What is 2+2?" → "? I don't know..." | Bad! |
-| "Help me write code" → Random code | Not helpful! |
-
-<div class="warning">
-Base models are great at completing text, but terrible at following instructions!
-</div>
-
-**Next week: How do we fix this?**
+6. **Fine-tuning** transforms a text predictor into a helpful assistant
 
 ---
 
-# Preview: The LLM Training Pipeline
+# What We Skipped (Advanced Topics)
 
-![w:950 center](diagrams/llm_pipeline_clean_20260131_142150.png)
+| Topic | What It Is |
+|-------|------------|
+| Self-attention math | Query, Key, Value matrices |
+| Positional encoding | How models know word order |
+| Multi-head attention | Multiple attention patterns |
+| RLHF | Learning from human preferences |
+| Prompt engineering | Getting better outputs |
 
-| Stage | Data | Result |
-|-------|------|--------|
-| **Pre-training** | Web text | Base model (text completer) |
-| **SFT** | Instruction pairs | Follows instructions |
-| **RLHF** | Human preferences | AI Assistant (ChatGPT, Claude) |
-
----
-
-# The Journey of a Language Model
-
-| Stage | Data | Output |
-|-------|------|--------|
-| **Base model** | Trillions of web tokens | Text completion |
-| **+ SFT** | ~100K instruction pairs | Follows instructions |
-| **+ RLHF** | Human preferences | Helpful assistant |
-
-<div class="insight">
-Same architecture, different training = very different behavior!
-</div>
-
-**Next week:** We'll see how SFT and RLHF transform a text predictor into ChatGPT.
+*You'll learn these in advanced NLP/LLM courses!*
 
 ---
 
 <!-- _class: title-slide -->
 
-# You Now Understand LLMs!
+# You Now Understand How LLMs Work!
 
-## Next: From Language Model to Assistant
+## The Secret: Just Predict the Next Word!
 
-**What we learned:**
-- Next token prediction is the core idea
-- Embeddings, attention, transformers
-- Temperature controls generation
+**Key takeaways:**
+- LLMs = next token prediction at scale
+- Attention = look at relevant context
+- Temperature = creativity control
+- Fine-tuning = helpful behavior
 
-**Next week:**
-- How to make models follow instructions (SFT)
-- How to align models with human values (RLHF)
-- The full ChatGPT training pipeline
-
-**Lab:** Build a character-level LM, experiment with generation
-
-**Interactive Notebook:** [L07_language_models.ipynb](../../lecture_demo/L07_language_models.ipynb)
-
-**Project:** [Build Your Own Simple LM](../../lecture_demo/PROJECT_simple_slm.ipynb)
+**Try it yourself:**
+- Play with ChatGPT temperature settings
+- Watch the autocomplete on your phone keyboard
 
 **Questions?**
