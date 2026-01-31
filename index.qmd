@@ -1,290 +1,66 @@
 ---
-title: "Principles of AI: From Fundamentals to Practice"
-subtitle: "Lecture Slides & Lab Exercises"
+title: "Principles of AI"
+subtitle: "BTech First Year Course"
 ---
 
 ::: {.callout-note}
 ## Course Information
+
 **Instructor:** Prof. Nipun Batra, IIT Gandhinagar
-**Target Audience:** 1st Year Students
-**Format:** Lectures + Hands-on Labs
+
+**Semester:** January 2026
+
+**Target:** First-year BTech students (no ML background assumed)
+
 **Repository:** [github.com/nipunbatra/principles-ai-teaching](https://github.com/nipunbatra/principles-ai-teaching)
 :::
 
 ## About This Course
 
-This course provides a **practical introduction to AI and Machine Learning** for beginners. Starting from classical ML concepts, we progress through neural networks to modern applications like language models and object detection.
-
-::: {.callout-tip}
-## Learning Approach
-Each topic combines intuitive explanations with hands-on coding. Labs use real datasets and popular frameworks (scikit-learn, PyTorch, Ultralytics) that you'll encounter in industry and research.
-:::
-
-### What You'll Learn
-
-| Module | Key Skills |
-|--------|------------|
-| **Classical ML** | Classification, regression, clustering, decision trees |
-| **Deep Learning** | Neural networks, PyTorch, training loops |
-| **Language Models** | Next-token prediction, embeddings, text generation |
-| **Computer Vision** | Object detection, YOLO, bounding boxes, IoU |
+A **practical introduction to AI and Machine Learning** designed for beginners. We build intuition first, then formalize with math and code. By the end, you'll understand how ChatGPT works and be able to build simple AI systems yourself.
 
 ---
 
-## Quick Navigation
+## Lectures
 
-**Lectures**
-
-| Topic | Materials |
-|-------|:---------:|
-| ML Tasks & Taxonomy | [HTML](ml-tasks/ml-tasks.html) ∙ [PDF](ml-tasks/ml-tasks.pdf) |
-| Next Token Prediction | [HTML](next-token-prediction/next-token-prediction.html) ∙ [PDF](next-token-prediction/next-token-prediction.pdf) |
-| Object Detection | [HTML](object-detection/object-detection-basics.html) ∙ [PDF](object-detection/object-detection-basics.pdf) |
-
-**Labs**
-
-| Lab | Topic | Materials |
-|:---:|-------|:---------:|
-| 1 | sklearn Intro | [View](labs/lab01-sklearn-intro.html) ∙ [Download .ipynb](https://github.com/nipunbatra/principles-ai-teaching/raw/main/labs/lab01-sklearn-intro.ipynb) |
-| 2 | Classical ML | [View](labs/lab02-classical-ml.html) ∙ [Download .ipynb](https://github.com/nipunbatra/principles-ai-teaching/raw/main/labs/lab02-classical-ml.ipynb) |
-| 3 | PyTorch Basics | [View](labs/lab03-pytorch-basics.html) ∙ [Download .ipynb](https://github.com/nipunbatra/principles-ai-teaching/raw/main/labs/lab03-pytorch-basics.ipynb) |
-| 4 | SLM Building | [View](labs/lab04-slm-building.html) ∙ [Download .ipynb](https://github.com/nipunbatra/principles-ai-teaching/raw/main/labs/lab04-slm-building.ipynb) |
-| 5 | SLM Deployment | [View](labs/lab05-slm-deployment.html) ∙ [Download .ipynb](https://github.com/nipunbatra/principles-ai-teaching/raw/main/labs/lab05-slm-deployment.ipynb) |
-| 6 | Object Detection 1 | [View](labs/lab06-object-detection-1.html) ∙ [Download .ipynb](https://github.com/nipunbatra/principles-ai-teaching/raw/main/labs/lab06-object-detection-1.ipynb) |
-| 7 | Object Detection 2 | [View](labs/lab07-object-detection-2.html) ∙ [Download .ipynb](https://github.com/nipunbatra/principles-ai-teaching/raw/main/labs/lab07-object-detection-2.ipynb) |
+| # | Topic | Slides | Key Concepts |
+|:-:|-------|:------:|--------------|
+| 1 | What is AI? | — | AI landscape, applications, what we'll build |
+| 2 | Data Foundation | [HTML](lectures/02-data-foundation/slides.html) ∙ [PDF](lectures/02-data-foundation/slides.pdf) | ML paradigms, features/labels, train/test split, sklearn |
+| 3 | Supervised Learning | [HTML](lectures/03-supervised-learning/slides.html) ∙ [PDF](lectures/03-supervised-learning/slides.pdf) | Linear/Logistic regression, trees, KNN, metrics |
+| 4 | Model Selection | [HTML](lectures/04-model-selection/slides.html) ∙ [PDF](lectures/04-model-selection/slides.pdf) | Overfitting, cross-validation, bias-variance |
+| 5 | Neural Networks | [HTML](lectures/05-neural-networks/slides.html) ∙ [PDF](lectures/05-neural-networks/slides.pdf) | Perceptrons, backprop, PyTorch basics |
+| 6 | Computer Vision | [HTML](lectures/06-computer-vision/slides.html) ∙ [PDF](lectures/06-computer-vision/slides.pdf) | CNNs, object detection, YOLO |
+| 7 | Language Models | [HTML](lectures/07-language-models/slides.html) ∙ [PDF](lectures/07-language-models/slides.pdf) | Next-token prediction, embeddings, attention, transformers |
 
 ---
 
-## Part I: Machine Learning Foundations
-
-::: {.callout-note appearance="minimal"}
-**Learning Goal:** Understand the landscape of ML tasks and build intuition with classical algorithms.
-:::
-
-### ML Tasks & Taxonomy
-
-A comprehensive introduction to machine learning: learning paradigms, task types, and practical examples with sklearn and neural networks.
-
-**Key Concepts:** Supervised vs Unsupervised vs RL, Classification vs Regression, Vision tasks, NLP tasks, Generative AI, sklearn basics, Neural Networks
-
-| | Materials |
-|--|:--|
-| **Lecture** | [HTML](ml-tasks/ml-tasks.html) ∙ [PDF](ml-tasks/ml-tasks.pdf) ∙ [Source](https://github.com/nipunbatra/principles-ai-teaching/blob/main/ml-tasks/ml-tasks.md) |
-
-**Topics Covered:**
-
-- Learning paradigms (Supervised, Unsupervised, Reinforcement Learning)
-- Supervised learning (classification, regression)
-- Unsupervised learning (clustering, dimensionality reduction)
-- Computer Vision tasks (classification, detection, segmentation)
-- NLP tasks (text classification, NER, seq2seq, generation)
-- Generative AI and Multimodal models
-- Hands-on sklearn examples
-- Introduction to Neural Networks
-
----
-
-### Lab 1: sklearn Introduction
-
-Your first hands-on experience with machine learning using scikit-learn.
-
-**Key Tools:** scikit-learn, pandas, matplotlib
-
-| | Materials |
-|--|:--|
-| **Lab (Notebook)** | [View](labs/lab01-sklearn-intro.html) ∙ [Download .ipynb](https://github.com/nipunbatra/principles-ai-teaching/raw/main/labs/lab01-sklearn-intro.ipynb) |
-
-**Topics Covered:**
-
-- Loading and exploring datasets (Iris, Digits)
-- Train/test splits and why they matter
-- Building your first classifier
-- Accuracy and confusion matrices
-
----
-
-### Lab 2: Classical Machine Learning
-
-Deeper dive into classical ML algorithms and when to use each.
-
-**Key Tools:** scikit-learn, Decision Trees, Random Forests, K-Means
-
-| | Materials |
-|--|:--|
-| **Lab (Notebook)** | [View](labs/lab02-classical-ml.html) ∙ [Download .ipynb](https://github.com/nipunbatra/principles-ai-teaching/raw/main/labs/lab02-classical-ml.ipynb) |
-
-**Topics Covered:**
-
-- Decision Trees (the "20 Questions" algorithm)
-- Random Forests (wisdom of crowds)
-- Linear and Polynomial Regression
-- K-Means Clustering
-
----
-
-## Part II: Deep Learning Fundamentals
-
-::: {.callout-note appearance="minimal"}
-**Learning Goal:** Understand neural networks from scratch and train models with PyTorch.
-:::
-
-### Lab 3: PyTorch Basics
-
-Build neural networks from the ground up with PyTorch.
-
-**Key Tools:** PyTorch, tensors, autograd, MNIST
-
-| | Materials |
-|--|:--|
-| **Lab (Notebook)** | [View](labs/lab03-pytorch-basics.html) ∙ [Download .ipynb](https://github.com/nipunbatra/principles-ai-teaching/raw/main/labs/lab03-pytorch-basics.ipynb) |
-
-**Topics Covered:**
-
-- Tensors: PyTorch's building blocks
-- The training loop: forward, loss, backward, optimize
-- Building a neural network for MNIST
-- GPU acceleration (optional)
-
----
-
-## Part III: Language Models
-
-::: {.callout-note appearance="minimal"}
-**Learning Goal:** Understand how language models predict text and build your own mini-LM.
-:::
-
-### Next Token Prediction
-
-The fundamental concept behind ChatGPT and all modern language models.
-
-**Key Concepts:** Probability distributions, bigrams, embeddings, attention, transformers
-
-| | Materials |
-|--|:--|
-| **Lecture** | [HTML](next-token-prediction/next-token-prediction.html) ∙ [PDF](next-token-prediction/next-token-prediction.pdf) ∙ [Source](https://github.com/nipunbatra/principles-ai-teaching/blob/main/next-token-prediction/next-token-prediction.md) |
-
-**Topics Covered:**
-
-- Why "next token prediction" is so powerful
-- Bigram models and probability tables
-- Neural language models and embeddings
-- Attention mechanism and transformers
-- From GPT to ChatGPT (SFT + RLHF)
-
----
-
-### Lab 4: Building a Small Language Model
-
-Build a character-level language model from scratch.
-
-**Key Tools:** PyTorch, character embeddings, neural LM
-
-| | Materials |
-|--|:--|
-| **Lab (Notebook)** | [View](labs/lab04-slm-building.html) ∙ [Download .ipynb](https://github.com/nipunbatra/principles-ai-teaching/raw/main/labs/lab04-slm-building.ipynb) |
-
-**Topics Covered:**
-
-- Bigram model implementation
-- Character embeddings
-- Neural language model
-- Training on names dataset
-- Generating new names
-
----
-
-### Lab 5: Deploying a Language Model
-
-Turn your model into an interactive web application.
-
-**Key Tools:** Gradio, torch.save/load, temperature sampling
-
-| | Materials |
-|--|:--|
-| **Lab (Notebook)** | [View](labs/lab05-slm-deployment.html) ∙ [Download .ipynb](https://github.com/nipunbatra/principles-ai-teaching/raw/main/labs/lab05-slm-deployment.ipynb) |
-
-**Topics Covered:**
-
-- Saving and loading models
-- Temperature and sampling strategies
-- Building a Gradio interface
-- Interactive text generation
-
----
-
-## Part IV: Computer Vision & Object Detection
-
-::: {.callout-note appearance="minimal"}
-**Learning Goal:** Detect and locate objects in images using state-of-the-art YOLO models.
-:::
-
-### Object Detection Basics
-
-From classification to detection: finding WHAT and WHERE.
-
-**Key Concepts:** Bounding boxes, IoU, NMS, YOLO, mAP
-
-| | Materials |
-|--|:--|
-| **Lecture** | [HTML](object-detection/object-detection-basics.html) ∙ [PDF](object-detection/object-detection-basics.pdf) ∙ [Source](https://github.com/nipunbatra/principles-ai-teaching/blob/main/object-detection/object-detection-basics.md) |
-
-**Topics Covered:**
-
-- Classification vs Detection vs Segmentation
-- Bounding box formats and coordinates
-- IoU (Intersection over Union)
-- Non-Maximum Suppression (NMS)
-- YOLO architecture and evolution
-- Training and evaluation (mAP)
-
----
-
-### Lab 6: Object Detection with YOLO
-
-Use pre-trained YOLO models for real-time object detection.
-
-**Key Tools:** Ultralytics YOLOv8, OpenCV, supervision
-
-| | Materials |
-|--|:--|
-| **Lab (Notebook)** | [View](labs/lab06-object-detection-1.html) ∙ [Download .ipynb](https://github.com/nipunbatra/principles-ai-teaching/raw/main/labs/lab06-object-detection-1.ipynb) |
-
-**Topics Covered:**
-
-- Loading pre-trained YOLOv8
-- Running inference on images
-- Visualizing detections
-- Computing IoU from scratch
-- Processing video
-
----
-
-### Lab 7: Advanced Object Detection
-
-Fine-tune YOLO on custom data and understand evaluation metrics.
-
-**Key Tools:** Ultralytics training, Roboflow, NMS implementation
-
-| | Materials |
-|--|:--|
-| **Lab (Notebook)** | [View](labs/lab07-object-detection-2.html) ∙ [Download .ipynb](https://github.com/nipunbatra/principles-ai-teaching/raw/main/labs/lab07-object-detection-2.ipynb) |
-
-**Topics Covered:**
-
-- Implementing NMS from scratch
-- Preparing custom datasets
-- Fine-tuning YOLOv8
-- Understanding Precision, Recall, and mAP
-- Error analysis
+## Labs / Demos
+
+Interactive Jupyter notebooks for hands-on practice.
+
+| Lecture | Notebook | Description |
+|:-------:|----------|-------------|
+| L02 | [L02_data_foundation.ipynb](lecture_demo/L02_data_foundation.ipynb) | sklearn API, train/test, clustering |
+| L03 | [L03_supervised_learning.ipynb](lecture_demo/L03_supervised_learning.ipynb) | Regression, classification, metrics |
+| L04 | [L04_model_selection.ipynb](lecture_demo/L04_model_selection.ipynb) | Cross-validation, grid search |
+| L05 | [L05_neural_networks.ipynb](lecture_demo/L05_neural_networks.ipynb) | PyTorch, training loops, MNIST |
+| L06 | [L06_computer_vision.ipynb](lecture_demo/L06_computer_vision.ipynb) | CNNs, YOLO inference |
+| L07 | [L07_language_models.ipynb](lecture_demo/L07_language_models.ipynb) | Tokenization, bigrams, embeddings |
+
+### Course Project
+
+| Project | Notebook | Goal |
+|---------|----------|------|
+| Build Your Own LM | [PROJECT_simple_slm.ipynb](lecture_demo/PROJECT_simple_slm.ipynb) | Train a character-level language model on Shakespeare |
 
 ---
 
 ## Additional Resources
 
 ::: {.callout-tip}
-## Useful Links
+## Links
 - **Repository:** [github.com/nipunbatra/principles-ai-teaching](https://github.com/nipunbatra/principles-ai-teaching)
-- **Report Issues:** [GitHub Issues](https://github.com/nipunbatra/principles-ai-teaching/issues)
 - **Run in Colab:** All notebooks can be opened directly in Google Colab
 :::
 
@@ -292,6 +68,5 @@ Fine-tune YOLO on custom data and understand evaluation metrics.
 
 <div style="text-align: center; margin-top: 2em; padding: 1em; background-color: #f8f9fa; border-radius: 8px;">
   <p><strong>Course Materials by Prof. Nipun Batra</strong> | IIT Gandhinagar</p>
-  <p style="font-size: 0.9em;">Inspired by Andrew Ng's teaching style</p>
-  <p style="font-size: 0.9em;">Last updated: December 2024</p>
+  <p style="font-size: 0.9em;">Last updated: January 2026</p>
 </div>
