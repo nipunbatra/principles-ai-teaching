@@ -11,55 +11,31 @@ math: mathjax
 # Neural Networks
 # Foundation
 
-## From Perceptrons to Deep Learning
+## The Building Blocks of Deep Learning
 
 **Nipun Batra** | IIT Gandhinagar
 
 ---
 
-# Learning Goals
+# The Story So Far
 
-By the end of this lecture, you will:
-
-| Goal | What You'll Learn |
-|------|-------------------|
-| **Understand** | Why we need neural networks |
-| **Build** | Neurons, layers, and architectures |
-| **Choose** | Activation functions (ReLU, sigmoid) |
-| **Train** | Gradient descent and backpropagation |
-| **Implement** | PyTorch fundamentals |
+| Lecture | What We Learned |
+|---------|-----------------|
+| 2 | Data, features, train/test split |
+| 3 | Linear & Logistic Regression |
+| 4 | Model selection, overfitting |
+| **5** | **Neural networks - the big leap!** |
 
 ---
 
-# The Journey So Far
+# Today's Goal
 
-| Week | Model | What It Does | Limitation |
-|------|-------|--------------|------------|
-| 3 | Linear Regression | Fit a line | Only linear patterns |
-| 3 | Logistic Regression | Binary classification | Only linear boundaries |
-| 3 | Decision Trees | If-then rules | Can overfit, unstable |
-| 4 | Random Forest | Many trees | Hard to interpret |
-| **5** | **Neural Networks** | **Learn any pattern!** | Need lots of data |
+By the end, you'll understand:
 
----
-
-# The Big Picture
-
-```
-Traditional ML:                Deep Learning:
-
-Features ──→ Model ──→ Output   Raw Data ──→ [Learn Features] ──→ Output
-    │                                              │
-    │                                        Neural Network
- You design                                learns automatically!
- features
-```
-
-<div class="insight">
-
-Neural networks learn **both** features **and** the model!
-
-</div>
+1. **Why** we need neural networks
+2. **What** a neuron computes
+3. **How** networks learn (the intuition)
+4. **Code** your first neural network in PyTorch
 
 ---
 
@@ -75,94 +51,105 @@ Neural networks learn **both** features **and** the model!
 
 **The XOR Function:**
 
-| Input A | Input B | Output (A XOR B) |
-|---------|---------|------------------|
-| 0 | 0 | 0 |
-| 0 | 1 | 1 |
-| 1 | 0 | 1 |
-| 1 | 1 | 0 |
+| Input A | Input B | Output |
+|---------|---------|--------|
+| 0 | 0 | 0 (same) |
+| 0 | 1 | **1** (different) |
+| 1 | 0 | **1** (different) |
+| 1 | 1 | 0 (same) |
 
-**"Output is 1 if inputs are different"**
-
----
-
-# XOR: Visualized
-
-```
-Input B
-    │
-  1 ├──○──────────●──   ○ = class 0 (same)
-    │                    ● = class 1 (different)
-    │
-  0 ├──●──────────○──
-    │
-    └──┼──────────┼───▶ Input A
-       0          1
-```
-
-**Can you draw ONE line to separate ● from ○?**
+**Rule:** Output is 1 if inputs are *different*
 
 ---
 
-# No Line Works!
+# XOR Visualized
 
 ```
-       Try 1:              Try 2:              Try 3:
-    │  ○    ●           │  ○    ●           │  ○    ●
-    │     ╱             │ ╲                 │    │
-    │   ╱               │   ╲               │    │
-    │ ╱                 │     ╲             │    │
-    ├──●────○──         ├──●────○──         ├──●────○──
+        Input B
+          │
+        1 ├──○──────────●──
+          │
+          │                 ○ = Output 0 (same)
+          │                 ● = Output 1 (different)
+        0 ├──●──────────○──
+          │
+          └──┼──────────┼───▶ Input A
+             0          1
+```
 
-    ❌ Fails            ❌ Fails            ❌ Fails
+**Challenge:** Can you draw ONE straight line to separate ● from ○?
+
+---
+
+# No Single Line Works!
+
+```
+    Try 1:           Try 2:           Try 3:
+    │  ○    ●        │  ○    ●        │  ○    ●
+    │    ╱           │╲               │     │
+    │  ╱             │  ╲             │     │
+    │╱               │    ╲           │     │
+    ├──●────○──      ├──●────○──      ├──●────○──
+
+    ❌ Wrong         ❌ Wrong         ❌ Wrong
 ```
 
 **XOR is NOT linearly separable!**
 
----
-
-# The Historical Impact
-
-**1969:** Minsky & Papert proved perceptrons can't solve XOR.
-
-| Before 1969 | After 1969 |
-|-------------|------------|
-| "Neural networks will solve everything!" | "Neural networks are useless" |
-| Lots of funding | "AI Winter" - funding cut |
-| Active research | Field nearly died |
-
-**Solution discovered:** Multi-layer networks! (But took until 1986)
+Linear regression, logistic regression → **CAN'T solve this!**
 
 ---
 
-# The Solution: Multiple Layers
+# Why This Matters
 
-**Key insight:** Transform the space so XOR becomes separable!
+**Many real problems are like XOR:**
+
+| Problem | Why It's Non-Linear |
+|---------|---------------------|
+| Face recognition | A face isn't just "eyes + nose + mouth" in a line |
+| Speech recognition | Sounds combine in complex ways |
+| Image classification | Objects have complex shapes |
+
+**We need models that can learn CURVES, not just LINES!**
+
+---
+
+# The Solution: Combine Simple Units
+
+**Key insight:** One linear model can't solve XOR.
+
+**But what if we combine MULTIPLE linear models?**
 
 ```
-Original Space:               After Hidden Layer:
-    │  ○    ●                     │  ●    ●
-    │                             │      ╱
-    │                 TRANSFORM   │    ╱
-    │                    →        │  ╱
-    ├──●────○──                   ├──○────○──
-
-    Can't separate               Now we CAN draw a line!
+Input → [Linear Unit 1] ─┐
+                         ├→ [Combine] → Output
+Input → [Linear Unit 2] ─┘
 ```
+
+This is the neural network idea!
 
 ---
 
-# Inspiration from Biology
+<!-- _class: section-divider -->
 
-**The brain has ~86 billion neurons, each connected to ~10,000 others.**
+# Part 2: The Neuron
 
-| Biological Neuron | Artificial Neuron |
-|-------------------|-------------------|
-| Receives signals via dendrites | Receives inputs (x₁, x₂, ...) |
-| Processes in cell body | Computes weighted sum |
-| Fires if threshold exceeded | Applies activation function |
-| Sends signal via axon | Produces output |
-| Connections strengthen with use | Weights updated during training |
+## The Building Block
+
+---
+
+# Inspiration: The Brain
+
+**Your brain has ~86 billion neurons**
+
+Each neuron:
+1. Receives signals from other neurons
+2. Processes them
+3. Decides whether to "fire" (send a signal)
+
+```
+Inputs → [Processing] → Fire or Not?
+```
 
 ---
 
@@ -172,228 +159,61 @@ Original Space:               After Hidden Layer:
 Inputs        Weights       Sum          Activation    Output
   x₁ ─────────[w₁]────╲
                         ╲
-  x₂ ─────────[w₂]──────(Σ)───────[f]──────────▶ y
+  x₂ ─────────[w₂]──────(+)───────[f]──────────▶ y
                         ╱
   x₃ ─────────[w₃]────╱
                        │
                       [b] (bias)
-
-          z = w₁x₁ + w₂x₂ + w₃x₃ + b
-          y = f(z)
 ```
 
----
-
-<!-- _class: section-divider -->
-
-# Part 2: The Perceptron
-
-## The Simplest Neural Network
+**Two steps:**
+1. **Weighted sum:** $z = w_1 x_1 + w_2 x_2 + w_3 x_3 + b$
+2. **Activation:** $y = f(z)$
 
 ---
 
-# The Perceptron (Frank Rosenblatt, 1958)
+# Weights = Importance
 
-**The first artificial neural network!**
+Each weight says "how important is this input?"
 
-$$z = \sum_{i=1}^{n} w_i x_i + b = \mathbf{w}^T \mathbf{x} + b$$
+| Input | Weight | Meaning |
+|-------|--------|---------|
+| $x_1$ (has "FREE") | $w_1 = 2.0$ | Very important for spam |
+| $x_2$ (has images) | $w_2 = 0.5$ | Slightly matters |
+| $x_3$ (from friend) | $w_3 = -1.5$ | Reduces spam likelihood |
 
-$$y = \text{activation}(z)$$
-
-| Component | Symbol | Meaning |
-|-----------|--------|---------|
-| Inputs | $x_1, x_2, ...$ | Features |
-| Weights | $w_1, w_2, ...$ | Importance of each input |
-| Bias | $b$ | Threshold adjustment |
-| Activation | $f$ | Non-linear function |
+**Weights are LEARNED from data!**
 
 ---
 
-# Perceptron: A Concrete Example
+# Bias = Threshold
 
-**Task:** Classify emails as spam (1) or not spam (0)
+The bias shifts the decision point.
 
-| Input | Meaning | Value |
-|-------|---------|-------|
-| $x_1$ | Has "FREE" | 1 |
-| $x_2$ | Has attachment | 0 |
-| $x_3$ | From known contact | 0 |
+$$z = w_1 x_1 + w_2 x_2 + b$$
 
-**Weights (learned):** $w_1 = 2.0$, $w_2 = 0.5$, $w_3 = -1.5$, $b = -0.5$
-
-$$z = 2.0(1) + 0.5(0) + (-1.5)(0) + (-0.5) = 1.5$$
-
-If z > 0 → Spam! ✓
+| Bias | Effect |
+|------|--------|
+| $b = 0$ | Needs positive evidence to fire |
+| $b = 5$ | Fires easily (biased toward yes) |
+| $b = -5$ | Hard to fire (biased toward no) |
 
 ---
 
-# Perceptron in Python
+# The Activation Function
 
-```python
-import numpy as np
+**Why do we need it?**
 
-def perceptron(x, w, b):
-    """Single perceptron with step activation."""
-    z = np.dot(w, x) + b    # Weighted sum
-    return 1 if z > 0 else 0  # Step activation
+Without activation:
+$$\text{Layer 2}(\text{Layer 1}(x)) = W_2(W_1 x) = (W_2 W_1)x$$
 
-# Example
-x = np.array([1, 0, 0])        # Has FREE, no attachment, unknown sender
-w = np.array([2.0, 0.5, -1.5]) # Learned weights
-b = -0.5                        # Learned bias
-
-output = perceptron(x, w, b)    # → 1 (spam)
-```
-
----
-
-# The Step Activation Function
-
-$$f(z) = \begin{cases} 1 & \text{if } z > 0 \\ 0 & \text{otherwise} \end{cases}$$
-
-```
-output
-   │
- 1 ┼────────┬───────────
-   │        │
-   │        │
- 0 ┼────────┴───────────
-   └────────┼───────────▶ z
-            0
-```
-
-**Problem:** Not differentiable at z=0 (can't use calculus!)
-
----
-
-# What Can a Single Perceptron Learn?
-
-| Function | Can Learn? | Why |
-|----------|------------|-----|
-| AND | ✅ Yes | Linearly separable |
-| OR | ✅ Yes | Linearly separable |
-| NOT | ✅ Yes | Linearly separable |
-| **XOR** | ❌ No | Not linearly separable |
-
-**Single perceptron = Linear decision boundary**
-
----
-
-# Perceptron Learning (AND Gate)
-
-```
-              Goal: Output 1 only when BOTH inputs are 1
-
-              x₂
-               │
-             1 ├──○──────●──    ○ = 0, ● = 1
-               │    ╲
-               │      ╲  ← Decision boundary
-             0 ├──○──────○──
-               └──┼──────┼──▶ x₁
-                  0      1
-
-              Perceptron CAN learn this line!
-              Weights: w₁=1, w₂=1, b=-1.5
-              z = x₁ + x₂ - 1.5 > 0  only when both are 1
-```
-
----
-
-<!-- _class: section-divider -->
-
-# Part 3: Activation Functions
-
-## The Secret to Non-Linearity
-
----
-
-# Why Do We Need Activation Functions?
-
-**Without activation, stacking layers is useless!**
-
-$$\text{Layer 1: } h = W_1 x + b_1$$
-$$\text{Layer 2: } y = W_2 h + b_2$$
-$$\text{Combined: } y = W_2(W_1 x + b_1) + b_2 = \underbrace{(W_2 W_1)}_{W'} x + \underbrace{(W_2 b_1 + b_2)}_{b'}$$
-
-**Still linear!** Multiple layers collapse to one.
-
----
-
-# The Magic of Non-Linearity
-
-**With activation:**
-
-$$h = \text{ReLU}(W_1 x + b_1)$$
-$$y = W_2 h + b_2$$
-
-**Cannot simplify!** The ReLU breaks the linearity.
+**Still a linear function!** Stacking linear = still linear.
 
 <div class="insight">
 
-Activation functions allow networks to learn **curves**, not just lines!
+**Activation functions add non-linearity → Networks can learn curves!**
 
 </div>
-
----
-
-# Sigmoid Activation
-
-$$\sigma(z) = \frac{1}{1 + e^{-z}}$$
-
-```
-σ(z)
-  1 ┼                ●●●●●●●●●
-    │            ●●●
-0.5 ┼─────────●●●────────────
-    │     ●●●
-  0 ┼●●●●●
-    └────┼────┼────┼────┼────▶ z
-        -4   -2    0    2    4
-```
-
-| Property | Value |
-|----------|-------|
-| Output range | (0, 1) |
-| At z=0 | 0.5 |
-| As z→+∞ | → 1 |
-| As z→-∞ | → 0 |
-
----
-
-# Sigmoid: Pros and Cons
-
-| Pros | Cons |
-|------|------|
-| Output is probability-like (0-1) | **Vanishing gradient** (saturates) |
-| Smooth, differentiable | Outputs not centered at 0 |
-| Historically important | Computationally expensive (exp) |
-
-**Vanishing gradient:** When z is very large or small, gradient ≈ 0
-→ Network stops learning!
-
----
-
-# Tanh Activation
-
-$$\tanh(z) = \frac{e^z - e^{-z}}{e^z + e^{-z}}$$
-
-```
-tanh(z)
-  1 ┼                ●●●●●●●●●
-    │            ●●●
-  0 ┼─────────●●●────────────
-    │     ●●●
- -1 ┼●●●●●
-    └────┼────┼────┼────┼────▶ z
-        -4   -2    0    2    4
-```
-
-| Property | Value |
-|----------|-------|
-| Output range | (-1, 1) |
-| Zero-centered | ✅ Yes |
-| Vanishing gradient | Still a problem |
 
 ---
 
@@ -402,75 +222,69 @@ tanh(z)
 $$\text{ReLU}(z) = \max(0, z)$$
 
 ```
-ReLU(z)
+Output
     │           ╱
   4 ┼         ╱
     │       ╱
   2 ┼     ╱
     │   ╱
   0 ┼──●────────────────
-    └──┼────┼────┼────┼──▶ z
+    └──┼────┼────┼────┼──▶ Input z
       -2    0    2    4
 ```
 
-| Property | Value |
-|----------|-------|
-| Output range | [0, ∞) |
-| Gradient (z>0) | 1 (constant!) |
-| Gradient (z<0) | 0 |
+**Simple rule:** If positive, pass through. If negative, output 0.
 
 ---
 
-# ReLU: Pros and Cons
+# Why ReLU is Great
 
-| Pros | Cons |
-|------|------|
-| **No vanishing gradient** (z>0) | "Dead neurons" (z<0 forever) |
-| Very fast (just max) | Not zero-centered |
-| Sparse activation (many zeros) | Unbounded output |
-| Works extremely well in practice | |
-
-<div class="insight">
-
-**Use ReLU by default!** It's the standard for hidden layers.
-
-</div>
+| Property | Why It Matters |
+|----------|---------------|
+| **Super simple** | Just `max(0, z)` — very fast! |
+| **No saturation** | For positive z, gradient is always 1 |
+| **Sparse** | Many zeros → efficient |
+| **Works!** | Default choice for most networks |
 
 ---
 
-# ReLU Variants
+# Other Activation Functions
 
-| Variant | Formula | Fixes |
-|---------|---------|-------|
-| Leaky ReLU | max(0.01z, z) | Dead neurons |
-| ELU | z if z>0, else α(eᶻ-1) | Smoothness |
-| GELU | z·Φ(z) | Used in transformers |
-| Swish | z·σ(z) | Used in EfficientNet |
+| Function | Use Case |
+|----------|----------|
+| **ReLU** | Hidden layers (default) |
+| **Sigmoid** | Binary output (probability 0-1) |
+| **Softmax** | Multi-class output (probabilities that sum to 1) |
+| **Linear** | Regression output (any number) |
+
+**For now, just remember:** ReLU for hidden layers!
+
+---
+
+# A Single Neuron in Python
 
 ```python
-# In PyTorch
-F.relu(x)
-F.leaky_relu(x, negative_slope=0.01)
-F.gelu(x)
+import numpy as np
+
+def neuron(x, w, b):
+    """A single neuron with ReLU activation."""
+    z = np.dot(w, x) + b    # Weighted sum
+    return max(0, z)         # ReLU activation
+
+# Example: Spam detection
+x = [1, 0, 0]                # Has "FREE", no images, unknown sender
+w = [2.0, 0.5, -1.5]         # Learned weights
+b = -0.5                      # Learned bias
+
+output = neuron(x, w, b)      # = max(0, 2*1 + 0.5*0 - 1.5*0 - 0.5)
+print(output)                 # = max(0, 1.5) = 1.5
 ```
-
----
-
-# Activation Function Summary
-
-| Function | Use Case | Range |
-|----------|----------|-------|
-| **ReLU** | Hidden layers (default) | [0, ∞) |
-| **Sigmoid** | Binary classification output | (0, 1) |
-| **Tanh** | RNNs, specific architectures | (-1, 1) |
-| **Softmax** | Multi-class output | (0, 1), sums to 1 |
-| **Linear** | Regression output | (-∞, ∞) |
 
 ---
 
 <!-- _class: section-divider -->
 
-# Part 4: Multi-Layer Networks
+# Part 3: Multi-Layer Networks
 
 ## Going Deep
 
@@ -484,208 +298,175 @@ Input Layer      Hidden Layer       Output Layer
 
    ○ ─────────╲
               ─○───────╲
-   ○ ─────────╳      ○────▶ output 1
+   ○ ─────────╳      ○────▶ Class A probability
               ─○───────╱
-   ○ ─────────╱      ○────▶ output 2
+   ○ ─────────╱      ○────▶ Class B probability
               ─○──────╱
 
   Features      Learned         Predictions
-               features
+               "features"
 ```
 
 ---
 
-# How Information Flows
+# Why Hidden Layers?
+
+**Input layer:** Raw features (pixels, words, numbers)
+**Hidden layers:** Learn useful patterns automatically!
+**Output layer:** Final prediction
+
+| Layer | What It Learns |
+|-------|----------------|
+| Hidden 1 | Simple patterns (edges, basic shapes) |
+| Hidden 2 | Combinations (corners, textures) |
+| Hidden 3 | Complex patterns (faces, objects) |
+
+---
+
+# Solving XOR with 2 Layers!
 
 ```python
-# Input: x (shape: 3)
-# Hidden: 4 neurons
-# Output: 2 classes
-
-# Layer 1: Linear + Activation
-z1 = W1 @ x + b1      # Shape: (4,)  - Linear transform
-h1 = relu(z1)          # Shape: (4,)  - Non-linearity
-
-# Layer 2: Linear + Activation
-z2 = W2 @ h1 + b2     # Shape: (2,)  - Linear transform
-output = softmax(z2)   # Shape: (2,)  - Probabilities
+# XOR Network: 2 inputs → 2 hidden → 1 output
+#
+# The hidden layer transforms the space:
+#
+# Original:              After hidden layer:
+#     ○    ●                  ●    ●
+#                    →
+#     ●    ○                  ○    ○
+#
+# Now a line CAN separate them!
 ```
 
----
-
-# Weight Matrix Dimensions
-
-| From | To | Weight Shape | Bias Shape |
-|------|----|--------------| -----------|
-| 3 inputs | 4 hidden | (4, 3) | (4,) |
-| 4 hidden | 2 outputs | (2, 4) | (2,) |
-
-```python
-# Total parameters:
-# W1: 4 × 3 = 12
-# b1: 4
-# W2: 2 × 4 = 8
-# b2: 2
-# Total: 26 parameters to learn!
-```
+**Hidden layers transform data into a space where it becomes separable!**
 
 ---
 
-# Why Multiple Layers Work
+# How Deep?
 
-**Layer 1:** Learn simple features (edges, colors)
-**Layer 2:** Combine into patterns (shapes, textures)
-**Layer 3:** Combine into objects (faces, cars)
+| Depth | What It Can Learn | Examples |
+|-------|-------------------|----------|
+| 1 layer | Linear functions | Linear regression |
+| 2-3 layers | Simple curves | XOR, basic patterns |
+| 10+ layers | Complex patterns | Image classification |
+| 100+ layers | Very complex | GPT, state-of-the-art |
 
-```
-Raw Pixels → [Edges] → [Shapes] → [Objects] → Class
-                ↑          ↑          ↑
-             Layer 1    Layer 2    Layer 3
-```
+<div class="insight">
 
-**Each layer builds on the previous!**
+**Deeper networks can learn more complex patterns!**
 
----
-
-# Universal Approximation Theorem
-
-**Theorem (Cybenko, 1989):**
-
-*A neural network with a single hidden layer can approximate any continuous function to arbitrary accuracy.*
-
-| Catch | Reality |
-|-------|---------|
-| May need infinitely many neurons | Deep > Wide in practice |
-| Doesn't say how to find weights | Training is still hard |
-| Doesn't guarantee generalization | More depth helps |
-
----
-
-# Deep Networks: Why More Layers?
-
-| Layers | What It Can Learn | Examples |
-|--------|-------------------|----------|
-| 1 | Linear functions | Linear regression |
-| 2 | Simple curves | XOR, simple patterns |
-| 3-10 | Complex functions | MNIST, tabular data |
-| 10-100 | Hierarchical patterns | ImageNet, NLP |
-| 100+ | Very complex | GPT, state-of-the-art |
-
----
-
-# Solving XOR with 2 Layers
-
-```python
-# Architecture: 2 → 2 → 1
-# Input: [x₁, x₂]
-# Hidden: 2 neurons with ReLU
-# Output: 1 neuron with sigmoid
-
-# Hidden layer transforms space:
-# (0,0) → hidden representation
-# (0,1) → hidden representation
-# (1,0) → hidden representation
-# (1,1) → hidden representation
-
-# Output layer draws a line in the NEW space!
-```
-
----
-
-# Softmax: Multi-Class Output
-
-**Problem:** Network outputs raw scores (logits). How to get probabilities?
-
-$$\text{softmax}(z_i) = \frac{e^{z_i}}{\sum_{j=1}^{K} e^{z_j}}$$
-
-| Logits | Softmax |
-|--------|---------|
-| [2.0, 1.0, 0.1] | [0.66, 0.24, 0.10] |
-
-**Properties:**
-- All outputs between 0 and 1
-- All outputs sum to 1
-- Largest logit → highest probability
-
----
-
-# Common Architectures
-
-| Task | Input | Hidden | Output Activation |
-|------|-------|--------|-------------------|
-| Binary Classification | Features | ReLU layers | Sigmoid (1 neuron) |
-| Multi-class (10 classes) | Features | ReLU layers | Softmax (10 neurons) |
-| Regression | Features | ReLU layers | Linear (1 neuron) |
+</div>
 
 ---
 
 <!-- _class: section-divider -->
 
-# Part 5: Training Neural Networks
+# Part 4: How Networks Learn
 
-## How Do Networks Learn?
+## The Training Process
 
 ---
 
-# The Training Process
+# The Big Picture
 
 ```
-┌─────────────────────────────────────────────────────────┐
-│                    TRAINING LOOP                         │
-│                                                          │
-│   1. FORWARD PASS  │  Compute prediction from input      │
-│          ↓         │                                     │
-│   2. COMPUTE LOSS  │  How wrong are we?                  │
-│          ↓         │                                     │
-│   3. BACKWARD PASS │  Which weights caused the error?    │
-│          ↓         │                                     │
-│   4. UPDATE WEIGHTS│  Adjust to reduce error             │
-│          ↓         │                                     │
-│   5. REPEAT        │  Until loss is small enough         │
-└─────────────────────────────────────────────────────────┘
+┌────────────────────────────────────────────────┐
+│                 TRAINING LOOP                   │
+│                                                 │
+│   1. FORWARD: Input → Prediction               │
+│          ↓                                      │
+│   2. LOSS: How wrong are we?                   │
+│          ↓                                      │
+│   3. BACKWARD: Which weights caused errors?    │
+│          ↓                                      │
+│   4. UPDATE: Adjust weights                    │
+│          ↓                                      │
+│   5. REPEAT until good enough                  │
+└────────────────────────────────────────────────┘
 ```
 
 ---
 
-# Loss Functions: Measuring Error
+# Step 1: Forward Pass
 
-| Task | Loss Function | Formula |
-|------|---------------|---------|
-| Regression | MSE | $\frac{1}{n}\sum(y - \hat{y})^2$ |
-| Binary Class. | Binary Cross-Entropy | $-[y\log\hat{y} + (1-y)\log(1-\hat{y})]$ |
-| Multi-class | Cross-Entropy | $-\sum_c y_c \log(\hat{y}_c)$ |
+**Feed input through the network:**
 
-**Lower loss = Better predictions!**
+```python
+# Input: image of a cat
+x = [pixel values...]
 
----
+# Layer 1: Detect edges
+h1 = relu(W1 @ x + b1)
 
-# Cross-Entropy Loss Intuition
+# Layer 2: Detect shapes
+h2 = relu(W2 @ h1 + b2)
 
-**If true label is class 0:**
-
-| Prediction for class 0 | Loss |
-|-----------------------|------|
-| 0.99 (confident, correct) | 0.01 |
-| 0.50 (unsure) | 0.69 |
-| 0.01 (confident, WRONG) | 4.60 |
-
-**Severely punishes confident wrong predictions!**
+# Output: Class probabilities
+output = softmax(W3 @ h2 + b3)
+# → [0.9, 0.1]  = 90% cat, 10% dog
+```
 
 ---
 
-# Gradient Descent: The Key Idea
+# Step 2: Compute Loss
 
-**Goal:** Find weights that minimize loss.
+**How wrong is our prediction?**
 
-**Method:** Follow the slope downhill.
+| True Label | Prediction | Loss |
+|------------|------------|------|
+| Cat (100%) | 90% cat | Small (good!) |
+| Cat (100%) | 10% cat | Large (bad!) |
 
-$$w_{\text{new}} = w_{\text{old}} - \eta \cdot \frac{\partial \text{Loss}}{\partial w}$$
+**Common loss functions:**
+- **Cross-entropy:** For classification
+- **MSE:** For regression
+
+---
+
+# Loss Intuition
+
+**Cross-entropy loss:**
+
+| Prediction for correct class | Loss |
+|-----------------------------|------|
+| 99% confident | 0.01 (very good!) |
+| 50% confident | 0.69 (uncertain) |
+| 1% confident | 4.6 (very wrong!) |
+
+**Punishes confident wrong predictions severely!**
+
+---
+
+# Step 3: Backward Pass (Backpropagation)
+
+**Key question:** Which weights caused the error?
+
+**Answer:** Use calculus to trace the error backward!
+
+```
+Output error = 0.5
+    ↓ (blame W3 partially)
+Hidden 2 error = 0.3
+    ↓ (blame W2 partially)
+Hidden 1 error = 0.1
+    ↓ (blame W1 partially)
+```
+
+**Each weight gets a "gradient" = how much it contributed to the error**
+
+---
+
+# Step 4: Update Weights
+
+**Gradient descent:** Move weights to reduce loss
+
+$$w_{\text{new}} = w_{\text{old}} - \eta \times \text{gradient}$$
 
 | Symbol | Meaning |
 |--------|---------|
-| $w$ | Weight to update |
+| $w$ | Weight |
 | $\eta$ | Learning rate (step size) |
-| $\frac{\partial \text{Loss}}{\partial w}$ | Gradient (slope) |
+| gradient | Direction to move |
 
 ---
 
@@ -695,144 +476,62 @@ $$w_{\text{new}} = w_{\text{old}} - \eta \cdot \frac{\partial \text{Loss}}{\part
 Loss
   │
   │╲
-  │  ╲   ← Start here (random weights)
+  │  ╲   ← Start (random weights)
   │    ╲
-  │      ●→→→→→●
-  │              ╲
-  │                ╲
-  │                  ●   ← End here (optimal weights)
-  └──────────────────────▶ w
+  │      ●→→●
+  │          ╲
+  │            ╲
+  │              ●   ← End (good weights!)
+  └──────────────────▶ weight value
 ```
 
-**Each step moves toward the minimum!**
+**Follow the slope downhill to minimize loss!**
 
 ---
 
-# Learning Rate: Crucial Choice
+# Learning Rate: The Step Size
 
 ```
-Too Small (η=0.0001)    Just Right (η=0.01)    Too Large (η=1.0)
-   │                       │                       │
-   │●                      │●                      │●      ●
-   │ ↘                     │  ↘                    │  ↘  ↗
-   │  ●                    │    ●                  │    ●
-   │   ↘                   │     ↘                 │
-   │    ●                  │      ●                │
-   │     ↘                 │                       │
-   │      ...              │                       │
-   │        (slow!)        │    (converges)        │  (diverges!)
+Too Small (slow):     Just Right:          Too Large (unstable):
+   ●                    ●                         ●
+    ↘                    ↘                        ↘  ↗
+     ●                    ●                          ●
+      ↘                    ↘                        ↘
+       ●                    ●                          ↗
+        ↘                                           ●
+         ...
+   (takes forever)    (converges!)            (explodes!)
 ```
+
+**Typical values:** 0.001, 0.01, 0.0001
 
 ---
 
-# Learning Rate Guidelines
-
-| Learning Rate | Effect |
-|---------------|--------|
-| 0.1 - 1.0 | Usually too large |
-| 0.01 - 0.001 | Good starting point |
-| 0.0001 - 0.00001 | Fine-tuning, large models |
-
-**Common practice:** Start high, decrease over time (learning rate schedule)
-
----
-
-# Backpropagation: Computing Gradients
-
-**Problem:** Network has millions of weights. How to compute all gradients?
-
-**Solution:** Chain rule applied backward!
-
-$$\frac{\partial \text{Loss}}{\partial w_1} = \frac{\partial \text{Loss}}{\partial y} \cdot \frac{\partial y}{\partial h} \cdot \frac{\partial h}{\partial w_1}$$
-
----
-
-# Backprop: Step by Step
-
-```
-Forward pass:
-    x ──[W₁]──▶ h ──[W₂]──▶ y ──▶ Loss = 2.5
-         ↓           ↓
-        h=3         y=1.2
-
-Backward pass (compute gradients):
-    ∂L/∂W₁ ◀── ∂L/∂h ◀── ∂L/∂y ◀── ∂L/∂Loss = 1
-         │         │         │
-        0.4       0.3       0.5
-
-Then update:
-    W₁ = W₁ - η × 0.4
-    W₂ = W₂ - η × 0.3
-```
-
----
-
-# Stochastic Gradient Descent (SGD)
-
-**Full Batch GD:** Use ALL data to compute gradient (slow!)
-
-**SGD:** Use small random batch each step
-
-| Approach | Batch Size | Pros | Cons |
-|----------|------------|------|------|
-| Full Batch | All data | Stable | Very slow, memory |
-| Mini-Batch | 32-256 | Fast, stable | Good default |
-| Pure SGD | 1 | Very fast | Noisy, unstable |
-
----
-
-# Epochs and Batches
-
-**Epoch:** One pass through entire dataset
-
-**Batch:** Subset of data used for one gradient update
-
-```
-Dataset: 10,000 samples
-Batch size: 100
-
-Batches per epoch = 10,000 / 100 = 100 updates
-
-5 epochs = 500 total updates
-```
-
----
-
-# Better Optimizers Than SGD
-
-| Optimizer | Key Idea | When to Use |
-|-----------|----------|-------------|
-| **SGD** | Basic gradient descent | Simple, stable baseline |
-| **Momentum** | Use past gradients | Faster convergence |
-| **Adam** | Adaptive learning rate | **Default choice** |
-| **AdamW** | Adam + weight decay | State-of-the-art |
+# The Training Loop Summary
 
 ```python
-# In PyTorch:
-optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
+for epoch in range(num_epochs):
+    for batch in data:
+        # 1. Forward pass
+        predictions = model(batch.inputs)
+
+        # 2. Compute loss
+        loss = loss_function(predictions, batch.labels)
+
+        # 3. Backward pass (compute gradients)
+        loss.backward()
+
+        # 4. Update weights
+        optimizer.step()
 ```
 
----
-
-# Adam: Why It Works
-
-**Adam combines:**
-
-1. **Momentum:** Remember past gradients (don't zigzag)
-2. **RMSProp:** Adapt learning rate per parameter
-
-**Result:** Works well with minimal tuning!
-
-```python
-# Adam is the default choice
-optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
-```
+**That's it!** This is how ALL neural networks train.
 
 ---
 
 <!-- _class: section-divider -->
 
-# Part 6: PyTorch Basics
+# Part 5: PyTorch Basics
 
 ## From Theory to Code
 
@@ -842,11 +541,10 @@ optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
 
 | Feature | Benefit |
 |---------|---------|
-| **Dynamic graphs** | Debug like normal Python |
-| **Autograd** | Automatic gradient computation |
-| **GPU support** | 10-100x faster training |
-| **Rich ecosystem** | Torchvision, HuggingFace, etc. |
-| **Industry standard** | Tesla, Meta, OpenAI |
+| **Automatic gradients** | No manual calculus! |
+| **GPU support** | 10-100x faster |
+| **Industry standard** | Used by Tesla, Meta, OpenAI |
+| **Easy debugging** | Works like normal Python |
 
 ```python
 import torch
@@ -861,35 +559,21 @@ import torch.nn as nn
 import torch
 
 # Create tensors
-x = torch.tensor([1.0, 2.0, 3.0])          # From list
-y = torch.zeros(3, 4)                       # 3×4 of zeros
-z = torch.randn(3, 4)                       # Random normal
+x = torch.tensor([1.0, 2.0, 3.0])
+y = torch.zeros(3, 4)         # 3×4 of zeros
+z = torch.randn(3, 4)         # Random numbers
 
 # Operations (like numpy!)
-a = x + 1                                   # Add scalar
-b = x @ y                                   # Matrix multiply
-c = x.sum()                                 # Reduce
+result = x + 1                # Add scalar
+product = x @ y               # Matrix multiply
 
-# Move to GPU
-x_gpu = x.to('cuda')  # or x.cuda()
+# Move to GPU (if available)
+x_gpu = x.cuda()
 ```
 
 ---
 
-# Tensor Properties
-
-```python
-x = torch.randn(3, 4, 5)
-
-print(x.shape)       # torch.Size([3, 4, 5])
-print(x.dtype)       # torch.float32
-print(x.device)      # cpu (or cuda:0)
-print(x.requires_grad)  # False by default
-```
-
----
-
-# Automatic Differentiation
+# Automatic Gradients
 
 **PyTorch computes gradients automatically!**
 
@@ -897,209 +581,145 @@ print(x.requires_grad)  # False by default
 # Create tensor that tracks gradients
 x = torch.tensor([2.0], requires_grad=True)
 
-# Forward pass: compute y = x² + 3x + 1
-y = x**2 + 3*x + 1
+# Forward: compute y = x² + 3x
+y = x**2 + 3*x
 
-# Backward pass: compute dy/dx
+# Backward: compute dy/dx automatically!
 y.backward()
 
-# Gradient is stored in x.grad
 print(x.grad)  # tensor([7.])
-# Because dy/dx = 2x + 3 = 2(2) + 3 = 7
+# Because dy/dx = 2x + 3 = 2(2) + 3 = 7 ✓
 ```
 
 ---
 
-# Building Networks: nn.Module
+# Building a Network
 
 ```python
 import torch.nn as nn
 
-class SimpleNetwork(nn.Module):
+class SimpleNet(nn.Module):
     def __init__(self):
         super().__init__()
-        self.fc1 = nn.Linear(784, 256)   # Input → Hidden
-        self.fc2 = nn.Linear(256, 10)    # Hidden → Output
+        self.layer1 = nn.Linear(784, 128)  # Input → Hidden
+        self.layer2 = nn.Linear(128, 10)   # Hidden → Output
 
     def forward(self, x):
-        x = torch.relu(self.fc1(x))      # Hidden + ReLU
-        x = self.fc2(x)                   # Output (logits)
+        x = torch.relu(self.layer1(x))     # ReLU activation
+        x = self.layer2(x)                  # Output (logits)
         return x
 
-model = SimpleNetwork()
+model = SimpleNet()
 ```
 
 ---
 
-# nn.Linear: The Linear Layer
+# Easier: nn.Sequential
 
 ```python
-# nn.Linear(in_features, out_features)
-layer = nn.Linear(3, 4)
-
-# Has learnable parameters:
-print(layer.weight.shape)  # (4, 3)
-print(layer.bias.shape)    # (4,)
-
-# Forward pass:
-x = torch.randn(2, 3)  # Batch of 2, 3 features each
-y = layer(x)            # → shape (2, 4)
-```
-
----
-
-# nn.Sequential: Quick Networks
-
-```python
-# Same network, less code:
+# Same network, simpler code:
 model = nn.Sequential(
-    nn.Linear(784, 256),
-    nn.ReLU(),
-    nn.Linear(256, 128),
-    nn.ReLU(),
-    nn.Linear(128, 10)
+    nn.Linear(784, 128),    # Input → Hidden
+    nn.ReLU(),              # Activation
+    nn.Linear(128, 10)      # Hidden → Output
 )
 
-# Forward pass
-x = torch.randn(32, 784)  # Batch of 32 images
-output = model(x)          # → shape (32, 10)
+# Use it:
+x = torch.randn(32, 784)    # Batch of 32 images
+output = model(x)            # Shape: (32, 10)
 ```
 
 ---
 
-# The Training Loop
+# The Complete Training Loop
 
 ```python
-# 1. Create model, loss, optimizer
-model = SimpleNetwork()
+# 1. Setup
+model = nn.Sequential(...)
 criterion = nn.CrossEntropyLoss()
 optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
 
-# 2. Training loop
-for epoch in range(num_epochs):
-    for batch_x, batch_y in dataloader:
-        # Forward pass
-        outputs = model(batch_x)
-        loss = criterion(outputs, batch_y)
+# 2. Training
+for epoch in range(10):
+    for images, labels in train_loader:
+        # Forward
+        outputs = model(images)
+        loss = criterion(outputs, labels)
 
-        # Backward pass
-        optimizer.zero_grad()   # Clear old gradients
-        loss.backward()         # Compute new gradients
+        # Backward
+        optimizer.zero_grad()   # Reset gradients
+        loss.backward()         # Compute gradients
         optimizer.step()        # Update weights
+
+    print(f"Epoch {epoch}: Loss = {loss.item():.4f}")
 ```
 
 ---
 
-# Understanding the Training Loop
+# Understanding Each Line
 
-| Line | What It Does |
+| Code | What It Does |
 |------|--------------|
-| `outputs = model(batch_x)` | Forward pass: input → prediction |
-| `loss = criterion(outputs, batch_y)` | Compute how wrong we are |
-| `optimizer.zero_grad()` | Reset gradients to zero |
-| `loss.backward()` | Backprop: compute all gradients |
+| `outputs = model(images)` | Forward pass |
+| `loss = criterion(...)` | Compute how wrong we are |
+| `optimizer.zero_grad()` | Clear old gradients |
+| `loss.backward()` | Compute new gradients (backprop) |
 | `optimizer.step()` | Update all weights |
 
 ---
 
-# Loading Data
+# Evaluating the Model
 
 ```python
-from torch.utils.data import DataLoader
-from torchvision import datasets, transforms
-
-# Define preprocessing
-transform = transforms.Compose([
-    transforms.ToTensor(),
-    transforms.Normalize((0.1307,), (0.3081,))
-])
-
-# Load MNIST
-train_data = datasets.MNIST('data', train=True,
-                            download=True, transform=transform)
-train_loader = DataLoader(train_data, batch_size=64, shuffle=True)
-
-# Iterate
-for images, labels in train_loader:
-    print(images.shape)  # (64, 1, 28, 28)
-    print(labels.shape)  # (64,)
-```
-
----
-
-# Complete MNIST Example
-
-```python
-# Model
-model = nn.Sequential(
-    nn.Flatten(),              # (batch, 1, 28, 28) → (batch, 784)
-    nn.Linear(784, 256),
-    nn.ReLU(),
-    nn.Linear(256, 10)
-)
-
-# Training
-criterion = nn.CrossEntropyLoss()
-optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
-
-for epoch in range(5):
-    for images, labels in train_loader:
-        outputs = model(images)
-        loss = criterion(outputs, labels)
-
-        optimizer.zero_grad()
-        loss.backward()
-        optimizer.step()
-
-    print(f"Epoch {epoch+1}, Loss: {loss.item():.4f}")
-```
-
----
-
-# Evaluation
-
-```python
-model.eval()  # Switch to evaluation mode (disables dropout, etc.)
+model.eval()  # Switch to evaluation mode
 correct = 0
 total = 0
 
-with torch.no_grad():  # Don't track gradients (saves memory)
+with torch.no_grad():  # Don't compute gradients
     for images, labels in test_loader:
         outputs = model(images)
-        _, predicted = outputs.max(1)  # Get class with highest score
+        _, predicted = outputs.max(1)  # Get predicted class
         total += labels.size(0)
         correct += (predicted == labels).sum().item()
 
-accuracy = 100 * correct / total
-print(f"Test Accuracy: {accuracy:.2f}%")  # ~97-98%
+print(f"Accuracy: {100 * correct / total:.1f}%")
 ```
 
 ---
 
-# Common Pitfalls
+# MNIST Example: Digit Recognition
 
-| Mistake | Symptom | Fix |
-|---------|---------|-----|
-| Forgot `zero_grad()` | Loss doesn't decrease | Add `optimizer.zero_grad()` |
-| Wrong input shape | Shape error | Check tensor dimensions |
-| Training with `no_grad()` | Loss stays constant | Remove `torch.no_grad()` |
-| Not calling `model.eval()` | Bad test accuracy | Add `model.eval()` |
-| Learning rate too high | Loss explodes (NaN) | Reduce learning rate |
+```python
+from torchvision import datasets, transforms
+
+# Load MNIST (handwritten digits)
+train_data = datasets.MNIST(
+    'data', train=True, download=True,
+    transform=transforms.ToTensor()
+)
+train_loader = DataLoader(train_data, batch_size=64, shuffle=True)
+
+# Model: 784 → 128 → 10
+model = nn.Sequential(
+    nn.Flatten(),           # 28×28 → 784
+    nn.Linear(784, 128),
+    nn.ReLU(),
+    nn.Linear(128, 10)
+)
+
+# Train and get ~97% accuracy!
+```
 
 ---
 
-# Key Takeaways
+# Common Mistakes to Avoid
 
-1. **Perceptron** = Linear model + activation (can't solve XOR alone)
-
-2. **Activation functions** add non-linearity (use **ReLU** by default)
-
-3. **Multiple layers** can approximate any function
-
-4. **Backpropagation** efficiently computes all gradients
-
-5. **PyTorch training loop:**
-   - Forward → Loss → zero_grad → Backward → Step
+| Mistake | Symptom | Fix |
+|---------|---------|-----|
+| Forgot `zero_grad()` | Loss doesn't decrease | Add it before `backward()` |
+| Forgot `model.eval()` | Bad test accuracy | Add before evaluation |
+| Learning rate too high | Loss goes to infinity | Try 0.001 or 0.0001 |
+| Wrong input shape | Shape error | Check your dimensions |
 
 ---
 
@@ -1114,11 +734,11 @@ model = nn.Sequential(
 )
 
 # 2. Define loss and optimizer
-criterion = nn.CrossEntropyLoss()   # For classification
+criterion = nn.CrossEntropyLoss()
 optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
 
 # 3. Training loop
-for epoch in range(num_epochs):
+for epoch in range(epochs):
     for x, y in dataloader:
         loss = criterion(model(x), y)
         optimizer.zero_grad()
@@ -1128,16 +748,48 @@ for epoch in range(num_epochs):
 
 ---
 
+# Key Takeaways
+
+1. **Neural networks solve non-linear problems** (like XOR)
+
+2. **A neuron = weighted sum + activation**
+   - Weights are learned, activation adds non-linearity
+
+3. **Hidden layers learn useful representations**
+   - More layers = more complex patterns
+
+4. **Training = Forward → Loss → Backward → Update**
+   - Gradient descent finds good weights
+
+5. **PyTorch makes this easy**
+   - Automatic gradients, GPU support, clean API
+
+---
+
+# What We Skipped (Advanced Topics)
+
+| Topic | What It Is |
+|-------|------------|
+| Batch normalization | Stabilize training |
+| Dropout | Prevent overfitting |
+| Advanced optimizers | Adam, AdamW internals |
+| Weight initialization | How to start training |
+| Regularization | L1, L2 penalties |
+
+*You'll learn these in advanced deep learning courses!*
+
+---
+
 <!-- _class: title-slide -->
 
 # Welcome to Deep Learning!
 
 ## Next: Computer Vision - How Machines See
 
-**Lab:** Build and train a neural network from scratch
-
-*"What I cannot create, I do not understand."*
-— Richard Feynman
+**Key takeaways:**
+- Neurons = weighted sum + activation
+- Hidden layers learn features automatically
+- Training = minimize loss via gradient descent
+- PyTorch: forward → loss → zero_grad → backward → step
 
 **Questions?**
-

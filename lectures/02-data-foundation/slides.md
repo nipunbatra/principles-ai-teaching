@@ -8,161 +8,215 @@ math: mathjax
 <!-- _class: title-slide -->
 <!-- _paginate: false -->
 
-# Data Foundation & ML Framework
+# Data Foundation
+# & ML Framework
 
-## Understanding Data, Paradigms, and Evaluation
+## The Building Blocks of Machine Learning
 
 **Nipun Batra** | IIT Gandhinagar
 
 ---
 
-# Learning Goals
+# Where We Are
 
-By the end of this lecture, you will be able to:
+| Lecture | Topic |
+|---------|-------|
+| 1 | What is AI? (videos, demos) |
+| **2** | **How does ML work? (today!)** |
+| 3 onwards | Building specific models |
 
-1. **Distinguish** traditional programming from machine learning
-2. **Identify** the three learning paradigms (supervised, unsupervised, RL)
-3. **Use** proper mathematical notation for ML
-4. **Differentiate** classification from regression
-5. **Explain** train/test split and why it matters
-6. **Apply** evaluation metrics to measure model performance
+**Today:** The foundation everything else builds on!
+
+---
+
+# Today's Big Questions
+
+1. What makes ML different from regular programming?
+2. What are the different ways machines can learn?
+3. How do we represent data for computers?
+4. How do we know if our model is good?
 
 ---
 
 <!-- _class: section-divider -->
 
-# Part 1: Traditional vs ML
+# Part 1: The ML Mindset
 
-## The Paradigm Shift
-
----
-
-# The Big Question
-
-Every AI/ML system answers **one fundamental question**:
-
-<div class="insight">
-
-**"Given some input, what should the output be?"**
-
-</div>
-
-| Input | Output | System |
-|-------|--------|--------|
-| Email text | Spam or Not Spam | Spam Filter |
-| Image | "Cat" or "Dog" | Image Classifier |
-| House features | Price (₹) | Price Predictor |
+## A New Way of Programming
 
 ---
 
 # Traditional Programming
 
-**You write the rules explicitly**
+**You write explicit rules:**
 
 ```
-Input: Email text
-Rules: IF "FREE" in email → Spam
-       IF "winner" in email → Spam
-       IF sender not in contacts AND links > 5 → Spam
-       ...
-Output: Spam or Not Spam
-```
+Problem: Determine if an email is spam
 
-**Problems:**
-- What about "Fr33" or "w1nner"?
-- Rules conflict with each other
-- Can't handle every variation
+Your Rules:
+  IF email contains "FREE MONEY" → Spam
+  IF email contains "You've won" → Spam
+  IF sender is unknown AND has attachment → Spam
+  ...
+```
 
 ---
 
-# Machine Learning Approach
+# The Problem with Rules
 
-**Let the computer learn the rules from examples!**
+**What about these?**
+
+| Email | Your Rule | Reality |
+|-------|-----------|---------|
+| "FR33 M0N3Y!!!" | Not spam ❌ | Spam! |
+| "Won tickets to concert" | Spam | Actually legit! |
+| "Free lunch in cafeteria" | Spam | Not spam! |
+
+**Spammers adapt. Rules break.**
+
+---
+
+# The ML Approach
+
+**Instead of writing rules... let the computer learn them!**
 
 ```python
-# Give it examples
-emails = [email1, email2, email3, ...]
-labels = ["spam", "not_spam", "spam", ...]
+# You provide examples
+emails = ["FREE MONEY!!!", "Meeting at 3pm", "You've won!", ...]
+labels = ["spam", "not spam", "spam", ...]
 
-# Model learns patterns itself
-model.fit(emails, labels)
+# Computer learns patterns
+model.learn(emails, labels)
 
-# Now it can predict new emails
-model.predict(new_email)  # → "spam"
+# Now it can classify NEW emails
+model.predict("FR33 M0N3Y")  # → "spam"
 ```
 
 <div class="insight">
-ML excels when patterns are complex or rules are hard to specify explicitly.
+
+**ML = Learning patterns from examples, not following explicit rules**
+
 </div>
 
 ---
 
-# What is Machine Learning?
+# The Key Difference
 
-> "A computer program is said to learn from **experience E** with respect to some class of **tasks T** and **performance measure P** if its performance at tasks in T, as measured by P, improves with experience E."
+| Traditional Programming | Machine Learning |
+|------------------------|------------------|
+| Human writes rules | Computer learns rules |
+| Rules are explicit | Rules are implicit (in the model) |
+| Doesn't improve | Improves with more data |
+| Breaks on edge cases | Generalizes to new cases |
+
+---
+
+# When to Use ML?
+
+**ML is great when:**
+
+| Scenario | Example |
+|----------|---------|
+| Rules are complex | Face recognition |
+| Rules change over time | Stock prediction |
+| Rules are unknown | Medical diagnosis |
+| There's lots of data | Language translation |
+
+**ML is NOT needed when:**
+- Rules are simple and fixed (calculator)
+- Data is scarce (rare diseases)
+
+---
+
+# The Formal Definition
+
+> "A computer program is said to **learn** from **experience E** with respect to some class of **tasks T** and **performance measure P** if its performance at tasks in T, as measured by P, improves with experience E."
 > — Tom Mitchell
 
-| Component | Example: Spam Detection |
-|-----------|------------------------|
+---
+
+# Breaking Down the Definition
+
+| Component | Spam Filter Example |
+|-----------|---------------------|
 | **Task (T)** | Classify emails as spam/not spam |
 | **Experience (E)** | Database of labeled emails |
-| **Performance (P)** | Accuracy on new emails |
+| **Performance (P)** | % of correctly classified emails |
+
+**Learning = Performance improves with Experience!**
 
 ---
 
 <!-- _class: section-divider -->
 
-# Part 2: Learning Paradigms
+# Part 2: How Machines Learn
 
-## Three Ways Machines Learn
+## Three Learning Paradigms
 
 ---
 
-# Three Learning Paradigms
+# Three Ways to Learn
 
-| Paradigm | Has Labels? | Learns From | Example |
-|----------|-------------|-------------|---------|
-| **Supervised** | ✓ Yes | Input + correct output | Spam detection |
-| **Unsupervised** | ✗ No | Just inputs | Customer grouping |
-| **Reinforcement** | Rewards | Actions + feedback | Game playing |
+| Paradigm | Teacher? | Example |
+|----------|----------|---------|
+| **Supervised** | Yes, provides answers | Spam detection |
+| **Unsupervised** | No, find patterns alone | Customer grouping |
+| **Reinforcement** | Gives rewards/punishments | Game playing |
 
 ---
 
 # Supervised Learning
 
-**Teacher provides correct answers**
+**Like learning with a teacher who tells you right/wrong**
 
 ```
-Training Data:
-  Email_1 → "spam"      (teacher says: spam)
-  Email_2 → "not_spam"  (teacher says: not spam)
-  Email_3 → "spam"      (teacher says: spam)
-  ...
+Teacher shows examples:
+  "This email is spam" ✓
+  "This email is not spam" ✓
+  "This email is spam" ✓
 
-Model learns: "Hmm, emails with these patterns tend to be spam..."
+Student (model) learns patterns...
 
-Test:
-  New_email → ?  (model predicts based on learned patterns)
+Later, student predicts on new email:
+  "I think this is spam!" (hopefully correct!)
 ```
+
+<div class="insight">
 
 **This course focuses primarily on supervised learning!**
+
+</div>
+
+---
+
+# Real Supervised Learning Examples
+
+| Task | Input | Output (label) |
+|------|-------|----------------|
+| Spam detection | Email text | Spam / Not spam |
+| Medical diagnosis | X-ray image | Disease / No disease |
+| House pricing | House features | Price (₹) |
+| Credit scoring | Customer info | Approve / Reject |
+| Weather | Historical data | Rain / No rain |
 
 ---
 
 # Unsupervised Learning
 
-**No labels — find hidden structure**
+**No labels! Find hidden patterns on your own**
 
 ```
-Data: Customer purchase histories (no labels!)
+Data: Purchase histories of 10,000 customers
 
-Algorithm discovers:
-  Group A: Buys electronics, tech gadgets
-  Group B: Buys groceries, household items
-  Group C: Buys books, stationery
+Algorithm discovers groups:
+  "Group A seems to buy electronics"
+  "Group B mostly buys groceries"
+  "Group C buys luxury items"
+
+Nobody TOLD it these groups exist!
 ```
 
-**Examples:** Clustering, dimensionality reduction, anomaly detection
+**Examples:** Customer segmentation, anomaly detection
 
 ---
 
@@ -171,76 +225,105 @@ Algorithm discovers:
 **Learn by trial and error with rewards**
 
 ```
-Agent (e.g., game AI) takes actions:
-  Action: Move left  → Reward: +1 (good move!)
-  Action: Move right → Reward: -10 (fell in pit!)
-  Action: Jump       → Reward: +100 (reached goal!)
+Game-playing AI:
+  Move left → +1 point (good!)
+  Move right → -10 points (fell in pit!)
+  Jump → +100 points (reached goal!)
 
-Agent learns: "Moving right in this situation is bad..."
+Over time, learns: "Don't move right near pits"
 ```
 
-**Examples:** Game AI (AlphaGo), robotics, autonomous driving
+**Examples:** AlphaGo, Self-driving cars, Robotics
 
 ---
 
-# Focus: Supervised Learning
+# Our Focus: Supervised Learning
 
-For most of this course, we'll study supervised learning:
+Supervised learning has two main types:
 
-| Task Type | Output | Examples |
-|-----------|--------|----------|
-| **Classification** | Category | Spam/Not spam, Cat/Dog |
-| **Regression** | Number | House price, Temperature |
+| Type | Output | Example |
+|------|--------|---------|
+| **Classification** | Category | "Cat" or "Dog" |
+| **Regression** | Number | House price: ₹45 lakhs |
 
 <div class="insight">
-Classification: "Which bucket?" vs Regression: "How much?"
+
+**Classification:** "Which bucket?"
+**Regression:** "How much?"
+
 </div>
+
+---
+
+# Classification Examples
+
+**Predict a category/class**
+
+| Input | Output | Classes |
+|-------|--------|---------|
+| Email | Spam or Not | 2 classes (binary) |
+| Image | Cat, Dog, Bird | 3+ classes (multi-class) |
+| Handwritten digit | 0, 1, 2, ..., 9 | 10 classes |
+| Movie review | Positive, Neutral, Negative | 3 classes |
+
+---
+
+# Regression Examples
+
+**Predict a continuous number**
+
+| Input | Output | Range |
+|-------|--------|-------|
+| House features | Price | ₹0 to ∞ |
+| Patient data | Blood pressure | 60-180 mmHg |
+| Weather history | Temperature | -20°C to 50°C |
+| Image | Person's age | 0-100 years |
+
+---
+
+# Quick Quiz: Classification or Regression?
+
+| Task | Type | Why? |
+|------|------|------|
+| Will it rain tomorrow? | Classification | Yes/No |
+| How many mm of rain? | Regression | A number |
+| What rating (1-5 stars)? | Either! | Ordered categories or continuous |
+| Which digit (0-9)? | Classification | 10 discrete categories |
 
 ---
 
 <!-- _class: section-divider -->
 
-# Part 3: Our First ML Problem
+# Part 3: Representing Data
 
-## Tomato Quality Prediction
+## Features, Labels, and Notation
 
 ---
 
-# Problem: Grocery Store Tomato Quality
+# A Concrete Example: Tomato Quality
 
-**Task:** Predict if a tomato is Good or Bad based on visual features
+**Problem:** Predict if a tomato is Good or Bad
 
-What visual features might be useful?
-- Size (Small, Medium, Large)
+**What information might help?**
 - Color (Red, Orange, Yellow)
+- Size (Small, Medium, Large)
 - Texture (Smooth, Rough)
 
+These are called **features** (inputs to our model).
+
 ---
 
-# Our Training Dataset
+# Our Tomato Dataset
 
-| Color | Size | Texture | **Condition** |
-|-------|------|---------|---------------|
+| Color | Size | Texture | **Quality** |
+|-------|------|---------|-------------|
 | Orange | Small | Smooth | Good |
 | Red | Small | Rough | Good |
 | Orange | Medium | Smooth | Bad |
 | Yellow | Large | Smooth | Bad |
 
 **Features (X):** Color, Size, Texture
-**Label (y):** Condition (what we want to predict)
-
----
-
-# Quick Check: Is Sample Number a Good Feature?
-
-| Sample # | Color | Size | Condition |
-|----------|-------|------|-----------|
-| 1 | Orange | Small | Good |
-| 2 | Red | Small | Good |
-| 3 | Orange | Medium | Bad |
-| 4 | Yellow | Large | Bad |
-
-**Answer:** No! Sample numbers are arbitrary identifiers, not meaningful for prediction.
+**Label (y):** Quality (what we want to predict)
 
 ---
 
@@ -248,162 +331,111 @@ What visual features might be useful?
 
 | Features (X) | Label (y) |
 |--------------|-----------|
-| What we observe | What we predict |
-| Inputs | Output |
+| What we observe | What we want to predict |
+| Input to the model | Output of the model |
+| Multiple columns | Usually one column |
 | Color, Size, Texture | Good/Bad |
 
-```python
-# In code:
-X = [["Orange", "Small", "Smooth"],
-     ["Red", "Small", "Rough"], ...]
+---
 
-y = ["Good", "Good", "Bad", "Bad"]
-```
+# Important: What Makes a Good Feature?
+
+**Good features:**
+- Color, Size, Texture → Related to quality!
+
+**Bad features:**
+- Sample number (1, 2, 3, 4) → Just an ID, meaningless!
+- Day of week you measured → Probably irrelevant
+
+<div class="warning">
+
+**Bad features confuse models.** Think about what's actually relevant!
+
+</div>
 
 ---
 
-<!-- _class: section-divider -->
+# Mathematical Notation
 
-# Part 4: Mathematical Notation
+**We need consistent symbols for ML**
 
-## Speaking the Language of ML
-
----
-
-# Why Notation Matters
-
-Computers work with numbers! We need consistent notation.
-
-| Term | Symbol | Description |
-|------|--------|-------------|
-| Number of samples | $n$ | How many examples |
-| Number of features | $d$ | How many input variables |
-| Feature matrix | $\mathbf{X}$ | All inputs (n × d) |
-| Label vector | $\mathbf{y}$ | All outputs (n × 1) |
-| Single sample | $\mathbf{x}_i$ | i-th input (d × 1) |
-| Single label | $y_i$ | i-th output |
+| Symbol | Meaning | Example |
+|--------|---------|---------|
+| $n$ | Number of samples | 4 tomatoes |
+| $d$ | Number of features | 3 (Color, Size, Texture) |
+| $\mathbf{X}$ | Feature matrix (all data) | 4 rows × 3 columns |
+| $\mathbf{y}$ | Label vector | [Good, Good, Bad, Bad] |
+| $\mathbf{x}_i$ | Single sample's features | Orange, Small, Smooth |
+| $y_i$ | Single sample's label | Good |
 
 ---
 
-# Notation Convention
+# The Convention
 
 <div class="insight">
 
 **Bold UPPERCASE** = Matrix: $\mathbf{X}, \mathbf{W}$
-**Bold lowercase** = Vector: $\mathbf{x}, \mathbf{y}$
+**Bold lowercase** = Vector: $\mathbf{x}, \mathbf{y}, \mathbf{w}$
 **Regular** = Scalar: $n, d, y_i$
 
 </div>
 
-Examples from our tomato dataset:
-- $n = 4$ (4 tomatoes)
-- $d = 3$ (3 features: Color, Size, Texture)
-- $\mathbf{X} \in \mathbb{R}^{4 \times 3}$ (after encoding)
-- $\mathbf{y} = [1, 1, 0, 0]^\top$ (Good=1, Bad=0)
+**Why this matters:** When you read ML papers or code, everyone uses these conventions!
 
 ---
 
-# Encoding Categories as Numbers
-
-**Problem:** "Orange", "Red" aren't numbers!
-
-**Solution:** One-hot encoding
-
-| Color | C_Red | C_Orange | C_Yellow |
-|-------|-------|----------|----------|
-| Orange | 0 | 1 | 0 |
-| Red | 1 | 0 | 0 |
-| Yellow | 0 | 0 | 1 |
-
-```python
-# In pandas:
-pd.get_dummies(df['Color'])
-```
-
----
-
-# The Complete Dataset
-
-After encoding, our dataset becomes:
-
-$$\mathbf{X} = \begin{bmatrix} 0 & 1 & 0 & 1 & 0 & 1 & 0 \\ 1 & 0 & 0 & 1 & 0 & 0 & 1 \\ 0 & 1 & 0 & 0 & 1 & 1 & 0 \\ 0 & 0 & 1 & 0 & 0 & 1 & 0 \end{bmatrix}, \quad \mathbf{y} = \begin{bmatrix} 1 \\ 1 \\ 0 \\ 0 \end{bmatrix}$$
-
-- $\mathbf{X} \in \mathbb{R}^{4 \times 7}$ (4 samples, 7 features after encoding)
-- $\mathbf{y} \in \mathbb{R}^{4}$ (4 labels)
-
----
-
-# The Dataset
+# The Dataset Notation
 
 $$\mathcal{D} = \{(\mathbf{x}_i, y_i)\}_{i=1}^{n}$$
 
-"The dataset $\mathcal{D}$ is a set of $n$ pairs, where each pair contains:
-- Input features $\mathbf{x}_i$
-- Corresponding label $y_i$"
+**In English:**
+"Dataset $\mathcal{D}$ is a collection of $n$ pairs, where each pair is (features, label)"
 
-**Example:** $(\mathbf{x}_1, y_1)$ = (Orange, Small, Smooth → Good)
+**Example:** $(\mathbf{x}_1, y_1)$ = (Orange, Small, Smooth, Good)
+
+---
+
+# But Wait... Computers Need Numbers!
+
+**Problem:** "Orange" and "Small" aren't numbers!
+
+**Solution:** Convert categories to numbers (encoding)
+
+| Color | Encoded |
+|-------|---------|
+| Red | [1, 0, 0] |
+| Orange | [0, 1, 0] |
+| Yellow | [0, 0, 1] |
+
+This is called **one-hot encoding**.
+
+---
+
+# Why One-Hot Encoding?
+
+**Bad idea:** Red=1, Orange=2, Yellow=3
+
+**Problem:** This implies Orange is "between" Red and Yellow!
+
+**One-hot is better:** Each color gets its own column
+
+```python
+# In Python (pandas):
+pd.get_dummies(df['Color'])
+
+#    Red  Orange  Yellow
+# 0    0       1       0
+# 1    1       0       0
+# ...
+```
 
 ---
 
 <!-- _class: section-divider -->
 
-# Part 5: Classification vs Regression
+# Part 4: Train/Test Split
 
-## Two Types of Supervised Learning
-
----
-
-# Classification: Discrete Outputs
-
-**Predict which category**
-
-| Type | Number of Classes | Example |
-|------|-------------------|---------|
-| Binary | 2 | Spam / Not Spam |
-| Multi-class | K > 2 | Cat, Dog, Bird |
-| Multi-label | Multiple | [Action, Comedy] |
-
-```python
-model.predict(email)  # → "spam"
-model.predict_proba(email)  # → [0.15, 0.85]
-                            #   [not_spam, spam]
-```
-
----
-
-# Regression: Continuous Outputs
-
-**Predict a number**
-
-| Task | Output Range | Example |
-|------|--------------|---------|
-| House pricing | ₹0 - ₹10Cr | Zillow |
-| Age estimation | 0 - 100 years | Face analysis |
-| Energy prediction | 0 - ∞ kWh | Power grid |
-
-```python
-model.predict(house_features)  # → 4250000.0 (₹42.5 lakhs)
-```
-
----
-
-# Quick Classification: Which Type?
-
-| Task | Type | Why? |
-|------|------|------|
-| "Will it rain tomorrow?" | Classification | Yes/No |
-| "How many mm of rain?" | Regression | Continuous |
-| "What genre is this movie?" | Classification | Categories |
-| "What rating (1-5 stars)?" | Both work! | Ordered discrete |
-| "Which digit (0-9)?" | Classification | 10 categories |
-
----
-
-<!-- _class: section-divider -->
-
-# Part 6: Training vs Test Split
-
-## The Most Important Concept
+## The Most Important Concept!
 
 ---
 
@@ -413,189 +445,248 @@ model.predict(house_features)  # → 4250000.0 (₹42.5 lakhs)
 
 | Strategy A: Memorize | Strategy B: Learn |
 |---------------------|-------------------|
-| Q: "2+3=?" A: "5" ✓ | Q: "2+3=?" A: "5" ✓ |
-| Q: "2+4=?" A: "???" ✗ | Q: "2+4=?" A: "6" ✓ |
+| Memorize "2+3=5" | Understand addition |
+| Exam: "2+3=?" → 5 ✓ | Exam: "2+3=?" → 5 ✓ |
+| Exam: "2+4=?" → ??? ❌ | Exam: "2+4=?" → 6 ✓ |
 
 <div class="insight">
-We want ML models to LEARN patterns, not MEMORIZE examples!
+
+**We want models to LEARN patterns, not MEMORIZE examples!**
+
 </div>
 
 ---
 
-# The Train/Test Split
+# The Problem
 
-| Training Set | Test Set |
-|--------------|----------|
+**You train a model on 100 emails.**
+**You test it on the SAME 100 emails.**
+**Accuracy: 100%! 🎉**
+
+**But wait...** The model might have just memorized them!
+
+**On NEW emails it's never seen?** Maybe only 60% accuracy 😱
+
+---
+
+# The Solution: Split Your Data
+
+**Don't test on data you trained on!**
+
+| Training Set (80%) | Test Set (20%) |
+|-------------------|----------------|
 | Used to learn | Used to evaluate |
-| Model sees these | Model NEVER sees these |
-| 70-80% of data | 20-30% of data |
+| Model sees these during training | Model NEVER sees these |
+| 80 emails | 20 emails |
+
+---
+
+# In Python
 
 ```python
 from sklearn.model_selection import train_test_split
 
+# Split: 80% train, 20% test
 X_train, X_test, y_train, y_test = train_test_split(
-    X, y, test_size=0.2, random_state=42
+    X, y,
+    test_size=0.2,      # 20% for testing
+    random_state=42     # For reproducibility
 )
+
+# Train ONLY on training data
+model.fit(X_train, y_train)
+
+# Evaluate on test data (never seen!)
+accuracy = model.score(X_test, y_test)
 ```
 
 ---
 
-# Why Split?
+# Why This Works
 
-**Without split:** "I got 100% accuracy!" (on training data)
-**Reality:** Model memorized the training data
+| Scenario | Training Acc | Test Acc | Status |
+|----------|--------------|----------|--------|
+| Good model | 90% | 88% | ✅ Learned! |
+| Memorized | 100% | 60% | ❌ Overfitting |
+| Too simple | 65% | 63% | ⚠️ Underfitting |
 
-**With split:**
-- Training accuracy: 95%
-- Test accuracy: 90%
-- **This 90% is what matters!** (performance on unseen data)
-
-<div class="insight">
-Test accuracy estimates real-world performance.
-</div>
+**The test accuracy tells you real-world performance!**
 
 ---
 
-# The Golden Rules
+# The Golden Rule
 
-1. **Split BEFORE any processing**
-   ```python
-   # ✓ Correct order
-   X_train, X_test, y_train, y_test = train_test_split(X, y)
-   scaler.fit(X_train)  # Fit ONLY on training
-   ```
+<div class="warning">
 
-2. **NEVER peek at test data**
-   - Don't use test data for choosing models
-   - Don't use test data for tuning parameters
-   - Only use test data for FINAL evaluation
+**NEVER peek at the test data during training!**
+
+</div>
+
+If you use test data to make decisions (choosing models, tuning parameters), you're cheating — your "test" accuracy becomes meaningless.
 
 ---
 
 <!-- _class: section-divider -->
 
-# Part 7: Evaluation Metrics
+# Part 5: Evaluation Metrics
 
-## How Good is Our Model?
-
----
-
-# Classification: The Confusion Matrix
-
-Let's say our model predicted on 5 test tomatoes:
-
-| Actual | Predicted | Result |
-|--------|-----------|--------|
-| Good | Good | ✓ Correct |
-| Good | Good | ✓ Correct |
-| Bad | Good | ✗ Wrong |
-| Bad | Good | ✗ Wrong |
-| Bad | Bad | ✓ Correct |
-
-**Accuracy = 3/5 = 60%**
+## How Do We Measure "Good"?
 
 ---
 
-# The Four Outcomes
+# Accuracy: The Obvious Metric
+
+$$\text{Accuracy} = \frac{\text{Correct Predictions}}{\text{Total Predictions}}$$
+
+**Example:** 85 out of 100 correct → 85% accuracy
+
+**Sounds perfect, right?**
+
+---
+
+# When Accuracy Fails
+
+**Scenario:** Cancer screening
+
+| Reality | Count |
+|---------|-------|
+| Healthy | 990 |
+| Cancer | 10 |
+
+**Dumb model:** Always predict "Healthy"
+
+**Accuracy = 990/1000 = 99%** 🎉
+
+**But it catches 0% of cancer cases!** 😱
+
+---
+
+# The Confusion Matrix
 
 |  | **Predicted: Positive** | **Predicted: Negative** |
 |--|------------------------|------------------------|
 | **Actual: Positive** | TP (True Positive) ✓ | FN (False Negative) ✗ |
 | **Actual: Negative** | FP (False Positive) ✗ | TN (True Negative) ✓ |
 
-- **TP:** Correctly predicted positive
-- **TN:** Correctly predicted negative
-- **FP:** Said positive but was negative (Type I error)
-- **FN:** Said negative but was positive (Type II error)
+**TP:** Correctly caught cancer
+**TN:** Correctly said healthy
+**FP:** Said cancer but was healthy (false alarm)
+**FN:** Said healthy but had cancer (MISSED!)
 
 ---
 
-# Accuracy
+# Precision: "Of my predictions, how many were right?"
 
-$$\text{Accuracy} = \frac{TP + TN}{TP + TN + FP + FN} = \frac{\text{Correct}}{\text{Total}}$$
-
-**But accuracy can be misleading!**
-
-**Example:** Cancer detection (1% have cancer, 99% healthy)
-- Model always predicts "healthy"
-- Accuracy = 99%!
-- **But it catches 0% of cancer cases!**
-
----
-
-# Precision and Recall
-
-**Precision:** Of all predicted positives, how many were actually positive?
 $$\text{Precision} = \frac{TP}{TP + FP}$$
 
-**Recall:** Of all actual positives, how many did we catch?
+**Example:** You predicted 10 people have cancer.
+- 8 actually do (TP = 8)
+- 2 don't (FP = 2)
+
+**Precision = 8/10 = 80%**
+
+"When I say positive, I'm right 80% of the time"
+
+---
+
+# Recall: "Of all positives, how many did I catch?"
+
 $$\text{Recall} = \frac{TP}{TP + FN}$$
+
+**Example:** 10 people actually have cancer.
+- You caught 8 (TP = 8)
+- You missed 2 (FN = 2)
+
+**Recall = 8/10 = 80%**
+
+"I catch 80% of all cancer cases"
 
 ---
 
 # Precision vs Recall Trade-off
 
-| High Precision | High Recall |
-|----------------|-------------|
-| Predicts positive only when confident | Catches most positives |
-| Low false alarms (↓FP) | Few misses (↓FN) |
-| May miss some positives (↑FN) | More false alarms (↑FP) |
+| Metric | Focus | When to Prioritize |
+|--------|-------|-------------------|
+| **Precision** | Don't cry wolf | Spam filter (don't delete good emails!) |
+| **Recall** | Don't miss any | Cancer screening (catch every case!) |
 
-**Which to prefer?**
-- **Spam filter:** High precision (don't lose important emails!)
-- **Cancer test:** High recall (don't miss any cancer cases!)
+**You usually can't have both perfect!**
 
 ---
 
-# F1 Score
-
-**Balance between precision and recall:**
+# F1 Score: The Balance
 
 $$\text{F1} = \frac{2 \times \text{Precision} \times \text{Recall}}{\text{Precision} + \text{Recall}}$$
 
-- F1 = 1: Perfect (Precision=Recall=1)
-- F1 = 0: Terrible (either Precision or Recall is 0)
-- Useful when you need both precision and recall
+**Harmonic mean** of precision and recall.
+
+| Precision | Recall | F1 |
+|-----------|--------|-----|
+| 100% | 0% | 0% |
+| 80% | 80% | 80% |
+| 100% | 100% | 100% |
+
+**F1 is high only when BOTH are high!**
 
 ---
 
 # Regression Metrics
 
-For regression, we measure **how far off** our predictions are:
+For regression (predicting numbers), we measure "how far off":
 
-| Metric | Formula | Interpretation |
-|--------|---------|----------------|
-| **MSE** | $\frac{1}{n}\sum(y_i - \hat{y}_i)^2$ | Average squared error |
+| Metric | Formula | Intuition |
+|--------|---------|-----------|
+| **MAE** | $\frac{1}{n}\sum\|y_i - \hat{y}_i\|$ | Average error |
+| **MSE** | $\frac{1}{n}\sum(y_i - \hat{y}_i)^2$ | Penalizes big errors more |
 | **RMSE** | $\sqrt{MSE}$ | Same units as y |
-| **MAE** | $\frac{1}{n}\sum\|y_i - \hat{y}_i\|$ | Average absolute error |
-
-**MAE vs MSE:** MAE is less sensitive to outliers
 
 ---
 
 # Regression Example
 
-| Actual (y) | Predicted (ŷ) | Error |
-|------------|---------------|-------|
-| 100 | 110 | +10 |
-| 200 | 190 | -10 |
-| 150 | 150 | 0 |
+| Actual Price | Predicted | Error |
+|--------------|-----------|-------|
+| ₹50 lakhs | ₹48 lakhs | ₹2 lakhs |
+| ₹30 lakhs | ₹35 lakhs | ₹5 lakhs |
+| ₹40 lakhs | ₹40 lakhs | ₹0 |
 
-- MAE = (10 + 10 + 0) / 3 = 6.67
-- MSE = (100 + 100 + 0) / 3 = 66.67
-- RMSE = √66.67 = 8.16
+**MAE = (2 + 5 + 0) / 3 = ₹2.33 lakhs**
+
+"On average, we're off by ₹2.33 lakhs"
 
 ---
 
 <!-- _class: section-divider -->
 
-# Part 8: The sklearn Pattern
+# Part 6: The sklearn Pattern
 
-## Putting It All Together
+## Your First ML Code
 
 ---
 
-# The Universal sklearn Pattern
+# The Universal Pattern
+
+**ALL sklearn models follow the same pattern:**
+
+```python
+# 1. Create model
+model = SomeModel()
+
+# 2. Train (fit) on training data
+model.fit(X_train, y_train)
+
+# 3. Predict on new data
+predictions = model.predict(X_test)
+
+# 4. Evaluate
+score = model.score(X_test, y_test)
+```
+
+**Learn this once, use it forever!**
+
+---
+
+# Complete Example
 
 ```python
 from sklearn.tree import DecisionTreeClassifier
@@ -603,73 +694,81 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 
 # 1. Split data
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2
+)
 
-# 2. Create model
+# 2. Create and train model
 model = DecisionTreeClassifier()
-
-# 3. Train (fit)
 model.fit(X_train, y_train)
 
-# 4. Predict
-y_pred = model.predict(X_test)
-
-# 5. Evaluate
-print(f"Accuracy: {accuracy_score(y_test, y_pred):.1%}")
+# 3. Predict and evaluate
+predictions = model.predict(X_test)
+print(f"Accuracy: {accuracy_score(y_test, predictions):.1%}")
 ```
 
 ---
 
-# The fit/predict Pattern
-
-**ALL sklearn models follow the same pattern:**
+# Same Pattern, Different Models!
 
 ```python
 # Linear Regression
+from sklearn.linear_model import LinearRegression
 model = LinearRegression()
 model.fit(X_train, y_train)
 model.predict(X_test)
 
-# Random Forest
-model = RandomForestClassifier()
+# Logistic Regression
+from sklearn.linear_model import LogisticRegression
+model = LogisticRegression()
 model.fit(X_train, y_train)
 model.predict(X_test)
 
 # Neural Network
+from sklearn.neural_network import MLPClassifier
 model = MLPClassifier()
 model.fit(X_train, y_train)
 model.predict(X_test)
 ```
 
-**Same 3 methods: `fit()`, `predict()`, `score()`**
+**Same three methods: `fit()`, `predict()`, `score()`**
 
 ---
 
-# Key Takeaways
+# Summary: Key Concepts
 
 | Concept | Key Insight |
 |---------|-------------|
-| **ML vs Programming** | ML learns rules from data |
-| **Three Paradigms** | Supervised, Unsupervised, RL |
-| **Notation** | Bold uppercase = matrix, bold lowercase = vector |
+| **ML vs Programming** | ML learns rules from examples |
+| **Three Paradigms** | Supervised (with labels), Unsupervised, RL |
 | **Classification** | Predict categories |
 | **Regression** | Predict numbers |
-| **Train/Test Split** | Never peek at test data! |
-| **Evaluation** | Accuracy isn't everything (use precision, recall, F1) |
+| **Features & Labels** | Inputs (X) and outputs (y) |
+| **Train/Test Split** | Never test on training data! |
+| **Evaluation** | Accuracy isn't everything (precision, recall, F1) |
+
+---
+
+# What's Next?
+
+| Lecture | Topic |
+|---------|-------|
+| 3 | **Supervised Learning:** Linear & Logistic Regression |
+| 4 | **Model Selection:** How to choose and evaluate models |
+| 5 | **Neural Networks:** The foundation of deep learning |
 
 ---
 
 <!-- _class: title-slide -->
 
-# Ready to Build!
+# You Now Have the Foundation!
 
-## Next: Supervised Learning Algorithms
+## Next: Linear & Logistic Regression
 
-**Lab:** Your first ML models with sklearn
-
-**Interactive Notebook:** [L02_data_foundation.ipynb](../../lecture_demo/L02_data_foundation.ipynb)
-
-*"In God we trust. All others must bring data."*
-— W. Edwards Deming
+**Key takeaways:**
+- ML = learning patterns from data
+- Supervised learning = learning from labeled examples
+- Always split train/test
+- Accuracy isn't the only metric
 
 **Questions?**
