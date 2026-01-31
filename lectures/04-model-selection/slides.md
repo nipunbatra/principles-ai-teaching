@@ -174,25 +174,51 @@ We want models that **understand patterns**, not **memorize examples**.
 
 ---
 
+# Real-World Overfitting Examples
+
+| Scenario | What Happened |
+|----------|---------------|
+| **Stock prediction** | Model learned specific past patterns that never repeat |
+| **Spam filter** | Memorized exact spam emails, missed new ones |
+| **Medical diagnosis** | Learned artifacts in hospital images, not diseases |
+| **Face recognition** | Only recognized faces in training set lighting |
+
+**Overfitting = False sense of success!**
+
+---
+
+# How Much Data is Enough?
+
+**Rough guidelines:**
+
+| Model Complexity | Data Needed |
+|------------------|-------------|
+| Linear Regression | 10 samples per feature |
+| Decision Tree | 100+ samples per class |
+| Neural Network | 1000+ samples per class |
+| Deep Learning | 10,000+ samples total |
+
+<div class="insight">
+
+**Rule of thumb:** More parameters = More data needed
+
+</div>
+
+---
+
 # Visual: The Complexity Tradeoff
 
-```
-Error ↑
-      │
-      │  Underfitting        Overfitting
-      │      zone              zone
-      │   ╲                      ╱
-      │    ╲    Test Error     ╱
-      │     ╲       ↙        ╱
-      │      ╲  ∙∙∙∙∙∙∙∙∙∙ ╱
-      │       ╲          ╱
-      │        ╲________╱ ← Sweet spot
-      │         ╱
-      │    Train Error
-      └──────────────────────────────→
-           Simple ───────→ Complex
-                Model Complexity
-```
+![bg right:50% 90%](diagrams/bias_variance_curves.png)
+
+**The U-shaped curve:**
+
+| Zone | Train Error | Test Error |
+|------|-------------|------------|
+| Left (Underfitting) | High | High |
+| Middle (Sweet spot) | Low | Low |
+| Right (Overfitting) | Very Low | High |
+
+**Find the minimum of the test error!**
 
 ---
 
@@ -383,19 +409,19 @@ X_train, X_test, y_train, y_test = train_test_split(
 
 # Cross-Validation: Use ALL Data!
 
+![bg right:45% 90%](diagrams/kfold_cross_validation.png)
+
 **Idea:** Split data into K parts. Use each part as validation once.
 
-```
-5-Fold Cross-Validation:
+| Fold | Validation | Training | Score |
+|------|------------|----------|-------|
+| 1 | Block 1 | Blocks 2-5 | 87% |
+| 2 | Block 2 | Blocks 1,3-5 | 89% |
+| 3 | Block 3 | Blocks 1-2,4-5 | 91% |
+| 4 | Block 4 | Blocks 1-3,5 | 88% |
+| 5 | Block 5 | Blocks 1-4 | 90% |
 
-Fold 1: [VAL] [Train] [Train] [Train] [Train] → Score 1
-Fold 2: [Train] [VAL] [Train] [Train] [Train] → Score 2
-Fold 3: [Train] [Train] [VAL] [Train] [Train] → Score 3
-Fold 4: [Train] [Train] [Train] [VAL] [Train] → Score 4
-Fold 5: [Train] [Train] [Train] [Train] [VAL] → Score 5
-
-Final Score = Average of all 5 scores
-```
+**Final Score = Average = 89%**
 
 ---
 

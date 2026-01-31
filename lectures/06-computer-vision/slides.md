@@ -296,10 +296,13 @@ Human performance:                   ~5% error
 
 # From Classification to Detection
 
-| Task | Question | Output |
-|------|----------|--------|
-| **Classification** | "Is there a dog?" | Yes/No |
-| **Detection** | "Where are the dogs?" | Boxes + labels |
+![bg right:50% 90%](diagrams/classification_localization_detection.png)
+
+| Task | Output |
+|------|--------|
+| **Classification** | Just the label: "Cat" |
+| **Localization** | One box + label |
+| **Detection** | Multiple boxes + labels |
 
 **Detection = Classification + Location**
 
@@ -315,6 +318,20 @@ Human performance:                   ~5% error
 | Not enough info! | Can avoid collision! |
 
 **Location is critical for real-world applications!**
+
+---
+
+# Real-World Detection Applications
+
+| Application | What Gets Detected |
+|-------------|-------------------|
+| **Tesla Autopilot** | Cars, pedestrians, lane lines, traffic signs |
+| **Airport Security** | Weapons, liquids, prohibited items in bags |
+| **Retail Analytics** | Customers, products, shopping patterns |
+| **Wildlife Monitoring** | Animals, poachers, vehicles |
+| **Quality Control** | Defects, missing parts, misalignments |
+
+**Detection is everywhere!**
 
 ---
 
@@ -375,7 +392,7 @@ detections = [
 
 # Measuring Detection Quality: IoU
 
-**How do we know if a predicted box is good?**
+![bg right:45% 90%](diagrams/iou_visualization.png)
 
 **IoU = Intersection over Union**
 
@@ -383,9 +400,9 @@ $$\text{IoU} = \frac{\text{Overlap Area}}{\text{Total Area of Both Boxes}}$$
 
 | IoU Value | Quality |
 |-----------|---------|
-| 1.0 | Perfect (boxes are identical) |
+| 1.0 | Perfect match |
 | 0.5+ | Good detection |
-| 0.0 | No overlap (wrong location) |
+| 0.0 | Completely wrong |
 
 ---
 
