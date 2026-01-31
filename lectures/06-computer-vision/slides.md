@@ -235,7 +235,7 @@ Image → [Conv → ReLU → Pool] → [Conv → ReLU → Pool] → FC → Outpu
 
 # Pooling: Shrinking the Image
 
-![bg right:50% 90%](diagrams/max_pooling_20260131_183940.png)
+![bg right:50% 90%](diagrams/max_pooling.png)
 
 **Max Pooling:** Take the maximum value from each region
 

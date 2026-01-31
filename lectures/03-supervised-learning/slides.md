@@ -213,7 +213,7 @@ Real data has **noise** — points don't fall exactly on a line.
 
 # The Goal: Minimize Errors
 
-![bg right:45% 90%](diagrams/linear_regression_residuals_20260131_183720.png)
+![bg right:45% 90%](diagrams/linear_regression_residuals.png)
 
 **Residual** = Actual - Predicted = $y - \hat{y}$
 
@@ -741,7 +741,7 @@ $$P(\text{spam}) = \sigma(3.5) = \frac{1}{1 + e^{-3.5}} = 0.97$$
 
 # The Decision Rule
 
-![bg right:45% 90%](diagrams/decision_boundary_20260131_183803.png)
+![bg right:45% 90%](diagrams/decision_boundary.png)
 
 | If P(spam) | Decision |
 |------------|----------|

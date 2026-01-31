@@ -80,7 +80,7 @@ Your Rules:
 
 # The ML Approach
 
-![bg right:45% 90%](diagrams/spam_detection_example_20260131_183552.png)
+![bg right:45% 90%](diagrams/spam_detection_example.png)
 
 **Instead of writing rules... let the computer learn them!**
 
@@ -241,7 +241,7 @@ Over time, learns: "Don't move right near pits"
 
 # Our Focus: Supervised Learning
 
-![bg right:50% 90%](diagrams/classification_vs_regression_20260131_183508.png)
+![bg right:50% 90%](diagrams/classification_vs_regression.png)
 
 Supervised learning has two main types:
 
@@ -412,7 +412,7 @@ This is called **one-hot encoding**.
 
 # Why One-Hot Encoding?
 
-![bg right:45% 90%](diagrams/one_hot_encoding_20260131_183634.png)
+![bg right:45% 90%](diagrams/one_hot_encoding.png)
 
 **Bad idea:** Red=1, Orange=2, Yellow=3
 
@@ -718,7 +718,7 @@ $$\text{Recall} = \frac{TP}{TP + FN}$$
 
 # Precision vs Recall Trade-off
 
-![bg right:40% 90%](diagrams/precision_recall_venn_20260131_183844.png)
+![bg right:40% 90%](diagrams/precision_recall_venn.png)
 
 | Metric | Focus | When to Prioritize |
 |--------|-------|-------------------|

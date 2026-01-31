@@ -362,7 +362,7 @@ Fish has a very different vector (aquatic animal)
 
 # The Magic of Embeddings
 
-![bg right:45% 90%](diagrams/embedding_space_20260131_184112.png)
+![bg right:45% 90%](diagrams/embedding_space.png)
 
 **These vectors capture meaning!**
 
@@ -501,7 +501,7 @@ The model looks back at all previous words and calculates attention weights.
 
 # The Transformer (2017)
 
-![bg right:45% 90%](diagrams/transformer_architecture_20260131_184151.png)
+![bg right:45% 90%](diagrams/transformer_architecture.png)
 
 **The paper:** "Attention Is All You Need"
 
@@ -665,7 +665,7 @@ As starfish dream beneath the fading light.
 
 # Tokenization: Not Words, Not Characters
 
-![bg right:45% 90%](diagrams/tokenization_example_20260131_184029.png)
+![bg right:45% 90%](diagrams/tokenization_example.png)
 
 **LLMs use "tokens" — pieces of words:**
 

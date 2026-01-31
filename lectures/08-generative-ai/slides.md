@@ -501,7 +501,7 @@ trainer.train()
 
 # The Alignment Tax
 
-![bg right:40% 90%](diagrams/ai_alignment_20260131_184310.png)
+![bg right:40% 90%](diagrams/ai_alignment.png)
 
 **Trade-off:** Alignment can slightly reduce raw capability
 
@@ -580,7 +580,7 @@ $$P(\text{data}) \text{ or } P(\text{data} | \text{prompt})$$
 
 # GANs: The Generator-Discriminator Game
 
-![bg right:45% 90%](diagrams/gan_concept_20260131_184227.png)
+![bg right:45% 90%](diagrams/gan_concept.png)
 
 | Component | Role |
 |-----------|------|
