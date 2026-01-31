@@ -202,6 +202,20 @@ def generate_text(prompt, model):
 
 ---
 
+# Generation as a Tree
+
+![bg right:50% 90%](diagrams/generation_tree.png)
+
+Each prediction creates **branching possibilities:**
+
+- At "The cat", we could go to "sat" (40%), "ran" (30%), "slept" (20%)...
+- If we pick "sat", new branches: "on" (50%), "down" (30%)...
+- Different branches = different stories!
+
+**Temperature controls which branches we explore.**
+
+---
+
 # The Key Insight
 
 **ChatGPT has no internal "thoughts" or "beliefs".**
@@ -368,23 +382,31 @@ Embeddings are learned automatically — the model figures out what each dimensi
 
 # Visualizing Word Embeddings
 
+![bg right:50% 90%](diagrams/word_embeddings.png)
+
 **When we plot word vectors in 2D:**
 
-```
-                    "king" ●    ● "queen"
-
-                    "man" ●     ● "woman"
-
-
-    "cat" ●  ● "dog"
-
-
-                                    ● "python"
-                                    ● "java"
-                                    ● "code"
-```
+- **Royalty cluster:** king, queen near each other
+- **Gender dimension:** man→woman parallel to king→queen
+- **Pet cluster:** cat, dog close together
+- **Programming cluster:** python, java, code
 
 **Similar words cluster together!**
+
+---
+
+# This Works for Characters Too!
+
+**When learning character embeddings:**
+
+| Cluster | Characters | Why? |
+|---------|------------|------|
+| Vowels | a, e, i, o, u | Similar role in words |
+| Hard consonants | b, c, d, g, k | Similar sounds |
+| Soft consonants | l, m, n, r | Similar sounds |
+| End marker | . or - | Special role |
+
+**The model learns these groupings automatically!**
 
 ---
 
@@ -513,6 +535,8 @@ Input → [Attention + Feed-Forward] → [Attention + Feed-Forward] → ... → 
 
 # The Creativity Knob
 
+![bg right:45% 90%](diagrams/temperature_effect.png)
+
 When the model predicts next word probabilities, we can adjust them!
 
 **Temperature** = how "creative" vs "safe" the model is
@@ -567,6 +591,22 @@ When the model predicts next word probabilities, we can adjust them!
 | moon | 1% | **10%** |
 
 **Result:** Might pick unusual words like "moon" (creative but risky!)
+
+---
+
+# The Math Behind Temperature
+
+**Standard softmax:**
+$$P(word_i) = \frac{e^{z_i}}{\sum_j e^{z_j}}$$
+
+**Temperature-scaled softmax:**
+$$P(word_i) = \frac{e^{z_i / T}}{\sum_j e^{z_j / T}}$$
+
+| T Value | Effect on Distribution |
+|---------|----------------------|
+| T → 0 | Becomes one-hot (deterministic) |
+| T = 1 | Standard probabilities |
+| T → ∞ | Becomes uniform (random) |
 
 ---
 

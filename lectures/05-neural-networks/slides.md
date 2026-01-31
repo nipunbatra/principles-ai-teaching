@@ -250,12 +250,14 @@ Output
 
 # Other Activation Functions
 
+![bg right:45% 90%](diagrams/activation_functions.png)
+
 | Function | Use Case |
 |----------|----------|
 | **ReLU** | Hidden layers (default) |
-| **Sigmoid** | Binary output (probability 0-1) |
-| **Softmax** | Multi-class output (probabilities that sum to 1) |
-| **Linear** | Regression output (any number) |
+| **Sigmoid** | Binary output (0-1) |
+| **Softmax** | Multi-class (sum to 1) |
+| **Tanh** | Values between -1 and +1 |
 
 **For now, just remember:** ReLU for hidden layers!
 
@@ -436,18 +438,16 @@ output = softmax(W3 @ h2 + b3)
 
 # Step 3: Backward Pass (Backpropagation)
 
+![bg right:45% 90%](diagrams/backpropagation_flow.png)
+
 **Key question:** Which weights caused the error?
 
 **Answer:** Use calculus to trace the error backward!
 
-```
-Output error = 0.5
-    ↓ (blame W3 partially)
-Hidden 2 error = 0.3
-    ↓ (blame W2 partially)
-Hidden 1 error = 0.1
-    ↓ (blame W1 partially)
-```
+| Direction | What Flows |
+|-----------|-----------|
+| **Forward** | Data, activations |
+| **Backward** | Error gradients |
 
 **Each weight gets a "gradient" = how much it contributed to the error**
 
