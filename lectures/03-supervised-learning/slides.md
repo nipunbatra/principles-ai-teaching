@@ -424,7 +424,98 @@ def gradient_descent(X, y, lr=0.0001, epochs=1000):
 
 <!-- _class: section-divider -->
 
-# Part 3: From sklearn to PyTorch
+# Part 3: Feature Scaling
+
+## Why Scale Matters
+
+---
+
+# The Scaling Problem
+
+![bg right:45% 90%](diagrams/feature_scaling.png)
+
+**Different features have different scales:**
+
+| Feature | Range |
+|---------|-------|
+| House size | 500 - 5000 sqft |
+| Bedrooms | 1 - 6 |
+| Age | 0 - 100 years |
+
+**Problem:** Large-scale features dominate gradient descent!
+
+---
+
+# Why Scaling Helps Gradient Descent
+
+**Without scaling:**
+- Size weight needs tiny updates (large values)
+- Bedroom weight needs large updates (small values)
+- Gradient descent zigzags inefficiently!
+
+**With scaling:**
+- All features contribute equally
+- Gradient descent converges faster
+- More stable training
+
+---
+
+# Two Common Scaling Methods
+
+| Method | Formula | Result |
+|--------|---------|--------|
+| **Standardization** | $\frac{x - \mu}{\sigma}$ | Mean=0, Std=1 |
+| **Min-Max Scaling** | $\frac{x - x_{min}}{x_{max} - x_{min}}$ | Range [0, 1] |
+
+```python
+from sklearn.preprocessing import StandardScaler, MinMaxScaler
+
+# Standardization (most common)
+scaler = StandardScaler()
+X_scaled = scaler.fit_transform(X)
+
+# Min-Max (when you need bounded range)
+scaler = MinMaxScaler()
+X_scaled = scaler.fit_transform(X)
+```
+
+---
+
+# Important: Fit on Train, Transform Both!
+
+```python
+# CORRECT way:
+scaler = StandardScaler()
+X_train_scaled = scaler.fit_transform(X_train)  # Fit AND transform
+X_test_scaled = scaler.transform(X_test)         # Only transform!
+
+# WRONG (data leakage!):
+X_scaled = scaler.fit_transform(X)  # Fitting on all data
+```
+
+<div class="warning">
+
+**Never fit the scaler on test data!** It would leak information.
+
+</div>
+
+---
+
+# When to Scale?
+
+| Algorithm | Needs Scaling? | Why |
+|-----------|---------------|-----|
+| Linear/Logistic Regression | Yes | Gradient descent |
+| Neural Networks | Yes | Gradient descent |
+| Decision Trees | No | Split-based, scale-invariant |
+| K-Nearest Neighbors | Yes | Distance-based |
+| Random Forest | No | Tree-based |
+
+---
+
+<!-- _class: section-divider -->
+
+# Part 4: From sklearn to PyTorch
 
 ## Building the Bridge
 

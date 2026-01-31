@@ -599,16 +599,96 @@ When presenting your model, always report:
 
 ---
 
+# Bonus: Regularization (Preventing Overfitting)
+
+![bg right:45% 90%](diagrams/regularization_concept.png)
+
+**Regularization = penalize complex models**
+
+| Without | With Regularization |
+|---------|---------------------|
+| Model fits every point | Model stays smooth |
+| Wiggly, complex curve | Simpler, generalizable |
+| Overfits training data | Better on test data |
+
+---
+
+# Regularization in Practice
+
+```python
+from sklearn.linear_model import Ridge, Lasso
+
+# Ridge Regression (L2 regularization)
+model = Ridge(alpha=1.0)  # alpha controls strength
+model.fit(X_train, y_train)
+
+# Lasso Regression (L1 regularization)
+model = Lasso(alpha=0.1)
+model.fit(X_train, y_train)
+```
+
+| Regularization | Effect |
+|---------------|--------|
+| **Ridge (L2)** | Shrinks weights toward zero |
+| **Lasso (L1)** | Makes some weights exactly zero (feature selection!) |
+
+---
+
+# Learning Curves: Diagnosing Problems
+
+**Plot training and validation error vs training set size:**
+
+| Pattern | Diagnosis | Solution |
+|---------|-----------|----------|
+| Both high, converge | Underfitting | More features, complex model |
+| Train low, Val high, gap | Overfitting | More data, regularization |
+| Both low, converge | Good fit! | You're done |
+
+```python
+from sklearn.model_selection import learning_curve
+train_sizes, train_scores, val_scores = learning_curve(
+    model, X, y, cv=5, train_sizes=[0.2, 0.4, 0.6, 0.8, 1.0]
+)
+```
+
+---
+
+# Grid Search: Automated Tuning
+
+**Instead of manually trying hyperparameters:**
+
+```python
+from sklearn.model_selection import GridSearchCV
+
+param_grid = {
+    'max_depth': [3, 5, 10, None],
+    'min_samples_split': [2, 5, 10]
+}
+
+grid_search = GridSearchCV(
+    DecisionTreeClassifier(),
+    param_grid,
+    cv=5,
+    scoring='accuracy'
+)
+grid_search.fit(X_train, y_train)
+
+print(f"Best params: {grid_search.best_params_}")
+print(f"Best score: {grid_search.best_score_:.3f}")
+```
+
+---
+
 # What We Skipped (Advanced Topics)
 
-These are important but too advanced for now:
+These are important but more advanced:
 
 | Topic | What It Is |
 |-------|------------|
 | Bias-Variance Tradeoff | Mathematical view of underfitting/overfitting |
-| Regularization | Mathematical technique to prevent overfitting |
 | Ensemble Methods | Combining multiple models (Random Forest, etc.) |
-| Grid Search | Automated hyperparameter tuning |
+| Bayesian Optimization | Smarter hyperparameter search |
+| Early Stopping | Stop training when validation error increases |
 
 *You'll learn these in advanced ML courses!*
 

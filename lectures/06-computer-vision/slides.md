@@ -314,6 +314,110 @@ Human performance:                   ~5% error
 
 ---
 
+# Famous CNN Architectures
+
+| Year | Architecture | Key Innovation |
+|------|--------------|----------------|
+| 2012 | **AlexNet** | Deep CNNs work! GPU training |
+| 2014 | **VGGNet** | Deeper = better (16-19 layers) |
+| 2015 | **ResNet** | Skip connections (152 layers!) |
+| 2017 | **EfficientNet** | Smart scaling |
+| 2020 | **ViT** | Transformers for vision |
+
+**Trend:** Deeper networks with clever tricks to train them!
+
+---
+
+# Data Augmentation
+
+![bg right:50% 90%](diagrams/data_augmentation.png)
+
+**Problem:** Not enough training images?
+
+**Solution:** Create variations of existing images!
+
+| Augmentation | Effect |
+|--------------|--------|
+| Flip | Mirror horizontally |
+| Rotate | Small angle rotations |
+| Crop | Random crops |
+| Color | Brightness, contrast |
+
+---
+
+# Data Augmentation in PyTorch
+
+```python
+from torchvision import transforms
+
+train_transform = transforms.Compose([
+    transforms.RandomHorizontalFlip(),
+    transforms.RandomRotation(10),
+    transforms.ColorJitter(brightness=0.2),
+    transforms.RandomResizedCrop(224),
+    transforms.ToTensor(),
+])
+
+# Apply during training
+train_dataset = ImageFolder('train/', transform=train_transform)
+```
+
+**Result:** 1000 images become effectively 10,000+!
+
+---
+
+# Transfer Learning
+
+![bg right:50% 90%](diagrams/transfer_learning.png)
+
+**The big insight:** CNNs trained on ImageNet learn general features!
+
+| Layer | What It Learned | Reusable? |
+|-------|-----------------|-----------|
+| Early | Edges, textures | Yes! (universal) |
+| Middle | Shapes, parts | Mostly yes |
+| Late | Specific objects | Needs fine-tuning |
+
+---
+
+# Transfer Learning in Practice
+
+```python
+from torchvision import models
+
+# Load pre-trained ResNet
+model = models.resnet18(pretrained=True)
+
+# Freeze early layers (don't train them)
+for param in model.parameters():
+    param.requires_grad = False
+
+# Replace final layer for our task (e.g., 10 classes)
+model.fc = nn.Linear(512, 10)
+
+# Now train only the new layer!
+```
+
+**Result:** Train on 1000 images instead of millions!
+
+---
+
+# When to Use Transfer Learning?
+
+| Your Dataset | Strategy |
+|--------------|----------|
+| Small (< 1000) | Freeze all, train only final layer |
+| Medium (1000-10K) | Freeze early, fine-tune later layers |
+| Large (> 10K) | Fine-tune everything (or train from scratch) |
+
+<div class="insight">
+
+**Transfer learning is almost always better than training from scratch!**
+
+</div>
+
+---
+
 <!-- _class: section-divider -->
 
 # Part 3: Object Detection

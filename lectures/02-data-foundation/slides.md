@@ -159,6 +159,8 @@ model.predict("FR33 M0N3Y")  # → "spam"
 
 # Three Ways to Learn
 
+![bg right:50% 90%](diagrams/three_learning_paradigms.png)
+
 | Paradigm | Teacher? | Example |
 |----------|----------|---------|
 | **Supervised** | Yes, provides answers | Spam detection |
@@ -435,7 +437,117 @@ pd.get_dummies(df['Color'])
 
 <!-- _class: section-divider -->
 
-# Part 4: Train/Test Split
+# Part 4: Data Quality
+
+## Garbage In, Garbage Out!
+
+---
+
+# Why Data Quality Matters
+
+![bg right:45% 90%](diagrams/data_quality_issues.png)
+
+**Your model is only as good as your data!**
+
+| Issue | Problem | Example |
+|-------|---------|---------|
+| Missing values | Incomplete information | Empty cells in spreadsheet |
+| Outliers | Extreme values | Age = 500 years |
+| Imbalanced classes | One class dominates | 99% healthy, 1% sick |
+| Biased data | Unrepresentative sample | Only urban customers |
+
+---
+
+# Missing Values
+
+**What to do when data is incomplete?**
+
+| Strategy | When to Use |
+|----------|-------------|
+| **Drop rows** | Few missing values, lots of data |
+| **Fill with mean/median** | Numerical features |
+| **Fill with mode** | Categorical features |
+| **Use "Unknown" category** | When missingness is meaningful |
+
+```python
+# In pandas
+df['age'].fillna(df['age'].median(), inplace=True)
+```
+
+---
+
+# Outliers
+
+**Extreme values can mislead your model**
+
+| Example | Normal Range | Outlier |
+|---------|--------------|---------|
+| Age | 0-100 | 500 |
+| Salary | ₹10K-₹1Cr | ₹100Cr |
+| Height | 1.4m-2.1m | 5m |
+
+**Solutions:**
+- Remove if clearly errors
+- Cap at percentiles (e.g., 1st and 99th)
+- Use robust models (trees are less sensitive)
+
+---
+
+# Imbalanced Classes
+
+**When one class dominates:**
+
+| Class | Count | Problem |
+|-------|-------|---------|
+| Not Fraud | 99,900 | Model just predicts "Not Fraud" always! |
+| Fraud | 100 | Gets 99.9% accuracy but catches nothing |
+
+**Solutions:**
+- Collect more minority class data
+- Oversample minority class (SMOTE)
+- Undersample majority class
+- Use class weights in training
+
+---
+
+# Data Bias
+
+**Your data reflects the world it came from**
+
+| Bias Type | Example |
+|-----------|---------|
+| **Selection bias** | Only surveying English speakers |
+| **Historical bias** | Past hiring data reflects past discrimination |
+| **Measurement bias** | Different hospitals use different equipment |
+
+<div class="warning">
+
+**Biased data → Biased model → Unfair predictions!**
+
+</div>
+
+---
+
+# Real-World Example: Amazon's Hiring AI
+
+**What happened:**
+- Trained on 10 years of hiring data
+- Data was mostly male hires (tech industry)
+- AI learned to prefer male candidates!
+
+**Result:** Penalized resumes with "women's" in them
+
+<div class="insight">
+
+**Lesson:** Always check your data for hidden biases before training!
+
+</div>
+
+---
+
+<!-- _class: section-divider -->
+
+# Part 5: Train/Test Split
 
 ## The Most Important Concept!
 
