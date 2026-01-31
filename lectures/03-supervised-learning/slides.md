@@ -513,28 +513,19 @@ for epoch in range(100):
 
 # The PyTorch Training Loop
 
-```
-┌─────────────────────────────────────────────────────┐
-│  for epoch in range(epochs):                        │
-│                                                     │
-│    1. y_pred = model(X)     # Forward pass          │
-│                                                     │
-│    2. loss = criterion(y_pred, y)  # Compute loss   │
-│                                                     │
-│    3. loss.backward()       # Compute gradients     │
-│                                                     │
-│    4. optimizer.step()      # Update weights        │
-│                                                     │
-│    5. optimizer.zero_grad() # Clear gradients       │
-│                                                     │
-└─────────────────────────────────────────────────────┘
-```
+![bg right:55% 90%](diagrams/pytorch_training_loop.png)
 
-<div class="insight">
+**The 5-step training cycle:**
+
+| Step | Code | Purpose |
+|------|------|---------|
+| 1 | `y_pred = model(X)` | Forward pass |
+| 2 | `loss = criterion(...)` | Compute loss |
+| 3 | `loss.backward()` | Compute gradients |
+| 4 | `optimizer.step()` | Update weights |
+| 5 | `optimizer.zero_grad()` | Clear gradients |
 
 **This same loop works for neural networks!**
-
-</div>
 
 ---
 

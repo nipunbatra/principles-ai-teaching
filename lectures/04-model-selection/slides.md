@@ -309,17 +309,15 @@ for model in [model1, model2, model3]:
 
 # Three-Way Split
 
+![bg right:50% 90%](diagrams/train_val_test_split.png)
+
 **Solution:** Add a validation set for model selection.
 
-```
-All Data (100%)
-      │
-      ├── Training (60%) → Learn model parameters
-      │
-      ├── Validation (20%) → Choose best model
-      │
-      └── Test (20%) → Final evaluation (touch ONCE!)
-```
+| Split | Size | Purpose |
+|-------|------|---------|
+| **Training** | 60% | Learn model parameters |
+| **Validation** | 20% | Choose best model |
+| **Test** | 20% | Final evaluation (touch ONCE!) |
 
 ---
 

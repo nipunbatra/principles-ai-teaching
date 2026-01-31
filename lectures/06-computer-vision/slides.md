@@ -185,18 +185,13 @@ We need neural networks that understand "dog" regardless of position.
 
 # The Key Idea: Look at Small Regions
 
+![bg right:50% 90%](diagrams/convolution_filter_concept.png)
+
 **Instead of looking at entire image at once...**
 
 Look at **small patches** and find patterns!
 
-```
-Image:                    Look for:
-┌─────────────┐           ┌───┐
-│             │   →       │ / │  (edge detector)
-│    🐱       │           └───┘
-│             │
-└─────────────┘
-```
+A small filter (like a 3x3 edge detector) slides across the entire image, detecting patterns everywhere.
 
 **Same edge detector works EVERYWHERE in the image!**
 
@@ -292,18 +287,18 @@ class SimpleCNN(nn.Module):
 
 # Visualizing CNN Layers
 
-**What a face detector learns:**
+![bg right:55% 90%](diagrams/cnn_feature_hierarchy.png)
 
-```
-Layer 1         Layer 2         Layer 3         Layer 4
-│ ─ / \ │      ┌─┐ └─┘ ╱╲      👁 👄 👃       🙂 😊 😢
-   ─ │ ─       │ │ ◯ △        (parts)       (full faces)
-(edges)        (shapes)
-```
+**What each layer learns:**
+
+| Layer | Detects |
+|-------|---------|
+| 1 | Edges, lines |
+| 2 | Corners, shapes |
+| 3 | Parts (eyes, wheels) |
+| 4 | Full objects |
 
 **Early layers are SHARED across all object types!**
-
-An edge detector works for faces, cars, and dogs.
 
 ---
 
@@ -441,16 +436,17 @@ $$\text{IoU} = \frac{\text{Overlap Area}}{\text{Total Area of Both Boxes}}$$
 
 # IoU Example
 
-```
-Ground Truth:        Prediction:          IoU:
-┌──────┐            ┌──────┐
-│      │            │      │             Overlap = 50%
-│      │   vs       │      │    →       Union = 150%
-│      │            │      │             IoU = 50/150 = 0.33
-└──────┘            └──────┘
-```
+![bg right:50% 90%](diagrams/iou_calculation_example.png)
 
-**Threshold:** Usually IoU ≥ 0.5 counts as "correct detection"
+**Comparing Ground Truth (green) vs Prediction (red):**
+
+| Metric | Value |
+|--------|-------|
+| Overlap area | 50% |
+| Union area | 150% |
+| **IoU** | 0.33 |
+
+**Threshold:** Usually IoU >= 0.5 counts as "correct detection"
 
 ---
 
@@ -491,23 +487,16 @@ Ground Truth:        Prediction:          IoU:
 
 # YOLO Grid
 
-![bg right:50% 90%](diagrams/yolo_grid.png)
+![bg right:55% 90%](diagrams/yolo_grid_detection.png)
 
-```
-┌───┬───┬───┬───┬───┬───┬───┐
-│   │   │   │   │   │   │   │
-├───┼───┼───┼───┼───┼───┼───┤
-│   │   │ 🐕│   │   │   │   │  ← This cell is responsible
-├───┼───┼───┼───┼───┼───┼───┤     for detecting the dog!
-│   │   │   │   │   │   │   │
-├───┼───┼───┼───┼───┼───┼───┤
-│   │   │   │   │   │ 🐱│   │  ← This cell detects the cat
-├───┼───┼───┼───┼───┼───┼───┤
-│   │   │   │   │   │   │   │
-└───┴───┴───┴───┴───┴───┴───┘
-```
+**How YOLO divides the image:**
 
-Each cell predicts: (x, y, width, height, confidence, class)
+- Image is divided into a grid (e.g., 7x7)
+- Each cell is responsible for detecting objects whose center falls in that cell
+- The cell containing the dog's center predicts the dog
+- The cell containing the cat's center predicts the cat
+
+**Each cell predicts:** (x, y, width, height, confidence, class)
 
 ---
 

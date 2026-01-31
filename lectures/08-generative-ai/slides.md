@@ -159,28 +159,17 @@ Response: "Hola"
 
 # SFT Training Process
 
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                                                                 │
-│  BASE MODEL                    SFT DATA                         │
-│  (pre-trained on              (instruction, response)           │
-│   internet text)               pairs                            │
-│       │                            │                            │
-│       └────────────┬───────────────┘                            │
-│                    │                                            │
-│                    ▼                                            │
-│           ┌─────────────────┐                                   │
-│           │  FINE-TUNING    │  Same architecture,               │
-│           │  (continue      │  new training objective           │
-│           │   training)     │                                   │
-│           └────────┬────────┘                                   │
-│                    │                                            │
-│                    ▼                                            │
-│            INSTRUCTION-TUNED                                    │
-│            MODEL                                                │
-│                                                                 │
-└─────────────────────────────────────────────────────────────────┘
-```
+![bg right:55% 90%](diagrams/sft_training_process.png)
+
+**The process:**
+
+1. Start with a **Base Model** (pre-trained on web text)
+
+2. Combine with **SFT Data** (instruction-response pairs)
+
+3. **Fine-tune** using the same architecture
+
+4. Result: **Instruction-Tuned Model** that follows commands!
 
 ---
 
@@ -293,25 +282,13 @@ Human ranking: B > C > A
 
 # RLHF: Three Steps
 
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                                                                 │
-│  STEP 1: Collect Comparisons                                    │
-│  ──────────────────────────                                     │
-│  Human ranks model responses: "A is better than B"              │
-│                                                                 │
-│  STEP 2: Train Reward Model                                     │
-│  ─────────────────────────                                      │
-│  Learn to predict human preferences                             │
-│  reward(response) → score                                       │
-│                                                                 │
-│  STEP 3: Optimize with RL                                       │
-│  ──────────────────────                                         │
-│  Fine-tune LLM to maximize reward model score                   │
-│  (using PPO or similar RL algorithm)                            │
-│                                                                 │
-└─────────────────────────────────────────────────────────────────┘
-```
+![bg right:50% 90%](diagrams/rlhf_three_steps.png)
+
+| Step | What Happens |
+|------|--------------|
+| **1. Collect Comparisons** | Humans rank responses: "A is better than B" |
+| **2. Train Reward Model** | Learn to predict preferences: reward(response) → score |
+| **3. Optimize with RL** | Fine-tune LLM to maximize reward (using PPO) |
 
 ---
 
@@ -498,32 +475,15 @@ trainer.train()
 
 # The Full Journey
 
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                                                                 │
-│  STAGE 1: Pre-training                                          │
-│  ────────────────────                                           │
-│  Data: Trillions of tokens (web, books, code)                   │
-│  Objective: Predict next token                                  │
-│  Compute: Thousands of GPUs, months                             │
-│  Result: "Base model" - knows language, facts                   │
-│                     ↓                                           │
-│  STAGE 2: Supervised Fine-Tuning (SFT)                          │
-│  ──────────────────────────────────────                         │
-│  Data: ~100K instruction-response pairs                         │
-│  Objective: Learn to follow instructions                        │
-│  Compute: Hours to days                                         │
-│  Result: "Instruction model" - follows commands                 │
-│                     ↓                                           │
-│  STAGE 3: Alignment (RLHF or DPO)                               │
-│  ─────────────────────────────────                              │
-│  Data: Human preference comparisons                             │
-│  Objective: Be helpful, harmless, honest                        │
-│  Compute: Days                                                  │
-│  Result: "AI Assistant" - ChatGPT, Claude, etc.                 │
-│                                                                 │
-└─────────────────────────────────────────────────────────────────┘
-```
+![bg right:55% 90%](diagrams/llm_training_pipeline.png)
+
+| Stage | Data | Result |
+|-------|------|--------|
+| **Pre-training** | Trillions of tokens | Base model |
+| **SFT** | ~100K instruction pairs | Instruction model |
+| **Alignment** | Human preferences | AI Assistant |
+
+**This is how ChatGPT, Claude, and other assistants are built!**
 
 ---
 
@@ -643,17 +603,14 @@ $$P(\text{data}) \text{ or } P(\text{data} | \text{prompt})$$
 
 # Diffusion Models: The New King
 
+![bg right:50% 90%](diagrams/diffusion_process.png)
+
 **Idea:** Learn to **denoise** images
 
-```
-Training:
-Real image → Add noise → Noisy image
-             ↑
-    Model learns to reverse this!
+**Training:** Real image → Add noise → Noisy image
+(Model learns to reverse this!)
 
-Generation:
-Pure noise → Denoise → Denoise → ... → Final image
-```
+**Generation:** Pure noise → Denoise repeatedly → Final image
 
 ---
 
@@ -673,17 +630,17 @@ Pure noise → Denoise → Denoise → ... → Final image
 
 # Text-to-Image: How It Works
 
-```
-Input: "A photo of a cat wearing a hat on Mars"
-       ↓
-┌─────────────────────────────────────┐
-│ 1. Text Encoder (CLIP)              │  → Text embedding
-│ 2. Diffusion Model (guided by text) │  → Denoising
-│ 3. VAE Decoder                      │  → Final image
-└─────────────────────────────────────┘
-       ↓
-Output: Image of a cat in a hat on Mars!
-```
+![bg right:50% 90%](diagrams/text_to_image_pipeline.png)
+
+**Input:** "A photo of a cat wearing a hat on Mars"
+
+| Step | Component | Output |
+|------|-----------|--------|
+| 1 | Text Encoder (CLIP) | Text embedding |
+| 2 | Diffusion Model | Denoised image |
+| 3 | VAE Decoder | Final image |
+
+**Output:** Image of a cat in a hat on Mars!
 
 ---
 

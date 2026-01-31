@@ -64,39 +64,30 @@ By the end, you'll understand:
 
 # XOR Visualized
 
-```
-        Input B
-          │
-        1 ├──○──────────●──
-          │
-          │                 ○ = Output 0 (same)
-          │                 ● = Output 1 (different)
-        0 ├──●──────────○──
-          │
-          └──┼──────────┼───▶ Input A
-             0          1
-```
+![bg right:50% 90%](diagrams/xor_not_separable.png)
 
-**Challenge:** Can you draw ONE straight line to separate ● from ○?
+**The XOR pattern:**
+- (0,0) → 0 (same)
+- (0,1) → 1 (different)
+- (1,0) → 1 (different)
+- (1,1) → 0 (same)
+
+**Challenge:** Can you draw ONE straight line to separate the 0s from the 1s?
 
 ---
 
 # No Single Line Works!
 
-```
-    Try 1:           Try 2:           Try 3:
-    │  ○    ●        │  ○    ●        │  ○    ●
-    │    ╱           │╲               │     │
-    │  ╱             │  ╲             │     │
-    │╱               │    ╲           │     │
-    ├──●────○──      ├──●────○──      ├──●────○──
-
-    ❌ Wrong         ❌ Wrong         ❌ Wrong
-```
+**No matter how you draw the line:**
+- Horizontal line? Fails.
+- Vertical line? Fails.
+- Diagonal line? Still fails.
 
 **XOR is NOT linearly separable!**
 
 Linear regression, logistic regression → **CAN'T solve this!**
+
+This is why we need neural networks with hidden layers.
 
 ---
 
@@ -120,13 +111,11 @@ Linear regression, logistic regression → **CAN'T solve this!**
 
 **But what if we combine MULTIPLE linear models?**
 
-```
-Input → [Linear Unit 1] ─┐
-                         ├→ [Combine] → Output
-Input → [Linear Unit 2] ─┘
-```
+![bg right:50% 90%](diagrams/combining_linear_units.png)
 
-This is the neural network idea!
+Input feeds into multiple linear units, which are then combined to produce the output.
+
+**This is the neural network idea!**
 
 ---
 
@@ -155,18 +144,10 @@ Inputs → [Processing] → Fire or Not?
 
 # The Artificial Neuron
 
-```
-Inputs        Weights       Sum          Activation    Output
-  x₁ ─────────[w₁]────╲
-                        ╲
-  x₂ ─────────[w₂]──────(+)───────[f]──────────▶ y
-                        ╱
-  x₃ ─────────[w₃]────╱
-                       │
-                      [b] (bias)
-```
+![bg right:50% 90%](diagrams/artificial_neuron.png)
 
-**Two steps:**
+**A neuron does two things:**
+
 1. **Weighted sum:** $z = w_1 x_1 + w_2 x_2 + w_3 x_3 + b$
 2. **Activation:** $y = f(z)$
 
@@ -219,21 +200,15 @@ $$\text{Layer 2}(\text{Layer 1}(x)) = W_2(W_1 x) = (W_2 W_1)x$$
 
 # ReLU: The Modern Choice
 
+![bg right:45% 90%](diagrams/relu_function.png)
+
 $$\text{ReLU}(z) = \max(0, z)$$
 
-```
-Output
-    │           ╱
-  4 ┼         ╱
-    │       ╱
-  2 ┼     ╱
-    │   ╱
-  0 ┼──●────────────────
-    └──┼────┼────┼────┼──▶ Input z
-      -2    0    2    4
-```
+**Simple rule:**
+- If z > 0: output z
+- If z < 0: output 0
 
-**Simple rule:** If positive, pass through. If negative, output 0.
+**Why it works:** Adds non-linearity while being computationally simple.
 
 ---
 
@@ -368,21 +343,15 @@ Each connection has a **weight** — these are what the network learns!
 
 # The Big Picture
 
-```
-┌────────────────────────────────────────────────┐
-│                 TRAINING LOOP                   │
-│                                                 │
-│   1. FORWARD: Input → Prediction               │
-│          ↓                                      │
-│   2. LOSS: How wrong are we?                   │
-│          ↓                                      │
-│   3. BACKWARD: Which weights caused errors?    │
-│          ↓                                      │
-│   4. UPDATE: Adjust weights                    │
-│          ↓                                      │
-│   5. REPEAT until good enough                  │
-└────────────────────────────────────────────────┘
-```
+![bg right:50% 90%](diagrams/training_loop.png)
+
+**The training loop:**
+
+1. **Forward:** Compute prediction
+2. **Loss:** Measure how wrong
+3. **Backward:** Compute gradients
+4. **Update:** Adjust weights
+5. **Repeat** until good enough
 
 ---
 
@@ -469,36 +438,27 @@ $$w_{\text{new}} = w_{\text{old}} - \eta \times \text{gradient}$$
 
 # Gradient Descent Visualization
 
-```
-Loss
-  │
-  │╲
-  │  ╲   ← Start (random weights)
-  │    ╲
-  │      ●→→●
-  │          ╲
-  │            ╲
-  │              ●   ← End (good weights!)
-  └──────────────────▶ weight value
-```
+**Imagine a ball rolling downhill:**
 
-**Follow the slope downhill to minimize loss!**
+| Step | What Happens |
+|------|--------------|
+| Start | Random weights (high loss) |
+| Each step | Roll toward lower loss |
+| End | Reach minimum (low loss) |
+
+**The gradient tells us which direction is "downhill"**
 
 ---
 
 # Learning Rate: The Step Size
 
-```
-Too Small (slow):     Just Right:          Too Large (unstable):
-   ●                    ●                         ●
-    ↘                    ↘                        ↘  ↗
-     ●                    ●                          ●
-      ↘                    ↘                        ↘
-       ●                    ●                          ↗
-        ↘                                           ●
-         ...
-   (takes forever)    (converges!)            (explodes!)
-```
+![bg right:50% 90%](diagrams/learning_rate_effect.png)
+
+| Learning Rate | Effect |
+|---------------|--------|
+| Too small | Very slow convergence |
+| Just right | Efficient training |
+| Too large | Unstable, may diverge |
 
 **Typical values:** 0.001, 0.01, 0.0001
 

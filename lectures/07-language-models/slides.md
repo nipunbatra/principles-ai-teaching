@@ -469,22 +469,19 @@ Embeddings are learned automatically — the model figures out what each dimensi
 
 # Visual: Attention in Action
 
-```
-"The   animal   didn't   cross   the   street   because   it   was   tired"
-  ↑       ↑        ↑        ↑       ↑      ↑        ↑       ↑     ↑      ↑
-  │       │        │        │       │      │        │       │     │      │
-  │       │        │        │       │      │        │       │     │      │
-  └───────┴────────┴────────┴───────┴──────┴────────┴───────┤     │      │
-                                                            │     │      │
-                    When processing "it":                   ▼     │      │
-                    ═══════════════════                   "it" ───┘      │
-                           │                               │             │
-                     ┌─────┴─────┐                         │             │
-                  "animal"    "street"                     └─────────────┘
-                    75%         10%
-```
+![bg right:55% 90%](diagrams/attention_visualization.png)
 
-**"it" looks back and attends mostly to "animal"!**
+**When processing "it":**
+
+The model looks back at all previous words and calculates attention weights.
+
+| Word | Attention |
+|------|-----------|
+| animal | **75%** |
+| street | 10% |
+| other words | 15% |
+
+**"it" attends mostly to "animal" because animals get tired, not streets!**
 
 ---
 
