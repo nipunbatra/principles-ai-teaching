@@ -564,12 +564,7 @@ The model **learns** to connect "it" to "animal"!
 
 Every word attends to **every other word**:
 
-```
-"The cat sat on the mat"
-
-"cat" attends to: "The"(0.1), "cat"(0.2), "sat"(0.4), "on"(0.1)...
-"mat" attends to: "on"(0.2), "the"(0.3), "cat"(0.3)...
-```
+![w:850 center](diagrams/self_attention_clean_20260131_141943.png)
 
 **All in parallel** — no sequential bottleneck!
 
@@ -579,15 +574,7 @@ Every word attends to **every other word**:
 
 **"Attention Is All You Need"**
 
-```
-┌───────────────────┐
-│   Self-Attention  │  ← Every word sees every word
-├───────────────────┤
-│   Feed-Forward    │  ← Process information
-├───────────────────┤
-│   (Repeat 96x)    │  ← Stack many layers
-└───────────────────┘
-```
+![w:700 center](diagrams/transformer_block_clean_20260131_142021.png)
 
 GPT-4 has ~120 transformer layers!
 
@@ -693,30 +680,10 @@ $$P_{\text{adjusted}}(w) = \frac{\exp(\text{logit}_w / T)}{\sum_i \exp(\text{log
 
 # Temperature Visualization
 
-```
-Prompt: "The cat sat on the ___"
+![w:900 center](diagrams/temperature_clean_20260131_142105.png)
 
-Original probabilities (T=1.0):
-  mat: ████████████████ 40%
-  bed: ████████ 20%
-  floor: ██████ 15%
-  sofa: ████ 10%
-  other: ██████ 15%
-
-Low temperature (T=0.3):
-  mat: █████████████████████████ 85%
-  bed: ██ 8%
-  floor: █ 4%
-  sofa: ░ 2%
-  other: ░ 1%
-
-High temperature (T=2.0):
-  mat: ██████ 25%
-  bed: █████ 22%
-  floor: ████ 18%
-  sofa: ████ 17%
-  other: ████ 18%
-```
+**Low T** = Predictable (always picks "mat")
+**High T** = Creative (explores alternatives)
 
 ---
 
@@ -817,29 +784,13 @@ Base models are great at completing text, but terrible at following instructions
 
 # Preview: The LLM Training Pipeline
 
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                                                                 │
-│  STEP 1: Pre-training           (This week!)                    │
-│  ─────────────────────                                          │
-│  • Predict next token on internet text                          │
-│  • Learns grammar, facts, reasoning                             │
-│  • Result: "Base model" (text completer)                        │
-│                                                                 │
-│  STEP 2: Supervised Fine-Tuning (SFT)    (Next week!)           │
-│  ─────────────────────────────────────                          │
-│  • Train on (instruction, response) pairs                       │
-│  • Learns to follow instructions                                │
-│  • Result: "Instruction model"                                  │
-│                                                                 │
-│  STEP 3: Alignment (RLHF/DPO)            (Next week!)           │
-│  ─────────────────────────────                                  │
-│  • Human feedback on what's "good"                              │
-│  • Learns to be helpful, harmless, honest                       │
-│  • Result: "AI Assistant" (ChatGPT, Claude)                     │
-│                                                                 │
-└─────────────────────────────────────────────────────────────────┘
-```
+![w:950 center](diagrams/llm_pipeline_clean_20260131_142150.png)
+
+| Stage | Data | Result |
+|-------|------|--------|
+| **Pre-training** | Web text | Base model (text completer) |
+| **SFT** | Instruction pairs | Follows instructions |
+| **RLHF** | Human preferences | AI Assistant (ChatGPT, Claude) |
 
 ---
 
@@ -876,5 +827,9 @@ Same architecture, different training = very different behavior!
 - The full ChatGPT training pipeline
 
 **Lab:** Build a character-level LM, experiment with generation
+
+**Interactive Notebook:** [L07_language_models.ipynb](../../lecture_demo/L07_language_models.ipynb)
+
+**Project:** [Build Your Own Simple LM](../../lecture_demo/PROJECT_simple_slm.ipynb)
 
 **Questions?**

@@ -36,14 +36,7 @@ By the end of this lecture, you will:
 **Input:** Features (X) + Labels (y)
 **Goal:** Learn function f where f(X) ≈ y
 
-```
-Training Data                Model                  Prediction
-┌─────────────┐         ┌───────────┐         ┌─────────────┐
-│ X (features)│         │           │         │             │
-│ +           │ ──────▶ │  f(X) = y │ ──────▶ │  Prediction │
-│ y (labels)  │  train  │           │  infer  │             │
-└─────────────┘         └───────────┘         └─────────────┘
-```
+![w:900 center](diagrams/supervised_learning_flow_20260131_140038.png)
 
 ---
 
@@ -98,18 +91,7 @@ The **type of label** determines the **type of problem**.
 
 # Spotting the Pattern
 
-```
-Price (₹ lakhs)
-    │
-120 ┼
-100 ┼                          ●
- 80 ┼                    ●
- 60 ┼              ●
- 40 ┼        ●
- 20 ┼
-    └──────┼──────┼──────┼──────┼───▶ Size (sqft)
-         1000   1500   2000   2500
-```
+![w:800 center](diagrams/linear_regression_clean_20260131_141554.png)
 
 **Observation:** Points fall on a line! Price = 0.04 × Size
 
@@ -182,15 +164,7 @@ $$\hat{y} = wx + b$$
 
 **Residual** = Actual - Predicted = $y - \hat{y}$
 
-```
-Price
-  │         ● actual
-  │         │ ← residual (error)
-  │         ▼
-  │     ────●──── predicted (on line)
-  │    ●
-  └───────────────▶ Size
-```
+![w:800 center](diagrams/residuals_visualization_20260131_140200.png)
 
 **Goal:** Make residuals as small as possible!
 
@@ -432,20 +406,7 @@ $$\sigma(z) = \frac{1}{1 + e^{-z}}$$
 
 # Sigmoid Visualization
 
-```
-P(spam)
-  │                          ●●●● 1.0
-1.0┼                    ●●●●
-   │                ●●●
-0.5┼───────────●●●───────────
-   │       ●●●
-0.0┼●●●●●●
-   └────┼────┼────┼────┼────┼───▶ z = wx + b
-       -4   -2    0    2    4
-
-       Definitely      Could be     Definitely
-       NOT spam        either       SPAM
-```
+![w:850 center](diagrams/sigmoid_curve_clean_20260131_141634.png)
 
 ---
 
@@ -611,19 +572,7 @@ Despite the name, Logistic Regression is for **classification**, not regression!
 
 **How humans make decisions:**
 
-```
-Should I carry an umbrella?
-         │
-    Is it cloudy?
-    /          \
-  Yes           No
-   │             │
-Is P(rain)>50%?  Don't carry
-  /      \
-Yes       No
- │         │
-Carry    Don't
-```
+![w:800 center](diagrams/decision_tree_clean_20260131_141713.png)
 
 **Decision Trees learn these rules from data!**
 
@@ -823,18 +772,7 @@ predictions = model.predict(X_test)
 
 # The Overfitting Problem
 
-```
-Shallow Tree (max_depth=2)     Deep Tree (max_depth=10)
-┌────────────────────┐         ┌────────────────────┐
-│   May miss patterns│         │ Memorizes training │
-│   (underfitting)   │         │ data (overfitting) │
-│                    │         │                    │
-│     Simple rules   │         │   Complex rules    │
-└────────────────────┘         └────────────────────┘
-
-Training accuracy: 75%         Training accuracy: 100%
-Test accuracy: 73%             Test accuracy: 60%  ← Bad!
-```
+![w:900 center](diagrams/tree_overfitting_comparison_20260131_140501.png)
 
 ---
 
@@ -907,22 +845,9 @@ model = DecisionTreeClassifier(
 
 # K-NN Visualization (K=3)
 
-```
-    Class A: ●    Class B: ×    New point: ?
+![w:850 center](diagrams/knn_clean_20260131_141744.png)
 
-        ●   ●
-      ●   ●   ●
-        ●
-             ┌─────┐
-          ●  │  ?  │ ← 3 nearest: 2× and 1●
-             │ × × │
-             └─────┘
-        ×   ×
-      ×   ×   ×
-        ×
-
-    Vote: 2 × vs 1 ● → Predict Class B (×)
-```
+**Vote:** Count neighbors → Majority class wins!
 
 ---
 
@@ -1453,6 +1378,8 @@ print(classification_report(y_test, predictions))
 ## Next: Model Selection & Ensembles
 
 **Lab:** Implement these algorithms on real datasets
+
+**Interactive Notebook:** [L03_supervised_learning.ipynb](../../lecture_demo/L03_supervised_learning.ipynb)
 
 *"All models are wrong, but some are useful."*
 — George Box

@@ -89,41 +89,9 @@ Today: What IS this data? How does learning actually work?
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="7" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="7" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="77">
 <h1 id="the-paradigm-shift">The Paradigm Shift</h1>
-<div class="columns">
-<div>
-<h3 id="traditional-programming">Traditional Programming</h3>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>     ┌─────────────┐
-     │    RULES    │ ← Human writes
-     │  (if/else)  │
-     └──────┬──────┘
-            │
-     ┌──────▼──────┐
-     │    DATA     │
-     └──────┬──────┘
-            │
-     ┌──────▼──────┐
-     │   OUTPUT    │
-     └─────────────┘
-</code></pre>
-<p><strong>Explicit programming</strong></p>
-</div>
-<div>
-<h3 id="machine-learning">Machine Learning</h3>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>     ┌─────────────┐
-     │    DATA     │
-     └──────┬──────┘
-            │
-     ┌──────▼──────┐
-     │   LABELS    │ ← Desired outputs
-     └──────┬──────┘
-            │
-     ┌──────▼──────┐
-     │    MODEL    │ ← Learned rules!
-     └─────────────┘
-</code></pre>
-<p><strong>Learning from examples</strong></p>
-</div>
-</div>
+<p><img src="diagrams/traditional_vs_ml_clean_20260131_141145.png" alt="center" style="width:950px;" /></p>
+<p><strong>Traditional Programming:</strong> Human writes explicit rules (if/else)<br />
+<strong>Machine Learning:</strong> Model learns rules from data + labels</p>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="8" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="8" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="77">
 <h1 id="why-this-matters">Why This Matters</h1>
@@ -254,21 +222,8 @@ Good ML models learn the <strong>underlying pattern</strong>, not just memorize 
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="13" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="13" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="77">
 <h1 id="supervised-learning-the-teacher-analogy">Supervised Learning: The Teacher Analogy</h1>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>┌─────────────────────────────────────────────────────────────────┐
-│                      SUPERVISED LEARNING                         │
-├─────────────────────────────────────────────────────────────────┤
-│                                                                  │
-│   Student (Model)          Teacher (Training Data)              │
-│                                                                  │
-│   &quot;Is this spam?&quot;    ──►   &quot;Yes, that's spam.&quot;                  │
-│                             &quot;No, that's legitimate.&quot;             │
-│                             &quot;Yes, that's spam.&quot;                  │
-│                             ...                                  │
-│                                                                  │
-│   After many examples, student learns the patterns!              │
-│                                                                  │
-└─────────────────────────────────────────────────────────────────┘
-</code></pre>
+<p><img src="diagrams/supervised_teacher_analogy_clean_20260131_141226.png" alt="center" style="width:900px;" /></p>
+<p>The model (student) learns from labeled examples (teacher's answers)!</p>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="14" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="14" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="77">
 <h1 id="supervised-learning-two-types">Supervised Learning: Two Types</h1>
@@ -600,19 +555,12 @@ Classification: "Which bucket?" | Regression: "How much?"
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="27" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="27" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="77">
 <h1 id="anatomy-of-a-dataset">Anatomy of a Dataset</h1>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>                    Features (X)                           Label (y)
-         ┌────────────────────────────────────────┐      ┌─────────┐
-         │  sqft  │ beds │ baths │ garage │ year  │      │  price  │
-         ├────────┼──────┼───────┼────────┼───────┤      ├─────────┤
-Row 1 →  │  1500  │   3  │   2   │  Yes   │ 1990  │      │ 300,000 │
-Row 2 →  │  2000  │   4  │   3   │  Yes   │ 2005  │      │ 450,000 │
-Row 3 →  │  1200  │   2  │   1   │  No    │ 1975  │      │ 200,000 │
-Row 4 →  │  1800  │   3  │   2   │  Yes   │ 2010  │      │ 350,000 │
-         └────────┴──────┴───────┴────────┴───────┘      └─────────┘
-
-         n_samples = 4 (rows)
-         n_features = 5 (columns in X)
-</code></pre>
+<p><img src="diagrams/dataset_anatomy_clean_20260131_141310.png" alt="center" style="width:950px;" /></p>
+<ul>
+<li><strong>n_samples</strong> = Number of rows (examples)</li>
+<li><strong>n_features</strong> = Number of input columns (X)</li>
+<li><strong>Label (y)</strong> = What we want to predict</li>
+</ul>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="28" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="28" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="77">
 <h1 id="features-the-inputs">Features: The Inputs</h1>
@@ -819,6 +767,7 @@ y = df[<span class="hljs-string">&#x27;price&#x27;</span>]            <span clas
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="35" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="35" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="77">
 <h1 id="image-data">Image Data</h1>
+<p><img src="diagrams/image_pixels_clean_20260131_141341.png" alt="center" style="width:800px;" /></p>
 <pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
 
 <span class="hljs-comment"># Grayscale image: Height × Width</span>
@@ -826,17 +775,8 @@ mnist_digit = np.zeros((<span class="hljs-number">28</span>, <span class="hljs-n
 
 <span class="hljs-comment"># Color image: Height × Width × 3 (RGB)</span>
 photo = np.zeros((<span class="hljs-number">224</span>, <span class="hljs-number">224</span>, <span class="hljs-number">3</span>))   <span class="hljs-comment"># 150,528 values</span>
-
-<span class="hljs-comment"># Batch of images: Batch × Height × Width × Channels</span>
-batch = np.zeros((<span class="hljs-number">32</span>, <span class="hljs-number">224</span>, <span class="hljs-number">224</span>, <span class="hljs-number">3</span>))  <span class="hljs-comment"># 32 images</span>
 </code></pre>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>┌─────────────────────────┐
-│ 0   0   0   23  155  0  │
-│ 0   0   89  254 254  0  │  ← Each cell = pixel brightness
-│ 0   0   155 254 178  0  │    (0 = black, 255 = white)
-│ ...                     │
-└─────────────────────────┘
-</code></pre>
+<p><strong>Images are just grids of numbers!</strong> (0 = black, 255 = white)</p>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="36" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="36" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="77">
 <h1 id="text-data">Text Data</h1>
@@ -855,20 +795,13 @@ embeddings = model.embed(indices)  <span class="hljs-comment"># Shape: (9, 768)<
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="37" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="37" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="77">
 <h1 id="time-series-data">Time Series Data</h1>
+<p><img src="diagrams/time_series_clean_20260131_141426.png" alt="center" style="width:800px;" /></p>
 <pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-python"><span class="hljs-comment"># Stock prices over time</span>
 dates = pd.date_range(<span class="hljs-string">&#x27;2024-01-01&#x27;</span>, periods=<span class="hljs-number">100</span>)
 prices = [<span class="hljs-number">100.0</span>, <span class="hljs-number">101.5</span>, <span class="hljs-number">99.8</span>, <span class="hljs-number">102.3</span>, ...]  <span class="hljs-comment"># 100 values</span>
 
 <span class="hljs-comment"># Key characteristic: ORDER MATTERS!</span>
 <span class="hljs-comment"># Shuffling destroys the patterns</span>
-</code></pre>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>Price
-  │    ╱╲
-  │   ╱  ╲  ╱╲
-  │  ╱    ╲╱  ╲
-  │ ╱          ╲
-  └──────────────────► Time
-    t1  t2  t3  t4
 </code></pre>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="38" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="38" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="77">
@@ -954,19 +887,11 @@ df[<span class="hljs-string">&#x27;color&#x27;</span>].fillna(df[<span class="hl
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="42" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="42" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="77">
 <h1 id="outliers">Outliers</h1>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>Normal distribution:      With outlier:
-     ╭───────╮                ╭───────╮
-    ╱         ╲              ╱         ╲              •
-   ╱           ╲            ╱           ╲           (outlier)
-  ╱             ╲          ╱             ╲
- ╱               ╲        ╱               ╲
-────────────────────     ────────────────────────────────
-  μ = 50                   μ = 50        outlier = 500
-
-Mean without outlier: 50
-Mean with outlier: 95  ← Heavily skewed!
-</code></pre>
-<p><strong>Detection:</strong> Z-score &gt; 3, IQR method, visual inspection</p>
+<p><img src="diagrams/outliers_clean_20260131_141504.png" alt="center" style="width:850px;" /></p>
+<p><strong>Detection methods:</strong> Z-score &gt; 3, IQR method, visual inspection</p>
+<div class="insight">
+Outliers can heavily skew your statistics and model predictions!
+</div>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="43" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="43" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="77">
 <h1 id="class-imbalance">Class Imbalance</h1>
@@ -1106,20 +1031,7 @@ We want ML models to LEARN, not MEMORIZE!
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="52" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="52" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="77">
 <h1 id="why-split-works">Why Split Works</h1>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>┌───────────────────────────────────────────────────────────────┐
-│                         THE RULES                             │
-├───────────────────────────────────────────────────────────────┤
-│                                                               │
-│  1. Model trains ONLY on training data                        │
-│                                                               │
-│  2. Model NEVER sees test data during training                │
-│                                                               │
-│  3. After training, evaluate on test data                     │
-│                                                               │
-│  4. Test performance = Expected real-world performance        │
-│                                                               │
-└───────────────────────────────────────────────────────────────┘
-</code></pre>
+<p><img src="diagrams/train_test_rules_clean_20260131_142237.png" alt="center" style="width:900px;" /></p>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="53" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="53" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="77">
 <h1 id="the-golden-rule">The Golden Rule</h1>
@@ -1636,6 +1548,7 @@ y_pred = model.predict(X_test)
 <h1 id="ready-to-build">Ready to Build!</h1>
 <h2 id="next-supervised-learning-deep-dive">Next: Supervised Learning Deep Dive</h2>
 <p><strong>Lab this week:</strong> Your first ML models with sklearn</p>
+<p><strong>Interactive Notebook:</strong> <a href="../../lecture_demo/L02_data_foundation.ipynb">L02_data_foundation.ipynb</a></p>
 <p><em>&quot;In God we trust. All others must bring data.&quot;</em><br />
 — W. Edwards Deming</p>
 <p><strong>Questions?</strong></p>

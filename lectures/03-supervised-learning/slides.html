@@ -52,13 +52,7 @@
 <h1 id="recap-supervised-learning">Recap: Supervised Learning</h1>
 <p><strong>Input:</strong> Features (X) + Labels (y)<br />
 <strong>Goal:</strong> Learn function f where f(X) ≈ y</p>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>Training Data                Model                  Prediction
-┌─────────────┐         ┌───────────┐         ┌─────────────┐
-│ X (features)│         │           │         │             │
-│ +           │ ──────<img class="emoji" draggable="false" alt="▶" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/25b6.svg" data-marp-twemoji=""/> │  f(X) = y │ ──────<img class="emoji" draggable="false" alt="▶" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/25b6.svg" data-marp-twemoji=""/> │  Prediction │
-│ y (labels)  │  train  │           │  infer  │             │
-└─────────────┘         └───────────┘         └─────────────┘
-</code></pre>
+<p><img src="diagrams/supervised_learning_flow_20260131_140038.png" alt="center" style="width:900px;" /></p>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="4" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="4" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="87">
 <h1 id="two-types-of-supervised-learning">Two Types of Supervised Learning</h1>
@@ -166,17 +160,7 @@
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="8" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="8" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="87">
 <h1 id="spotting-the-pattern">Spotting the Pattern</h1>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>Price (₹ lakhs)
-    │
-120 ┼
-100 ┼                          ●
- 80 ┼                    ●
- 60 ┼              ●
- 40 ┼        ●
- 20 ┼
-    └──────┼──────┼──────┼──────┼───<img class="emoji" draggable="false" alt="▶" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/25b6.svg" data-marp-twemoji=""/> Size (sqft)
-         1000   1500   2000   2500
-</code></pre>
+<p><img src="diagrams/linear_regression_clean_20260131_141554.png" alt="center" style="width:800px;" /></p>
 <p><strong>Observation:</strong> Points fall on a line! Price = 0.04 × Size</p>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="9" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="9" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="87">
@@ -286,14 +270,7 @@
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="13" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="13" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="87">
 <h1 id="measuring-error-residuals">Measuring Error: Residuals</h1>
 <p><strong>Residual</strong> = Actual - Predicted = <mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.464ex;" xmlns="http://www.w3.org/2000/svg" width="4.983ex" height="2.296ex" role="img" focusable="false" viewBox="0 -810 2202.4 1015"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D466" d="M21 287Q21 301 36 335T84 406T158 442Q199 442 224 419T250 355Q248 336 247 334Q247 331 231 288T198 191T182 105Q182 62 196 45T238 27Q261 27 281 38T312 61T339 94Q339 95 344 114T358 173T377 247Q415 397 419 404Q432 431 462 431Q475 431 483 424T494 412T496 403Q496 390 447 193T391 -23Q363 -106 294 -155T156 -205Q111 -205 77 -183T43 -117Q43 -95 50 -80T69 -58T89 -48T106 -45Q150 -45 150 -87Q150 -107 138 -122T115 -142T102 -147L99 -148Q101 -153 118 -160T152 -167H160Q177 -167 186 -165Q219 -156 247 -127T290 -65T313 -9T321 21L315 17Q309 13 296 6T270 -6Q250 -11 231 -11Q185 -11 150 11T104 82Q103 89 103 113Q103 170 138 262T173 379Q173 380 173 381Q173 390 173 393T169 400T158 404H154Q131 404 112 385T82 344T65 302T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mo" transform="translate(712.2,0)"><path data-c="2212" d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z"></path></g><g data-mml-node="TeXAtom" data-mjx-texclass="ORD" transform="translate(1712.4,0)"><g data-mml-node="mover"><g data-mml-node="mi"><path data-c="1D466" d="M21 287Q21 301 36 335T84 406T158 442Q199 442 224 419T250 355Q248 336 247 334Q247 331 231 288T198 191T182 105Q182 62 196 45T238 27Q261 27 281 38T312 61T339 94Q339 95 344 114T358 173T377 247Q415 397 419 404Q432 431 462 431Q475 431 483 424T494 412T496 403Q496 390 447 193T391 -23Q363 -106 294 -155T156 -205Q111 -205 77 -183T43 -117Q43 -95 50 -80T69 -58T89 -48T106 -45Q150 -45 150 -87Q150 -107 138 -122T115 -142T102 -147L99 -148Q101 -153 118 -160T152 -167H160Q177 -167 186 -165Q219 -156 247 -127T290 -65T313 -9T321 21L315 17Q309 13 296 6T270 -6Q250 -11 231 -11Q185 -11 150 11T104 82Q103 89 103 113Q103 170 138 262T173 379Q173 380 173 381Q173 390 173 393T169 400T158 404H154Q131 404 112 385T82 344T65 302T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mo" transform="translate(300.6,16) translate(-250 0)"><path data-c="5E" d="M112 560L249 694L257 686Q387 562 387 560L361 531Q359 532 303 581L250 627L195 580Q182 569 169 557T148 538L140 532Q138 530 125 546L112 560Z"></path></g></g></g></g></g></svg></mjx-container></p>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>Price
-  │         ● actual
-  │         │ ← residual (error)
-  │         ▼
-  │     ────●──── predicted (on line)
-  │    ●
-  └───────────────<img class="emoji" draggable="false" alt="▶" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/25b6.svg" data-marp-twemoji=""/> Size
-</code></pre>
+<p><img src="diagrams/residuals_visualization_20260131_140200.png" alt="center" style="width:800px;" /></p>
 <p><strong>Goal:</strong> Make residuals as small as possible!</p>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="14" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="14" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="87">
@@ -660,19 +637,7 @@ But we need:
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="28" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="28" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="87">
 <h1 id="sigmoid-visualization">Sigmoid Visualization</h1>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>P(spam)
-  │                          ●●●● 1.0
-1.0┼                    ●●●●
-   │                ●●●
-0.5┼───────────●●●───────────
-   │       ●●●
-0.0┼●●●●●●
-   └────┼────┼────┼────┼────┼───<img class="emoji" draggable="false" alt="▶" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/25b6.svg" data-marp-twemoji=""/> z = wx + b
-       -4   -2    0    2    4
-
-       Definitely      Could be     Definitely
-       NOT spam        either       SPAM
-</code></pre>
+<p><img src="diagrams/sigmoid_curve_clean_20260131_141634.png" alt="center" style="width:850px;" /></p>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="29" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="29" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="87">
 <h1 id="logistic-regression-model">Logistic Regression Model</h1>
@@ -882,18 +847,7 @@ probs = model.predict_proba([[features]])
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="38" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="38" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="87">
 <h1 id="the-most-intuitive-model">The Most Intuitive Model</h1>
 <p><strong>How humans make decisions:</strong></p>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>Should I carry an umbrella?
-         │
-    Is it cloudy?
-    /          \
-  Yes           No
-   │             │
-Is P(rain)&gt;50%?  Don't carry
-  /      \
-Yes       No
- │         │
-Carry    Don't
-</code></pre>
+<p><img src="diagrams/decision_tree_clean_20260131_141713.png" alt="center" style="width:800px;" /></p>
 <p><strong>Decision Trees learn these rules from data!</strong></p>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="39" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="39" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="87">
@@ -1114,17 +1068,7 @@ predictions = model.predict(X_test)
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="50" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="50" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="87">
 <h1 id="the-overfitting-problem">The Overfitting Problem</h1>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>Shallow Tree (max_depth=2)     Deep Tree (max_depth=10)
-┌────────────────────┐         ┌────────────────────┐
-│   May miss patterns│         │ Memorizes training │
-│   (underfitting)   │         │ data (overfitting) │
-│                    │         │                    │
-│     Simple rules   │         │   Complex rules    │
-└────────────────────┘         └────────────────────┘
-
-Training accuracy: 75%         Training accuracy: 100%
-Test accuracy: 73%             Test accuracy: 60%  ← Bad!
-</code></pre>
+<p><img src="diagrams/tree_overfitting_comparison_20260131_140501.png" alt="center" style="width:900px;" /></p>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="51" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="51" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="87">
 <h1 id="controlling-tree-complexity">Controlling Tree Complexity</h1>
@@ -1200,21 +1144,8 @@ Test accuracy: 73%             Test accuracy: 60%  ← Bad!
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="55" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="55" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="87">
 <h1 id="k-nn-visualization-k3">K-NN Visualization (K=3)</h1>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>    Class A: ●    Class B: ×    New point: ?
-
-        ●   ●
-      ●   ●   ●
-        ●
-             ┌─────┐
-          ●  │  ?  │ ← 3 nearest: 2× and 1●
-             │ × × │
-             └─────┘
-        ×   ×
-      ×   ×   ×
-        ×
-
-    Vote: 2 × vs 1 ● → Predict Class B (×)
-</code></pre>
+<p><img src="diagrams/knn_clean_20260131_141744.png" alt="center" style="width:850px;" /></p>
+<p><strong>Vote:</strong> Count neighbors → Majority class wins!</p>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="56" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="56" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="87">
 <h1 id="distance-matters">Distance Matters</h1>
@@ -1998,6 +1929,7 @@ predictions = model.predict(X_test)
 <h1 id="you-now-know-4-algorithms">You Now Know 4 Algorithms!</h1>
 <h2 id="next-model-selection--ensembles">Next: Model Selection &amp; Ensembles</h2>
 <p><strong>Lab:</strong> Implement these algorithms on real datasets</p>
+<p><strong>Interactive Notebook:</strong> <a href="../../lecture_demo/L03_supervised_learning.ipynb">L03_supervised_learning.ipynb</a></p>
 <p><em>&quot;All models are wrong, but some are useful.&quot;</em><br />
 — George Box</p>
 <p><strong>Questions?</strong></p>

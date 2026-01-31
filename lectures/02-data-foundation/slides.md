@@ -80,51 +80,10 @@ Every AI/ML system answers **one fundamental question**:
 
 # The Paradigm Shift
 
-<div class="columns">
-<div>
+![w:950 center](diagrams/traditional_vs_ml_clean_20260131_141145.png)
 
-### Traditional Programming
-
-```
-     ┌─────────────┐
-     │    RULES    │ ← Human writes
-     │  (if/else)  │
-     └──────┬──────┘
-            │
-     ┌──────▼──────┐
-     │    DATA     │
-     └──────┬──────┘
-            │
-     ┌──────▼──────┐
-     │   OUTPUT    │
-     └─────────────┘
-```
-
-**Explicit programming**
-
-</div>
-<div>
-
-### Machine Learning
-
-```
-     ┌─────────────┐
-     │    DATA     │
-     └──────┬──────┘
-            │
-     ┌──────▼──────┐
-     │   LABELS    │ ← Desired outputs
-     └──────┬──────┘
-            │
-     ┌──────▼──────┐
-     │    MODEL    │ ← Learned rules!
-     └─────────────┘
-```
-
-**Learning from examples**
-
-</div>
-</div>
+**Traditional Programming:** Human writes explicit rules (if/else)
+**Machine Learning:** Model learns rules from data + labels
 
 ---
 
@@ -224,22 +183,9 @@ Good ML models learn the <strong>underlying pattern</strong>, not just memorize 
 
 # Supervised Learning: The Teacher Analogy
 
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                      SUPERVISED LEARNING                         │
-├─────────────────────────────────────────────────────────────────┤
-│                                                                  │
-│   Student (Model)          Teacher (Training Data)              │
-│                                                                  │
-│   "Is this spam?"    ──►   "Yes, that's spam."                  │
-│                             "No, that's legitimate."             │
-│                             "Yes, that's spam."                  │
-│                             ...                                  │
-│                                                                  │
-│   After many examples, student learns the patterns!              │
-│                                                                  │
-└─────────────────────────────────────────────────────────────────┘
-```
+![w:900 center](diagrams/supervised_teacher_analogy_clean_20260131_141226.png)
+
+The model (student) learns from labeled examples (teacher's answers)!
 
 ---
 
@@ -395,20 +341,11 @@ Some data is **ordered categories**:
 
 # Anatomy of a Dataset
 
-```
-                    Features (X)                           Label (y)
-         ┌────────────────────────────────────────┐      ┌─────────┐
-         │  sqft  │ beds │ baths │ garage │ year  │      │  price  │
-         ├────────┼──────┼───────┼────────┼───────┤      ├─────────┤
-Row 1 →  │  1500  │   3  │   2   │  Yes   │ 1990  │      │ 300,000 │
-Row 2 →  │  2000  │   4  │   3   │  Yes   │ 2005  │      │ 450,000 │
-Row 3 →  │  1200  │   2  │   1   │  No    │ 1975  │      │ 200,000 │
-Row 4 →  │  1800  │   3  │   2   │  Yes   │ 2010  │      │ 350,000 │
-         └────────┴──────┴───────┴────────┴───────┘      └─────────┘
+![w:950 center](diagrams/dataset_anatomy_clean_20260131_141310.png)
 
-         n_samples = 4 (rows)
-         n_features = 5 (columns in X)
-```
+- **n_samples** = Number of rows (examples)
+- **n_features** = Number of input columns (X)
+- **Label (y)** = What we want to predict
 
 ---
 
@@ -528,6 +465,8 @@ y = df['price']            # Labels
 
 # Image Data
 
+![w:800 center](diagrams/image_pixels_clean_20260131_141341.png)
+
 ```python
 import numpy as np
 
@@ -536,19 +475,9 @@ mnist_digit = np.zeros((28, 28))  # 784 pixels
 
 # Color image: Height × Width × 3 (RGB)
 photo = np.zeros((224, 224, 3))   # 150,528 values
-
-# Batch of images: Batch × Height × Width × Channels
-batch = np.zeros((32, 224, 224, 3))  # 32 images
 ```
 
-```
-┌─────────────────────────┐
-│ 0   0   0   23  155  0  │
-│ 0   0   89  254 254  0  │  ← Each cell = pixel brightness
-│ 0   0   155 254 178  0  │    (0 = black, 255 = white)
-│ ...                     │
-└─────────────────────────┘
-```
+**Images are just grids of numbers!** (0 = black, 255 = white)
 
 ---
 
@@ -573,6 +502,8 @@ embeddings = model.embed(indices)  # Shape: (9, 768)
 
 # Time Series Data
 
+![w:800 center](diagrams/time_series_clean_20260131_141426.png)
+
 ```python
 # Stock prices over time
 dates = pd.date_range('2024-01-01', periods=100)
@@ -580,16 +511,6 @@ prices = [100.0, 101.5, 99.8, 102.3, ...]  # 100 values
 
 # Key characteristic: ORDER MATTERS!
 # Shuffling destroys the patterns
-```
-
-```
-Price
-  │    ╱╲
-  │   ╱  ╲  ╱╲
-  │  ╱    ╲╱  ╲
-  │ ╱          ╲
-  └──────────────────► Time
-    t1  t2  t3  t4
 ```
 
 ---
@@ -647,21 +568,13 @@ df['color'].fillna(df['color'].mode()[0])
 
 # Outliers
 
-```
-Normal distribution:      With outlier:
-     ╭───────╮                ╭───────╮
-    ╱         ╲              ╱         ╲              •
-   ╱           ╲            ╱           ╲           (outlier)
-  ╱             ╲          ╱             ╲
- ╱               ╲        ╱               ╲
-────────────────────     ────────────────────────────────
-  μ = 50                   μ = 50        outlier = 500
+![w:850 center](diagrams/outliers_clean_20260131_141504.png)
 
-Mean without outlier: 50
-Mean with outlier: 95  ← Heavily skewed!
-```
+**Detection methods:** Z-score > 3, IQR method, visual inspection
 
-**Detection:** Z-score > 3, IQR method, visual inspection
+<div class="insight">
+Outliers can heavily skew your statistics and model predictions!
+</div>
 
 ---
 
@@ -800,21 +713,7 @@ We want ML models to LEARN, not MEMORIZE!
 
 # Why Split Works
 
-```
-┌───────────────────────────────────────────────────────────────┐
-│                         THE RULES                             │
-├───────────────────────────────────────────────────────────────┤
-│                                                               │
-│  1. Model trains ONLY on training data                        │
-│                                                               │
-│  2. Model NEVER sees test data during training                │
-│                                                               │
-│  3. After training, evaluate on test data                     │
-│                                                               │
-│  4. Test performance = Expected real-world performance        │
-│                                                               │
-└───────────────────────────────────────────────────────────────┘
-```
+![w:900 center](diagrams/train_test_rules_clean_20260131_142237.png)
 
 ---
 
@@ -1236,6 +1135,8 @@ print(f"R² Score: {r2_score(y_test, y_pred):.3f}")
 ## Next: Supervised Learning Deep Dive
 
 **Lab this week:** Your first ML models with sklearn
+
+**Interactive Notebook:** [L02_data_foundation.ipynb](../../lecture_demo/L02_data_foundation.ipynb)
 
 *"In God we trust. All others must bring data."*
 — W. Edwards Deming
