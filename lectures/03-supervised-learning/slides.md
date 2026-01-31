@@ -11,7 +11,7 @@ math: mathjax
 # Supervised Learning
 # Deep Dive
 
-## From Linear Regression to Decision Trees
+## Linear & Logistic Regression
 
 **Nipun Batra** | IIT Gandhinagar
 
@@ -21,48 +21,26 @@ math: mathjax
 
 By the end of this lecture, you will:
 
-| Goal | What You'll Learn |
-|------|-------------------|
-| **Understand** | How 4 core ML algorithms work |
-| **Implement** | Linear/Logistic Regression, Trees, K-NN |
-| **Evaluate** | Accuracy, Precision, Recall, F1, MSE, R² |
-| **Choose** | Which algorithm for which problem |
-| **Interpret** | Model outputs and predictions |
+1. **Understand** how linear regression finds the best line
+2. **Interpret** weights and what they mean
+3. **Apply** logistic regression for classification
+4. **Use** the sigmoid function to get probabilities
+5. **Evaluate** models with appropriate metrics
 
 ---
 
 # Recap: Supervised Learning
 
-**Input:** Features (X) + Labels (y)
-**Goal:** Learn function f where f(X) ≈ y
+**We have:**
+- Features (X): What we know about each example
+- Labels (y): What we want to predict
 
-![w:900 center](diagrams/supervised_learning_flow_20260131_140038.png)
+**Goal:** Learn a function f where f(X) ≈ y
 
----
-
-# Two Types of Supervised Learning
-
-| If y is... | Task | Output | Example |
-|------------|------|--------|---------|
-| **Category** | Classification | Class label | Spam or Not |
-| **Number** | Regression | Continuous value | House Price |
-
-<div class="insight">
-
-The **type of label** determines the **type of problem**.
-
-</div>
-
----
-
-# Today's Algorithm Menu
-
-| Algorithm | Type | Key Idea | Best For |
-|-----------|------|----------|----------|
-| **Linear Regression** | Regression | Fit a line | Linear relationships |
-| **Logistic Regression** | Classification | Probability + threshold | Binary classification |
-| **Decision Trees** | Both | If-then rules | Interpretable models |
-| **K-Nearest Neighbors** | Both | Vote by neighbors | Simple patterns |
+| If y is... | Task | Example |
+|------------|------|---------|
+| A number | Regression | Predict house price |
+| A category | Classification | Spam or not spam |
 
 ---
 
@@ -70,13 +48,17 @@ The **type of label** determines the **type of problem**.
 
 # Part 1: Linear Regression
 
-## The Line of Best Fit
+## Fitting a Line to Data
 
 ---
 
-# The Simplest ML Model
+# The Simplest Prediction Problem
 
-**Question:** Given house size, predict price?
+**Scenario:** You're a real estate agent. A client asks:
+
+> "I'm looking at a 1750 sqft house. What should I expect to pay?"
+
+You have data from recent sales:
 
 | Size (sqft) | Price (₹ lakhs) |
 |-------------|-----------------|
@@ -85,264 +67,207 @@ The **type of label** determines the **type of problem**.
 | 2000 | 80 |
 | 2500 | 100 |
 
-**What would a 1750 sqft house cost?**
+**Can you see the pattern?**
 
 ---
 
-# Spotting the Pattern
+# The Pattern is Clear!
 
-![w:800 center](diagrams/linear_regression_clean_20260131_141554.png)
+Every 500 sqft adds ₹20 lakhs.
 
-**Observation:** Points fall on a line! Price = 0.04 × Size
+| Size | Price | Pattern |
+|------|-------|---------|
+| 1000 | 40 | |
+| 1500 | 60 | +500 sqft → +₹20 lakhs |
+| 2000 | 80 | +500 sqft → +₹20 lakhs |
+| 2500 | 100 | +500 sqft → +₹20 lakhs |
 
----
+**So 1750 sqft should cost... ₹70 lakhs!**
 
-# Linear Regression: The Idea
-
-Find the **best fitting line** through the data.
-
-$$\hat{y} = wx + b$$
-
-| Symbol | Name | Meaning | Example |
-|--------|------|---------|---------|
-| $x$ | Input | Feature value | 1500 sqft |
-| $\hat{y}$ | Output | Predicted value | ₹60 lakhs |
-| $w$ | Weight | Slope (sensitivity) | 0.04 |
-| $b$ | Bias | Intercept (baseline) | 0 |
+You just did linear regression in your head.
 
 ---
 
-# The Slope Intuition
+# The Equation of a Line
 
-**What does the slope (w) mean?**
+$$\text{Price} = 0.04 \times \text{Size} + 0$$
 
-| w = 0.04 | Interpretation |
-|----------|----------------|
-| Per unit change in x | y changes by w |
-| +100 sqft | +₹4 lakhs |
-| +500 sqft | +₹20 lakhs |
+Or more generally:
+
+$$\hat{y} = w \cdot x + b$$
+
+| Symbol | Name | Meaning | Our Example |
+|--------|------|---------|-------------|
+| $x$ | Input | Feature value | Size (sqft) |
+| $\hat{y}$ | Output | Predicted value | Price |
+| $w$ | Weight | Slope | 0.04 |
+| $b$ | Bias | Intercept | 0 |
+
+---
+
+# What Does the Weight Mean?
+
+**Weight w = 0.04 means:**
+
+> "For every 1 sqft increase, price increases by ₹0.04 lakhs"
+
+Or equivalently:
+> "For every 100 sqft increase, price increases by ₹4 lakhs"
 
 <div class="insight">
 
-**The weight tells you sensitivity:** How much does output change when input changes?
+The weight tells you the **sensitivity** — how much does output change when input changes?
 
 </div>
 
 ---
 
-# The Intercept Intuition
+# What Does the Bias Mean?
 
-**What does the bias (b) mean?**
+**Bias b = 0 means:**
 
-| b = 0 | b = 10 |
-|-------|--------|
-| 0 sqft → ₹0 | 0 sqft → ₹10 lakhs |
-| Line passes through origin | Line shifted up by 10 |
+> "A 0 sqft house would cost ₹0"
 
-**Real-world:** Intercept captures the "baseline" - minimum cost regardless of size (land, permits, etc.)
+In reality, bias captures the **baseline** cost:
+- Land value
+- Permits and fees
+- Minimum construction cost
 
----
-
-# What is "Best Fitting"?
-
-**Problem:** Many lines can pass through/near the points.
-
-```
-         Good Fit              Poor Fit
-    │    ●                  │      ●
-    │  ●   ──────          │    ●      ──────
-    │ ●                    │   ●
-    │●                     │  ●
-    └──────────▶           └──────────▶
-```
-
-**Question:** How do we define "best"?
+If b = 10, then even a tiny house costs at least ₹10 lakhs.
 
 ---
 
-# Measuring Error: Residuals
-
-**Residual** = Actual - Predicted = $y - \hat{y}$
-
-![w:800 center](diagrams/residuals_visualization_20260131_140200.png)
-
-**Goal:** Make residuals as small as possible!
-
----
-
-# Why Squared Errors?
-
-We minimize **Sum of Squared Errors (SSE)**:
-
-$$\text{SSE} = \sum_{i=1}^{n} (y_i - \hat{y}_i)^2$$
-
-| Property | Why It Helps |
-|----------|--------------|
-| **Always positive** | Errors don't cancel (+3 and -3) |
-| **Penalizes big errors** | Error of 10 costs 100, not 10 |
-| **Differentiable** | Can use calculus to find minimum |
-| **Closed-form solution** | Can solve directly with math |
-
----
-
-# Visualizing SSE
-
-```
-         Small SSE                Large SSE
-    │   ●                    │         ●
-    │  ●  ──────            │    ●    ──────
-    │ ●                      │   ●
-    │●                       │  ●
-    └──────────▶             └──────────▶
-
-    Squares are small         Squares are big
-    (close to line)           (far from line)
-```
-
-**Best line minimizes total area of squares!**
-
----
-
-# Finding the Best Line
-
-**The math (don't memorize!):**
-
-$$w = \frac{\sum (x_i - \bar{x})(y_i - \bar{y})}{\sum (x_i - \bar{x})^2}$$
-
-$$b = \bar{y} - w\bar{x}$$
-
-| Term | Meaning |
-|------|---------|
-| $\bar{x}$ | Mean of all x values |
-| $\bar{y}$ | Mean of all y values |
-
-**sklearn does this for you automatically!**
-
----
-
-# Linear Regression in sklearn
+# Linear Regression in Python
 
 ```python
 from sklearn.linear_model import LinearRegression
 import numpy as np
 
-# Data: Size (sqft) → Price (lakhs)
-X = np.array([[1000], [1500], [2000], [2500]])
-y = np.array([40, 60, 80, 100])
+# Our data
+X = np.array([[1000], [1500], [2000], [2500]])  # Size
+y = np.array([40, 60, 80, 100])                  # Price
 
 # Create and train model
 model = LinearRegression()
 model.fit(X, y)
 
-# Predict
+# Now predict!
 model.predict([[1750]])  # → 70.0 (₹70 lakhs)
 ```
 
 ---
 
-# Understanding the Learned Model
+# Understanding What the Model Learned
 
 ```python
 print(f"Weight (w): {model.coef_[0]}")      # 0.04
 print(f"Intercept (b): {model.intercept_}")  # 0.0
-
-# The learned equation:
-# Price = 0.04 × Size + 0
-# For 1750 sqft: 0.04 × 1750 = ₹70 lakhs
 ```
 
-| Attribute | Meaning | Value |
-|-----------|---------|-------|
-| `model.coef_` | Weights (one per feature) | [0.04] |
-| `model.intercept_` | Bias term | 0.0 |
+**The equation it learned:**
+$$\text{Price} = 0.04 \times \text{Size} + 0$$
+
+**Verify:**
+- 1750 sqft → 0.04 × 1750 + 0 = **₹70 lakhs** ✓
+
+---
+
+# But What if Data Isn't Perfect?
+
+Real data has **noise** — points don't fall exactly on a line.
+
+| Size | Actual Price | On the Line? |
+|------|--------------|--------------|
+| 1000 | 42 | No (line says 40) |
+| 1500 | 58 | No (line says 60) |
+| 2000 | 83 | No (line says 80) |
+| 2500 | 97 | No (line says 100) |
+
+**Which line is "best"?**
+
+---
+
+# The Goal: Minimize Errors
+
+**Residual** = Actual - Predicted = $y - \hat{y}$
+
+| Size | Actual | Predicted | Residual |
+|------|--------|-----------|----------|
+| 1000 | 42 | 40 | +2 |
+| 1500 | 58 | 60 | -2 |
+| 2000 | 83 | 80 | +3 |
+| 2500 | 97 | 100 | -3 |
+
+**Goal:** Find w and b that make residuals as small as possible!
+
+---
+
+# Why Squared Errors?
+
+We minimize **Sum of Squared Errors**:
+
+$$\text{SSE} = \sum_{i=1}^{n} (y_i - \hat{y}_i)^2$$
+
+| Why Square? | Reason |
+|-------------|--------|
+| Errors don't cancel | +3 and -3 both contribute |
+| Penalizes big errors more | Error of 10 costs 100, not 10 |
+| Has nice math properties | Can solve with calculus |
 
 ---
 
 # Multiple Features
 
-What if we have more than one feature?
+What if price depends on more than just size?
 
-$$\hat{y} = w_1 x_1 + w_2 x_2 + w_3 x_3 + b$$
+| Size | Bedrooms | Bathrooms | Price |
+|------|----------|-----------|-------|
+| 1500 | 3 | 2 | 60 |
+| 2000 | 4 | 3 | 90 |
+| 1200 | 2 | 1 | 45 |
 
-```python
-# Features: [sqft, bedrooms, bathrooms]
-X = [[1500, 3, 2],
-     [2000, 4, 3],
-     [1200, 2, 1],
-     [1800, 3, 2]]
-y = [60, 90, 45, 75]
+**The equation becomes:**
 
-model.fit(X, y)
-print(model.coef_)  # → [w_sqft, w_beds, w_baths]
-```
+$$\text{Price} = w_1 \times \text{Size} + w_2 \times \text{Beds} + w_3 \times \text{Baths} + b$$
 
 ---
 
 # Interpreting Multiple Weights
 
 ```python
-# Example output:
+# After training on multiple features:
 # coef_ = [0.03, 5.0, 8.0]
 # intercept_ = -10
 ```
 
 | Feature | Weight | Interpretation |
 |---------|--------|----------------|
-| sqft | 0.03 | +100 sqft → +₹3 lakhs |
-| bedrooms | 5.0 | +1 bedroom → +₹5 lakhs |
-| bathrooms | 8.0 | +1 bathroom → +₹8 lakhs |
+| Size (sqft) | 0.03 | +100 sqft → +₹3 lakhs |
+| Bedrooms | 5.0 | +1 bedroom → +₹5 lakhs |
+| Bathrooms | 8.0 | +1 bathroom → +₹8 lakhs |
 
-**Each weight shows feature's contribution to price!**
+<div class="insight">
+
+Each weight shows that feature's **independent contribution** to price!
+
+</div>
 
 ---
 
-# When Linear Regression Works
+# When Does Linear Regression Work?
 
 | Scenario | Works? | Why |
 |----------|--------|-----|
-| **Linear relationship** | ✅ | Points follow a line |
-| **Continuous target** | ✅ | Predicting real numbers |
-| **Independent features** | ✅ | No multicollinearity |
+| Price vs Size (roughly linear) | ✅ Yes | Points follow a line |
+| Height vs Weight | ✅ Yes | Roughly linear |
+| Study hours vs Exam score | ✅ Mostly | Roughly linear |
+| Age vs Happiness | ❌ No | U-shaped relationship |
 
-```
-    ✅ Works Well              ❌ Doesn't Work
-    │     ● ●                  │    ●      ●
-    │   ● ●                    │       ●
-    │  ● ●                     │   ●     ●
-    │ ●                        │ ●           ●
-    └──────────▶               └──────────▶
-    Linear pattern             Curved pattern
-```
+<div class="warning">
 
----
+Linear regression assumes the relationship is a **straight line**!
 
-# When Linear Regression Fails
-
-| Problem | Example | Solution |
-|---------|---------|----------|
-| **Curved patterns** | Diminishing returns | Polynomial features |
-| **Outliers** | One mansion in data | Robust regression |
-| **Discrete targets** | Pass/Fail | Use classification |
-| **Non-linear relationships** | Complex interactions | Trees, Neural Nets |
-
----
-
-# Polynomial Features
-
-**For curved relationships:**
-
-```python
-from sklearn.preprocessing import PolynomialFeatures
-
-# Original: [x]
-# After poly(degree=2): [1, x, x²]
-
-poly = PolynomialFeatures(degree=2)
-X_poly = poly.fit_transform(X)
-
-model = LinearRegression()
-model.fit(X_poly, y)  # Now fits curves!
-```
+</div>
 
 ---
 
@@ -350,41 +275,41 @@ model.fit(X_poly, y)  # Now fits curves!
 
 # Part 2: Logistic Regression
 
-## Predicting Categories
+## From Numbers to Categories
 
 ---
 
-# The Classification Problem
+# A Different Problem
 
-**Question:** Given email features, is it spam?
+**Scenario:** You're building a spam filter.
 
-| num_exclamations | has_FREE | contains_offer | is_spam |
-|------------------|----------|----------------|---------|
-| 5 | Yes | Yes | ✅ Spam |
-| 0 | No | No | ❌ Not Spam |
-| 3 | Yes | Yes | ✅ Spam |
-| 1 | No | No | ❌ Not Spam |
+| Email | Exclamation marks | Has "FREE" | Is Spam? |
+|-------|-------------------|------------|----------|
+| 1 | 5 | Yes | ✅ Spam |
+| 2 | 0 | No | ❌ Not Spam |
+| 3 | 3 | Yes | ✅ Spam |
+| 4 | 1 | No | ❌ Not Spam |
 
-**Output is a category, not a number!**
+**The output is a category, not a number!**
 
 ---
 
-# Why Not Linear Regression?
+# Why Can't We Use Linear Regression?
 
-**Problem:** Linear regression predicts any number (-∞ to +∞)
+If we use linear regression:
 
-```
-Linear Regression Output:
--2.5, -1.0, 0.3, 0.7, 1.5, 2.8, ...
+$$\text{Spam Score} = w_1 \times \text{Exclamations} + w_2 \times \text{HasFREE} + b$$
 
-But we need:
-0 (not spam) or 1 (spam)
-```
+**Problem:** This gives any number (-∞ to +∞)
 
-| Issue | Example |
-|-------|---------|
-| Predictions outside [0,1] | "Probability = 1.5" ❌ |
-| No clear decision boundary | When to say spam? |
+| Score | What does it mean? |
+|-------|-------------------|
+| -2.5 | ??? |
+| 0.3 | ??? |
+| 1.5 | ??? |
+| 147 | ??? |
+
+We need something between 0 and 1 (a probability)!
 
 ---
 
@@ -396,62 +321,79 @@ $$\sigma(z) = \frac{1}{1 + e^{-z}}$$
 
 | Input (z) | Output σ(z) | Interpretation |
 |-----------|-------------|----------------|
-| -10 | 0.00005 | Very low probability |
-| -2 | 0.12 | Low probability |
+| -10 | 0.00005 | Almost certainly NOT spam |
+| -2 | 0.12 | Probably not spam |
 | 0 | 0.50 | 50-50 |
-| +2 | 0.88 | High probability |
-| +10 | 0.99995 | Very high probability |
+| +2 | 0.88 | Probably spam |
+| +10 | 0.99995 | Almost certainly spam |
 
 ---
 
-# Sigmoid Visualization
+# The Sigmoid Shape
 
-![w:850 center](diagrams/sigmoid_curve_clean_20260131_141634.png)
+The sigmoid is an **S-curve**:
+
+| Region | Behavior |
+|--------|----------|
+| Very negative z | Output ≈ 0 |
+| z near 0 | Output changes rapidly |
+| Very positive z | Output ≈ 1 |
+
+**Key insight:** It converts any number to a probability!
 
 ---
 
 # Logistic Regression Model
 
-$$P(\text{spam} | x) = \sigma(wx + b) = \frac{1}{1 + e^{-(wx + b)}}$$
+**Two steps:**
 
-**Two-step process:**
+1. **Linear:** Compute a score
+   $$z = w_1 x_1 + w_2 x_2 + b$$
 
-| Step | Operation | Example |
-|------|-----------|---------|
-| 1. Linear | z = wx + b | z = 0.5×5 + (-1) = 1.5 |
-| 2. Sigmoid | P = σ(z) | P = σ(1.5) = 0.82 |
+2. **Sigmoid:** Convert to probability
+   $$P(\text{spam}) = \sigma(z) = \frac{1}{1 + e^{-z}}$$
 
-**Output:** 82% probability of spam
+---
+
+# A Concrete Example
+
+**Email features:** 5 exclamation marks, has "FREE"
+
+**Learned weights:** $w_1 = 0.5$, $w_2 = 2.0$, $b = -1.0$
+
+**Step 1: Linear score**
+$$z = 0.5 \times 5 + 2.0 \times 1 + (-1.0) = 3.5$$
+
+**Step 2: Sigmoid**
+$$P(\text{spam}) = \sigma(3.5) = 0.97$$
+
+**Decision:** 97% → This is spam!
 
 ---
 
 # The Decision Rule
-
-**Threshold:** Usually 0.5
 
 | If P(spam) | Decision |
 |------------|----------|
 | > 0.5 | Predict SPAM |
 | ≤ 0.5 | Predict NOT SPAM |
 
-```
-P(spam)
-  │
-1.0┼  ← Definitely Spam
-   │
-0.5┼─────────────────────── Threshold
-   │
-0.0┼  ← Definitely Not Spam
-```
+**The threshold 0.5 is a hyperparameter** — you can adjust it!
+
+| Threshold | Effect |
+|-----------|--------|
+| 0.5 | Balanced |
+| 0.3 | Catch more spam (but more false alarms) |
+| 0.7 | Fewer false alarms (but miss some spam) |
 
 ---
 
-# Logistic Regression in sklearn
+# Logistic Regression in Python
 
 ```python
 from sklearn.linear_model import LogisticRegression
 
-# Data: [num_exclamations, has_FREE]
+# Data: [exclamations, has_FREE]
 X = [[5, 1], [0, 0], [3, 1], [1, 0], [4, 1], [0, 0]]
 y = [1, 0, 1, 0, 1, 0]  # 1=spam, 0=not spam
 
@@ -464,7 +406,7 @@ model.predict([[4, 1]])  # → [1] (spam)
 
 # Predict probability
 model.predict_proba([[4, 1]])  # → [[0.12, 0.88]]
-#                                    [P(not spam), P(spam)]
+#                                   [P(not spam), P(spam)]
 ```
 
 ---
@@ -479,542 +421,52 @@ print(f"P(not spam) = {probs[0][0]:.2f}")  # 0.12
 print(f"P(spam) = {probs[0][1]:.2f}")      # 0.88
 ```
 
-| Class | Index | Probability |
-|-------|-------|-------------|
-| Not Spam (0) | probs[0][0] | 12% |
-| Spam (1) | probs[0][1] | 88% |
+| Class | Probability |
+|-------|-------------|
+| Not Spam (class 0) | 12% |
+| Spam (class 1) | 88% |
 
 **Always sums to 1.0!**
 
 ---
 
-# Decision Boundary
-
-Logistic regression learns a **linear decision boundary**:
-
-```
-has_FREE
-    │
-  1 ┼ ● ● ●│       ● = spam
-    │      │       × = not spam
-    │      │
-  0 ┼ × × ×│
-    └──────┼─────────▶ num_exclamations
-           2.5
-           ↑
-        Decision boundary
-```
-
-**Where:** wx + b = 0 (P = 0.5)
-
----
-
-# Interpreting Weights
+# Interpreting the Weights
 
 ```python
 print(f"Weights: {model.coef_}")      # [[0.8, 2.1]]
 print(f"Intercept: {model.intercept_}") # [-1.5]
 ```
 
-| Feature | Weight | Effect on P(spam) |
-|---------|--------|-------------------|
-| num_exclamations | 0.8 | More ! → Higher spam prob |
-| has_FREE | 2.1 | "FREE" present → Much higher spam prob |
+| Feature | Weight | Effect |
+|---------|--------|--------|
+| Exclamations | +0.8 | More ! → Higher spam probability |
+| Has FREE | +2.1 | "FREE" present → Much higher spam probability |
 
-**Positive weight → increases spam probability**
-**Negative weight → decreases spam probability**
-
----
-
-# Multi-class Classification
-
-What if more than 2 classes? (dog, cat, bird)
-
-```python
-model = LogisticRegression(multi_class='multinomial')
-model.fit(X, y)
-
-# predict_proba gives probability for each class
-probs = model.predict_proba([[features]])
-# → [[0.1, 0.7, 0.2]]  = [P(dog), P(cat), P(bird)]
-```
-
-**Softmax:** Generalizes sigmoid to multiple classes.
+**Positive weight** → Increases P(spam)
+**Negative weight** → Decreases P(spam)
 
 ---
 
-# Logistic vs Linear Regression
+# The Intuition
 
-| Aspect | Linear Regression | Logistic Regression |
-|--------|-------------------|---------------------|
-| **Output** | Any number | Probability [0, 1] |
-| **Task** | Regression | Classification |
-| **Loss function** | MSE | Cross-entropy |
-| **Decision** | Direct value | Threshold |
+**Why does this work?**
 
-<div class="warning">
+The linear part finds a **decision boundary**:
 
-Despite the name, Logistic Regression is for **classification**, not regression!
+$$w_1 x_1 + w_2 x_2 + b = 0$$
 
-</div>
+Points on one side → Class 0
+Points on other side → Class 1
+
+The sigmoid tells us **how confident** we are.
 
 ---
 
 <!-- _class: section-divider -->
 
-# Part 3: Decision Trees
+# Part 3: Model Evaluation
 
-## Rule-Based Learning
-
----
-
-# The Most Intuitive Model
-
-**How humans make decisions:**
-
-![w:800 center](diagrams/decision_tree_clean_20260131_141713.png)
-
-**Decision Trees learn these rules from data!**
-
----
-
-# A Real Example
-
-**Task:** Predict if someone will buy a product
-
-| Age | Income | Student | Buys |
-|-----|--------|---------|------|
-| Young | High | No | No |
-| Young | High | Yes | Yes |
-| Middle | High | No | Yes |
-| Senior | Medium | No | Yes |
-| Senior | Low | Yes | No |
-
----
-
-# The Learned Tree
-
-```
-                   [Income?]
-                  /    |    \
-              High   Medium   Low
-               /       |        \
-          [Age?]     [Yes]     [No]
-         /     \
-     Young   Middle/Senior
-       /           \
-  [Student?]      [Yes]
-    /    \
-  Yes     No
-   |       |
- [Yes]   [No]
-```
-
----
-
-# Decision Tree for Email Spam
-
-```
-              [Start]
-                 │
-        "FREE" in subject?
-           /         \
-         Yes          No
-          │            │
-       [SPAM]    Exclamation marks > 3?
-                     /      \
-                   Yes       No
-                    │         │
-              [SPAM]     Has attachment?
-                           /      \
-                         Yes       No
-                          │         │
-                      [Check]   [Not Spam]
-```
-
----
-
-# How Trees Learn: The Key Question
-
-**At each node:** Which feature creates the "purest" split?
-
-```
-Before Split:           After Split (Good):
-┌─────────────┐        ┌───────┐  ┌───────┐
-│ ● ● ● ○ ○ ○│  ──▶   │ ● ● ●│  │ ○ ○ ○│
-│    (mixed)  │        │(pure) │  │(pure) │
-└─────────────┘        └───────┘  └───────┘
-
-                       After Split (Bad):
-                       ┌───────┐  ┌───────┐
-                  ──▶  │ ● ● ○│  │ ○ ○ ●│
-                       │(mixed)│  │(mixed)│
-                       └───────┘  └───────┘
-```
-
----
-
-# Measuring Purity: Gini Impurity
-
-$$\text{Gini} = 1 - \sum_{i} p_i^2$$
-
-| Node Composition | Gini | Purity |
-|------------------|------|--------|
-| All same class (100% A) | 0.0 | Perfect |
-| 90% A, 10% B | 0.18 | Very pure |
-| 50% A, 50% B | 0.50 | Maximum impurity |
-
-**Lower Gini = Better split!**
-
----
-
-# Example: Calculating Gini
-
-**Node with 8 spam, 2 not-spam:**
-
-$$\text{Gini} = 1 - (0.8)^2 - (0.2)^2 = 1 - 0.64 - 0.04 = 0.32$$
-
-**Node with 5 spam, 5 not-spam:**
-
-$$\text{Gini} = 1 - (0.5)^2 - (0.5)^2 = 1 - 0.25 - 0.25 = 0.50$$
-
-**First node is purer!**
-
----
-
-# Information Gain (Alternative)
-
-$$\text{Entropy} = -\sum_{i} p_i \log_2(p_i)$$
-
-| Concept | Intuition |
-|---------|-----------|
-| **Entropy** | Surprise/uncertainty in data |
-| **Information Gain** | Reduction in entropy after split |
-
-**Higher Information Gain = Better split!**
-
----
-
-# Decision Tree in sklearn
-
-```python
-from sklearn.tree import DecisionTreeClassifier
-
-# Data
-X = [[5, 1], [0, 0], [3, 1], [1, 0], [4, 1], [2, 0]]
-y = [1, 0, 1, 0, 1, 0]  # spam or not
-
-# Train
-model = DecisionTreeClassifier(max_depth=3)
-model.fit(X, y)
-
-# Predict
-model.predict([[4, 1]])  # → [1] (spam)
-```
-
----
-
-# Visualizing the Tree
-
-```python
-from sklearn.tree import plot_tree
-import matplotlib.pyplot as plt
-
-plt.figure(figsize=(15, 10))
-plot_tree(model,
-          feature_names=['num_exclaim', 'has_FREE'],
-          class_names=['Not Spam', 'Spam'],
-          filled=True,        # Color by class
-          rounded=True,       # Rounded boxes
-          fontsize=12)
-plt.tight_layout()
-plt.savefig('tree_visualization.png')
-```
-
----
-
-# Feature Importance
-
-```python
-# Which features matter most?
-importance = model.feature_importances_
-
-for name, imp in zip(['num_exclaim', 'has_FREE'], importance):
-    print(f"{name}: {imp:.3f}")
-
-# Output:
-# num_exclaim: 0.35
-# has_FREE: 0.65  ← More important!
-```
-
-**Higher value = Feature used more in splits**
-
----
-
-# Trees for Regression
-
-**DecisionTreeRegressor:** Predict numbers
-
-```python
-from sklearn.tree import DecisionTreeRegressor
-
-# Predict house prices
-model = DecisionTreeRegressor(max_depth=4)
-model.fit(X_train, y_train)
-
-# Prediction = average of leaf node examples
-predictions = model.predict(X_test)
-```
-
-**Leaf prediction = mean of training samples in that leaf**
-
----
-
-# The Overfitting Problem
-
-![w:900 center](diagrams/tree_overfitting_comparison_20260131_140501.png)
-
----
-
-# Controlling Tree Complexity
-
-```python
-model = DecisionTreeClassifier(
-    max_depth=5,           # Maximum depth of tree
-    min_samples_leaf=10,   # Minimum samples per leaf
-    min_samples_split=20,  # Minimum samples to split
-    max_features='sqrt',   # Features to consider per split
-)
-```
-
-| Parameter | Effect of Increasing |
-|-----------|---------------------|
-| `max_depth` | More complex, more overfitting risk |
-| `min_samples_leaf` | Simpler, less overfitting |
-| `min_samples_split` | Fewer splits, simpler tree |
-
----
-
-# Tree Pros and Cons
-
-<div class="columns">
-<div>
-
-**Pros**
-- Easy to understand/explain
-- No feature scaling needed
-- Handles non-linear patterns
-- Works with categorical data
-- Shows feature importance
-
-</div>
-<div>
-
-**Cons**
-- Prone to overfitting
-- Unstable (small data changes → different tree)
-- Not smooth predictions
-- Biased toward high-cardinality features
-- Greedy (may miss global optimum)
-
-</div>
-</div>
-
----
-
-<!-- _class: section-divider -->
-
-# Part 4: K-Nearest Neighbors
-
-## Learning by Similarity
-
----
-
-# The Simplest Idea
-
-**"You are the average of your friends"**
-
-**To predict for a new point:**
-1. Find the K closest training examples
-2. For classification: Vote (majority wins)
-3. For regression: Average
-
-**No explicit training - just store the data!**
-
----
-
-# K-NN Visualization (K=3)
-
-![w:850 center](diagrams/knn_clean_20260131_141744.png)
-
-**Vote:** Count neighbors → Majority class wins!
-
----
-
-# Distance Matters
-
-**Euclidean Distance (most common):**
-
-$$d(a, b) = \sqrt{\sum_{i=1}^{n} (a_i - b_i)^2}$$
-
-| Distance Type | Formula | Best For |
-|---------------|---------|----------|
-| Euclidean | √(Σ(aᵢ-bᵢ)²) | Continuous features |
-| Manhattan | Σ\|aᵢ-bᵢ\| | Grid-like data |
-| Cosine | 1 - cos(θ) | Text, high-dimensional |
-
----
-
-# K-NN in sklearn
-
-```python
-from sklearn.neighbors import KNeighborsClassifier
-
-# "Training" (just stores the data!)
-model = KNeighborsClassifier(n_neighbors=5)
-model.fit(X_train, y_train)
-
-# Prediction (finds 5 nearest, votes)
-predictions = model.predict(X_test)
-
-# Can also get probabilities
-probs = model.predict_proba(X_test)
-```
-
----
-
-# Choosing K
-
-| K Value | Behavior | Trade-off |
-|---------|----------|-----------|
-| K=1 | Use single nearest | Very sensitive to noise |
-| K=3-5 | Small neighborhood | Often works well |
-| K=sqrt(n) | Rule of thumb | Balanced |
-| K=large | Big neighborhood | Might miss local patterns |
-
-<div class="warning">
-
-**Use odd K for binary classification to avoid ties!**
-
-</div>
-
----
-
-# Effect of K
-
-```
-K = 1 (Noisy)           K = 5 (Smooth)          K = 100 (Too Smooth)
-┌─────────────┐         ┌─────────────┐         ┌─────────────┐
-│ ●│×│●│×│●│× │         │ ●●●│×××│●●● │         │ ●●●●●●●●●●●│
-│ ×│●│×│●│×│● │         │ ●●●│×××│●●● │         │ ●●●●●●●●●●●│
-│   (complex) │         │  (balanced) │         │  (too simple)│
-└─────────────┘         └─────────────┘         └─────────────┘
-
-Follows every point     Smooth boundary         Almost constant
-```
-
----
-
-# K-NN for Regression
-
-**Instead of voting, take the average:**
-
-```python
-from sklearn.neighbors import KNeighborsRegressor
-
-model = KNeighborsRegressor(n_neighbors=5)
-model.fit(X_train, y_train)
-
-# Prediction = average of 5 nearest neighbors' values
-# If neighbors have prices: [50, 55, 60, 52, 58]
-# Prediction = mean([50, 55, 60, 52, 58]) = 55
-```
-
----
-
-# Feature Scaling is Critical!
-
-**Problem:** Features with larger range dominate distance.
-
-```python
-# Without scaling:
-# Feature 1: Age (20-80)
-# Feature 2: Income (20000-200000)
-
-# Distance dominated by Income!
-# Age difference of 60 vs Income difference of 180000
-```
-
-**Solution: Always scale features for K-NN!**
-
----
-
-# Scaling in Practice
-
-```python
-from sklearn.preprocessing import StandardScaler
-from sklearn.neighbors import KNeighborsClassifier
-
-# Scale features to mean=0, std=1
-scaler = StandardScaler()
-X_train_scaled = scaler.fit_transform(X_train)
-X_test_scaled = scaler.transform(X_test)  # Use same scaler!
-
-# Now use K-NN
-model = KNeighborsClassifier(n_neighbors=5)
-model.fit(X_train_scaled, y_train)
-predictions = model.predict(X_test_scaled)
-```
-
----
-
-# K-NN Pros and Cons
-
-<div class="columns">
-<div>
-
-**Pros**
-- No training time (lazy learning)
-- Simple to understand
-- No assumptions about data
-- Works for any number of classes
-- Naturally handles multi-class
-
-</div>
-<div>
-
-**Cons**
-- Slow prediction (O(n) per query)
-- Memory intensive (store all data)
-- Sensitive to feature scaling
-- Curse of dimensionality
-- Sensitive to irrelevant features
-
-</div>
-</div>
-
----
-
-# The Curse of Dimensionality
-
-**Problem:** In high dimensions, "nearest" becomes meaningless.
-
-| Dimensions | Volume of unit cube |
-|------------|---------------------|
-| 1D | 1 |
-| 2D | 1 |
-| 10D | 1 |
-| 100D | 1 |
-
-**But!** Points spread out exponentially. Need exponentially more data!
-
----
-
-<!-- _class: section-divider -->
-
-# Part 5: Evaluation Metrics
-
-## Measuring Model Performance
+## How Good is Our Model?
 
 ---
 
@@ -1030,52 +482,68 @@ predictions = model.predict(X_test_scaled)
 from sklearn.model_selection import train_test_split
 
 X_train, X_test, y_train, y_test = train_test_split(
-    X, y,
-    test_size=0.2,      # 20% for testing
-    random_state=42     # Reproducibility
+    X, y, test_size=0.2, random_state=42
 )
 
 # Train ONLY on training data
 model.fit(X_train, y_train)
 
 # Evaluate ONLY on test data
-score = model.score(X_test, y_test)
+predictions = model.predict(X_test)
 ```
 
 ---
 
-# Classification Metric: Accuracy
+# Regression Metrics
+
+For regression (predicting numbers):
+
+| Metric | Formula | Meaning |
+|--------|---------|---------|
+| **MSE** | $\frac{1}{n}\sum(y - \hat{y})^2$ | Average squared error |
+| **RMSE** | $\sqrt{MSE}$ | Error in same units as y |
+| **MAE** | $\frac{1}{n}\sum|y - \hat{y}|$ | Average absolute error |
+
+```python
+from sklearn.metrics import mean_squared_error, mean_absolute_error
+import numpy as np
+
+mse = mean_squared_error(y_test, predictions)
+rmse = np.sqrt(mse)
+mae = mean_absolute_error(y_test, predictions)
+```
+
+---
+
+# Classification Metrics
+
+For classification (predicting categories):
 
 $$\text{Accuracy} = \frac{\text{Correct Predictions}}{\text{Total Predictions}}$$
 
 ```python
 from sklearn.metrics import accuracy_score
 
-predictions = model.predict(X_test)
 accuracy = accuracy_score(y_test, predictions)
-print(f"Accuracy: {accuracy:.1%}")  # e.g., 95.0%
+print(f"Accuracy: {accuracy:.1%}")  # e.g., 92.5%
 ```
 
-| Correct | Total | Accuracy |
-|---------|-------|----------|
-| 95 | 100 | 95% |
+**But accuracy can be misleading...**
 
 ---
 
 # The Accuracy Trap
 
-**Scenario:** Detecting rare disease (1% of population)
+**Scenario:** Disease detection (1% have disease, 99% healthy)
 
 | Model | Strategy | Accuracy |
 |-------|----------|----------|
-| Dumb | Always predict "Healthy" | **99%** |
+| Dumb | Always predict "healthy" | **99%** |
 | Smart | Tries to detect disease | 95% |
 
 <div class="warning">
 
 The "dumb" model has 99% accuracy but **misses ALL sick patients!**
-
-Accuracy is misleading for imbalanced data.
 
 </div>
 
@@ -1083,301 +551,109 @@ Accuracy is misleading for imbalanced data.
 
 # The Confusion Matrix
 
-|  | Predicted Negative | Predicted Positive |
-|--|--------------------|--------------------|
-| **Actual Negative** | True Negative (TN) | False Positive (FP) |
-| **Actual Positive** | False Negative (FN) | True Positive (TP) |
+|  | Predicted: No | Predicted: Yes |
+|--|---------------|----------------|
+| **Actual: No** | TN (Correct!) | FP (False Alarm) |
+| **Actual: Yes** | FN (Missed!) | TP (Correct!) |
 
-```python
-from sklearn.metrics import confusion_matrix
-
-cm = confusion_matrix(y_test, predictions)
-print(cm)
-# [[TN, FP],
-#  [FN, TP]]
-```
+| Term | Meaning |
+|------|---------|
+| TP | True Positive — Correctly detected |
+| TN | True Negative — Correctly ruled out |
+| FP | False Positive — False alarm |
+| FN | False Negative — Missed case |
 
 ---
 
-# Confusion Matrix Example
+# Precision and Recall
 
-**Spam Detection (100 emails):**
-
-|  | Pred: Not Spam | Pred: Spam |
-|--|----------------|------------|
-| **Actual: Not Spam** | 85 (TN) | 5 (FP) |
-| **Actual: Spam** | 2 (FN) | 8 (TP) |
-
-| Outcome | Meaning | Count |
-|---------|---------|-------|
-| TN | Correctly said "not spam" | 85 |
-| FP | Wrong! Said spam (was normal) | 5 |
-| FN | Missed spam! | 2 |
-| TP | Correctly caught spam | 8 |
-
----
-
-# Precision: "Of my positive predictions..."
-
+**Precision:** Of those I flagged, how many were correct?
 $$\text{Precision} = \frac{TP}{TP + FP}$$
 
-**"Of the emails I marked as spam, how many were actually spam?"**
-
-| Predicted Spam | Actually Spam | Precision |
-|----------------|---------------|-----------|
-| 13 | 8 | 8/13 = 62% |
-
-**High precision = Few false alarms**
-
----
-
-# Recall: "Of actual positives..."
-
+**Recall:** Of all positives, how many did I find?
 $$\text{Recall} = \frac{TP}{TP + FN}$$
 
-**"Of all the actual spam, how many did I catch?"**
-
-| Actual Spam | Caught | Recall |
-|-------------|--------|--------|
-| 10 | 8 | 8/10 = 80% |
-
-**High recall = Few missed positives**
+| Scenario | Priority |
+|----------|----------|
+| Spam filter | High precision (don't lose important emails!) |
+| Cancer screening | High recall (don't miss any cancer!) |
 
 ---
 
-# Precision vs Recall Trade-off
+# F1 Score
 
-| Scenario | Priority | Favor |
-|----------|----------|-------|
-| **Spam Filter** | Don't lose important emails | Precision |
-| **Cancer Screening** | Don't miss any cancer | Recall |
-| **Fraud Detection** | Don't miss fraud | Recall |
-| **Search Results** | Show relevant results | Precision |
+**Balances precision and recall:**
 
-<div class="insight">
+$$\text{F1} = 2 \times \frac{\text{Precision} \times \text{Recall}}{\text{Precision} + \text{Recall}}$$
 
-There's usually a trade-off: Increasing one often decreases the other!
-
-</div>
-
----
-
-# F1 Score: The Balance
-
-**Harmonic mean of precision and recall:**
-
-$$F1 = 2 \times \frac{\text{Precision} \times \text{Recall}}{\text{Precision} + \text{Recall}}$$
-
-| Precision | Recall | F1 Score |
-|-----------|--------|----------|
+| Precision | Recall | F1 |
+|-----------|--------|-----|
 | 0.90 | 0.90 | 0.90 |
 | 0.95 | 0.50 | 0.65 |
 | 0.50 | 0.95 | 0.65 |
-| 0.00 | 1.00 | 0.00 |
 
-**F1 penalizes extreme imbalance!**
+**F1 punishes imbalance!**
 
 ---
 
-# All Metrics in Python
+# Complete Example
 
 ```python
-from sklearn.metrics import (
-    accuracy_score,
-    precision_score,
-    recall_score,
-    f1_score,
-    confusion_matrix
-)
-
-print(f"Accuracy:  {accuracy_score(y_test, pred):.2f}")
-print(f"Precision: {precision_score(y_test, pred):.2f}")
-print(f"Recall:    {recall_score(y_test, pred):.2f}")
-print(f"F1:        {f1_score(y_test, pred):.2f}")
-```
-
----
-
-# Classification Report
-
-```python
-from sklearn.metrics import classification_report
-
-print(classification_report(y_test, predictions))
-```
-
-```
-              precision    recall  f1-score   support
-
-     class 0       0.95      0.98      0.97        85
-     class 1       0.80      0.62      0.70        15
-
-    accuracy                           0.93       100
-   macro avg       0.88      0.80      0.83       100
-weighted avg       0.93      0.93      0.93       100
-```
-
----
-
-# Regression Metrics: MSE
-
-**Mean Squared Error:**
-
-$$\text{MSE} = \frac{1}{n}\sum_{i=1}^{n}(y_i - \hat{y}_i)^2$$
-
-```python
-from sklearn.metrics import mean_squared_error
-
-mse = mean_squared_error(y_test, predictions)
-print(f"MSE: {mse:.2f}")  # e.g., 2500.0
-```
-
-| Interpretation | Issue |
-|----------------|-------|
-| Average squared error | Units are squared (₹²) |
-
----
-
-# RMSE: Interpretable Error
-
-**Root Mean Squared Error:**
-
-$$\text{RMSE} = \sqrt{\text{MSE}}$$
-
-```python
-import numpy as np
-
-rmse = np.sqrt(mean_squared_error(y_test, predictions))
-print(f"RMSE: ₹{rmse:.2f} lakhs")  # e.g., ₹50.0 lakhs
-```
-
-**RMSE has same units as target - interpretable!**
-
-"On average, our predictions are off by ₹50 lakhs"
-
----
-
-# R² Score: Explained Variance
-
-$$R^2 = 1 - \frac{\sum(y_i - \hat{y}_i)^2}{\sum(y_i - \bar{y})^2}$$
-
-| R² Value | Interpretation |
-|----------|----------------|
-| 1.0 | Perfect predictions |
-| 0.8-0.9 | Good model |
-| 0.5-0.8 | Moderate |
-| 0.0 | Same as predicting mean |
-| < 0 | Worse than predicting mean |
-
----
-
-# R² in Python
-
-```python
-from sklearn.metrics import r2_score
-
-r2 = r2_score(y_test, predictions)
-print(f"R² Score: {r2:.3f}")  # e.g., 0.856
-
-# Interpretation:
-# "Our model explains 85.6% of the variance in prices"
-```
-
----
-
-# Metrics Summary Table
-
-| Task | Metric | When to Use | Range |
-|------|--------|-------------|-------|
-| Classification | Accuracy | Balanced classes | [0, 1] |
-| Classification | Precision | FP costly | [0, 1] |
-| Classification | Recall | FN costly | [0, 1] |
-| Classification | F1 | Balance P/R | [0, 1] |
-| Regression | MSE | General | [0, ∞) |
-| Regression | RMSE | Interpretable | [0, ∞) |
-| Regression | R² | Compare models | (-∞, 1] |
-
----
-
-# Complete Workflow
-
-```python
+from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
-from sklearn.tree import DecisionTreeClassifier
-from sklearn.metrics import classification_report
+from sklearn.metrics import accuracy_score, classification_report
 
-# 1. Split
+# 1. Split data
 X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.2, random_state=42)
 
 # 2. Train
-model = DecisionTreeClassifier(max_depth=5)
+model = LogisticRegression()
 model.fit(X_train, y_train)
 
-# 3. Predict
+# 3. Predict and evaluate
 predictions = model.predict(X_test)
-
-# 4. Evaluate
+print(f"Accuracy: {accuracy_score(y_test, predictions):.1%}")
 print(classification_report(y_test, predictions))
 ```
 
 ---
 
-<!-- _class: section-divider -->
+# Linear vs Logistic: Summary
 
-# Algorithm Comparison
-
-## Choosing the Right Tool
-
----
-
-# When to Use What?
-
-| Scenario | Recommended |
-|----------|-------------|
-| Linear relationship, predict number | Linear Regression |
-| Binary classification | Logistic Regression |
-| Need interpretable rules | Decision Tree |
-| Similar items should predict similarly | K-NN |
-| High-dimensional data | Logistic Regression |
-| Non-linear patterns | Decision Tree |
-
----
-
-# Comparison Table
-
-| Aspect | Linear Reg | Logistic Reg | Tree | K-NN |
-|--------|------------|--------------|------|------|
-| **Task** | Regression | Classification | Both | Both |
-| **Scaling needed** | No | No | No | **Yes** |
-| **Interpretable** | Yes | Somewhat | **Very** | Somewhat |
-| **Training speed** | Fast | Fast | Fast | **None** |
-| **Prediction speed** | Fast | Fast | Fast | **Slow** |
-| **Handles non-linear** | No | No | **Yes** | **Yes** |
+| Aspect | Linear Regression | Logistic Regression |
+|--------|-------------------|---------------------|
+| **Output** | Any number | Probability (0 to 1) |
+| **Task** | Regression | Classification |
+| **Equation** | $\hat{y} = wx + b$ | $P = \sigma(wx + b)$ |
+| **Example** | Predict price | Predict spam/not spam |
+| **Metric** | MSE, RMSE, MAE | Accuracy, Precision, Recall |
 
 ---
 
 # Key Takeaways
 
-1. **Linear Regression:** Fit a line, minimize squared error, predict numbers
+1. **Linear Regression** fits a line through data
+   - Weight = sensitivity (how much output changes per unit input)
+   - Minimize squared errors
 
-2. **Logistic Regression:** Sigmoid for probability, threshold for decision
+2. **Logistic Regression** classifies using the sigmoid
+   - Converts any score to probability (0-1)
+   - Decision threshold (usually 0.5)
 
-3. **Decision Trees:** If-then rules, prone to overfitting, very interpretable
-
-4. **K-NN:** Predict by neighbors, no training, scale features!
-
-5. **Metrics:** Accuracy isn't everything - precision/recall matter for imbalanced data
+3. **Evaluation matters**
+   - Always use test data
+   - Accuracy isn't everything — consider precision/recall
 
 ---
 
 <!-- _class: title-slide -->
 
-# You Now Know 4 Algorithms!
+# You Now Understand the Basics!
 
-## Next: Model Selection & Ensembles
+## Next: Neural Networks
 
-**Lab:** Implement these algorithms on real datasets
+**Lab:** Implement linear and logistic regression on real data
 
 **Interactive Notebook:** [L03_supervised_learning.ipynb](../../lecture_demo/L03_supervised_learning.ipynb)
 
@@ -1385,4 +661,3 @@ print(classification_report(y_test, predictions))
 — George Box
 
 **Questions?**
-
