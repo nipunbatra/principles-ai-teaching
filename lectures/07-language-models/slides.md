@@ -144,21 +144,19 @@ A model that can predict text well has **implicitly learned**:
 
 # Not Just ONE Prediction...
 
-![bg right:45% 90%](diagrams/next_token_prediction.png)
+![bg right:50% 90%](diagrams/next_token_prediction.png)
 
 The model predicts **probabilities for ALL possible words**:
 
 **"The cat sat on the ___"**
 
-| Word | Probability |
-|------|-------------|
-| mat | 35% |
-| floor | 25% |
-| bed | 20% |
-| roof | 15% |
-| dog | 5% |
+The image shows the probability distribution over the vocabulary. Common completions like "mat" and "floor" get higher probabilities than rare ones like "dog."
 
-**All probabilities sum to 100%**
+<div class="insight">
+
+All probabilities sum to 100% — the model assigns a probability to EVERY word in its vocabulary!
+
+</div>
 
 ---
 
@@ -393,21 +391,6 @@ $$\text{king} - \text{man} + \text{woman} ≈ \text{queen}$$
 
 ---
 
-# This Works for Characters Too!
-
-**When learning character embeddings:**
-
-| Cluster | Characters | Why? |
-|---------|------------|------|
-| Vowels | a, e, i, o, u | Similar role in words |
-| Hard consonants | b, c, d, g, k | Similar sounds |
-| Soft consonants | l, m, n, r | Similar sounds |
-| End marker | . or - | Special role |
-
-**The model learns these groupings automatically!**
-
----
-
 <!-- _class: section-divider -->
 
 # Part 4: The Attention Breakthrough
@@ -449,37 +432,21 @@ $$\text{king} - \text{man} + \text{woman} ≈ \text{queen}$$
 
 # How Attention Works: Intuition
 
-**When processing "it", the model asks:**
+![bg right:50% 90%](diagrams/attention_visualization.png)
 
+**When processing "it", the model asks:**
 > "Which previous words are relevant to understanding 'it'?"
 
-| Word | Relevance Score |
-|------|-----------------|
-| animal | **0.75** (very relevant!) |
-| street | 0.10 |
-| the | 0.05 |
-| didn't | 0.05 |
-| other words | 0.05 |
+The model calculates attention weights for each word:
+- **animal:** 75% (very relevant!)
+- **street:** 10% (less relevant)
+- **other words:** 15%
 
-**Then it pays most "attention" to "animal"!**
+<div class="insight">
 
----
+The model "attends" mostly to "animal" because animals get tired, not streets!
 
-# Visual: Attention in Action
-
-![bg right:55% 90%](diagrams/attention_visualization.png)
-
-**When processing "it":**
-
-The model looks back at all previous words and calculates attention weights.
-
-| Word | Attention |
-|------|-----------|
-| animal | **75%** |
-| street | 10% |
-| other words | 15% |
-
-**"it" attends mostly to "animal" because animals get tired, not streets!**
+</div>
 
 ---
 

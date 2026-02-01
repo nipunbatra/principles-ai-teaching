@@ -605,7 +605,7 @@ for epoch in range(100):
 
 # The PyTorch Training Loop
 
-![bg right:55% 90%](diagrams/pytorch_training_loop.png)
+![bg right:50% 90%](diagrams/pytorch_training_loop.png)
 
 **The 5-step training cycle:**
 

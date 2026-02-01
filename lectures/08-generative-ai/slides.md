@@ -95,20 +95,12 @@ would be appreciated!
 Posted by CakeLover92 on Reddit, March 2019
 ```
 
-**It's completing forum posts, not answering questions!**
+It's completing forum posts, not answering questions!
 
----
+<div class="warning">
 
-# More Base Model Problems
+Base models predict text, they don't follow instructions. Ask for code? Get `# TODO`. Ask for summary? Get more text.
 
-| Prompt | Base Model Response | What We Want |
-|--------|--------------------| --------------|
-| "Write Python code to..." | `# TODO: implement this` | Working code |
-| "Is this email spam?" | Continues the email | Yes/No |
-| "Summarize this article" | Writes more article | Summary |
-
-<div class="insight">
-Base models are trained to PREDICT, not to HELP.
 </div>
 
 ---
@@ -159,7 +151,7 @@ Response: "Hola"
 
 # SFT Training Process
 
-![bg right:55% 90%](diagrams/sft_training_process.png)
+![bg right:50% 90%](diagrams/sft_training_process.png)
 
 **The process:**
 
@@ -263,32 +255,22 @@ We need a way to learn from **preferences**.
 
 # RLHF: The Key Insight
 
+![bg right:50% 90%](diagrams/rlhf_three_steps.png)
+
 Instead of "this is the right answer"...
 **Let humans rank responses from best to worst!**
 
-```
-Prompt: "Explain quantum physics simply"
+The diagram shows the three-step process:
 
-Response A: [Technical jargon, hard to follow]
-Response B: [Clear analogy with everyday objects]
-Response C: [Accurate but dry explanation]
+1. **Collect Comparisons:** Humans rank responses: "B is better than A"
+2. **Train Reward Model:** Learn to predict preferences
+3. **Optimize with RL:** Fine-tune LLM to maximize reward
 
-Human ranking: B > C > A
-```
+<div class="insight">
 
-**Train the model to generate responses like B!**
+RLHF is what transformed GPT-3 into ChatGPT!
 
----
-
-# RLHF: Three Steps
-
-![bg right:50% 90%](diagrams/rlhf_three_steps.png)
-
-| Step | What Happens |
-|------|--------------|
-| **1. Collect Comparisons** | Humans rank responses: "A is better than B" |
-| **2. Train Reward Model** | Learn to predict preferences: reward(response) → score |
-| **3. Optimize with RL** | Fine-tune LLM to maximize reward (using PPO) |
+</div>
 
 ---
 
@@ -475,7 +457,7 @@ trainer.train()
 
 # The Full Journey
 
-![bg right:55% 90%](diagrams/llm_training_pipeline.png)
+![bg right:50% 90%](diagrams/llm_training_pipeline.png)
 
 | Stage | Data | Result |
 |-------|------|--------|

@@ -225,16 +225,19 @@ $$\text{ReLU}(z) = \max(0, z)$$
 
 # Other Activation Functions
 
-![bg right:45% 90%](diagrams/activation_functions.png)
+![bg right:50% 90%](diagrams/activation_functions.png)
 
-| Function | Use Case |
-|----------|----------|
-| **ReLU** | Hidden layers (default) |
-| **Sigmoid** | Binary output (0-1) |
-| **Softmax** | Multi-class (sum to 1) |
-| **Tanh** | Values between -1 and +1 |
+You'll encounter others later:
 
-**For now, just remember:** ReLU for hidden layers!
+- **Sigmoid:** Output between 0-1 (binary classification)
+- **Softmax:** Multi-class (probabilities sum to 1)
+- **Tanh:** Output between -1 and +1
+
+<div class="insight">
+
+**For now:** Just use ReLU for hidden layers. It works great!
+
+</div>
 
 ---
 

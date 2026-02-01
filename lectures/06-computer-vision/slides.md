@@ -130,14 +130,12 @@ print(pixels.shape)  # (224, 224, 3) → Height × Width × RGB
 
 # MNIST: The "Hello World" of Vision
 
-**Handwritten digits:** 28×28 grayscale images
+**Handwritten digits:** 28×28 grayscale images = 784 numbers
 
-| Property | Value |
-|----------|-------|
-| Image size | 28 × 28 pixels |
-| Colors | Grayscale (1 channel) |
-| Total pixels | 784 |
-| Task | Classify as 0-9 |
+The classic first dataset for learning computer vision:
+- Each image is a single digit (0-9)
+- Just 784 numbers per image
+- Task: Classify which digit it is
 
 **This is what your phone keyboard uses for handwriting!**
 
@@ -283,36 +281,22 @@ class SimpleCNN(nn.Module):
 
 ---
 
-# The Feature Hierarchy: A Deep Dive
+# The Feature Hierarchy
 
-**What each layer learns:**
+![bg right:50% 90%](diagrams/cnn_feature_hierarchy.png)
 
-| Layer | What It Sees | Example |
-|-------|--------------|---------|
-| **Layer 1** | Edges, gradients | Horizontal lines, vertical lines |
-| **Layer 2** | Corners, textures | Corners, stripes, dots |
-| **Layer 3** | Parts | Eyes, ears, wheels |
-| **Layer 4** | Objects | Faces, cars, dogs |
-| **Layer 5+** | Concepts | "Happy face", "Running dog" |
+**Why CNNs work:** Each layer builds on the previous one!
 
-**Deeper = More abstract!**
+- **Layer 1:** Edges, lines (simple)
+- **Layer 2:** Corners, textures (combinations)
+- **Layer 3:** Parts like eyes, ears (meaningful)
+- **Layer 4+:** Full objects and concepts (abstract)
 
----
+<div class="insight">
 
-# Visualizing CNN Layers
+**Key insight:** Deeper = more abstract. Early layers (edges) are shared across ALL object types!
 
-![bg right:55% 90%](diagrams/cnn_feature_hierarchy.png)
-
-**What each layer learns:**
-
-| Layer | Detects |
-|-------|---------|
-| 1 | Edges, lines |
-| 2 | Corners, shapes |
-| 3 | Parts (eyes, wheels) |
-| 4 | Full objects |
-
-**Early layers are SHARED across all object types!**
+</div>
 
 ---
 
@@ -605,7 +589,7 @@ $$\text{IoU} = \frac{\text{Overlap Area}}{\text{Total Area of Both Boxes}}$$
 
 # YOLO Grid
 
-![bg right:55% 90%](diagrams/yolo_grid_detection.png)
+![bg right:50% 90%](diagrams/yolo_grid_detection.png)
 
 **How YOLO divides the image:**
 

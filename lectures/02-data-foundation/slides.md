@@ -157,13 +157,19 @@ model.predict("FR33 M0N3Y")  # → "spam"
 
 # Three Ways to Learn
 
-![bg right:50% 90%](diagrams/three_learning_paradigms.png)
+Just like humans, machines can learn in different ways:
 
-| Paradigm | Teacher? | Example |
-|----------|----------|---------|
-| **Supervised** | Yes, provides answers | Spam detection |
-| **Unsupervised** | No, find patterns alone | Customer grouping |
-| **Reinforcement** | Gives rewards/punishments | Game playing |
+| Paradigm | How It Works | Example |
+|----------|--------------|---------|
+| **Supervised** | Teacher provides answers | Spam detection |
+| **Unsupervised** | Find patterns alone | Customer grouping |
+| **Reinforcement** | Learn from rewards | Game playing AI |
+
+<div class="insight">
+
+**This course focuses on supervised learning** — learning from labeled examples!
+
+</div>
 
 ---
 
@@ -245,12 +251,14 @@ Over time, learns: "Don't move right near pits"
 
 Supervised learning has two main types:
 
-| Type | Output | Example |
-|------|--------|---------|
-| **Classification** | Category | "Cat" or "Dog" |
-| **Regression** | Number | House price: ₹45 lakhs |
+- **Classification:** Predict a category ("Cat" or "Dog")
+- **Regression:** Predict a number (House price: ₹45 lakhs)
 
-**Classification:** "Which bucket?" | **Regression:** "How much?"
+<div class="insight">
+
+**Simple rule:** Classification = "Which bucket?" | Regression = "How much?"
+
+</div>
 
 ---
 
@@ -674,17 +682,20 @@ $$\text{Accuracy} = \frac{\text{Correct Predictions}}{\text{Total Predictions}}$
 
 # The Confusion Matrix
 
-![bg right:40% 90%](diagrams/confusion_matrix.png)
+![bg right:50% 90%](diagrams/confusion_matrix.png)
 
-|  | **Pred: Positive** | **Pred: Negative** |
-|--|------------------------|------------------------|
-| **Actual: Positive** | TP (True Positive) ✓ | FN (False Negative) ✗ |
-| **Actual: Negative** | FP (False Positive) ✗ | TN (True Negative) ✓ |
+The confusion matrix shows all four possible outcomes:
 
-**TP:** Correctly caught cancer
-**TN:** Correctly said healthy
-**FP:** Said cancer but was healthy (false alarm)
-**FN:** Said healthy but had cancer (MISSED!)
+- **True Positive (TP):** Correctly caught cancer
+- **True Negative (TN):** Correctly said healthy
+- **False Positive (FP):** Said cancer but was healthy (false alarm)
+- **False Negative (FN):** Said healthy but had cancer (MISSED!)
+
+<div class="insight">
+
+The diagonal shows correct predictions; off-diagonal shows errors.
+
+</div>
 
 ---
 

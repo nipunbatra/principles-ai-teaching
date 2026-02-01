@@ -160,11 +160,11 @@ For a NEW house of 1500 sq ft? → ₹65 lakhs (reasonable!)
 
 # Analogy: Studying for an Exam
 
-| Approach | Training (Homework) | Test (Exam) | Problem |
-|----------|-------------------|-------------|---------|
-| Didn't study | Failed | Failed | Underfitting |
-| Memorized answers | Perfect | Failed | Overfitting |
-| Understood concepts | Good | Good | ✅ Good! |
+Think of it like preparing for a test:
+
+- **Underfitting:** Didn't study → Failed homework, failed exam
+- **Overfitting:** Memorized answers → Perfect homework, failed exam
+- **Good fit:** Understood concepts → Good on both!
 
 <div class="insight">
 
@@ -407,19 +407,22 @@ X_train, X_test, y_train, y_test = train_test_split(
 
 # Cross-Validation: Use ALL Data!
 
-![bg right:45% 90%](diagrams/kfold_cross_validation.png)
+![bg right:50% 90%](diagrams/kfold_cross_validation.png)
 
-**Idea:** Split data into K parts. Use each part as validation once.
+**Idea:** Split data into K parts. Each part gets a turn as validation.
 
-| Fold | Validation | Training | Score |
-|------|------------|----------|-------|
-| 1 | Block 1 | Blocks 2-5 | 87% |
-| 2 | Block 2 | Blocks 1,3-5 | 89% |
-| 3 | Block 3 | Blocks 1-2,4-5 | 91% |
-| 4 | Block 4 | Blocks 1-3,5 | 88% |
-| 5 | Block 5 | Blocks 1-4 | 90% |
+The diagram shows 5-fold CV:
+- Each fold uses 80% for training, 20% for validation
+- Each data point is validated exactly once
+- Scores: 87%, 89%, 91%, 88%, 90%
 
 **Final Score = Average = 89%**
+
+<div class="insight">
+
+Much more reliable than a single random split!
+
+</div>
 
 ---
 
