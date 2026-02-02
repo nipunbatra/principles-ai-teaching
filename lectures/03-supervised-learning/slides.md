@@ -375,12 +375,9 @@ print(f"theta_1 (weight): {theta[1]:.4f}") # ≈ 0.04
 
 **The idea:** Take small steps downhill until you reach the minimum!
 
-![bg right:50% 90%](diagrams/gradient_descent.png)
+![height:320px](diagrams/gradient_descent_theta.png)
 
-1. Start with random $\boldsymbol{\theta}$
-2. Compute the gradient (slope)
-3. Take a step opposite to gradient
-4. Repeat until converged
+1. Start with random $\boldsymbol{\theta}$ → 2. Compute gradient → 3. Step opposite → 4. Repeat!
 
 ---
 
