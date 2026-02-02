@@ -134,6 +134,25 @@ For a NEW house of 1500 sq ft? → ₹65 lakhs (reasonable!)
 
 ---
 
+# Visual: Polynomial Fitting Example
+
+![height:400px](diagrams/polynomial_gemini.png)
+
+---
+
+# What Controls Complexity?
+
+| Factor | Less Complex | More Complex |
+|--------|--------------|--------------|
+| **Polynomial degree** | Degree 1 (line) | Degree 10 (wiggly) |
+| **Tree depth** | Depth 2 | Depth 20 |
+| **Number of features** | 3 features | 100 features |
+| **Neural network size** | 10 neurons | 10,000 neurons |
+
+**More complexity = More risk of overfitting!**
+
+---
+
 # Underfitting: Like a Student Who Skipped Class
 
 **Symptoms:**
@@ -178,6 +197,42 @@ We want models that **understand patterns**, not **memorize examples**.
 
 ---
 
+# More Everyday Analogies
+
+| Scenario | Underfitting | Overfitting | Good Fit |
+|----------|--------------|-------------|----------|
+| **Learning to drive** | "Just press pedals" | Memorized one route | Understands driving rules |
+| **Learning recipes** | "Just add heat" | Memorized exact measurements | Understands cooking principles |
+| **Learning language** | "Hello" and "Goodbye" only | Memorized phrases | Understands grammar |
+
+**Good models generalize to new situations!**
+
+---
+
+# Signs You're Overfitting
+
+Watch out for these warning signs:
+
+| Warning Sign | What It Means |
+|--------------|---------------|
+| Training accuracy 99%, test accuracy 70% | Classic overfitting |
+| Model performs great on your data, fails on new data | Didn't generalize |
+| Adding more features hurts test performance | Too complex |
+| Small changes in data cause big changes in predictions | Unstable model |
+
+---
+
+# Signs You're Underfitting
+
+| Warning Sign | What It Means |
+|--------------|---------------|
+| Both training and test accuracy are low | Model too simple |
+| Model gives similar predictions for very different inputs | Not learning patterns |
+| Increasing training time doesn't help | Need more capacity |
+| Residuals show clear patterns | Missing important features |
+
+---
+
 # Real-World Overfitting: COVID X-Ray Detection
 
 ![height:300px](diagrams/covid_xray_shortcut.png)
@@ -213,17 +268,38 @@ We want models that **understand patterns**, not **memorize examples**.
 
 # Visual: The Complexity Tradeoff
 
-![bg right:50% 90%](diagrams/bias_variance_curves.png)
+![height:400px](diagrams/bias_variance_gemini.png)
 
-**The U-shaped curve:**
+---
 
-| Zone | Train Error | Test Error |
-|------|-------------|------------|
-| Left (Underfitting) | High | High |
-| Middle (Sweet spot) | Low | Low |
-| Right (Overfitting) | Very Low | High |
+# The Bias-Variance Tradeoff
 
-**Find the minimum of the test error!**
+| Term | Meaning | Problem |
+|------|---------|---------|
+| **Bias** | Model's assumptions are too simple | Underfitting |
+| **Variance** | Model is too sensitive to training data | Overfitting |
+
+**Total Error = Bias² + Variance + Noise**
+
+| Model | Bias | Variance | Result |
+|-------|------|----------|--------|
+| Too simple | High | Low | Underfitting |
+| Too complex | Low | High | Overfitting |
+| Just right | Low | Low | Good! ✅ |
+
+---
+
+# The Sweet Spot
+
+**Goal:** Find the model complexity that minimizes TOTAL error
+
+| If you're underfitting... | If you're overfitting... |
+|---------------------------|--------------------------|
+| Increase complexity | Decrease complexity |
+| Add more features | Remove features |
+| Use deeper trees | Use shallower trees |
+| Train longer | Stop earlier |
+| Use less regularization | Use more regularization |
 
 ---
 
@@ -577,13 +653,32 @@ print(f"Nested CV score: {scores.mean():.3f} ± {scores.std():.3f}")
 
 # The Model Selection Workflow
 
-| Step | What to Do |
-|------|------------|
-| 1 | Split data into train/validation/test |
-| 2 | Train different models on training set |
-| 3 | Compare using validation set (or cross-validation) |
-| 4 | Pick the best model |
-| 5 | Report final score on test set |
+![height:420px](diagrams/workflow_gemini.png)
+
+---
+
+# Step-by-Step: Model Selection
+
+| Step | Action | Tools |
+|------|--------|-------|
+| **1. Split** | Separate test set (don't touch!) | `train_test_split` |
+| **2. Explore** | Try different model types | `LogisticRegression`, `DecisionTree`, etc. |
+| **3. Compare** | Use cross-validation | `cross_val_score` |
+| **4. Tune** | Find best hyperparameters | `GridSearchCV` |
+| **5. Select** | Pick best model | Look at mean ± std |
+| **6. Final Test** | Report honest score | Evaluate on test set ONCE |
+
+---
+
+# Common Mistakes to Avoid
+
+| Mistake | Why It's Bad | Fix |
+|---------|--------------|-----|
+| Testing on training data | Overly optimistic scores | Always use separate test set |
+| Tuning on test set | Leaks information | Use validation set for tuning |
+| Picking model by test score | Test set becomes validation | Use cross-validation |
+| Reporting validation score as final | Not an honest estimate | Report test score |
+| Testing multiple times | "Overfitting" to test set | Test only ONCE |
 
 ---
 
@@ -660,44 +755,70 @@ When presenting your model, always report:
 
 ---
 
-# Bonus: Regularization (Preventing Overfitting)
+# Regularization: Preventing Overfitting
 
-![bg right:45% 90%](diagrams/regularization_concept.png)
-
-**Regularization = penalize complex models**
-
-| Without | With Regularization |
-|---------|---------------------|
-| Model fits every point | Model stays smooth |
-| Wiggly, complex curve | Simpler, generalizable |
-| Overfits training data | Better on test data |
+![height:380px](diagrams/regularization_gemini.png)
 
 ---
 
-# Regularization in Practice
+# What is Regularization?
+
+**Regularization = Add a penalty for complexity**
+
+$$\text{Loss} = \text{Error} + \lambda \times \text{Complexity}$$
+
+| λ (lambda) | Effect |
+|------------|--------|
+| λ = 0 | No regularization → may overfit |
+| λ small | Light penalty → slight smoothing |
+| λ large | Heavy penalty → may underfit |
+
+**λ is a hyperparameter you tune!**
+
+---
+
+# Types of Regularization
+
+| Type | Formula | Effect |
+|------|---------|--------|
+| **Ridge (L2)** | $\lambda \sum \theta_j^2$ | Shrinks all weights toward zero |
+| **Lasso (L1)** | $\lambda \sum \|\theta_j\|$ | Makes some weights exactly zero |
+| **Elastic Net** | Both L1 + L2 | Combines benefits |
 
 ```python
 from sklearn.linear_model import Ridge, Lasso
 
-# Ridge Regression (L2 regularization)
-model = Ridge(alpha=1.0)  # alpha controls strength
-model.fit(X_train, y_train)
-
-# Lasso Regression (L1 regularization)
-model = Lasso(alpha=0.1)
-model.fit(X_train, y_train)
+model = Ridge(alpha=1.0)   # L2: all features kept, smaller weights
+model = Lasso(alpha=0.1)   # L1: some features removed entirely
 ```
 
-| Regularization | Effect |
-|---------------|--------|
-| **Ridge (L2)** | Shrinks weights toward zero |
-| **Lasso (L1)** | Makes some weights exactly zero (feature selection!) |
+---
+
+# When to Use Regularization?
+
+| Situation | Recommendation |
+|-----------|----------------|
+| Many features, little data | Strong regularization |
+| Few features, lots of data | Light or no regularization |
+| Features highly correlated | Ridge (L2) works better |
+| Want feature selection | Lasso (L1) |
+| Neural networks | Use Dropout or L2 |
+
+<div class="insight">
+
+**Almost always use some regularization** — it rarely hurts!
+
+</div>
 
 ---
 
 # Learning Curves: Diagnosing Problems
 
-**Plot training and validation error vs training set size:**
+![height:380px](diagrams/learning_curves_gemini.png)
+
+---
+
+# Reading Learning Curves
 
 | Pattern | Diagnosis | Solution |
 |---------|-----------|----------|
