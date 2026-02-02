@@ -787,20 +787,14 @@ $$P(\text{spam}) = \sigma(3.5) = \frac{1}{1 + e^{-3.5}} = 0.97$$
 ```python
 from sklearn.linear_model import LogisticRegression
 
-# Data: [exclamations, has_FREE]
-X = [[5, 1], [0, 0], [3, 1], [1, 0], [4, 1], [0, 0]]
-y = [1, 0, 1, 0, 1, 0]  # 1=spam, 0=not spam
+X = [[5, 1], [0, 0], [3, 1], [1, 0]]  # [exclamations, has_FREE]
+y = [1, 0, 1, 0]                       # 1=spam, 0=not spam
 
-# Train
 model = LogisticRegression()
 model.fit(X, y)
 
-# Predict class
-model.predict([[4, 1]])  # → [1] (spam)
-
-# Predict probability
-model.predict_proba([[4, 1]])  # → [[0.12, 0.88]]
-#                                   [P(not spam), P(spam)]
+model.predict([[4, 1]])       # → [1] (spam)
+model.predict_proba([[4, 1]]) # → [[0.12, 0.88]] = [P(not spam), P(spam)]
 ```
 
 ---
@@ -850,131 +844,93 @@ for epoch in range(100):
 
 # Why Cross-Entropy Loss?
 
-For classification, MSE doesn't work well!
+For classification, MSE doesn't work well — Cross-Entropy penalizes **confident wrong predictions** severely!
 
-| Loss Function | Best For | Why |
-|---------------|----------|-----|
-| MSE | Regression | Measures distance |
-| Cross-Entropy | Classification | Measures probability mismatch |
-
-**Cross-Entropy:**
 $$\mathcal{L} = -\frac{1}{n}\sum[y_i \log(\hat{y}_i) + (1-y_i)\log(1-\hat{y}_i)]$$
 
-*Penalizes confident wrong predictions severely!*
+---
+
+# Cross-Entropy: The 4 Cases
+
+![height:350px](diagrams/cross_entropy_explained.png)
+
+**Key insight:** Being confident AND wrong = very high loss!
 
 ---
 
 <!-- _class: section-divider -->
 
-# Part 5: Model Evaluation
+# Part 5: Feature Engineering
 
-## How Good is Our Model?
+## Making Linear Models More Powerful
 
 ---
 
-# The Golden Rule
+# The Limitation of Linear Models
 
-<div class="insight">
+**Problem:** What if the relationship isn't linear?
 
-**Always evaluate on data the model has never seen!**
+| x | y |
+|---|---|
+| 1 | 1 |
+| 2 | 4 |
+| 3 | 9 |
 
-</div>
+A line can't fit $y = x^2$!
+
+**Solution:** Transform the inputs using **basis functions**
+
+---
+
+# Basis Functions: The Key Idea
+
+**Instead of:** $\hat{y} = \theta_0 + \theta_1 x$
+
+**Use:** $\hat{y} = \theta_0 + \theta_1 x + \theta_2 x^2$
+
+| Original Feature | Basis-Expanded Features |
+|-----------------|------------------------|
+| $x$ | $[1, x, x^2]$ |
+| $x$ | $[1, x, x^2, x^3]$ |
+| $x$ | $[1, \sin(x), \cos(x)]$ |
+
+**The model is still linear in $\boldsymbol{\theta}$!** (just not in $x$)
+
+---
+
+# Polynomial Features in sklearn
 
 ```python
-from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import PolynomialFeatures
+from sklearn.linear_model import LinearRegression
 
-X_train, X_test, y_train, y_test = train_test_split(
-    X, y, test_size=0.2, random_state=42
-)
+X = np.array([[1], [2], [3], [4]])  # Original: just x
+y = np.array([1, 4, 9, 16])         # y = x²
 
-# Train ONLY on training data
-model.fit(X_train, y_train)
+# Transform x → [1, x, x²]
+poly = PolynomialFeatures(degree=2)
+X_poly = poly.fit_transform(X)      # Shape: (4, 3)
 
-# Evaluate ONLY on test data
-predictions = model.predict(X_test)
+model = LinearRegression()
+model.fit(X_poly, y)  # Now it can fit y = x²!
 ```
 
 ---
 
-# Regression Metrics
+# Visualizing Basis Expansion
 
-For regression (predicting numbers):
-
-| Metric | Formula | Meaning |
-|--------|---------|---------|
-| **MSE** | $\frac{1}{n}\sum(y - \hat{y})^2$ | Average squared error |
-| **RMSE** | $\sqrt{MSE}$ | Error in same units as y |
-| **MAE** | $\frac{1}{n}\sum\|y - \hat{y}\|$ | Average absolute error |
-
-```python
-from sklearn.metrics import mean_squared_error, mean_absolute_error
-import numpy as np
-
-mse = mean_squared_error(y_test, predictions)
-rmse = np.sqrt(mse)
-mae = mean_absolute_error(y_test, predictions)
-```
-
----
-
-# Classification Metrics: Accuracy
-
-$$\text{Accuracy} = \frac{\text{Correct Predictions}}{\text{Total Predictions}}$$
-
-```python
-from sklearn.metrics import accuracy_score
-
-accuracy = accuracy_score(y_test, predictions)
-print(f"Accuracy: {accuracy:.1%}")  # e.g., 92.5%
-```
-
-**But accuracy can be misleading...**
-
----
-
-# The Accuracy Trap
-
-**Scenario:** Disease detection (1% have disease, 99% healthy)
-
-| Model | Strategy | Accuracy |
-|-------|----------|----------|
-| Dumb | Always predict "healthy" | **99%** |
-| Smart | Tries to detect disease | 95% |
+| Degree | Features | Can Fit |
+|--------|----------|---------|
+| 1 | $[1, x]$ | Lines |
+| 2 | $[1, x, x^2]$ | Parabolas |
+| 3 | $[1, x, x^2, x^3]$ | Cubics |
+| n | $[1, x, \ldots, x^n]$ | Complex curves |
 
 <div class="warning">
 
-The "dumb" model has 99% accuracy but **misses ALL sick patients!**
+**Danger:** High degree → overfitting! (Covered in Lecture 4)
 
 </div>
-
----
-
-# Precision and Recall
-
-**Precision:** Of those I flagged, how many were correct?
-$$\text{Precision} = \frac{TP}{TP + FP}$$
-
-**Recall:** Of all positives, how many did I find?
-$$\text{Recall} = \frac{TP}{TP + FN}$$
-
-| Scenario | Priority |
-|----------|----------|
-| Spam filter | High precision (don't lose important emails!) |
-| Cancer screening | High recall (don't miss any cancer!) |
-
----
-
-# F1 Score: The Balance
-
-$$\text{F1} = 2 \times \frac{\text{Precision} \times \text{Recall}}{\text{Precision} + \text{Recall}}$$
-
-| Precision | Recall | F1 |
-|-----------|--------|-----|
-| 0.90 | 0.90 | 0.90 |
-| 0.95 | 0.50 | 0.65 |
-| 0.50 | 0.95 | 0.65 |
-
-**F1 punishes imbalance!**
 
 ---
 
@@ -982,13 +938,12 @@ $$\text{F1} = 2 \times \frac{\text{Precision} \times \text{Recall}}{\text{Precis
 
 | Concept | Key Takeaway |
 |---------|--------------|
-| **Linear Regression** | $\hat{y} = \mathbf{w}^\top\mathbf{x} + b$ |
+| **Linear Regression** | $\hat{y} = \boldsymbol{\theta}^\top\mathbf{x}$ |
 | **Loss Function** | MSE measures how wrong we are |
-| **Normal Equation** | Direct solution (small data) |
-| **Gradient Descent** | Iterative solution (any data, any model!) |
+| **Gradient Descent** | $\boldsymbol{\theta} \leftarrow \boldsymbol{\theta} - \eta \nabla \mathcal{L}$ |
 | **Logistic Regression** | Linear + Sigmoid for classification |
 | **Cross-Entropy** | Loss for classification |
-| **PyTorch** | Same concepts, more flexible |
+| **Basis Functions** | Transform inputs for nonlinear patterns |
 
 ---
 
@@ -1013,16 +968,17 @@ $$\text{F1} = 2 \times \frac{\text{Precision} \times \text{Recall}}{\text{Precis
 
 # You Now Understand the Basics!
 
-## Next: Model Selection & Evaluation
+**Key insight:** Gradient descent is how we train ALL neural networks!
 
-**Key insight:** Gradient descent is how we train neural networks!
+<div style="text-align: left;">
 
 ```python
-# The universal training loop:
-for epoch in epochs:
+for epoch in epochs:               # The universal training loop
     loss = compute_loss(model(x), y)
-    loss.backward()      # Compute gradients
-    optimizer.step()     # Update weights
+    loss.backward()                # Compute gradients
+    optimizer.step()               # Update θ
 ```
 
-**Questions?**
+</div>
+
+**Next lecture:** Model Selection & Evaluation — How good is our model?
