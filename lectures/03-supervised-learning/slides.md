@@ -200,32 +200,19 @@ Each weight shows that feature's **independent contribution** to price!
 
 # But What if Data Isn't Perfect?
 
-Real data has **noise** — points don't fall exactly on a line.
+![height:420px](diagrams/noisy_data.png)
 
-| Size | Actual Price | On the Line? |
-|------|--------------|--------------|
-| 1000 | 42 | No (line says 40) |
-| 1500 | 58 | No (line says 60) |
-| 2000 | 83 | No (line says 80) |
-| 2500 | 97 | No (line says 100) |
-
-**Which line is "best"?**
+Real data has **noise** — points don't fall exactly on a line. **Which line is "best"?**
 
 ---
 
 # The Goal: Minimize Errors
 
-![bg right:45% 90%](diagrams/linear_regression_residuals.png)
+![height:420px](diagrams/residuals_explained.png)
 
 **Residual** = Actual - Predicted = $y - \hat{y}$
 
-| Size | Actual | Predicted | Residual |
-|------|--------|-----------|----------|
-| 1000 | 42 | 40 | +2 |
-| 1500 | 58 | 60 | -2 |
-| 2000 | 83 | 80 | +3 |
-
-**Goal:** Find w and b that minimize residuals!
+**Goal:** Find $\mathbf{w}$ and $b$ that minimize sum of squared residuals!
 
 ---
 
