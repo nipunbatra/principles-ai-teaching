@@ -395,16 +395,30 @@ $$\boldsymbol{\theta}_{\text{new}} = \boldsymbol{\theta}_{\text{old}} - \eta \cd
 
 ---
 
-# The Gradient for MSE
+# The Gradient for MSE: Derivation
 
-For our loss $\mathcal{L} = \frac{1}{n}\sum(y_i - \hat{y}_i)^2$:
+Our loss: $\mathcal{L}(\boldsymbol{\theta}) = \frac{1}{n}\sum_{i=1}^{n}(y_i - \hat{y}_i)^2$ where $\hat{y}_i = \boldsymbol{\theta}^\top \mathbf{x}_i$
 
+**Step 1:** Expand $\hat{y}_i = \theta_0 x_{i0} + \theta_1 x_{i1} + \ldots + \theta_d x_{id}$
+
+**Step 2:** Partial derivative w.r.t. $\theta_j$:
+$$\frac{\partial \mathcal{L}}{\partial \theta_j} = \frac{1}{n}\sum_{i=1}^{n} 2(y_i - \hat{y}_i) \cdot (-x_{ij}) = -\frac{2}{n}\sum_{i=1}^{n} (y_i - \hat{y}_i) \cdot x_{ij}$$
+
+---
+
+# The Gradient for MSE: Vector Form
+
+**For each parameter $\theta_j$:**
 $$\frac{\partial \mathcal{L}}{\partial \theta_j} = -\frac{2}{n}\sum_{i=1}^{n} (y_i - \hat{y}_i) \cdot x_{ij}$$
 
-**Intuition:**
-- If predictions are too low ($y > \hat{y}$), increase $\theta_j$
-- If predictions are too high ($y < \hat{y}$), decrease $\theta_j$
-- Larger errors → larger updates
+**Stacking all partials into a gradient vector:**
+$$\nabla_{\boldsymbol{\theta}} \mathcal{L} = -\frac{2}{n} \mathbf{X}^\top (\mathbf{y} - \mathbf{X}\boldsymbol{\theta})$$
+
+<div class="insight">
+
+**Intuition:** Error $(y_i - \hat{y}_i)$ weighted by feature $x_{ij}$ tells us how to adjust $\theta_j$
+
+</div>
 
 ---
 
@@ -413,24 +427,18 @@ $$\frac{\partial \mathcal{L}}{\partial \theta_j} = -\frac{2}{n}\sum_{i=1}^{n} (y
 ```python
 import numpy as np
 
-def gradient_descent(X, y, lr=0.0001, epochs=1000):
-    w = 0.0  # Start with random weight
-    b = 0.0  # Start with random bias
-    n = len(y)
+def gradient_descent(X, y, lr=0.01, epochs=1000):
+    # X is augmented with column of 1s: shape (n, d+1)
+    n, d = X.shape
+    theta = np.zeros(d)  # Initialize theta to zeros
 
     for epoch in range(epochs):
-        # Predictions
-        y_pred = w * X + b
+        y_pred = X @ theta                    # Predictions
+        error = y - y_pred                    # Residuals
+        gradient = (-2/n) * (X.T @ error)     # Gradient
+        theta = theta - lr * gradient         # Update
 
-        # Gradients
-        dw = (-2/n) * np.sum((y - y_pred) * X)
-        db = (-2/n) * np.sum(y - y_pred)
-
-        # Update weights
-        w = w - lr * dw
-        b = b - lr * db
-
-    return w, b
+    return theta  # theta[0]=bias, theta[1:]=weights
 ```
 
 ---
