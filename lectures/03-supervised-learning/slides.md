@@ -773,20 +773,12 @@ $$P(\text{spam}) = \sigma(3.5) = \frac{1}{1 + e^{-3.5}} = 0.97$$
 
 # The Decision Rule
 
-![bg right:45% 90%](diagrams/decision_boundary.png)
+![height:320px](diagrams/decision_boundary_matplotlib.png)
 
-| If P(spam) | Decision |
-|------------|----------|
-| > 0.5 | Predict SPAM |
-| ≤ 0.5 | Predict NOT SPAM |
-
-**The threshold 0.5 creates a decision boundary!**
-
-| Threshold | Effect |
-|-----------|--------|
-| 0.5 | Balanced |
-| 0.3 | Catch more spam (but more false alarms) |
-| 0.7 | Fewer false alarms (but miss some spam) |
+| If P(spam) | Decision | Threshold can be tuned! |
+|------------|----------|------------------------|
+| > 0.5 | Predict SPAM | Lower → catch more spam |
+| ≤ 0.5 | Predict NOT SPAM | Higher → fewer false alarms |
 
 ---
 
