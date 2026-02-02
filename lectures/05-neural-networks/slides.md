@@ -57,7 +57,71 @@ By the end, you'll understand:
 
 <!-- _class: section-divider -->
 
-# Part 1: Why Neural Networks?
+# Part 1: From Features to End-to-End Learning
+
+## The Big Shift in Machine Learning
+
+---
+
+# Traditional ML: Feature Engineering
+
+**The old workflow:**
+
+```
+Raw Data → [HUMAN designs features] → Features → Model → Prediction
+```
+
+| Domain | Hand-crafted Features |
+|--------|----------------------|
+| Images | SIFT, HOG, edge detectors |
+| Text | Bag-of-words, TF-IDF, n-grams |
+| Audio | MFCCs, spectrograms |
+| Tabular | Domain expertise required |
+
+**Problem:** Feature engineering is hard, domain-specific, and doesn't scale!
+
+---
+
+# Deep Learning: End-to-End Learning
+
+**The new workflow:**
+
+```
+Raw Data → [Neural Network learns features] → Prediction
+```
+
+| Traditional | Deep Learning |
+|-------------|---------------|
+| Human designs features | Network learns features |
+| Domain expertise needed | Data + compute needed |
+| Separate feature + model | End-to-end optimization |
+| Limited by human creativity | Limited by data + architecture |
+
+<div class="insight">
+
+**Key insight:** Neural networks learn both features AND classifier together!
+
+</div>
+
+---
+
+# Example: Image Classification
+
+| Traditional ML | Deep Learning |
+|----------------|---------------|
+| 1. Detect edges | 1. Input raw pixels |
+| 2. Find corners | 2. Network learns edges |
+| 3. Compute HOG | 3. Network learns shapes |
+| 4. Bag of visual words | 4. Network learns objects |
+| 5. Train SVM | 5. End-to-end training |
+
+**Same data, same task — Deep Learning learns what matters!**
+
+---
+
+<!-- _class: section-divider -->
+
+# Part 2: Why Neural Networks?
 
 ## The Limits of Linear Models
 
@@ -110,7 +174,7 @@ This is why we need neural networks with hidden layers.
 
 # Why This Matters: Linear Separability
 
-**Formal definition:** Data is *linearly separable* if there exists a hyperplane $\mathbf{w}^\top \mathbf{x} + b = 0$ that separates the classes.
+**Formal definition:** Data is *linearly separable* if there exists a hyperplane $\boldsymbol{\theta}^\top \mathbf{x} = 0$ that separates the classes.
 
 | Dataset | Linearly Separable? | Single Perceptron? |
 |---------|--------------------|--------------------|
@@ -127,23 +191,26 @@ This is why we need neural networks with hidden layers.
 
 ---
 
-# The Solution: Combine Simple Units
+# The Solution: Linear + Non-linearity
 
 **Key insight:** One linear model can't solve XOR.
 
-**But what if we combine MULTIPLE linear models?**
+**But:** Linear transformation + Non-linear activation + Another linear = **Can solve XOR!**
 
-![bg right:50% 90%](diagrams/combining_linear_units.png)
+$$\mathbf{h} = \sigma(\boldsymbol{\theta}_1^\top \mathbf{x})$$
+$$y = \boldsymbol{\theta}_2^\top \mathbf{h}$$
 
-Input feeds into multiple linear units, which are then combined to produce the output.
-
-**This is the neural network idea!**
+| Component | What it does |
+|-----------|--------------|
+| Linear ($\boldsymbol{\theta}^\top \mathbf{x}$) | Rotate/scale the space |
+| Non-linear ($\sigma$) | Bend the space |
+| Stack them | Learn any function! |
 
 ---
 
 <!-- _class: section-divider -->
 
-# Part 2: The Neuron
+# Part 3: The Neuron
 
 ## The Building Block
 
@@ -166,40 +233,43 @@ Inputs → [Processing] → Fire or Not?
 
 # The Artificial Neuron
 
-![bg right:50% 90%](diagrams/artificial_neuron.png)
-
 **A neuron does two things:**
 
-1. **Weighted sum:** $z = w_1 x_1 + w_2 x_2 + w_3 x_3 + b$
+1. **Weighted sum:** $z = \theta_1 x_1 + \theta_2 x_2 + \theta_3 x_3 + \theta_0 = \boldsymbol{\theta}^\top \mathbf{x}$
 2. **Activation:** $y = f(z)$
 
----
-
-# Weights = Importance
-
-Each weight says "how important is this input?"
-
-| Input | Weight | Meaning |
-|-------|--------|---------|
-| $x_1$ (has "FREE") | $w_1 = 2.0$ | Very important for spam |
-| $x_2$ (has images) | $w_2 = 0.5$ | Slightly matters |
-| $x_3$ (from friend) | $w_3 = -1.5$ | Reduces spam likelihood |
-
-**Weights are LEARNED from data!**
+| Step | Formula | Purpose |
+|------|---------|---------|
+| Linear | $z = \boldsymbol{\theta}^\top \mathbf{x}$ | Combine inputs |
+| Non-linear | $y = f(z)$ | Add non-linearity |
 
 ---
 
-# Bias = Threshold
+# Parameters = Importance
 
-The bias shifts the decision point.
+Each parameter $\theta_j$ says "how important is input $x_j$?"
 
-$$z = w_1 x_1 + w_2 x_2 + b$$
+| Input | Parameter | Meaning |
+|-------|-----------|---------|
+| $x_1$ (has "FREE") | $\theta_1 = 2.0$ | Very important for spam |
+| $x_2$ (has images) | $\theta_2 = 0.5$ | Slightly matters |
+| $x_3$ (from friend) | $\theta_3 = -1.5$ | Reduces spam likelihood |
 
-| Bias | Effect |
-|------|--------|
-| $b = 0$ | Needs positive evidence to fire |
-| $b = 5$ | Fires easily (biased toward yes) |
-| $b = -5$ | Hard to fire (biased toward no) |
+**Parameters $\boldsymbol{\theta}$ are LEARNED from data!**
+
+---
+
+# Bias Term = Threshold
+
+The bias $\theta_0$ shifts the decision point.
+
+$$z = \theta_1 x_1 + \theta_2 x_2 + \theta_0$$
+
+| Bias $\theta_0$ | Effect |
+|-----------------|--------|
+| $\theta_0 = 0$ | Needs positive evidence to fire |
+| $\theta_0 = 5$ | Fires easily (biased toward yes) |
+| $\theta_0 = -5$ | Hard to fire (biased toward no) |
 
 ---
 
@@ -208,7 +278,7 @@ $$z = w_1 x_1 + w_2 x_2 + b$$
 **Why do we need it?**
 
 Without activation:
-$$\text{Layer 2}(\text{Layer 1}(x)) = W_2(W_1 x) = (W_2 W_1)x$$
+$$\text{Layer 2}(\text{Layer 1}(\mathbf{x})) = \boldsymbol{\Theta}_2(\boldsymbol{\Theta}_1 \mathbf{x}) = (\boldsymbol{\Theta}_2 \boldsymbol{\Theta}_1)\mathbf{x}$$
 
 **Still a linear function!** Stacking linear = still linear.
 
@@ -255,11 +325,47 @@ You'll encounter others later:
 - **Softmax:** Multi-class (probabilities sum to 1)
 - **Tanh:** Output between -1 and +1
 
+---
+
+# Activation Function Comparison
+
+| Activation | Formula | Range | Use Case |
+|------------|---------|-------|----------|
+| **ReLU** | $\max(0, z)$ | $[0, \infty)$ | Hidden layers (default) |
+| **Sigmoid** | $\frac{1}{1+e^{-z}}$ | $(0, 1)$ | Binary output |
+| **Tanh** | $\frac{e^z - e^{-z}}{e^z + e^{-z}}$ | $(-1, 1)$ | Centered output |
+| **Softmax** | $\frac{e^{z_i}}{\sum e^{z_j}}$ | $(0, 1)$ | Multi-class |
+
+---
+
+# The Vanishing Gradient Problem
+
+**Sigmoid/Tanh issue:** Gradients get very small for large |z|
+
+| z | Sigmoid | Gradient |
+|---|---------|----------|
+| 0 | 0.5 | 0.25 (good) |
+| 5 | 0.99 | 0.007 (tiny!) |
+| 10 | 0.9999 | 0.00005 (vanished!) |
+
+**Result:** Deep networks with sigmoid don't learn well.
+
+**ReLU solution:** Gradient is 1 for z > 0, never saturates!
+
+---
+
+# Quick Summary: Activations
+
+| When | Use |
+|------|-----|
+| Hidden layers | **ReLU** (or Leaky ReLU, GELU) |
+| Binary classification output | **Sigmoid** |
+| Multi-class output | **Softmax** |
+| Recurrent networks | **Tanh** (sometimes) |
+
 <div class="insight">
 
-**For now:** Just use ReLU for hidden layers. It works great!
-
-</div>
+**Rule of thumb:** ReLU for hidden, Sigmoid/Softmax for output!
 
 ---
 
@@ -268,25 +374,24 @@ You'll encounter others later:
 ```python
 import numpy as np
 
-def neuron(x, w, b):
+def neuron(x, theta):
     """A single neuron with ReLU activation."""
-    z = np.dot(w, x) + b    # Weighted sum
-    return max(0, z)         # ReLU activation
+    z = np.dot(theta[1:], x) + theta[0]  # θᵀx
+    return max(0, z)                      # ReLU
 
 # Example: Spam detection
-x = [1, 0, 0]                # Has "FREE", no images, unknown sender
-w = [2.0, 0.5, -1.5]         # Learned weights
-b = -0.5                      # Learned bias
+x = [1, 0, 0]                  # Has "FREE", no images, unknown sender
+theta = [-0.5, 2.0, 0.5, -1.5] # θ₀=bias, θ₁, θ₂, θ₃
 
-output = neuron(x, w, b)      # = max(0, 2*1 + 0.5*0 - 1.5*0 - 0.5)
-print(output)                 # = max(0, 1.5) = 1.5
+output = neuron(x, theta)      # = max(0, 2*1 + 0.5*0 - 1.5*0 - 0.5)
+print(output)                  # = max(0, 1.5) = 1.5
 ```
 
 ---
 
 <!-- _class: section-divider -->
 
-# Part 3: Multi-Layer Networks
+# Part 4: Multi-Layer Networks
 
 ## Going Deep
 
@@ -304,7 +409,7 @@ print(output)                 # = max(0, 1.5) = 1.5
 | **Hidden** | Learns useful patterns |
 | **Output** | Makes final prediction |
 
-Each connection has a **weight** — these are what the network learns!
+Each connection has a **parameter** — these are what the network learns!
 
 ---
 
@@ -358,9 +463,51 @@ Each connection has a **weight** — these are what the network learns!
 
 ---
 
+# Universal Function Approximation Theorem
+
+**Theorem (Cybenko, 1989; Hornik, 1991):**
+
+> A feedforward network with a single hidden layer containing a finite number of neurons can approximate any continuous function on compact subsets of $\mathbb{R}^n$.
+
+**In simple terms:** Given enough neurons, a neural network can learn ANY function!
+
+---
+
+# What Universal Approximation Means
+
+| Statement | True/False |
+|-----------|------------|
+| NNs can represent any function | ✅ True (with enough neurons) |
+| NNs will always find the right function | ❌ False (training matters) |
+| One hidden layer is always enough | ✅ True in theory, not in practice |
+| Deeper is always better | ❌ Not always (harder to train) |
+
+<div class="warning">
+
+**Caveat:** The theorem says NNs CAN approximate — not that gradient descent WILL find it!
+
+</div>
+
+---
+
+# Why Depth Helps in Practice
+
+**Width vs Depth:**
+
+| Wide Network | Deep Network |
+|--------------|--------------|
+| Many neurons, few layers | Few neurons per layer, many layers |
+| Can approximate anything | Can approximate anything |
+| Needs exponentially many neurons | Needs polynomial neurons |
+| Harder to train | Easier to train (with tricks) |
+
+**Deep networks are more parameter-efficient for hierarchical features!**
+
+---
+
 <!-- _class: section-divider -->
 
-# Part 4: How Networks Learn
+# Part 5: How Networks Learn
 
 ## The Training Process
 
@@ -513,7 +660,7 @@ for epoch in range(num_epochs):
 
 <!-- _class: section-divider -->
 
-# Part 5: PyTorch Basics
+# Part 6: PyTorch Basics
 
 ## From Theory to Code
 
@@ -727,6 +874,94 @@ for epoch in range(epochs):
         loss.backward()
         optimizer.step()
 ```
+
+---
+
+# Common Network Architectures
+
+| Name | Architecture | Use Case |
+|------|-------------|----------|
+| **MLP** | Fully connected layers | Tabular data, simple tasks |
+| **CNN** | Convolutional layers | Images, spatial data |
+| **RNN/LSTM** | Recurrent connections | Sequences, time series |
+| **Transformer** | Self-attention | Text, modern LLMs |
+
+**We'll cover CNNs in the next lecture!**
+
+---
+
+# Training Tips: Learning Rate
+
+| Learning Rate | Effect |
+|---------------|--------|
+| Too small (1e-6) | Training too slow |
+| Too large (1.0) | Training unstable, diverges |
+| Just right (1e-3 to 1e-4) | Steady progress |
+
+**Start with:** `lr=0.001` for Adam, `lr=0.01` for SGD
+
+---
+
+# Training Tips: Batch Size
+
+| Batch Size | Effect |
+|------------|--------|
+| Small (8-32) | Noisy gradients, good generalization |
+| Large (256-1024) | Stable gradients, faster training |
+| Very large (>4096) | May hurt generalization |
+
+**Start with:** 32 or 64, increase if GPU memory allows
+
+---
+
+# Training Tips: When to Stop
+
+**Monitor validation loss:**
+
+| Pattern | Meaning | Action |
+|---------|---------|--------|
+| Train ↓, Val ↓ | Learning! | Continue |
+| Train ↓, Val flat | Starting to overfit | Consider stopping |
+| Train ↓, Val ↑ | Overfitting! | Stop, reduce model |
+
+**Early stopping:** Stop when validation loss stops improving
+
+---
+
+# Debugging Neural Networks
+
+| Problem | Likely Cause | Fix |
+|---------|--------------|-----|
+| Loss not decreasing | LR too small/large | Try different LR |
+| Loss = NaN | LR too large, bad data | Lower LR, check data |
+| Train good, val bad | Overfitting | More data, dropout, regularization |
+| Both train/val bad | Underfitting | Bigger model, more epochs |
+
+---
+
+# The Neural Network Workflow
+
+1. **Prepare data** → Normalize, split train/val/test
+2. **Define model** → Choose architecture, activations
+3. **Choose loss** → MSE for regression, CrossEntropy for classification
+4. **Choose optimizer** → Adam is a good default
+5. **Train** → Forward → Loss → Backward → Update
+6. **Evaluate** → Check validation performance
+7. **Iterate** → Adjust hyperparameters, architecture
+
+---
+
+# Hyperparameters to Tune
+
+| Hyperparameter | Typical Values | Start With |
+|----------------|----------------|------------|
+| Learning rate | 1e-5 to 1e-1 | 1e-3 |
+| Batch size | 8 to 1024 | 32 |
+| Hidden layers | 1 to 10 | 2-3 |
+| Neurons per layer | 16 to 1024 | 64-128 |
+| Epochs | 10 to 1000 | 100 |
+
+**Use validation set to choose best hyperparameters!**
 
 ---
 
