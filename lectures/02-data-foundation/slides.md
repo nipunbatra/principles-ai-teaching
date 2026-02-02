@@ -157,13 +157,13 @@ model.predict("FR33 M0N3Y")  # → "spam"
 
 # Three Ways to Learn
 
+![bg right:50% 90%](diagrams/three_learning_paradigms.png)
+
 Just like humans, machines can learn in different ways:
 
-| Paradigm | How It Works | Example |
-|----------|--------------|---------|
-| **Supervised** | Teacher provides answers | Spam detection |
-| **Unsupervised** | Find patterns alone | Customer grouping |
-| **Reinforcement** | Learn from rewards | Game playing AI |
+- **Supervised:** Teacher provides labeled answers
+- **Unsupervised:** Find hidden patterns in data
+- **Reinforcement:** Learn from rewards/penalties
 
 <div class="insight">
 
