@@ -31,12 +31,12 @@ By the end of this lecture, you will:
 # Recap: Supervised Learning
 
 **We have:**
-- Features (X): What we know about each example
-- Labels (y): What we want to predict
+- Features ($\mathbf{X}$): What we know about each example
+- Labels ($\mathbf{y}$): What we want to predict
 
-**Goal:** Learn a function f where f(X) ≈ y
+**Goal:** Learn a function $f$ where $f(\mathbf{X}) \approx \mathbf{y}$
 
-| If y is... | Task | Example |
+| If $\mathbf{y}$ is... | Task | Example |
 |------------|------|---------|
 | A number | Regression | Predict house price |
 | A category | Classification | Spam or not spam |
@@ -154,15 +154,17 @@ What if price depends on more than just size?
 
 $$\hat{y} = w_1 x_1 + w_2 x_2 + \ldots + w_d x_d + b$$
 
-Or in **vector form**:
+Or in **vector form** (both notations are equivalent):
 
-$$\hat{y} = \mathbf{w}^\top \mathbf{x} + b$$
+$$\hat{y} = \mathbf{w}^\top \mathbf{x} + b = \langle \mathbf{w}, \mathbf{x} \rangle + b$$
 
 | Symbol | Shape | Example |
 |--------|-------|---------|
 | $\mathbf{x}$ | (d,) | [1500, 3, 2] — size, beds, baths |
 | $\mathbf{w}$ | (d,) | [0.03, 5.0, 8.0] — learned weights |
 | $b$ | scalar | -10 |
+
+**Note:** $\mathbf{w}^\top \mathbf{x}$ and $\langle \mathbf{w}, \mathbf{x} \rangle$ both mean **dot product** (sum of element-wise products)
 
 ---
 
@@ -287,10 +289,10 @@ $$\mathbf{w} = (\mathbf{X}^\top \mathbf{X})^{-1} \mathbf{X}^\top \mathbf{y}$$
 
 Why does this work?
 
-1. We want to minimize $(y - Xw)^2$
-2. Take derivative with respect to w
+1. We want to minimize $(\mathbf{y} - \mathbf{X}\mathbf{w})^2$
+2. Take derivative with respect to $\mathbf{w}$
 3. Set derivative = 0 (finding the minimum)
-4. Solve for w
+4. Solve for $\mathbf{w}$
 
 **Result:** $\mathbf{w} = (\mathbf{X}^\top \mathbf{X})^{-1} \mathbf{X}^\top \mathbf{y}$
 
