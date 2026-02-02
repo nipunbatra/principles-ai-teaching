@@ -928,16 +928,10 @@ model.predict(X_test)
 
 ---
 
-<!-- _class: title-slide -->
-
 <!-- _class: section-divider -->
 
-# You Now Have the Foundation!
+# Questions?
 
-## Next: Linear & Logistic Regression
+## Next Lecture: Supervised Learning
 
-**Key takeaways:**
-- ML = learning patterns from data
-- Supervised learning = learning from labeled examples
-- Always split train/test
-- Accuracy isn't the only metric
+Linear Regression, Logistic Regression, and Gradient Descent
