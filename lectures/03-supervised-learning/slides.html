@@ -604,31 +604,23 @@ theta = np.linalg.inv(X_aug.T @ X_aug) @ X_aug.T @ y
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="30" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="30" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="66">
 <h1 id="learning-rate-the-key-hyperparameter">Learning Rate: The Key Hyperparameter</h1>
+<p><img src="diagrams/learning_rate_comparison.png" alt="" style="height:300px;" /></p>
 <table>
 <thead>
 <tr>
-<th>Learning Rate</th>
-<th>Effect</th>
+<th>Too small (<mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.489ex;" xmlns="http://www.w3.org/2000/svg" width="1.124ex" height="1.489ex" role="img" focusable="false" viewBox="0 -442 497 658"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D702" d="M21 287Q22 290 23 295T28 317T38 348T53 381T73 411T99 433T132 442Q156 442 175 435T205 417T221 395T229 376L231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336V326Q503 302 439 53Q381 -182 377 -189Q364 -216 332 -216Q319 -216 310 -208T299 -186Q299 -177 358 57L420 307Q423 322 423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 114 189T154 366Q154 405 128 405Q107 405 92 377T68 316T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></g></g></g></svg></mjx-container> = 0.05)</th>
+<th>Just right (<mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.489ex;" xmlns="http://www.w3.org/2000/svg" width="1.124ex" height="1.489ex" role="img" focusable="false" viewBox="0 -442 497 658"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D702" d="M21 287Q22 290 23 295T28 317T38 348T53 381T73 411T99 433T132 442Q156 442 175 435T205 417T221 395T229 376L231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336V326Q503 302 439 53Q381 -182 377 -189Q364 -216 332 -216Q319 -216 310 -208T299 -186Q299 -177 358 57L420 307Q423 322 423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 114 189T154 366Q154 405 128 405Q107 405 92 377T68 316T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></g></g></g></svg></mjx-container> = 0.3)</th>
+<th>Too large (<mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.489ex;" xmlns="http://www.w3.org/2000/svg" width="1.124ex" height="1.489ex" role="img" focusable="false" viewBox="0 -442 497 658"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D702" d="M21 287Q22 290 23 295T28 317T38 348T53 381T73 411T99 433T132 442Q156 442 175 435T205 417T221 395T229 376L231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336V326Q503 302 439 53Q381 -182 377 -189Q364 -216 332 -216Q319 -216 310 -208T299 -186Q299 -177 358 57L420 307Q423 322 423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 114 189T154 366Q154 405 128 405Q107 405 92 377T68 316T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></g></g></g></svg></mjx-container> = 1.1)</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Too small</td>
-<td>Very slow convergence</td>
-</tr>
-<tr>
-<td>Just right</td>
-<td>Fast convergence to minimum</td>
-</tr>
-<tr>
-<td>Too large</td>
-<td>Overshoots, may diverge!</td>
+<td>Slow convergence</td>
+<td>Fast convergence ✓</td>
+<td>Diverges!</td>
 </tr>
 </tbody>
 </table>
-<div class="insight">
-<p><strong>Rule of thumb:</strong> Start with 0.01, adjust if loss doesn't decrease</p>
-</div>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="31" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="31" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="66">
 <h1 id="why-gradient-descent-matters">Why Gradient Descent Matters</h1>
@@ -666,35 +658,38 @@ theta = np.linalg.inv(X_aug.T @ X_aug) @ X_aug.T @ y
 <h1 id="part-3-feature-scaling">Part 3: Feature Scaling</h1>
 <h2 id="why-scale-matters">Why Scale Matters</h2>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="33" style="--paginate:true;--theme:iitgn-modern;--marpit-advanced-background-split:45%;" data-marpit-pagination-total="66" data-marpit-advanced-background="background" data-marpit-advanced-background-split="right"><div data-marpit-advanced-background-container="true" data-marpit-advanced-background-direction="horizontal"><figure style="background-image:url(&quot;diagrams/feature_scaling.png&quot;);background-size:90%;"></figure></div></section></foreignObject><foreignObject width="55%" height="720"><section id="33" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="33" style="--paginate:true;--theme:iitgn-modern;--marpit-advanced-background-split:45%;" data-marpit-pagination-total="66" data-marpit-advanced-background="content" data-marpit-advanced-background-split="right">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="33" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="33" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="66">
 <h1 id="the-scaling-problem">The Scaling Problem</h1>
-
 <p><strong>Different features have different scales:</strong></p>
 <table>
 <thead>
 <tr>
 <th>Feature</th>
 <th>Range</th>
+<th>Scale</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>House size</td>
 <td>500 - 5000 sqft</td>
+<td>~1000s</td>
 </tr>
 <tr>
 <td>Bedrooms</td>
 <td>1 - 6</td>
+<td>~1s</td>
 </tr>
 <tr>
 <td>Age</td>
 <td>0 - 100 years</td>
+<td>~10s</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Problem:</strong> Large-scale features dominate gradient descent!</p>
 </section>
-</foreignObject><foreignObject width="1280" height="720" data-marpit-advanced-background="pseudo"><section data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="33" style="" data-marpit-pagination-total="66" data-marpit-advanced-background="pseudo" data-marpit-advanced-background-split="right"></section></foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="34" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="34" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="66">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="34" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="34" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="66">
 <h1 id="why-scaling-helps-gradient-descent">Why Scaling Helps Gradient Descent</h1>
 <p><strong>Without scaling:</strong></p>
 <ul>
@@ -846,71 +841,62 @@ model = nn.Linear(<span class="hljs-number">1</span>, <span class="hljs-number">
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="42" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="42" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="66">
 <h1 id="training-in-pytorch">Training in PyTorch</h1>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-python"><span class="hljs-comment"># Loss function: Mean Squared Error</span>
-criterion = nn.MSELoss()
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-python">criterion = nn.MSELoss()                              <span class="hljs-comment"># Loss function</span>
+optimizer = torch.optim.SGD(model.parameters(), lr=<span class="hljs-number">0.1</span>)  <span class="hljs-comment"># Optimizer</span>
 
-<span class="hljs-comment"># Optimizer: Gradient Descent!</span>
-optimizer = torch.optim.SGD(model.parameters(), lr=<span class="hljs-number">0.1</span>)
-
-<span class="hljs-comment"># Training loop</span>
 <span class="hljs-keyword">for</span> epoch <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">100</span>):
-    <span class="hljs-comment"># Forward pass: compute predictions</span>
-    y_pred = model(X_norm)
-
-    <span class="hljs-comment"># Compute loss</span>
-    loss = criterion(y_pred, y)
-
-    <span class="hljs-comment"># Backward pass: compute gradients</span>
-    optimizer.zero_grad()
-    loss.backward()
-
-    <span class="hljs-comment"># Update weights</span>
-    optimizer.step()
+    y_pred = model(X_norm)      <span class="hljs-comment"># 1. Forward pass</span>
+    loss = criterion(y_pred, y) <span class="hljs-comment"># 2. Compute loss</span>
+    optimizer.zero_grad()       <span class="hljs-comment"># 3. Clear gradients</span>
+    loss.backward()             <span class="hljs-comment"># 4. Compute gradients</span>
+    optimizer.step()            <span class="hljs-comment"># 5. Update weights</span>
 </code></pre>
+<p><strong>After training:</strong> <code>model.weight</code> ≈ 0.04, <code>model.bias</code> ≈ 0 (same as sklearn!)</p>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="43" style="--paginate:true;--theme:iitgn-modern;--marpit-advanced-background-split:50%;" data-marpit-pagination-total="66" data-marpit-advanced-background="background" data-marpit-advanced-background-split="right"><div data-marpit-advanced-background-container="true" data-marpit-advanced-background-direction="horizontal"><figure style="background-image:url(&quot;diagrams/pytorch_training_loop.png&quot;);background-size:90%;"></figure></div></section></foreignObject><foreignObject width="50%" height="720"><section id="43" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="43" style="--paginate:true;--theme:iitgn-modern;--marpit-advanced-background-split:50%;" data-marpit-pagination-total="66" data-marpit-advanced-background="content" data-marpit-advanced-background-split="right">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="43" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="43" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="66">
 <h1 id="the-pytorch-training-loop">The PyTorch Training Loop</h1>
-
-<p><strong>The 5-step training cycle:</strong></p>
+<p><strong>The 5-step training cycle (memorize this!):</strong></p>
 <table>
 <thead>
 <tr>
 <th>Step</th>
 <th>Code</th>
-<th>Purpose</th>
+<th>What it does</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>1</td>
 <td><code>y_pred = model(X)</code></td>
-<td>Forward pass</td>
+<td>Forward pass: compute predictions</td>
 </tr>
 <tr>
 <td>2</td>
-<td><code>loss = criterion(...)</code></td>
-<td>Compute loss</td>
+<td><code>loss = criterion(y_pred, y)</code></td>
+<td>Measure error</td>
 </tr>
 <tr>
 <td>3</td>
-<td><code>loss.backward()</code></td>
-<td>Compute gradients</td>
+<td><code>optimizer.zero_grad()</code></td>
+<td>Clear old gradients</td>
 </tr>
 <tr>
 <td>4</td>
-<td><code>optimizer.step()</code></td>
-<td>Update weights</td>
+<td><code>loss.backward()</code></td>
+<td>Compute new gradients</td>
 </tr>
 <tr>
 <td>5</td>
-<td><code>optimizer.zero_grad()</code></td>
-<td>Clear gradients</td>
+<td><code>optimizer.step()</code></td>
+<td>Update θ using gradients</td>
 </tr>
 </tbody>
 </table>
-<p><strong>This same loop works for neural networks!</strong></p>
+<div class="insight">
+<p><strong>This exact loop works for ANY neural network - from linear regression to GPT!</strong></p>
+</div>
 </section>
-</foreignObject><foreignObject width="1280" height="720" data-marpit-advanced-background="pseudo"><section data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="43" style="" data-marpit-pagination-total="66" data-marpit-advanced-background="pseudo" data-marpit-advanced-background-split="right"></section></foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="44" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="44" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="66">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="44" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="44" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="66">
 <h1 id="comparing-sklearn-vs-pytorch">Comparing sklearn vs PyTorch</h1>
 <table>
 <thead>
@@ -928,7 +914,7 @@ optimizer = torch.optim.SGD(model.parameters(), lr=<span class="hljs-number">0.1
 </tr>
 <tr>
 <td><strong>Method</strong></td>
-<td>Normal equation</td>
+<td>Closed-form (SVD)</td>
 <td>Gradient descent</td>
 </tr>
 <tr>

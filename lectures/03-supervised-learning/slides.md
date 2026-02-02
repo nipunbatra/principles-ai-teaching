@@ -445,17 +445,11 @@ def gradient_descent(X, y, lr=0.01, epochs=1000):
 
 # Learning Rate: The Key Hyperparameter
 
-| Learning Rate | Effect |
-|---------------|--------|
-| Too small | Very slow convergence |
-| Just right | Fast convergence to minimum |
-| Too large | Overshoots, may diverge! |
+![height:300px](diagrams/learning_rate_comparison.png)
 
-<div class="insight">
-
-**Rule of thumb:** Start with 0.01, adjust if loss doesn't decrease
-
-</div>
+| Too small ($\eta$ = 0.05) | Just right ($\eta$ = 0.3) | Too large ($\eta$ = 1.1) |
+|---------------------------|---------------------------|--------------------------|
+| Slow convergence | Fast convergence ✓ | Diverges! |
 
 ---
 
@@ -486,15 +480,13 @@ def gradient_descent(X, y, lr=0.01, epochs=1000):
 
 # The Scaling Problem
 
-![bg right:45% 90%](diagrams/feature_scaling.png)
-
 **Different features have different scales:**
 
-| Feature | Range |
-|---------|-------|
-| House size | 500 - 5000 sqft |
-| Bedrooms | 1 - 6 |
-| Age | 0 - 100 years |
+| Feature | Range | Scale |
+|---------|-------|-------|
+| House size | 500 - 5000 sqft | ~1000s |
+| Bedrooms | 1 - 6 | ~1s |
+| Age | 0 - 100 years | ~10s |
 
 **Problem:** Large-scale features dominate gradient descent!
 
@@ -632,45 +624,38 @@ model = nn.Linear(1, 1)  # 1 input, 1 output
 # Training in PyTorch
 
 ```python
-# Loss function: Mean Squared Error
-criterion = nn.MSELoss()
+criterion = nn.MSELoss()                              # Loss function
+optimizer = torch.optim.SGD(model.parameters(), lr=0.1)  # Optimizer
 
-# Optimizer: Gradient Descent!
-optimizer = torch.optim.SGD(model.parameters(), lr=0.1)
-
-# Training loop
 for epoch in range(100):
-    # Forward pass: compute predictions
-    y_pred = model(X_norm)
-
-    # Compute loss
-    loss = criterion(y_pred, y)
-
-    # Backward pass: compute gradients
-    optimizer.zero_grad()
-    loss.backward()
-
-    # Update weights
-    optimizer.step()
+    y_pred = model(X_norm)      # 1. Forward pass
+    loss = criterion(y_pred, y) # 2. Compute loss
+    optimizer.zero_grad()       # 3. Clear gradients
+    loss.backward()             # 4. Compute gradients
+    optimizer.step()            # 5. Update weights
 ```
+
+**After training:** `model.weight` ≈ 0.04, `model.bias` ≈ 0 (same as sklearn!)
 
 ---
 
 # The PyTorch Training Loop
 
-![bg right:50% 90%](diagrams/pytorch_training_loop.png)
+**The 5-step training cycle (memorize this!):**
 
-**The 5-step training cycle:**
+| Step | Code | What it does |
+|------|------|--------------|
+| 1 | `y_pred = model(X)` | Forward pass: compute predictions |
+| 2 | `loss = criterion(y_pred, y)` | Measure error |
+| 3 | `optimizer.zero_grad()` | Clear old gradients |
+| 4 | `loss.backward()` | Compute new gradients |
+| 5 | `optimizer.step()` | Update θ using gradients |
 
-| Step | Code | Purpose |
-|------|------|---------|
-| 1 | `y_pred = model(X)` | Forward pass |
-| 2 | `loss = criterion(...)` | Compute loss |
-| 3 | `loss.backward()` | Compute gradients |
-| 4 | `optimizer.step()` | Update weights |
-| 5 | `optimizer.zero_grad()` | Clear gradients |
+<div class="insight">
 
-**This same loop works for neural networks!**
+**This exact loop works for ANY neural network - from linear regression to GPT!**
+
+</div>
 
 ---
 
@@ -679,7 +664,7 @@ for epoch in range(100):
 | Aspect | sklearn | PyTorch |
 |--------|---------|---------|
 | **Simplicity** | 2 lines of code | 10+ lines |
-| **Method** | Normal equation | Gradient descent |
+| **Method** | Closed-form (SVD) | Gradient descent |
 | **Customization** | Limited | Full control |
 | **Neural nets** | Basic only | Full support |
 | **GPU support** | No | Yes! |
