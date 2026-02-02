@@ -387,63 +387,59 @@ print(f"Final test score: {final_score:.2%}")
 
 # Part 3: Cross-Validation
 
-## A Better Way to Evaluate
+## Getting Reliable Performance Estimates
 
 ---
 
-# The Problem with a Single Split
+# Why Do We Need Cross-Validation?
+
+**Problem:** A single train/test split can be lucky or unlucky!
 
 ```python
-# Random split can be lucky or unlucky
-X_train, X_test, y_train, y_test = train_test_split(
-    X, y, test_size=0.2, random_state=1
-)  # Score: 87%
-
-X_train, X_test, y_train, y_test = train_test_split(
-    X, y, test_size=0.2, random_state=2
-)  # Score: 92%
-
-X_train, X_test, y_train, y_test = train_test_split(
-    X, y, test_size=0.2, random_state=3
-)  # Score: 84%
+train_test_split(X, y, random_state=1)  # Score: 87%
+train_test_split(X, y, random_state=2)  # Score: 92%
+train_test_split(X, y, random_state=3)  # Score: 84%
 ```
 
-**Which one is the true score?**
+**Which is the true score?** We don't know!
 
 ---
 
-# Cross-Validation: Use ALL Data!
+# The Problem with Single Splits
 
-![bg right:50% 90%](diagrams/kfold_cross_validation.png)
+| Issue | What Happens |
+|-------|--------------|
+| **Small test set** | Score varies wildly depending on which examples end up in test |
+| **Unlucky split** | A good model looks bad because hard examples are in test |
+| **Lucky split** | A bad model looks good because easy examples are in test |
+| **Wasted data** | 20% of data never used for training |
 
-**Idea:** Split data into K parts. Each part gets a turn as validation.
-
-The diagram shows 5-fold CV:
-- Each fold uses 80% for training, 20% for validation
-- Each data point is validated exactly once
-- Scores: 87%, 89%, 91%, 88%, 90%
-
-**Final Score = Average = 89%**
-
-<div class="insight">
-
-Much more reliable than a single random split!
-
-</div>
+**We need a more reliable way to estimate performance!**
 
 ---
 
-# Why Cross-Validation is Better
+# K-Fold Cross-Validation: The Solution
 
-| Single Split | Cross-Validation |
-|--------------|------------------|
-| Uses 80% of data for training | Uses 100% of data |
-| One lucky/unlucky score | Average of multiple scores |
-| High variance | More reliable estimate |
+![height:350px](diagrams/kfold_cv.png)
+
+**Key insight:** Every data point gets to be in the test set exactly once!
 
 ---
 
-# Cross-Validation in sklearn
+# Why K-Fold Works
+
+| Single Split | K-Fold CV |
+|--------------|-----------|
+| Uses 80% for training | Uses 100% of data (across all folds) |
+| One score (could be lucky) | K scores → average is more reliable |
+| High variance | Low variance |
+| Can't detect unstable models | Standard deviation shows stability |
+
+**Example:** Score = 89% ± 1.5% tells us much more than just "89%"
+
+---
+
+# K-Fold in sklearn
 
 ```python
 from sklearn.model_selection import cross_val_score
@@ -463,56 +459,111 @@ print(f"Mean: {scores.mean():.3f} ± {scores.std():.3f}")
 
 ---
 
-# Comparing Models with Cross-Validation
+# Choosing K: Trade-offs
+
+| K | Name | Pros | Cons |
+|---|------|------|------|
+| **5** | 5-Fold | Fast, good default | Slightly higher variance |
+| **10** | 10-Fold | More reliable estimate | 2x slower |
+| **n** | Leave-One-Out | Uses maximum data | Very slow, high variance |
+
+<div class="insight">
+
+**Rule of thumb:** Use K=5 for quick experiments, K=10 for final evaluation.
+
+</div>
+
+---
+
+# But Wait... What About Hyperparameters?
+
+**New problem:** We want to tune hyperparameters (like regularization C)
 
 ```python
+# Which C is best?
+for C in [0.01, 0.1, 1, 10, 100]:
+    model = LogisticRegression(C=C)
+    score = cross_val_score(model, X, y, cv=5).mean()
+    print(f"C={C}: {score}")
+```
+
+**Danger:** We used the test folds to CHOOSE the best C!
+
+Now our "test" score is biased — we've leaked information!
+
+---
+
+# The Data Leakage Problem
+
+**What went wrong:**
+
+1. We evaluated C=0.01 on folds → got a score
+2. We evaluated C=0.1 on folds → got a score
+3. We picked the C with best score
+4. We reported that score as "test accuracy"
+
+**But that score was used to MAKE A DECISION!**
+
+It's like a student seeing the test before the exam.
+
+---
+
+# Nested Cross-Validation: The Fix
+
+![height:380px](diagrams/nested_cv.png)
+
+---
+
+# How Nested CV Works
+
+| Loop | What It Does | Uses |
+|------|--------------|------|
+| **Outer loop** | Gives honest test score | Test fold (never touched during tuning) |
+| **Inner loop** | Finds best hyperparameters | Train + Val folds only |
+
+**Process for each outer fold:**
+1. Hold out test fold (don't touch it!)
+2. Run inner CV on remaining data to find best hyperparameters
+3. Train final model with best hyperparameters
+4. Evaluate on test fold → one honest score
+
+Average all outer fold scores → reliable estimate!
+
+---
+
+# Nested CV in sklearn
+
+```python
+from sklearn.model_selection import cross_val_score, GridSearchCV
 from sklearn.linear_model import LogisticRegression
-from sklearn.tree import DecisionTreeClassifier
 
-models = {
-    'Logistic Regression': LogisticRegression(),
-    'Decision Tree': DecisionTreeClassifier()
-}
+# Inner loop: find best hyperparameters using 3-fold CV
+param_grid = {'C': [0.01, 0.1, 1, 10, 100]}
+inner_cv = GridSearchCV(LogisticRegression(), param_grid, cv=3)
 
-for name, model in models.items():
-    scores = cross_val_score(model, X, y, cv=5)
-    print(f"{name}: {scores.mean():.3f} ± {scores.std():.3f}")
-```
+# Outer loop: honest evaluation using 5-fold CV
+scores = cross_val_score(inner_cv, X, y, cv=5)
 
-```
-Logistic Regression: 0.850 ± 0.020
-Decision Tree:       0.820 ± 0.045  ← More variable!
+print(f"Nested CV score: {scores.mean():.3f} ± {scores.std():.3f}")
+# This score is honest — no data leakage!
 ```
 
 ---
 
-# Which K to Use?
+# Summary: When to Use What
 
-| K | Name | Trade-off |
-|---|------|-----------|
-| 5 | 5-Fold | Fast, common choice |
-| 10 | 10-Fold | More reliable, slower |
-| n | Leave-One-Out | Most reliable, very slow |
+| Situation | Method | Why |
+|-----------|--------|-----|
+| Evaluate a fixed model | **K-Fold CV** | Reliable score, no tuning needed |
+| Tune hyperparameters + evaluate | **Nested CV** | No data leakage |
+| Compare two models (no tuning) | **K-Fold CV** | Compare mean ± std |
+| Final deployment | **Retrain on ALL data** | Use every example |
 
-**Rule of thumb:** Use K=5 or K=10 for most cases.
+<div class="insight">
 
----
+**Golden rule:** Never use the same data to both CHOOSE and EVALUATE your model!
 
-# Interpreting Cross-Validation Results
-
-```
-Model A: 0.85 ± 0.02   ← Low variance, reliable
-Model B: 0.87 ± 0.15   ← High variance, unstable!
-```
-
-| What to Look For | Interpretation |
-|------------------|----------------|
-| High mean, low std | Great! Reliable model |
-| High mean, high std | Risky — unstable |
-| Low mean, low std | Consistently bad |
-| Low mean, high std | Very unstable |
-
-**Prefer consistent models over slightly better but unstable ones!**
+</div>
 
 ---
 
