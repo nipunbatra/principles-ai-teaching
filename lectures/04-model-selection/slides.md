@@ -58,13 +58,17 @@ You trained a model. It looks great on your data.
 
 # A Simple Example
 
-![bg right:50% 90%](diagrams/overfitting_underfitting.png)
-
 **Task:** Predict house prices from size
 
 You have 10 houses with prices. You fit a model.
 
 **Question:** Which model is best?
+
+| Model | Strategy | Training Error |
+|-------|----------|----------------|
+| A | Predict average for all | High |
+| B | Fit a line | Medium |
+| C | Memorize each point | **Zero!** |
 
 ---
 
@@ -174,16 +178,17 @@ We want models that **understand patterns**, not **memorize examples**.
 
 ---
 
-# Real-World Overfitting Examples
+# Real-World Overfitting: COVID X-Ray Detection
 
-| Scenario | What Happened |
-|----------|---------------|
-| **Stock prediction** | Model learned specific past patterns that never repeat |
-| **Spam filter** | Memorized exact spam emails, missed new ones |
-| **Medical diagnosis** | Learned artifacts in hospital images, not diseases |
-| **Face recognition** | Only recognized faces in training set lighting |
+![height:300px](diagrams/covid_xray_shortcut.png)
 
-**Overfitting = False sense of success!**
+**What happened:** Model achieved 90%+ accuracy but learned to read **hospital IDs** in corner of X-rays, not lung features! COVID patients came from specific hospitals.
+
+<div class="warning">
+
+**Shortcut learning:** Model finds the easiest pattern, not the right one!
+
+</div>
 
 ---
 
