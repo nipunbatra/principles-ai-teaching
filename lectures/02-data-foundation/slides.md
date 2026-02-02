@@ -48,9 +48,13 @@ math: mathjax
 
 # Traditional Programming
 
-![bg right:45% 90%](diagrams/ml_vs_programming.png)
+![height:420px](diagrams/traditional_programming.png)
 
-**You write explicit rules:**
+**You provide data and rules → Computer gives answers**
+
+---
+
+# Example: Spam Detection Rules
 
 ```
 Problem: Determine if an email is spam
@@ -61,6 +65,8 @@ Your Rules:
   IF sender is unknown AND has attachment → Spam
   ...
 ```
+
+**You must think of every possible pattern!**
 
 ---
 
@@ -80,12 +86,16 @@ Your Rules:
 
 # The ML Approach
 
-![bg right:45% 90%](diagrams/spam_detection_example.png)
+![height:420px](diagrams/ml_approach.png)
 
-**Instead of writing rules... let the computer learn them!**
+**You provide data and answers → Computer learns the rules!**
+
+---
+
+# ML in Code
 
 ```python
-# You provide examples
+# You provide examples (data + answers)
 emails = ["FREE MONEY!!!", "Meeting at 3pm", ...]
 labels = ["spam", "not spam", ...]
 
@@ -96,7 +106,7 @@ model.learn(emails, labels)
 model.predict("FR33 M0N3Y")  # → "spam"
 ```
 
-**ML = Learning patterns from examples!**
+**The model learned to handle variations it never saw!**
 
 ---
 
