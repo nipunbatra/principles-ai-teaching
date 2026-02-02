@@ -888,6 +888,69 @@ final_score = model.score(X_test, y_test)
 
 ---
 
+# PyTorch: Data Splitting
+
+```python
+from torch.utils.data import random_split, DataLoader
+
+# Assume dataset has 1000 samples
+dataset = MyDataset(...)
+
+# Split: 60% train, 20% val, 20% test
+train_size = int(0.6 * len(dataset))
+val_size = int(0.2 * len(dataset))
+test_size = len(dataset) - train_size - val_size
+
+train_set, val_set, test_set = random_split(
+    dataset, [train_size, val_size, test_size]
+)
+```
+
+---
+
+# PyTorch: DataLoaders
+
+```python
+# Create DataLoaders for batching
+train_loader = DataLoader(train_set, batch_size=32, shuffle=True)
+val_loader = DataLoader(val_set, batch_size=32, shuffle=False)
+test_loader = DataLoader(test_set, batch_size=32, shuffle=False)
+
+# Training loop
+for epoch in range(num_epochs):
+    for X_batch, y_batch in train_loader:
+        # Train on batch
+        ...
+
+    # Validate after each epoch
+    for X_batch, y_batch in val_loader:
+        # Compute validation loss
+        ...
+```
+
+---
+
+# PyTorch: K-Fold Cross-Validation
+
+```python
+from sklearn.model_selection import KFold
+
+kfold = KFold(n_splits=5, shuffle=True)
+
+for fold, (train_idx, val_idx) in enumerate(kfold.split(dataset)):
+    train_subset = Subset(dataset, train_idx)
+    val_subset = Subset(dataset, val_idx)
+
+    train_loader = DataLoader(train_subset, batch_size=32)
+    val_loader = DataLoader(val_subset, batch_size=32)
+
+    # Train and evaluate for this fold
+    score = train_and_evaluate(model, train_loader, val_loader)
+    print(f"Fold {fold}: {score:.3f}")
+```
+
+---
+
 <!-- _class: title-slide -->
 
 # Key Takeaways
