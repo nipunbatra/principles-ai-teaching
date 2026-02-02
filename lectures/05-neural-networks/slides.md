@@ -39,6 +39,22 @@ By the end, you'll understand:
 
 ---
 
+# Try It Yourself: TensorFlow Playground
+
+**Interactive demo:** [playground.tensorflow.org](https://playground.tensorflow.org)
+
+- Visualize neural networks learning in real-time
+- Experiment with layers, neurons, activation functions
+- See decision boundaries form
+
+<div class="insight">
+
+**Play with XOR dataset** — watch how adding a hidden layer solves it!
+
+</div>
+
+---
+
 <!-- _class: section-divider -->
 
 # Part 1: Why Neural Networks?
@@ -64,15 +80,16 @@ By the end, you'll understand:
 
 # XOR Visualized
 
-![bg right:50% 90%](diagrams/xor_not_separable.png)
-
 **The XOR pattern:**
-- (0,0) → 0 (same)
-- (0,1) → 1 (different)
-- (1,0) → 1 (different)
-- (1,1) → 0 (same)
 
-**Challenge:** Can you draw ONE straight line to separate the 0s from the 1s?
+| $x_1$ | $x_2$ | $y$ | Plot |
+|-------|-------|-----|------|
+| 0 | 0 | 0 | ⚪ bottom-left |
+| 0 | 1 | 1 | 🔴 top-left |
+| 1 | 0 | 1 | 🔴 bottom-right |
+| 1 | 1 | 0 | ⚪ top-right |
+
+**Challenge:** Can you draw ONE straight line to separate 🔴 from ⚪?
 
 ---
 
@@ -91,17 +108,22 @@ This is why we need neural networks with hidden layers.
 
 ---
 
-# Why This Matters
+# Why This Matters: Linear Separability
 
-**Many real problems are like XOR:**
+**Formal definition:** Data is *linearly separable* if there exists a hyperplane $\mathbf{w}^\top \mathbf{x} + b = 0$ that separates the classes.
 
-| Problem | Why It's Non-Linear |
-|---------|---------------------|
-| Face recognition | A face isn't just "eyes + nose + mouth" in a line |
-| Speech recognition | Sounds combine in complex ways |
-| Image classification | Objects have complex shapes |
+| Dataset | Linearly Separable? | Single Perceptron? |
+|---------|--------------------|--------------------|
+| AND gate | ✅ Yes | ✅ Works |
+| OR gate | ✅ Yes | ✅ Works |
+| XOR gate | ❌ No | ❌ Fails |
 
-**We need models that can learn CURVES, not just LINES!**
+**Most real-world problems are NOT linearly separable:**
+- Image pixels → complex, nonlinear boundaries
+- Text → semantic meaning requires composition
+- Time series → patterns span multiple scales
+
+**Solution:** Compose multiple linear functions with nonlinearities!
 
 ---
 
