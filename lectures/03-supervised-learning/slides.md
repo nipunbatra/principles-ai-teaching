@@ -870,13 +870,9 @@ $$\mathcal{L} = -\frac{1}{n}\sum[y_i \log(\hat{y}_i) + (1-y_i)\log(1-\hat{y}_i)]
 
 **Problem:** What if the relationship isn't linear?
 
-| x | y |
-|---|---|
-| 1 | 1 |
-| 2 | 4 |
-| 3 | 9 |
+![height:300px](diagrams/polynomial_regression.png)
 
-A line can't fit $y = x^2$!
+**Example:** Ice cream sales vs temperature — clearly not a straight line!
 
 **Solution:** Transform the inputs using **basis functions**
 
@@ -898,37 +894,49 @@ A line can't fit $y = x^2$!
 
 ---
 
+# Feature Expansion Visualized
+
+![height:320px](diagrams/feature_expansion.png)
+
+By adding $x^2$ as a feature, we give the model more "raw material" to work with!
+
+---
+
 # Polynomial Features in sklearn
 
 ```python
 from sklearn.preprocessing import PolynomialFeatures
 from sklearn.linear_model import LinearRegression
 
-X = np.array([[1], [2], [3], [4]])  # Original: just x
-y = np.array([1, 4, 9, 16])         # y = x²
+X = np.array([[15], [20], [25], [30], [35]])  # Temperature
+y = np.array([15, 10, 20, 55, 120])           # Ice cream sales
 
-# Transform x → [1, x, x²]
-poly = PolynomialFeatures(degree=2)
-X_poly = poly.fit_transform(X)      # Shape: (4, 3)
+poly = PolynomialFeatures(degree=2)  # Transform x → [1, x, x²]
+X_poly = poly.fit_transform(X)
 
 model = LinearRegression()
-model.fit(X_poly, y)  # Now it can fit y = x²!
+model.fit(X_poly, y)                 # Now it can fit curves!
 ```
 
 ---
 
-# Visualizing Basis Expansion
+# Works for Classification Too!
 
-| Degree | Features | Can Fit |
-|--------|----------|---------|
-| 1 | $[1, x]$ | Lines |
-| 2 | $[1, x, x^2]$ | Parabolas |
-| 3 | $[1, x, x^2, x^3]$ | Cubics |
-| n | $[1, x, \ldots, x^n]$ | Complex curves |
+**Same idea with Logistic Regression:**
 
-<div class="warning">
+```python
+from sklearn.linear_model import LogisticRegression
 
-**Danger:** High degree → overfitting! (Covered in Lecture 4)
+poly = PolynomialFeatures(degree=2)
+X_poly = poly.fit_transform(X)
+
+model = LogisticRegression()
+model.fit(X_poly, y)  # Now decision boundary can be curved!
+```
+
+<div class="insight">
+
+**Key insight:** Basis functions let linear models learn nonlinear patterns!
 
 </div>
 
