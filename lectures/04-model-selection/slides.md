@@ -289,11 +289,11 @@ test_accuracy = model.score(X_test, y_test)     # 85%
 gap = train_accuracy - test_accuracy
 ```
 
-| Gap | Diagnosis |
-|-----|-----------|
-| < 5% | Good generalization |
-| 5-15% | Some overfitting |
-| > 15% | 🚨 Severe overfitting |
+| Gap | Diagnosis | |
+|-----|-----------|--|
+| < 5% | Good generalization | ✅ |
+| 5-15% | Some overfitting | ⚠️ |
+| > 15% | Severe overfitting | ❌ |
 
 ---
 
@@ -314,15 +314,17 @@ for model in [model1, model2, model3]:
 
 # Three-Way Split
 
-![bg right:50% 90%](diagrams/train_val_test_split.png)
-
 **Solution:** Add a validation set for model selection.
 
 | Split | Size | Purpose |
 |-------|------|---------|
-| **Training** | 60% | Learn model parameters |
-| **Validation** | 20% | Choose best model |
+| **Training** | 60% | Learn model parameters (θ) |
+| **Validation** | 20% | Choose best model/hyperparameters |
 | **Test** | 20% | Final evaluation (touch ONCE!) |
+
+```
+[====== Train 60% ======][== Val 20% ==][== Test 20% ==]
+```
 
 ---
 
