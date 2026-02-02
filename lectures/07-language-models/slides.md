@@ -409,8 +409,8 @@ $$\text{king} - \text{man} + \text{woman} ≈ \text{queen}$$
 
 | Option | Makes Sense? |
 |--------|--------------|
-| "it" = animal | ✓ (animals get tired) |
-| "it" = street | ✗ (streets don't get tired) |
+| "it" = animal | (animals get tired) |
+| "it" = street | (streets don't get tired) |
 
 **The model needs to look BACK at "animal" to understand "it"!**
 

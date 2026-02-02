@@ -548,7 +548,7 @@ y = x**2 + 3*x
 y.backward()
 
 print(x.grad)  # tensor([7.])
-# Because dy/dx = 2x + 3 = 2(2) + 3 = 7 ✓
+# Because dy/dx = 2x + 3 = 2(2) + 3 = 7
 ```
 
 ---

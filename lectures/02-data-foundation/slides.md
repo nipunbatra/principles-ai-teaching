@@ -76,7 +76,7 @@ Your Rules:
 
 | Email | Your Rule | Reality |
 |-------|-----------|---------|
-| "FR33 M0N3Y!!!" | Not spam ❌ | Spam! |
+| "FR33 M0N3Y!!!" | Not spam | Spam! |
 | "Won tickets to concert" | Spam | Actually legit! |
 | "Free lunch in cafeteria" | Spam | Not spam! |
 
@@ -167,13 +167,7 @@ model.predict("FR33 M0N3Y")  # → "spam"
 
 # Three Ways to Learn
 
-![bg right:50% 90%](diagrams/three_learning_paradigms.png)
-
-Just like humans, machines can learn in different ways:
-
-- **Supervised:** Teacher provides labeled answers
-- **Unsupervised:** Find hidden patterns in data
-- **Reinforcement:** Learn from rewards/penalties
+![height:450px](diagrams/three_learning_paradigms.png)
 
 <div class="insight">
 
@@ -189,9 +183,9 @@ Just like humans, machines can learn in different ways:
 
 ```
 Teacher shows examples:
-  "This email is spam" ✓
-  "This email is not spam" ✓
-  "This email is spam" ✓
+  "This email is spam"
+  "This email is not spam"
+  "This email is spam"
 
 Student (model) learns patterns...
 
@@ -257,12 +251,7 @@ Over time, learns: "Don't move right near pits"
 
 # Our Focus: Supervised Learning
 
-![bg right:50% 90%](diagrams/classification_vs_regression.png)
-
-Supervised learning has two main types:
-
-- **Classification:** Predict a category ("Cat" or "Dog")
-- **Regression:** Predict a number (House price: ₹45 lakhs)
+![height:450px](diagrams/classification_vs_regression.png)
 
 <div class="insight">
 
@@ -319,14 +308,9 @@ Supervised learning has two main types:
 
 # A Concrete Example: Tomato Quality
 
-**Problem:** Predict if a tomato is Good or Bad
+![height:420px](diagrams/tomato_quality.png)
 
-**What information might help?**
-- Color (Red, Orange, Yellow)
-- Size (Small, Medium, Large)
-- Texture (Smooth, Rough)
-
-These are called **features** (inputs to our model).
+These characteristics are called **features** (inputs to our model).
 
 ---
 
@@ -573,8 +557,8 @@ df['age'].fillna(df['age'].median(), inplace=True)
 | Strategy A: Memorize | Strategy B: Learn |
 |---------------------|-------------------|
 | Memorize "2+3=5" | Understand addition |
-| Exam: "2+3=?" → 5 ✓ | Exam: "2+3=?" → 5 ✓ |
-| Exam: "2+4=?" → ??? ❌ | Exam: "2+4=?" → 6 ✓ |
+| Exam: "2+3=?" → 5 | Exam: "2+3=?" → 5 |
+| Exam: "2+4=?" → ??? | Exam: "2+4=?" → 6 |
 
 <div class="insight">
 
@@ -588,7 +572,7 @@ df['age'].fillna(df['age'].median(), inplace=True)
 
 **You train a model on 100 emails.**
 **You test it on the SAME 100 emails.**
-**Accuracy: 100%! 🎉**
+**Accuracy: 100%! **
 
 **But wait...** The model might have just memorized them!
 
@@ -598,15 +582,9 @@ df['age'].fillna(df['age'].median(), inplace=True)
 
 # The Solution: Split Your Data
 
-![bg right:50% 90%](diagrams/train_test_split.png)
+![height:450px](diagrams/train_test_split.png)
 
 **Don't test on data you trained on!**
-
-| Training Set (80%) | Test Set (20%) |
-|-------------------|----------------|
-| Used to learn | Used to evaluate |
-| Model sees these during training | Model NEVER sees these |
-| 80 emails | 20 emails |
 
 ---
 
@@ -635,9 +613,9 @@ accuracy = model.score(X_test, y_test)
 
 | Scenario | Training Acc | Test Acc | Status |
 |----------|--------------|----------|--------|
-| Good model | 90% | 88% | ✅ Learned! |
-| Memorized | 100% | 60% | ❌ Overfitting |
-| Too simple | 65% | 63% | ⚠️ Underfitting |
+| Good model | 90% | 88% | Learned! |
+| Memorized | 100% | 60% | Overfitting |
+| Too simple | 65% | 63% | Underfitting |
 
 **The test accuracy tells you real-world performance!**
 
@@ -684,7 +662,7 @@ $$\text{Accuracy} = \frac{\text{Correct Predictions}}{\text{Total Predictions}}$
 
 **Dumb model:** Always predict "Healthy"
 
-**Accuracy = 990/1000 = 99%** 🎉
+**Accuracy = 990/1000 = 99%** 
 
 **But it catches 0% of cancer cases!** 😱
 

@@ -36,7 +36,7 @@ You trained a model. It looks great on your data.
 | On Training Data | On New Data | Status |
 |-----------------|-------------|--------|
 | 95% accuracy | 50% accuracy | 😱 Problem! |
-| 85% accuracy | 83% accuracy | ✅ Good! |
+| 85% accuracy | 83% accuracy | Good! |
 
 ---
 
@@ -88,9 +88,9 @@ You have 10 houses with prices. You fit a model.
 
 | House Size | Actual Price | Prediction |
 |------------|--------------|------------|
-| 500 sq ft | ₹30 lakhs | ₹30 lakhs ✓ |
-| 1000 sq ft | ₹45 lakhs | ₹45 lakhs ✓ |
-| 2000 sq ft | ₹80 lakhs | ₹80 lakhs ✓ |
+| 500 sq ft | ₹30 lakhs | ₹30 lakhs |
+| 1000 sq ft | ₹45 lakhs | ₹45 lakhs |
+| 2000 sq ft | ₹80 lakhs | ₹80 lakhs |
 
 **Perfect on training data!**
 
@@ -286,8 +286,8 @@ gap = train_accuracy - test_accuracy
 
 | Gap | Diagnosis |
 |-----|-----------|
-| < 5% | ✅ Good generalization |
-| 5-15% | ⚠️ Some overfitting |
+| < 5% | Good generalization |
+| 5-15% | Some overfitting |
 | > 15% | 🚨 Severe overfitting |
 
 ---

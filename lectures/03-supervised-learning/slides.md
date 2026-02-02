@@ -553,7 +553,7 @@ print(f"Intercept (b): {model.intercept_}")  # 0.0
 $$\text{Price} = 0.04 \times \text{Size} + 0$$
 
 **Verify:**
-- 1750 sqft → 0.04 × 1750 + 0 = **₹70 lakhs** ✓
+- 1750 sqft → 0.04 × 1750 + 0 = **₹70 lakhs**
 
 ---
 
@@ -649,10 +649,10 @@ for epoch in range(100):
 
 | Email | Exclamation marks | Has "FREE" | Is Spam? |
 |-------|-------------------|------------|----------|
-| 1 | 5 | Yes | ✅ Spam |
-| 2 | 0 | No | ❌ Not Spam |
-| 3 | 3 | Yes | ✅ Spam |
-| 4 | 1 | No | ❌ Not Spam |
+| 1 | 5 | Yes | Spam |
+| 2 | 0 | No | Not Spam |
+| 3 | 3 | Yes | Spam |
+| 4 | 1 | No | Not Spam |
 
 **The output is a category, not a number!**
 
