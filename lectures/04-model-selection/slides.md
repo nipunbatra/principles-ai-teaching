@@ -392,15 +392,7 @@ for model in [model1, model2, model3]:
 
 **Solution:** Add a validation set for model selection.
 
-| Split | Size | Purpose |
-|-------|------|---------|
-| **Training** | 60% | Learn model parameters (θ) |
-| **Validation** | 20% | Choose best model/hyperparameters |
-| **Test** | 20% | Final evaluation (touch ONCE!) |
-
-```
-[====== Train 60% ======][== Val 20% ==][== Test 20% ==]
-```
+![height:350px](diagrams/train_val_test_split.png)
 
 ---
 

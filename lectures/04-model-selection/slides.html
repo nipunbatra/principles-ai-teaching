@@ -649,34 +649,7 @@ test_accuracy = model.score(X_test, y_test)     <span class="hljs-comment"># 85%
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="30" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="30" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="65">
 <h1 id="three-way-split">Three-Way Split</h1>
 <p><strong>Solution:</strong> Add a validation set for model selection.</p>
-<table>
-<thead>
-<tr>
-<th>Split</th>
-<th>Size</th>
-<th>Purpose</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Training</strong></td>
-<td>60%</td>
-<td>Learn model parameters (θ)</td>
-</tr>
-<tr>
-<td><strong>Validation</strong></td>
-<td>20%</td>
-<td>Choose best model/hyperparameters</td>
-</tr>
-<tr>
-<td><strong>Test</strong></td>
-<td>20%</td>
-<td>Final evaluation (touch ONCE!)</td>
-</tr>
-</tbody>
-</table>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>[====== Train 60% ======][== Val 20% ==][== Test 20% ==]
-</code></pre>
+<p><img src="diagrams/train_val_test_split.png" alt="" style="height:350px;" /></p>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="31" data-paginate="true" data-theme="iitgn-modern" lang="en-IN" data-marpit-pagination="31" style="--paginate:true;--theme:iitgn-modern;" data-marpit-pagination-total="65">
 <h1 id="the-three-sets">The Three Sets</h1>
