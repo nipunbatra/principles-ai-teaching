@@ -717,14 +717,20 @@ $$\text{Recall} = \frac{TP}{TP + FN}$$
 
 # Precision vs Recall Trade-off
 
-![bg right:40% 90%](diagrams/precision_recall_venn.png)
-
-| Metric | Focus | When to Prioritize |
-|--------|-------|-------------------|
-| **Precision** | Don't cry wolf | Spam filter |
-| **Recall** | Don't miss any | Cancer screening |
-
 **You usually can't have both perfect!**
+
+| Scenario | Prioritize | Why |
+|----------|-----------|-----|
+| **Spam filter** | Precision | Don't mark important emails as spam |
+| **Cancer screening** | Recall | Don't miss any cancer cases |
+| **Criminal justice** | Precision | Don't convict innocent people |
+| **Fire alarm** | Recall | Don't miss any real fires |
+
+<div class="insight">
+
+**Trade-off:** Increasing one often decreases the other!
+
+</div>
 
 ---
 
@@ -875,6 +881,8 @@ model.predict(X_test)
 
 <!-- _class: title-slide -->
 
+<!-- _class: section-divider -->
+
 # You Now Have the Foundation!
 
 ## Next: Linear & Logistic Regression
@@ -884,5 +892,3 @@ model.predict(X_test)
 - Supervised learning = learning from labeled examples
 - Always split train/test
 - Accuracy isn't the only metric
-
-**Questions?**
