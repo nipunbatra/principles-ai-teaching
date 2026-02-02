@@ -750,6 +750,55 @@ $$\text{F1} = \frac{2 \times \text{Precision} \times \text{Recall}}{\text{Precis
 
 ---
 
+# Matthews Correlation Coefficient (MCC)
+
+$$\text{MCC} = \frac{TP \times TN - FP \times FN}{\sqrt{(TP+FP)(TP+FN)(TN+FP)(TN+FN)}}$$
+
+**Why MCC is useful:**
+- Ranges from -1 (worst) to +1 (best), 0 = random
+- Works well even with **imbalanced classes**
+- Considers all four quadrants of confusion matrix
+
+| Dataset | Accuracy | MCC |
+|---------|----------|-----|
+| 99% negative, 1% positive | 99% (always predict negative) | 0 (useless!) |
+| Balanced predictions | 85% | 0.70 (actually useful!) |
+
+---
+
+# Multi-Class Confusion Matrix
+
+**Example: Digit Recognition (0-9)**
+
+|  | Pred 0 | Pred 1 | Pred 2 | ... |
+|--|--------|--------|--------|-----|
+| **Actual 0** | 95 | 2 | 1 | ... |
+| **Actual 1** | 1 | 97 | 0 | ... |
+| **Actual 2** | 3 | 0 | 92 | ... |
+
+- Diagonal = correct predictions
+- Off-diagonal = errors (which class was confused with which?)
+
+---
+
+# Multi-Class F1: Three Approaches
+
+| Approach | How it works | When to use |
+|----------|--------------|-------------|
+| **Macro F1** | Average F1 across all classes | All classes equally important |
+| **Micro F1** | Pool all TP/FP/FN, then calculate | Large datasets |
+| **Weighted F1** | Weight by class frequency | Imbalanced classes |
+
+```python
+from sklearn.metrics import f1_score
+
+f1_score(y_true, y_pred, average='macro')    # Equal weight
+f1_score(y_true, y_pred, average='micro')    # Pooled
+f1_score(y_true, y_pred, average='weighted') # By frequency
+```
+
+---
+
 # Regression Metrics
 
 For regression (predicting numbers), we measure "how far off":
