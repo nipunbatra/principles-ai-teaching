@@ -168,6 +168,22 @@ $$\hat{y} = \mathbf{w}^\top \mathbf{x} + b = \langle \mathbf{w}, \mathbf{x} \ran
 
 ---
 
+# Notation: Absorbing Bias into $\boldsymbol{\theta}$
+
+**Going forward, we combine weights and bias into one vector $\boldsymbol{\theta}$:**
+
+$$\hat{y} = \theta_0 + \theta_1 x_1 + \theta_2 x_2 + \ldots = \boldsymbol{\theta}^\top \mathbf{x}$$
+
+**Trick:** Add a column of 1s to $\mathbf{X}$, so $\theta_0 \cdot 1 = \theta_0$ (the bias)
+
+| Original $\mathbf{x}$ | Augmented $\mathbf{x}$ |
+|----------|----------------------|
+| $[x_1, x_2]$ | $[1, x_1, x_2]$ |
+
+Now $\boldsymbol{\theta} = [\theta_0, \theta_1, \theta_2, \ldots]^\top$ contains bias + weights!
+
+---
+
 # Interpreting Multiple Weights
 
 ```python
@@ -215,18 +231,16 @@ Real data has **noise** — points don't fall exactly on a line.
 
 # The Goal: Minimize Errors
 
-![bg right:50% 90%](diagrams/residuals_explained.png)
-
 **Residual** = Actual - Predicted = $y - \hat{y}$
 
-| Size | Actual | Predicted | Residual |
-|------|--------|-----------|----------|
-| 1000 | 42 | 40 | +2 |
-| 1500 | 58 | 60 | -2 |
-| 2000 | 83 | 80 | +3 |
-| 2500 | 97 | 100 | -3 |
+| Size | Actual | Predicted | Residual | Residual² |
+|------|--------|-----------|----------|-----------|
+| 1000 | 42 | 40 | +2 | 4 |
+| 1500 | 58 | 60 | -2 | 4 |
+| 2000 | 83 | 80 | +3 | 9 |
+| 2500 | 97 | 100 | -3 | 9 |
 
-**Goal:** Find $\boldsymbol{\theta}$ that minimizes $\sum(\text{residual})^2$
+**Goal:** Find $\boldsymbol{\theta}$ that minimizes $\sum(\text{residual})^2 = 4+4+9+9 = 26$
 
 ---
 
@@ -270,22 +284,6 @@ $$\mathcal{L}(\boldsymbol{\theta}) = \frac{1}{n}\sum_{i=1}^{n} (y_i - \boldsymbo
 | **Gradient Descent** | Iterative, step-by-step | Large datasets, neural nets |
 
 **Let's learn both!**
-
----
-
-# Notation: Absorbing Bias into $\theta$
-
-**Going forward, we combine weights and bias into one vector $\theta$:**
-
-$$\hat{y} = \theta_0 + \theta_1 x_1 + \theta_2 x_2 + \ldots = \boldsymbol{\theta}^\top \mathbf{x}$$
-
-**Trick:** Add a column of 1s to $\mathbf{X}$, so $\theta_0 \cdot 1 = \theta_0$ (the bias)
-
-| Original | Augmented $\mathbf{X}$ |
-|----------|----------------------|
-| $[x_1, x_2]$ | $[1, x_1, x_2]$ |
-
-Now $\boldsymbol{\theta} = [\theta_0, \theta_1, \theta_2, \ldots]^\top$ contains bias + weights!
 
 ---
 
