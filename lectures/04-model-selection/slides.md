@@ -890,14 +890,23 @@ final_score = model.score(X_test, y_test)
 
 <!-- _class: title-slide -->
 
-# You Now Know How to Evaluate Models!
+# Key Takeaways
 
-## Next: Neural Networks - Deep Learning Begins
+| Concept | Remember This |
+|---------|---------------|
+| **Overfitting** | Train ✅ Test ❌ → Too complex |
+| **Underfitting** | Train ❌ Test ❌ → Too simple |
+| **Validation set** | For tuning hyperparameters |
+| **Test set** | Touch only ONCE at the end |
+| **Cross-validation** | K-fold for reliable scores |
+| **Regularization** | Prevents overfitting |
 
-**Key takeaways:**
-- Overfitting = memorizing (train good, test bad)
-- Underfitting = too simple (both bad)
-- Use train/validation/test splits
-- Cross-validation for reliable estimates
+---
 
-**Questions?**
+<!-- _class: section-divider -->
+
+# Questions?
+
+## Next Lecture: Neural Networks
+
+From linear models to deep learning!
