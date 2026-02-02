@@ -287,6 +287,37 @@ $$\mathcal{L}(\boldsymbol{\theta}) = \frac{1}{n}\sum_{i=1}^{n} (y_i - \boldsymbo
 
 ---
 
+# Quick Review: Derivatives and Gradients
+
+| Concept | What it means | Example |
+|---------|---------------|---------|
+| **Derivative** | Rate of change (1 variable) | $f(x) = x^2 \Rightarrow \frac{df}{dx} = 2x$ |
+| **Partial Derivative** | Rate of change w.r.t. one variable (others fixed) | $f(x,y) = x^2 + y^2 \Rightarrow \frac{\partial f}{\partial x} = 2x$ |
+| **Gradient** | Vector of all partial derivatives | $\nabla f = \left[\frac{\partial f}{\partial x}, \frac{\partial f}{\partial y}\right] = [2x, 2y]$ |
+
+<div class="insight">
+
+**Key insight:** Gradient points in direction of steepest **increase**. To minimize, go **opposite** to gradient!
+
+</div>
+
+---
+
+# Gradient Example: $f(x,y) = x^2 + y^2$
+
+At point $(1, 2)$:
+
+$$\nabla f = [2x, 2y] = [2, 4]$$
+
+**Interpretation:**
+- Moving in $+x$ direction increases $f$ at rate 2
+- Moving in $+y$ direction increases $f$ at rate 4
+- To **decrease** $f$, move in direction $[-2, -4]$
+
+**Setting $\nabla f = 0$:** Gives us $x=0, y=0$ — the minimum!
+
+---
+
 # Method 1: The Normal Equation
 
 For linear regression, there's a **closed-form solution**:
@@ -304,9 +335,9 @@ $$\boldsymbol{\theta} = (\mathbf{X}^\top \mathbf{X})^{-1} \mathbf{X}^\top \mathb
 
 Why does this work?
 
-1. We want to minimize $\|\mathbf{y} - \mathbf{X}\boldsymbol{\theta}\|^2$
-2. Take derivative with respect to $\boldsymbol{\theta}$
-3. Set derivative = 0 (finding the minimum)
+1. We want to minimize $\mathcal{L}(\boldsymbol{\theta}) = \|\mathbf{y} - \mathbf{X}\boldsymbol{\theta}\|^2$
+2. Take gradient with respect to $\boldsymbol{\theta}$: $\nabla_{\boldsymbol{\theta}} \mathcal{L}$
+3. Set gradient = $\mathbf{0}$ (at minimum, gradient is zero)
 4. Solve for $\boldsymbol{\theta}$
 
 **Result:** $\boldsymbol{\theta} = (\mathbf{X}^\top \mathbf{X})^{-1} \mathbf{X}^\top \mathbf{y}$
