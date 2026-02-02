@@ -197,6 +197,18 @@ We want models that **understand patterns**, not **memorize examples**.
 
 ---
 
+# Another Analogy: Fitting Clothes
+
+| Fit | Description | Problem |
+|-----|-------------|---------|
+| **Underfitting** | Clothes way too big | Doesn't capture your shape |
+| **Overfitting** | Clothes skin-tight | Perfect for NOW, can't move |
+| **Good fit** | Comfortable fit | Works in many situations |
+
+**A model should "fit" the data well enough to be useful, but not so tight it can't generalize!**
+
+---
+
 # More Everyday Analogies
 
 | Scenario | Underfitting | Overfitting | Good Fit |
@@ -494,6 +506,22 @@ train_test_split(X, y, random_state=3)  # Score: 84%
 
 ---
 
+# K-Fold: A Concrete Example
+
+**You have 100 samples, K=5 folds:**
+
+| Fold | Train on | Test on | Score |
+|------|----------|---------|-------|
+| 1 | Samples 21-100 | Samples 1-20 | 87% |
+| 2 | Samples 1-20, 41-100 | Samples 21-40 | 89% |
+| 3 | Samples 1-40, 61-100 | Samples 41-60 | 91% |
+| 4 | Samples 1-60, 81-100 | Samples 61-80 | 88% |
+| 5 | Samples 1-80 | Samples 81-100 | 90% |
+
+**Final score:** $(87+89+91+88+90)/5 = 89\% \pm 1.5\%$
+
+---
+
 # Why K-Fold Works
 
 | Single Split | K-Fold CV |
@@ -573,6 +601,29 @@ Now our "test" score is biased — we've leaked information!
 **But that score was used to MAKE A DECISION!**
 
 It's like a student seeing the test before the exam.
+
+---
+
+# Data Leakage: A Hiring Analogy
+
+**Imagine you're hiring:**
+
+| Proper Process | Leaky Process |
+|----------------|---------------|
+| Screen resumes blindly | See interview performance first |
+| Interview candidates | Then "predict" who'll do well |
+| Measure: "How good am I at predicting?" | Cheating! You already know! |
+
+**In ML:**
+- Test set = the "real interview"
+- Using test set to choose model = seeing answers first
+- Your "accuracy" is now meaningless
+
+<div class="warning">
+
+If you make ANY decision based on test data, your evaluation is biased!
+
+</div>
 
 ---
 
@@ -766,6 +817,27 @@ $$\text{Loss} = \text{Error} + \lambda \times \text{Complexity}$$
 | λ large | Heavy penalty → may underfit |
 
 **λ is a hyperparameter you tune!**
+
+---
+
+# Regularization Intuition
+
+**Think of it like a budget constraint:**
+
+| Without Regularization | With Regularization |
+|------------------------|---------------------|
+| "Use as many weights as you want!" | "Each weight costs you!" |
+| Model goes wild, memorizes | Model stays simple, generalizes |
+
+**Analogy:** Writing an essay
+- No limit → rambling, covers every detail
+- Word limit → focused, captures key points
+
+<div class="insight">
+
+Regularization forces the model to be **efficient** with its parameters!
+
+</div>
 
 ---
 

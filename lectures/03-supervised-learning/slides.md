@@ -395,6 +395,24 @@ $$\boldsymbol{\theta}_{\text{new}} = \boldsymbol{\theta}_{\text{old}} - \eta \cd
 
 ---
 
+# Gradient Descent: A Worked Example
+
+**Let's walk through ONE step:**
+
+| Current | Value |
+|---------|-------|
+| $\theta$ (weight) | 0.01 |
+| Loss | 150 |
+| Gradient | -80 |
+| Learning rate $\eta$ | 0.001 |
+
+**The update:**
+$$\theta_{\text{new}} = 0.01 - 0.001 \times (-80) = 0.01 + 0.08 = 0.09$$
+
+**Gradient was negative → we moved weight UP!**
+
+---
+
 # The Gradient for MSE: Derivation
 
 Our loss: $\mathcal{L}(\boldsymbol{\theta}) = \frac{1}{n}\sum_{i=1}^{n}(y_i - \hat{y}_i)^2$ where $\hat{y}_i = \boldsymbol{\theta}^\top \mathbf{x}_i$
@@ -425,21 +443,19 @@ $$\nabla_{\boldsymbol{\theta}} \mathcal{L} = -\frac{2}{n} \mathbf{X}^\top (\math
 # Gradient Descent in NumPy
 
 ```python
-import numpy as np
-
 def gradient_descent(X, y, lr=0.01, epochs=1000):
-    # X is augmented with column of 1s: shape (n, d+1)
-    n, d = X.shape
-    theta = np.zeros(d)  # Initialize theta to zeros
+    theta = np.zeros(X.shape[1])  # Start with zeros
 
     for epoch in range(epochs):
-        y_pred = X @ theta                    # Predictions
-        error = y - y_pred                    # Residuals
-        gradient = (-2/n) * (X.T @ error)     # Gradient
-        theta = theta - lr * gradient         # Update
+        y_pred = X @ theta             # Predictions
+        error = y - y_pred             # Residuals
+        gradient = (-2/len(y)) * (X.T @ error)
+        theta = theta - lr * gradient  # Update!
 
-    return theta  # theta[0]=bias, theta[1:]=weights
+    return theta
 ```
+
+**Just 8 lines of code! This is all of gradient descent.**
 
 ---
 
@@ -450,6 +466,23 @@ def gradient_descent(X, y, lr=0.01, epochs=1000):
 | Too small ($\eta$ = 0.05) | Just right ($\eta$ = 0.3) | Too large ($\eta$ = 1.1) |
 |---------------------------|---------------------------|--------------------------|
 | Slow convergence | Fast convergence ✓ | Diverges! |
+
+---
+
+# Learning Rate: The Hill Analogy
+
+**Imagine walking down a hill blindfolded:**
+
+| Learning Rate | What Happens |
+|---------------|--------------|
+| Tiny steps (0.0001) | Safe, but takes forever to reach bottom |
+| Normal steps (0.01) | Good progress, reach bottom reasonably |
+| Giant leaps (1.0) | Overshoot, end up on the other side! |
+
+**How to choose?**
+- Start with 0.001 or 0.01
+- If loss doesn't decrease → try smaller
+- If loss explodes (NaN) → definitely smaller!
 
 ---
 
@@ -503,6 +536,25 @@ def gradient_descent(X, y, lr=0.01, epochs=1000):
 - All features contribute equally
 - Gradient descent converges faster
 - More stable training
+
+---
+
+# Scaling: The Currency Analogy
+
+**Imagine training with mixed currencies:**
+
+| Feature | Value | Scale |
+|---------|-------|-------|
+| Price in rupees | 50,00,000 | Millions |
+| Number of rooms | 3 | Single digits |
+
+**Without scaling:** The model thinks rupees matter MORE (bigger numbers!).
+
+**Standardization:** Convert everything to "standard units"
+- "This house is 2 std devs above average in price"
+- "This house has 1 std dev above average rooms"
+
+Now both features speak the same language!
 
 ---
 
@@ -740,6 +792,20 @@ The sigmoid is an **S-curve**:
 **Key insight:** It converts any number to a probability!
 
 </div>
+
+---
+
+# Why Sigmoid? Let's Verify!
+
+**Plug in some numbers:**
+
+| Linear score z | $\sigma(z) = \frac{1}{1+e^{-z}}$ | Meaning |
+|----------------|--------------------------------|---------|
+| z = -5 | $\frac{1}{1+148.4} = 0.007$ | ~0% chance |
+| z = 0 | $\frac{1}{1+1} = 0.5$ | 50/50 |
+| z = +5 | $\frac{1}{1+0.007} = 0.993$ | ~100% chance |
+
+**No matter what z is, output is always between 0 and 1!**
 
 ---
 

@@ -145,6 +145,12 @@ model.predict("FR33 M0N3Y")  # → "spam"
 
 ---
 
+# Breaking Down the Definition (with Example!)
+
+**Let's make this concrete with a spam filter:**
+
+---
+
 # Breaking Down the Definition
 
 | Component | Spam Filter Example |
@@ -423,12 +429,28 @@ This is called **one-hot encoding**.
 **One-hot is better:** Each color gets its own column
 
 ```python
-# In Python (pandas):
 pd.get_dummies(df['Color'])
 #    Red  Orange  Yellow
 # 0    0       1       0
 # 1    1       0       0
 ```
+
+---
+
+# One-Hot: The Intuition
+
+**Think of it like a survey checkbox:**
+
+| Question | Red? | Orange? | Yellow? |
+|----------|------|---------|---------|
+| Tomato 1 | ☐ | ☑ | ☐ |
+| Tomato 2 | ☑ | ☐ | ☐ |
+
+**Each category is independent!**
+
+- No artificial ordering
+- Model learns: "If Orange=1, then [something]"
+- Categories with 100 options? 100 columns! (but sparse)
 
 ---
 
@@ -568,6 +590,26 @@ df['age'].fillna(df['age'].median(), inplace=True)
 
 ---
 
+# Why This Matters: A Story
+
+**You train a spam classifier on 1000 emails.**
+
+| Method | Training Accuracy | On NEW emails |
+|--------|-------------------|---------------|
+| Memorize all 1000 | 100% | ??? |
+| Learn patterns | 95% | 93% |
+
+**The memorizer fails because:**
+- New spam uses different words
+- New legitimate emails look different
+- Real world is messier than training data
+
+**The learner succeeds because:**
+- Learned "lots of exclamation marks = suspicious"
+- This PATTERN transfers to new emails!
+
+---
+
 # The Problem
 
 **You train a model on 100 emails.**
@@ -687,6 +729,24 @@ The diagonal shows correct predictions; off-diagonal shows errors.
 
 ---
 
+# Reading a Confusion Matrix
+
+**Example: Cancer screening model tested on 1000 people:**
+
+|  | Predicted: Cancer | Predicted: Healthy |
+|--|------|--------|
+| **Actually: Cancer** | 85 (TP) | 15 (FN) |
+| **Actually: Healthy** | 50 (FP) | 850 (TN) |
+
+**What does this tell us?**
+- Model catches 85/100 = 85% of cancer cases (Recall)
+- When it says "cancer", it's right 85/135 = 63% (Precision)
+- Overall: (85+850)/1000 = 93.5% accuracy
+
+**But is 15 missed cancers acceptable?** That's the key question!
+
+---
+
 # Precision: "Of my predictions, how many were right?"
 
 $$\text{Precision} = \frac{TP}{TP + FP}$$
@@ -731,6 +791,25 @@ $$\text{Recall} = \frac{TP}{TP + FN}$$
 **Trade-off:** Increasing one often decreases the other!
 
 </div>
+
+---
+
+# The Precision-Recall Knob
+
+**Imagine adjusting a threshold:**
+
+| Threshold | Precision | Recall | Behavior |
+|-----------|-----------|--------|----------|
+| Very high | 99% | 10% | Only flag when VERY sure |
+| Medium | 80% | 80% | Balanced |
+| Very low | 30% | 99% | Flag everything suspicious |
+
+**You choose based on the cost of errors!**
+
+| What's worse? | Choose... |
+|---------------|-----------|
+| Missing a real threat | Low threshold (high recall) |
+| Many false alarms | High threshold (high precision) |
 
 ---
 
