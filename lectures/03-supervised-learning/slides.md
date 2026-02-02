@@ -976,17 +976,17 @@ model.fit(X_poly, y)  # Now decision boundary can be curved!
 
 # You Now Understand the Basics!
 
-**Key insight:** Gradient descent is how we train ALL neural networks!
+| What You Learned | Why It Matters |
+|------------------|----------------|
+| Linear Regression | Foundation of all neural networks |
+| Gradient Descent | How we train ANY model |
+| Logistic Regression | Classification with probabilities |
+| Basis Functions | Make linear models powerful |
 
-<div style="text-align: left;">
+<div class="insight">
 
-```python
-for epoch in epochs:               # The universal training loop
-    loss = compute_loss(model(x), y)
-    loss.backward()                # Compute gradients
-    optimizer.step()               # Update θ
-```
+**The training loop you learned today is the SAME loop used to train GPT-4!**
 
 </div>
 
-**Next lecture:** Model Selection & Evaluation — How good is our model?
+**Next:** Model Selection & Evaluation — How do we know if our model is good?
