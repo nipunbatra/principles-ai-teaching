@@ -700,7 +700,7 @@ for epoch in range(100):
 
 If we use linear regression:
 
-$$\text{Spam Score} = w_1 \times \text{Exclamations} + w_2 \times \text{HasFREE} + b$$
+$$\text{Spam Score} = \theta_1 \times \text{Exclamations} + \theta_2 \times \text{HasFREE} + \theta_0$$
 
 **Problem:** This gives any number (-∞ to +∞)
 
@@ -717,17 +717,11 @@ We need something between 0 and 1 (a probability)!
 
 # The Sigmoid Function
 
-![bg right:45% 90%](diagrams/sigmoid_function.png)
-
 **Solution:** Squash any number to range (0, 1)
 
-$$\sigma(z) = \frac{1}{1 + e^{-z}}$$
+![height:320px](diagrams/sigmoid_function_matplotlib.png)
 
-| Input (z) | Output σ(z) |
-|-----------|-------------|
-| -10 | 0.00005 |
-| 0 | 0.50 |
-| +10 | 0.99995 |
+$$\sigma(z) = \frac{1}{1 + e^{-z}}$$
 
 ---
 
@@ -754,7 +748,7 @@ The sigmoid is an **S-curve**:
 **Two steps:**
 
 1. **Linear:** Compute a score (same as linear regression!)
-   $$z = w_1 x_1 + w_2 x_2 + b$$
+   $$z = \theta_1 x_1 + \theta_2 x_2 + \theta_0 = \boldsymbol{\theta}^\top \mathbf{x}$$
 
 2. **Sigmoid:** Convert to probability
    $$P(\text{spam}) = \sigma(z) = \frac{1}{1 + e^{-z}}$$
