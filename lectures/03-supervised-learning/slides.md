@@ -200,19 +200,33 @@ Each weight shows that feature's **independent contribution** to price!
 
 # But What if Data Isn't Perfect?
 
-![height:420px](diagrams/noisy_data.png)
+Real data has **noise** — points don't fall exactly on a line.
 
-Real data has **noise** — points don't fall exactly on a line. **Which line is "best"?**
+| Size | Actual Price | Ideal Line (0.04x) | Difference |
+|------|--------------|-------------------|------------|
+| 1000 | 42 | 40 | +2 |
+| 1500 | 58 | 60 | -2 |
+| 2000 | 83 | 80 | +3 |
+| 2500 | 97 | 100 | -3 |
+
+**Which line is "best"?**
 
 ---
 
 # The Goal: Minimize Errors
 
-![height:420px](diagrams/residuals_explained.png)
+![bg right:50% 90%](diagrams/residuals_explained.png)
 
 **Residual** = Actual - Predicted = $y - \hat{y}$
 
-**Goal:** Find $\mathbf{w}$ and $b$ that minimize sum of squared residuals!
+| Size | Actual | Predicted | Residual |
+|------|--------|-----------|----------|
+| 1000 | 42 | 40 | +2 |
+| 1500 | 58 | 60 | -2 |
+| 2000 | 83 | 80 | +3 |
+| 2500 | 97 | 100 | -3 |
+
+**Goal:** Find $\boldsymbol{\theta}$ that minimizes $\sum(\text{residual})^2$
 
 ---
 
@@ -238,11 +252,11 @@ $$\text{MSE} = \frac{1}{n}\sum_{i=1}^{n} (y_i - \hat{y}_i)^2$$
 
 This is also called the **Loss Function** or **Cost Function**:
 
-$$\mathcal{L}(\mathbf{w}, b) = \frac{1}{n}\sum_{i=1}^{n} (y_i - (\mathbf{w}^\top \mathbf{x}_i + b))^2$$
+$$\mathcal{L}(\boldsymbol{\theta}) = \frac{1}{n}\sum_{i=1}^{n} (y_i - \boldsymbol{\theta}^\top \mathbf{x}_i)^2$$
 
 <div class="insight">
 
-**Our goal:** Find $\mathbf{w}$ and $b$ that minimize $\mathcal{L}$
+**Our goal:** Find $\boldsymbol{\theta}$ that minimizes $\mathcal{L}$
 
 </div>
 
@@ -259,16 +273,32 @@ $$\mathcal{L}(\mathbf{w}, b) = \frac{1}{n}\sum_{i=1}^{n} (y_i - (\mathbf{w}^\top
 
 ---
 
+# Notation: Absorbing Bias into $\theta$
+
+**Going forward, we combine weights and bias into one vector $\theta$:**
+
+$$\hat{y} = \theta_0 + \theta_1 x_1 + \theta_2 x_2 + \ldots = \boldsymbol{\theta}^\top \mathbf{x}$$
+
+**Trick:** Add a column of 1s to $\mathbf{X}$, so $\theta_0 \cdot 1 = \theta_0$ (the bias)
+
+| Original | Augmented $\mathbf{X}$ |
+|----------|----------------------|
+| $[x_1, x_2]$ | $[1, x_1, x_2]$ |
+
+Now $\boldsymbol{\theta} = [\theta_0, \theta_1, \theta_2, \ldots]^\top$ contains bias + weights!
+
+---
+
 # Method 1: The Normal Equation
 
 For linear regression, there's a **closed-form solution**:
 
-$$\mathbf{w} = (\mathbf{X}^\top \mathbf{X})^{-1} \mathbf{X}^\top \mathbf{y}$$
+$$\boldsymbol{\theta} = (\mathbf{X}^\top \mathbf{X})^{-1} \mathbf{X}^\top \mathbf{y}$$
 
 **In plain English:**
-1. Take your data matrix X and labels y
+1. Augment $\mathbf{X}$ with column of 1s (for bias)
 2. Do some matrix math
-3. Get the optimal weights directly!
+3. Get the optimal $\boldsymbol{\theta}$ directly!
 
 ---
 
@@ -276,16 +306,16 @@ $$\mathbf{w} = (\mathbf{X}^\top \mathbf{X})^{-1} \mathbf{X}^\top \mathbf{y}$$
 
 Why does this work?
 
-1. We want to minimize $(\mathbf{y} - \mathbf{X}\mathbf{w})^2$
-2. Take derivative with respect to $\mathbf{w}$
+1. We want to minimize $\|\mathbf{y} - \mathbf{X}\boldsymbol{\theta}\|^2$
+2. Take derivative with respect to $\boldsymbol{\theta}$
 3. Set derivative = 0 (finding the minimum)
-4. Solve for $\mathbf{w}$
+4. Solve for $\boldsymbol{\theta}$
 
-**Result:** $\mathbf{w} = (\mathbf{X}^\top \mathbf{X})^{-1} \mathbf{X}^\top \mathbf{y}$
+**Result:** $\boldsymbol{\theta} = (\mathbf{X}^\top \mathbf{X})^{-1} \mathbf{X}^\top \mathbf{y}$
 
 <div class="warning">
 
-**Limitation:** Matrix inversion is expensive for large datasets (O(n³))
+**Limitation:** Matrix inversion is expensive for large datasets — $O(d^3)$ where $d$ = number of features
 
 </div>
 
@@ -300,14 +330,14 @@ import numpy as np
 X = np.array([[1000], [1500], [2000], [2500]])
 y = np.array([40, 60, 80, 100])
 
-# Add column of 1s for bias term
-X_bias = np.column_stack([np.ones(len(X)), X])
+# Augment X with column of 1s for bias (theta_0)
+X_aug = np.column_stack([np.ones(len(X)), X])
 
-# Normal equation!
-w = np.linalg.inv(X_bias.T @ X_bias) @ X_bias.T @ y
+# Normal equation: theta = (X'X)^(-1) X'y
+theta = np.linalg.inv(X_aug.T @ X_aug) @ X_aug.T @ y
 
-print(f"Bias (b): {w[0]:.2f}")    # ≈ 0
-print(f"Weight (w): {w[1]:.4f}")  # ≈ 0.04
+print(f"theta_0 (bias): {theta[0]:.2f}")   # ≈ 0
+print(f"theta_1 (weight): {theta[1]:.4f}") # ≈ 0.04
 ```
 
 ---
@@ -318,7 +348,7 @@ print(f"Weight (w): {w[1]:.4f}")  # ≈ 0.04
 
 ![bg right:50% 90%](diagrams/gradient_descent.png)
 
-1. Start with random weights
+1. Start with random $\boldsymbol{\theta}$
 2. Compute the gradient (slope)
 3. Take a step opposite to gradient
 4. Repeat until converged
@@ -329,13 +359,13 @@ print(f"Weight (w): {w[1]:.4f}")  # ≈ 0.04
 
 **Update rule:**
 
-$$w_{\text{new}} = w_{\text{old}} - \eta \cdot \nabla \mathcal{L}$$
+$$\boldsymbol{\theta}_{\text{new}} = \boldsymbol{\theta}_{\text{old}} - \eta \cdot \nabla_{\boldsymbol{\theta}} \mathcal{L}$$
 
 | Symbol | Name | Meaning |
 |--------|------|---------|
 | $\eta$ | Learning rate | How big each step is |
-| $\nabla \mathcal{L}$ | Gradient | Direction of steepest increase |
-| $-\nabla \mathcal{L}$ | | Direction of steepest decrease |
+| $\nabla_{\boldsymbol{\theta}} \mathcal{L}$ | Gradient | Direction of steepest increase |
+| $-\nabla_{\boldsymbol{\theta}} \mathcal{L}$ | | Direction of steepest decrease |
 
 ---
 
@@ -343,11 +373,11 @@ $$w_{\text{new}} = w_{\text{old}} - \eta \cdot \nabla \mathcal{L}$$
 
 For our loss $\mathcal{L} = \frac{1}{n}\sum(y_i - \hat{y}_i)^2$:
 
-$$\frac{\partial \mathcal{L}}{\partial w} = -\frac{2}{n}\sum_{i=1}^{n} (y_i - \hat{y}_i) \cdot x_i$$
+$$\frac{\partial \mathcal{L}}{\partial \theta_j} = -\frac{2}{n}\sum_{i=1}^{n} (y_i - \hat{y}_i) \cdot x_{ij}$$
 
 **Intuition:**
-- If predictions are too low ($y > \hat{y}$), increase w
-- If predictions are too high ($y < \hat{y}$), decrease w
+- If predictions are too low ($y > \hat{y}$), increase $\theta_j$
+- If predictions are too high ($y < \hat{y}$), decrease $\theta_j$
 - Larger errors → larger updates
 
 ---
