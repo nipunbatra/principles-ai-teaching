@@ -462,9 +462,7 @@ pd.get_dummies(df['Color'])
 
 ---
 
-# Why Data Quality Matters
-
-![bg right:45% 90%](diagrams/data_quality_issues.png)
+# Data Quality
 
 **Your model is only as good as your data!**
 
@@ -474,6 +472,14 @@ pd.get_dummies(df['Color'])
 | Outliers | Extreme values | Age = 500 years |
 | Imbalanced classes | One class dominates | 99% healthy, 1% sick |
 | Biased data | Unrepresentative sample | Only urban customers |
+
+<div class="warning">
+
+**Garbage In, Garbage Out!** No algorithm can fix fundamentally bad data.
+
+</div>
+
+*For more: See ML class materials on data preprocessing.*
 
 ---
 
@@ -523,7 +529,7 @@ df['age'].fillna(df['age'].median(), inplace=True)
 
 **Solutions:**
 - Collect more minority class data
-- Oversample minority class (SMOTE)
+- Oversample minority class
 - Undersample majority class
 - Use class weights in training
 
@@ -547,14 +553,14 @@ df['age'].fillna(df['age'].median(), inplace=True)
 
 ---
 
-# Real-World Example: Amazon's Hiring AI
+# Real-World Example: Biased Hiring AI
 
 **What happened:**
-- Trained on 10 years of hiring data
-- Data was mostly male hires (tech industry)
-- AI learned to prefer male candidates!
+- A company trained a hiring model on 10 years of data
+- Historical data reflected existing biases in who got hired
+- AI learned to replicate those biased patterns!
 
-**Result:** Penalized resumes with "women's" in them
+**Result:** Model unfairly penalized candidates from underrepresented groups
 
 <div class="insight">
 
@@ -612,13 +618,16 @@ df['age'].fillna(df['age'].median(), inplace=True)
 
 # The Problem
 
-**You train a model on 100 emails.**
-**You test it on the SAME 100 emails.**
-**Accuracy: 100%! **
+**You train a model on 100 emails. You test on the SAME 100 emails.**
 
-**But wait...** The model might have just memorized them!
+| What Happened | Score |
+|---------------|-------|
+| Training accuracy | 100% |
+| Accuracy on NEW emails | 60% |
 
-**On NEW emails it's never seen?** Maybe only 60% accuracy 😱
+**The model memorized the answers instead of learning patterns!**
+
+How do we detect this? We need a separate test set.
 
 ---
 
@@ -695,7 +704,7 @@ $$\text{Accuracy} = \frac{\text{Correct Predictions}}{\text{Total Predictions}}$
 
 # When Accuracy Fails
 
-**Scenario:** Cancer screening
+**Scenario:** Cancer screening — 1000 patients
 
 | Reality | Count |
 |---------|-------|
@@ -704,9 +713,12 @@ $$\text{Accuracy} = \frac{\text{Correct Predictions}}{\text{Total Predictions}}$
 
 **Dumb model:** Always predict "Healthy"
 
-**Accuracy = 990/1000 = 99%** 
+| Metric | Value | Looks... |
+|--------|-------|----------|
+| Accuracy | 990/1000 = **99%** | Amazing! |
+| Cancer cases caught | **0 out of 10** | Useless! |
 
-**But it catches 0% of cancer cases!** 😱
+**High accuracy can be completely misleading with imbalanced data!**
 
 ---
 
@@ -747,31 +759,37 @@ The diagonal shows correct predictions; off-diagonal shows errors.
 
 ---
 
-# Precision: "Of my predictions, how many were right?"
+# Precision: "When I Say Cancer, Am I Right?"
 
 $$\text{Precision} = \frac{TP}{TP + FP}$$
 
-**Example:** You predicted 10 people have cancer.
-- 8 actually do (TP = 8)
-- 2 don't (FP = 2)
+**From our confusion matrix:** TP=85, FP=50
 
-**Precision = 8/10 = 80%**
+|  | Predicted: Cancer | Predicted: Healthy |
+|--|------|--------|
+| **Actually: Cancer** | **85 (TP)** | 15 |
+| **Actually: Healthy** | **50 (FP)** | 850 |
 
-"When I say positive, I'm right 80% of the time"
+$$\text{Precision} = \frac{85}{85 + 50} = \frac{85}{135} = 63\%$$
+
+"When I say cancer, I'm right 63% of the time"
 
 ---
 
-# Recall: "Of all positives, how many did I catch?"
+# Recall: "Of All Cancers, How Many Did I Catch?"
 
 $$\text{Recall} = \frac{TP}{TP + FN}$$
 
-**Example:** 10 people actually have cancer.
-- You caught 8 (TP = 8)
-- You missed 2 (FN = 2)
+**From our confusion matrix:** TP=85, FN=15
 
-**Recall = 8/10 = 80%**
+|  | Predicted: Cancer | Predicted: Healthy |
+|--|------|--------|
+| **Actually: Cancer** | **85 (TP)** | **15 (FN)** |
+| **Actually: Healthy** | 50 | 850 |
 
-"I catch 80% of all cancer cases"
+$$\text{Recall} = \frac{85}{85 + 15} = \frac{85}{100} = 85\%$$
+
+"I catch 85% of all cancer cases (but miss 15%)"
 
 ---
 
@@ -829,6 +847,41 @@ $$\text{F1} = \frac{2 \times \text{Precision} \times \text{Recall}}{\text{Precis
 
 ---
 
+# Your Turn: Compute F1!
+
+**A spam filter tested on 200 emails:**
+
+|  | Predicted: Spam | Predicted: Not Spam |
+|--|------|--------|
+| **Actually: Spam** | 40 | 10 |
+| **Actually: Not Spam** | 20 | 130 |
+
+**Try computing these (then we'll check together):**
+
+| Metric | Formula | Your Answer |
+|--------|---------|-------------|
+| Precision | TP / (TP + FP) | ? / (? + ?) = ? |
+| Recall | TP / (TP + FN) | ? / (? + ?) = ? |
+| F1 | 2 × P × R / (P + R) | ? |
+| Accuracy | (TP+TN) / Total | ? |
+
+---
+
+# Solution: F1 Worked Out
+
+**From the confusion matrix:** TP=40, FP=20, FN=10, TN=130
+
+| Metric | Calculation | Result |
+|--------|-------------|--------|
+| **Precision** | 40 / (40+20) = 40/60 | **66.7%** |
+| **Recall** | 40 / (40+10) = 40/50 | **80.0%** |
+| **F1** | 2 × 0.667 × 0.8 / (0.667 + 0.8) | **72.7%** |
+| **Accuracy** | (40+130) / 200 | **85.0%** |
+
+**Notice:** Accuracy (85%) looks great, but precision is only 67% — 1 in 3 "spam" flags is wrong!
+
+---
+
 # Matthews Correlation Coefficient (MCC)
 
 $$\text{MCC} = \frac{TP \times TN - FP \times FN}{\sqrt{(TP+FP)(TP+FN)(TN+FP)(TN+FN)}}$$
@@ -838,43 +891,102 @@ $$\text{MCC} = \frac{TP \times TN - FP \times FN}{\sqrt{(TP+FP)(TP+FN)(TN+FP)(TN
 - Works well even with **imbalanced classes**
 - Considers all four quadrants of confusion matrix
 
-| Dataset | Accuracy | MCC |
-|---------|----------|-----|
-| 99% negative, 1% positive | 99% (always predict negative) | 0 (useless!) |
-| Balanced predictions | 85% | 0.70 (actually useful!) |
+---
+
+# Your Turn: Compute MCC!
+
+**Same spam filter:** TP=40, FP=20, FN=10, TN=130
+
+$$\text{MCC} = \frac{40 \times 130 - 20 \times 10}{\sqrt{(40+20)(40+10)(130+20)(130+10)}}$$
+
+| Step | Calculation |
+|------|-------------|
+| Numerator | 40×130 - 20×10 = 5200 - 200 = **5000** |
+| Denominator | $\sqrt{60 \times 50 \times 150 \times 140}$ = $\sqrt{63{,}000{,}000}$ = **7937** |
+| **MCC** | 5000 / 7937 = **0.63** |
+
+**MCC = 0.63** — a good (not great) classifier. Compare: the "always predict healthy" model gets MCC = 0!
 
 ---
 
 # Multi-Class Confusion Matrix
 
-**Example: Digit Recognition (0-9)**
+![height:480px](diagrams/mnist_confusion_matrix.png)
 
-|  | Pred 0 | Pred 1 | Pred 2 | ... |
-|--|--------|--------|--------|-----|
-| **Actual 0** | 95 | 2 | 1 | ... |
-| **Actual 1** | 1 | 97 | 0 | ... |
-| **Actual 2** | 3 | 0 | 92 | ... |
+---
 
-- Diagonal = correct predictions
-- Off-diagonal = errors (which class was confused with which?)
+# Reading the 10x10 Matrix
+
+**What can you spot?**
+
+| Pattern | What It Means |
+|---------|---------------|
+| Bright diagonal | Model is mostly correct |
+| 4 confused with 9 | They look similar (closed loops) |
+| 3 confused with 5, 8 | Curved digits are tricky |
+| 7 confused with 1 | Both have vertical strokes |
+
+**The confusion matrix tells you WHERE your model struggles!**
+
+This helps you decide: "Should I collect more training examples of 4s and 9s?"
+
+---
+
+# Multi-Class: A 3x3 Example
+
+**A model classifies animals: Cat, Dog, Bird**
+
+|  | Pred: Cat | Pred: Dog | Pred: Bird |
+|--|-----------|-----------|------------|
+| **Actual: Cat** | **8** | 1 | 1 |
+| **Actual: Dog** | 2 | **6** | 2 |
+| **Actual: Bird** | 0 | 1 | **9** |
+
+**Per-class metrics (treat each class as binary):**
+
+| Class | TP | FP | FN | Precision | Recall | F1 |
+|-------|----|----|-----|-----------|--------|-----|
+| Cat | 8 | 2 | 2 | 8/10=0.80 | 8/10=0.80 | 0.80 |
+| Dog | 6 | 2 | 4 | 6/8=0.75 | 6/10=0.60 | 0.67 |
+| Bird | 9 | 3 | 1 | 9/12=0.75 | 9/10=0.90 | 0.82 |
 
 ---
 
 # Multi-Class F1: Three Approaches
 
-| Approach | How it works | When to use |
-|----------|--------------|-------------|
-| **Macro F1** | Average F1 across all classes | All classes equally important |
-| **Micro F1** | Pool all TP/FP/FN, then calculate | Large datasets |
-| **Weighted F1** | Weight by class frequency | Imbalanced classes |
+**From our Cat/Dog/Bird example:**
+
+| Approach | Calculation | Result |
+|----------|-------------|--------|
+| **Macro F1** | (0.80 + 0.67 + 0.82) / 3 | **0.76** |
+| **Weighted F1** | Weighted by class count (10 each here) | **0.76** |
+| **Micro F1** | Pool: TP=23, FP=7, FN=7 → 23/26.5 | **0.77** |
 
 ```python
 from sklearn.metrics import f1_score
 
-f1_score(y_true, y_pred, average='macro')    # Equal weight
-f1_score(y_true, y_pred, average='micro')    # Pooled
-f1_score(y_true, y_pred, average='weighted') # By frequency
+f1_score(y_true, y_pred, average='macro')
+f1_score(y_true, y_pred, average='weighted')
+f1_score(y_true, y_pred, average='micro')
 ```
+
+---
+
+# Verify with Code!
+
+```python
+import numpy as np
+from sklearn.metrics import f1_score, classification_report
+
+y_true = ['Cat']*10 + ['Dog']*10 + ['Bird']*10
+y_pred = (['Cat']*8 + ['Dog']*1 + ['Bird']*1 +
+          ['Cat']*2 + ['Dog']*6 + ['Bird']*2 +
+          ['Cat']*0 + ['Dog']*1 + ['Bird']*9)
+
+print(classification_report(y_true, y_pred))
+```
+
+**Run this in the notebook and verify your hand calculations match!**
 
 ---
 
@@ -957,29 +1069,37 @@ print(f"Accuracy: {accuracy_score(y_test, predictions):.1%}")
 
 ---
 
-# Same Pattern, Different Models!
+# Different Models, Same API!
+
+| Model | What It Does | Best For |
+|-------|-------------|----------|
+| `LinearRegression` | Fits a straight line | Predicting numbers |
+| `LogisticRegression` | Fits a decision boundary | Yes/No classification |
+| `DecisionTreeClassifier` | Learns if-else rules | Easy to interpret |
+| `KNeighborsClassifier` | Finds similar examples | Small datasets |
+| `MLPClassifier` | Mini neural network | Complex patterns |
+
+**But they ALL use the exact same 3 methods!**
+
+---
+
+# The Universal sklearn Pattern
 
 ```python
-# Linear Regression
-from sklearn.linear_model import LinearRegression
-model = LinearRegression()
-model.fit(X_train, y_train)
-model.predict(X_test)
-
-# Logistic Regression
-from sklearn.linear_model import LogisticRegression
-model = LogisticRegression()
-model.fit(X_train, y_train)
-model.predict(X_test)
-
-# Neural Network
-from sklearn.neural_network import MLPClassifier
-model = MLPClassifier()
-model.fit(X_train, y_train)
-model.predict(X_test)
+model = AnyModel()          # 1. Create
+model.fit(X_train, y_train) # 2. Train
+model.predict(X_test)       # 3. Predict
 ```
 
-**Same three methods: `fit()`, `predict()`, `score()`**
+**Want to try a different model? Just change line 1!**
+
+```python
+model = DecisionTreeClassifier()  # swap this line
+model.fit(X_train, y_train)       # same
+model.predict(X_test)             # same
+```
+
+**Learn this pattern once, use it forever!**
 
 ---
 
