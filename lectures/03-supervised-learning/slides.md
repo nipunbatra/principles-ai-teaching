@@ -216,16 +216,20 @@ Each weight shows that feature's **independent contribution** to price!
 
 # But What if Data Isn't Perfect?
 
+![bg right:55% fit](diagrams/noisy_data_lines.png)
+
 Real data has **noise** — points don't fall exactly on a line.
 
-| Size | Actual Price | Ideal Line (0.04x) | Difference |
-|------|--------------|-------------------|------------|
-| 1000 | 42 | 40 | +2 |
-| 1500 | 58 | 60 | -2 |
-| 2000 | 83 | 80 | +3 |
-| 2500 | 97 | 100 | -3 |
+Three candidate lines:
+
+| Line | Equation |
+|------|----------|
+| A | $y = 0.04x$ |
+| B | $y = 0.038x + 3$ |
+| C | $y = 0.035x + 10$ |
 
 **Which line is "best"?**
+The one with the smallest total error!
 
 ---
 
@@ -318,60 +322,53 @@ $$\nabla f = [2x, 2y] = [2, 4]$$
 
 ---
 
-# Method 1: The Normal Equation
+# Can We Solve It Directly?
 
-For linear regression, there's a **closed-form solution**:
+For simple functions like $f(x) = x^2$, we know the trick:
 
-$$\boldsymbol{\theta} = (\mathbf{X}^\top \mathbf{X})^{-1} \mathbf{X}^\top \mathbf{y}$$
+| Step | What we do | Result |
+|------|-----------|--------|
+| 1. Write the function | $f(x) = x^2$ | |
+| 2. Take derivative | $f'(x) = 2x$ | |
+| 3. Set = 0 | $2x = 0$ | |
+| 4. Solve | $x = 0$ | Minimum! |
 
-**In plain English:**
-1. Augment $\mathbf{X}$ with column of 1s (for bias)
-2. Do some matrix math
-3. Get the optimal $\boldsymbol{\theta}$ directly!
+Can we do the same for linear regression?
+
+**Yes!** Our loss is $\mathcal{L}(\boldsymbol{\theta}) = \sum(y_i - \mathbf{x}_i \cdot \boldsymbol{\theta})^2$
+
+Take derivative, set to 0, solve...
 
 ---
 
-# Normal Equation: The Intuition
+# The Normal Equation
 
-Why does this work?
+Setting $\nabla \mathcal{L} = 0$ and solving gives us:
 
-1. We want to minimize $\mathcal{L}(\boldsymbol{\theta}) = \|\mathbf{y} - \mathbf{X}\boldsymbol{\theta}\|^2$
-2. Take gradient with respect to $\boldsymbol{\theta}$: $\nabla_{\boldsymbol{\theta}} \mathcal{L}$
-3. Set gradient = $\mathbf{0}$ (at minimum, gradient is zero)
-4. Solve for $\boldsymbol{\theta}$
+$$\hat{\boldsymbol{\theta}} = (\mathbf{X}^\top \mathbf{X})^{-1} \mathbf{X}^\top \mathbf{y}$$
 
-**Result:** $\boldsymbol{\theta} = (\mathbf{X}^\top \mathbf{X})^{-1} \mathbf{X}^\top \mathbf{y}$
+**How to read this:** "The best parameters $\hat{\boldsymbol{\theta}}$ = some matrix math on X and y"
+
+```python
+import numpy as np
+
+X = np.array([[1, 1000], [1, 1500], [1, 2000], [1, 2500]])  # column of 1s for bias
+y = np.array([42, 58, 83, 97])
+
+theta = np.linalg.inv(X.T @ X) @ X.T @ y
+print(f"bias = {theta[0]:.1f}, weight = {theta[1]:.4f}")
+# bias = 1.0, weight = 0.038  → Line B from our plot!
+```
 
 <div class="warning">
 
-**Limitation:** Matrix inversion is expensive for large datasets — $O(d^3)$ where $d$ = number of features
+**Limitation:** Requires matrix inversion — too slow for millions of features. We need gradient descent!
 
 </div>
 
 ---
 
-# Normal Equation in NumPy
-
-```python
-import numpy as np
-
-# Our data
-X = np.array([[1000], [1500], [2000], [2500]])
-y = np.array([40, 60, 80, 100])
-
-# Augment X with column of 1s for bias (theta_0)
-X_aug = np.column_stack([np.ones(len(X)), X])
-
-# Normal equation: theta = (X'X)^(-1) X'y
-theta = np.linalg.inv(X_aug.T @ X_aug) @ X_aug.T @ y
-
-print(f"theta_0 (bias): {theta[0]:.2f}")   # ≈ 0
-print(f"theta_1 (weight): {theta[1]:.4f}") # ≈ 0.04
-```
-
----
-
-# Method 2: Gradient Descent
+# Gradient Descent
 
 **The idea:** Take small steps downhill until you reach the minimum!
 
@@ -413,30 +410,23 @@ $$\theta_{\text{new}} = 0.01 - 0.001 \times (-80) = 0.01 + 0.08 = 0.09$$
 
 ---
 
-# The Gradient for MSE: Derivation
+# The Gradient for MSE: Intuition
 
-Our loss: $\mathcal{L}(\boldsymbol{\theta}) = \frac{1}{n}\sum_{i=1}^{n}(y_i - \hat{y}_i)^2$ where $\hat{y}_i = \boldsymbol{\theta}^\top \mathbf{x}_i$
+How should we nudge $\theta$ to reduce the error?
 
-**Step 1:** Expand $\hat{y}_i = \theta_0 x_{i0} + \theta_1 x_{i1} + \ldots + \theta_d x_{id}$
+**Think about one data point** $(x_i, y_i)$ with prediction $\hat{y}_i$:
 
-**Step 2:** Partial derivative w.r.t. $\theta_j$:
-$$\frac{\partial \mathcal{L}}{\partial \theta_j} = \frac{1}{n}\sum_{i=1}^{n} 2(y_i - \hat{y}_i) \cdot (-x_{ij}) = -\frac{2}{n}\sum_{i=1}^{n} (y_i - \hat{y}_i) \cdot x_{ij}$$
+| Situation | Error | What to do with $\theta$? |
+|-----------|-------|---------------------------|
+| Predicted too low | $y_i - \hat{y}_i > 0$ | Increase $\theta$ (to predict higher) |
+| Predicted too high | $y_i - \hat{y}_i < 0$ | Decrease $\theta$ (to predict lower) |
+| Predicted correctly | $y_i - \hat{y}_i = 0$ | Don't change! |
 
----
+The gradient captures exactly this: **error $\times$ feature value**
 
-# The Gradient for MSE: Vector Form
+$$\nabla_{\boldsymbol{\theta}} \mathcal{L} = -\frac{2}{n} \mathbf{X}^\top (\mathbf{y} - \hat{\mathbf{y}})$$
 
-**For each parameter $\theta_j$:**
-$$\frac{\partial \mathcal{L}}{\partial \theta_j} = -\frac{2}{n}\sum_{i=1}^{n} (y_i - \hat{y}_i) \cdot x_{ij}$$
-
-**Stacking all partials into a gradient vector:**
-$$\nabla_{\boldsymbol{\theta}} \mathcal{L} = -\frac{2}{n} \mathbf{X}^\top (\mathbf{y} - \mathbf{X}\boldsymbol{\theta})$$
-
-<div class="insight">
-
-**Intuition:** Error $(y_i - \hat{y}_i)$ weighted by feature $x_{ij}$ tells us how to adjust $\theta_j$
-
-</div>
+Big error + big feature = big update. Zero error = no update.
 
 ---
 

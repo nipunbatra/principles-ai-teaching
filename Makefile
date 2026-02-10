@@ -10,6 +10,7 @@ MARP_NPX = npx @marp-team/marp-cli
 
 .PHONY: all clean lectures ml-tasks ntp objdet diagrams help stats
 .PHONY: l01 l02 l03 l04 l05 l06 l07 l08
+.PHONY: week01 week02 week03 week04 week05 week06 week07 week08
 .PHONY: diagrams-l02 diagrams-l03 diagrams-l04 diagrams-l05 diagrams-l06 diagrams-l07 diagrams-l08
 .PHONY: diagrams-ml-tasks diagrams-object-detection diagrams-next-token
 .PHONY: watch-l01 watch-l02 watch-l03 watch-l04 watch-l05 watch-l06 watch-l07 watch-l08
@@ -64,6 +65,16 @@ l08:
 	@echo "Building Lecture 08: Generative AI..."
 	cd lectures/08-generative-ai && $(MARP) slides.md --theme-set ../../$(THEME) --allow-local-files -o slides.pdf
 	cd lectures/08-generative-ai && $(MARP) slides.md --theme-set ../../$(THEME) --allow-local-files -o slides.html
+
+# Week aliases (week01 = l01, etc.)
+week01: l01
+week02: l02
+week03: l03
+week04: l04
+week05: l05
+week06: l06
+week07: l07
+week08: l08
 
 # ============================================================================
 # DIAGRAM GENERATION
@@ -242,7 +253,8 @@ help:
 	@echo ""
 	@echo "Building Slides:"
 	@echo "  make lectures        - Build all 8 lecture slides (HTML + PDF)"
-	@echo "  make l01-l08         - Build specific lecture"
+	@echo "  make l01-l08         - Build specific lecture (e.g., make l05)"
+	@echo "  make week01-week08   - Alias for above (e.g., make week05)"
 	@echo "  make ml-tasks        - Build ML Tasks slides"
 	@echo "  make ntp             - Build Next Token Prediction slides"
 	@echo "  make objdet          - Build Object Detection slides"

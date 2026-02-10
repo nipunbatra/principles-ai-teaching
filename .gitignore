@@ -3,3 +3,6 @@
 video-demo-suggestions.md
 *.pt
 */diagrams/realistic/cache/
+.DS_Store
+**/data/MNIST/
+manim-animations/
