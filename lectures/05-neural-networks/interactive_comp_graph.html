@@ -3,833 +3,627 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Interactive Computational Graph Explorer</title>
+<title>Autograd Playground</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
+:root {
+  --pri:#6366f1;--pri-d:#4f46e5;--pri-l:#e0e7ff;
+  --em:#10b981;--em-d:#059669;--em-l:#d1fae5;
+  --ro:#f43f5e;--ro-d:#e11d48;--ro-l:#ffe4e6;
+  --am:#f59e0b;--am-l:#fef3c7;
+  --vi:#7c3aed;--vi-l:#ede9fe;
+  --s50:#f8fafc;--s100:#f1f5f9;--s200:#e2e8f0;--s300:#cbd5e1;--s400:#94a3b8;
+  --s500:#64748b;--s700:#334155;--s800:#1e293b;--s900:#0f172a;
+  --rad:10px;
+}
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#f0f2f5;color:#333;min-height:100vh}
-.app{max-width:1400px;margin:0 auto;padding:16px}
-header{background:linear-gradient(135deg,#1a237e,#0d47a1);color:#fff;padding:18px 28px;border-radius:12px;margin-bottom:16px}
-header h1{font-size:22px;font-weight:700}
-header p{opacity:.8;font-size:13px;margin-top:3px}
-.panel{background:#fff;border-radius:12px;padding:16px 20px;margin-bottom:12px;box-shadow:0 2px 8px rgba(0,0,0,.07)}
-.panel h3{font-size:14px;font-weight:700;color:#555;margin-bottom:10px;text-transform:uppercase;letter-spacing:.5px}
-.row{display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end}
-.field{display:flex;flex-direction:column;gap:4px}
-.field label{font-size:12px;font-weight:600;color:#777}
-.field input,.field select{padding:7px 12px;border:2px solid #e0e0e0;border-radius:8px;font-size:14px;font-family:inherit;transition:border-color .2s}
-.field input:focus,.field select:focus{border-color:#1565c0;outline:none}
-#expr-input{width:420px;font-family:'Fira Code',monospace,monospace}
-#example-select{width:280px}
-.btn{padding:7px 16px;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;transition:all .15s;display:inline-flex;align-items:center;gap:5px}
-.btn:active{transform:scale(.97)}
-.btn-primary{background:#1565c0;color:#fff}.btn-primary:hover{background:#0d47a1}
-.btn-green{background:#2e7d32;color:#fff}.btn-green:hover{background:#1b5e20}
-.btn-red{background:#c62828;color:#fff}.btn-red:hover{background:#b71c1c}
-.btn-gray{background:#e0e0e0;color:#333}.btn-gray:hover{background:#bdbdbd}
-.btn:disabled{opacity:.4;cursor:not-allowed;transform:none}
-.graph-container{background:#fff;border-radius:12px;border:2px solid #e0e0e0;min-height:350px;overflow:auto;position:relative}
-#graph-svg{display:block;min-width:100%;min-height:350px}
-.var-inputs{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-.var-inputs .field input{width:80px;text-align:center}
-.var-inputs .var-chip{display:flex;align-items:center;gap:4px;background:#e3f2fd;padding:4px 8px 4px 12px;border-radius:8px;font-size:13px;font-weight:600;color:#1565c0}
-.step-controls{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
-.step-badge{background:#e8eaf6;color:#283593;padding:5px 14px;border-radius:20px;font-size:13px;font-weight:600;min-width:120px;text-align:center}
-.info-box{background:#fafafa;border:1px solid #e0e0e0;border-radius:8px;padding:14px 16px;font-size:13px;line-height:1.6;min-height:60px;white-space:pre-wrap;font-family:'Fira Code',monospace,monospace;margin-top:10px}
-.info-box.info-fwd{border-left:4px solid #2e7d32}
-.info-box.info-bwd{border-left:4px solid #c62828}
-.info-box.info-err{border-left:4px solid #e65100;background:#fff3e0}
-.grad-table{width:100%;border-collapse:collapse;margin-top:8px;font-size:13px}
-.grad-table th{text-align:left;padding:6px 14px;color:#555;font-weight:700;border-bottom:2px solid #e0e0e0;font-size:12px;text-transform:uppercase}
-.grad-table td{padding:6px 14px;border-bottom:1px solid #f0f0f0}
-.grad-table tr:hover td{background:#f5f5f5}
-.grad-val{color:#2e7d32;font-weight:600}
-.grad-grad{color:#c62828;font-weight:600}
-.legend{display:flex;gap:16px;font-size:12px;color:#777;margin-top:8px;flex-wrap:wrap}
-.legend span{display:flex;align-items:center;gap:4px}
-.legend .dot{width:12px;height:12px;border-radius:50%;display:inline-block}
-svg text{font-family:'Segoe UI',system-ui,sans-serif}
-.node-glow{filter:drop-shadow(0 0 8px rgba(21,101,192,.5))}
-.node-glow-green{filter:drop-shadow(0 0 8px rgba(46,125,50,.5))}
-.node-glow-red{filter:drop-shadow(0 0 8px rgba(198,40,40,.5))}
-@keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
-.fade-in{animation:fadeIn .3s ease forwards}
-.two-col{display:grid;grid-template-columns:1fr 300px;gap:12px}
-@media(max-width:900px){.two-col{grid-template-columns:1fr}#expr-input{width:100%}}
+html,body{height:100%;overflow:hidden}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--s50);color:var(--s800)}
+.app{height:100%;display:flex;flex-direction:column}
+
+/* Header */
+header{background:linear-gradient(135deg,#312e81,#4f46e5);color:#fff;padding:10px 24px;flex-shrink:0;display:flex;align-items:center;justify-content:space-between;gap:12px}
+header h1{font-size:18px;font-weight:800;letter-spacing:-.3px;white-space:nowrap}
+header h1 span{opacity:.5;font-weight:500;font-size:14px}
+.kbd-hints{display:flex;gap:8px;font-size:11px;opacity:.65;flex-wrap:wrap}
+.kbd{background:rgba(255,255,255,.15);padding:1px 6px;border-radius:3px;font-family:'JetBrains Mono',monospace;font-size:10px}
+
+/* Top controls */
+.top-bar{flex-shrink:0;background:#fff;border-bottom:1px solid var(--s200);padding:8px 16px}
+.examples-row{display:flex;gap:6px;overflow-x:auto;padding:2px 0;scrollbar-width:thin}
+.examples-row::-webkit-scrollbar{height:4px}
+.examples-row::-webkit-scrollbar-thumb{background:var(--s300);border-radius:2px}
+.ex-btn{flex:0 0 auto;padding:5px 12px;background:var(--s100);border:1.5px solid var(--s200);border-radius:20px;
+  cursor:pointer;font-size:11px;font-weight:600;color:var(--s700);transition:all .12s;white-space:nowrap;font-family:inherit}
+.ex-btn:hover{border-color:var(--pri);color:var(--pri)}
+.ex-btn.active{background:var(--pri-l);border-color:var(--pri);color:var(--pri-d)}
+.input-row{display:flex;gap:8px;align-items:center;margin-top:6px;flex-wrap:wrap}
+#expr-input{flex:1;min-width:200px;padding:6px 12px;border:1.5px solid var(--s200);border-radius:8px;
+  font-family:'JetBrains Mono',monospace;font-size:13px;background:#fff}
+#expr-input:focus{border-color:var(--pri);outline:none;box-shadow:0 0 0 2px var(--pri-l)}
+.var-bar{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.var-chip{display:inline-flex;align-items:center;gap:3px;background:var(--pri-l);padding:2px 4px 2px 10px;
+  border-radius:16px;font-size:12px;font-weight:600;color:var(--pri-d)}
+.var-chip input{width:52px;padding:2px 4px;border:1px solid var(--s300);border-radius:5px;
+  font-size:12px;text-align:center;font-family:'JetBrains Mono',monospace;background:#fff}
+.var-chip input:focus{border-color:var(--pri);outline:none}
+.btn{padding:6px 14px;border:none;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;
+  transition:all .1s;font-family:inherit;display:inline-flex;align-items:center;gap:5px;white-space:nowrap}
+.btn:active{transform:scale(.97)}.btn:disabled{opacity:.3;cursor:not-allowed;transform:none}
+.btn-pri{background:var(--pri);color:#fff}.btn-pri:hover:not(:disabled){background:var(--pri-d)}
+.btn-fwd{background:var(--em);color:#fff}.btn-fwd:hover:not(:disabled){background:var(--em-d)}
+.btn-bwd{background:var(--ro);color:#fff}.btn-bwd:hover:not(:disabled){background:var(--ro-d)}
+.btn-ghost{background:var(--s100);color:var(--s700)}.btn-ghost:hover:not(:disabled){background:var(--s200)}
+.btn-play{background:var(--pri);color:#fff;min-width:36px;justify-content:center;padding:6px 8px}
+.btn-play.playing{background:var(--am)}
+
+/* Main area */
+.main-area{flex:1;display:grid;grid-template-columns:1fr 300px;gap:0;min-height:0;overflow:hidden}
+@media(max-width:900px){.main-area{grid-template-columns:1fr;grid-template-rows:1fr auto}}
+
+/* Graph */
+.graph-wrap{position:relative;overflow:hidden;background:#fff;border-right:1px solid var(--s200)}
+#graph-svg{width:100%;height:100%;display:block}
+.graph-empty{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:var(--s400);
+  font-size:14px;flex-direction:column;gap:6px}
+.graph-empty .icon{font-size:36px;opacity:.3}
+
+/* Legend bar */
+.legend-bar{position:absolute;bottom:8px;left:8px;display:flex;gap:10px;font-size:10px;color:var(--s500);
+  background:rgba(255,255,255,.9);padding:4px 10px;border-radius:6px;backdrop-filter:blur(4px);border:1px solid var(--s200)}
+.legend-bar span{display:flex;align-items:center;gap:3px}
+.legend-bar .sw{width:10px;height:10px;border-radius:3px;display:inline-block}
+
+/* Sidebar */
+.sidebar{display:flex;flex-direction:column;overflow-y:auto;background:var(--s50);border-left:0}
+.card{border-bottom:1px solid var(--s200);background:#fff}
+.card-hd{padding:8px 14px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;
+  color:var(--s400);background:var(--s50);border-bottom:1px solid var(--s100)}
+.card-bd{padding:10px 14px}
+
+/* Controls */
+.ctrl-row{display:flex;gap:4px;flex-wrap:wrap;align-items:center}
+.speed-row{display:flex;align-items:center;gap:6px;margin-top:6px;font-size:11px;color:var(--s400)}
+.speed-row input[type=range]{flex:1;accent-color:var(--pri);height:4px}
+.progress{height:3px;background:var(--s100);border-radius:2px;margin-top:6px;overflow:hidden}
+.progress-fill{height:100%;border-radius:2px;transition:width .3s}
+.progress-fill.fwd{background:var(--em)}.progress-fill.bwd{background:var(--ro)}
+
+/* Info panel */
+.info-box{font-family:'JetBrains Mono',monospace;font-size:11px;line-height:1.65;white-space:pre-wrap;
+  padding:10px 12px;background:var(--s50);border:1px solid var(--s200);border-radius:6px;
+  min-height:40px;max-height:260px;overflow-y:auto;color:var(--s700)}
+.info-box.fwd{border-left:3px solid var(--em)}.info-box.bwd{border-left:3px solid var(--ro)}
+.info-box.err{border-left:3px solid var(--am);background:var(--am-l)}
+
+/* Chain rule visual in info */
+.chain-rule{margin-top:6px;padding:8px 10px;background:#fff;border-radius:6px;border:1px solid var(--s200);font-size:11px;line-height:1.7}
+.cr-row{display:flex;align-items:center;gap:6px;margin:3px 0}
+.cr-pill{display:inline-block;padding:2px 8px;border-radius:10px;font-weight:700;font-size:10px;font-family:'JetBrains Mono',monospace}
+.cr-upstream{background:var(--ro-l);color:var(--ro-d)}
+.cr-local{background:var(--am-l);color:#92400e}
+.cr-downstream{background:var(--vi-l);color:var(--vi)}
+.cr-arrow{color:var(--s400);font-weight:700}
+
+/* Grad table */
+.grad-table{width:100%;border-collapse:collapse;font-size:12px}
+.grad-table th{text-align:left;padding:5px 10px;font-size:10px;font-weight:700;text-transform:uppercase;
+  letter-spacing:.3px;color:var(--s400);border-bottom:2px solid var(--s200)}
+.grad-table td{padding:5px 10px;border-bottom:1px solid var(--s100)}
+.grad-table tr:hover td{background:var(--s50)}
+.v-val{color:var(--em-d);font-weight:600;font-family:'JetBrains Mono',monospace}
+.v-grad{color:var(--ro-d);font-weight:600;font-family:'JetBrains Mono',monospace}
+
+/* Tooltip */
+#tooltip{position:fixed;display:none;background:var(--s900);color:#fff;padding:6px 10px;border-radius:6px;
+  font-size:11px;line-height:1.4;pointer-events:none;z-index:999;max-width:220px;
+  box-shadow:0 6px 20px rgba(0,0,0,.25);font-family:'JetBrains Mono',monospace}
+
+/* SVG */
+svg text{font-family:'Inter',system-ui,sans-serif}
+@keyframes fadeUp{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+.fade-up{animation:fadeUp .25s ease forwards}
+@keyframes pulseGlow{0%,100%{opacity:.7}50%{opacity:1}}
+.pulse-glow{animation:pulseGlow 1.2s ease-in-out infinite}
+
+footer{text-align:center;padding:6px;font-size:10px;color:var(--s400);flex-shrink:0;background:#fff;border-top:1px solid var(--s200)}
+footer a{color:var(--pri);text-decoration:none}
 </style>
 </head>
 <body>
 <div class="app">
-  <header>
-    <h1>Interactive Computational Graph Explorer</h1>
-    <p>Parse expressions into graphs, then step through forward and backward passes to see how autograd works</p>
-  </header>
 
-  <div class="panel">
-    <div class="row">
-      <div class="field">
-        <label>Example</label>
-        <select id="example-select"><option value="">-- Select an example --</option></select>
-      </div>
-      <div class="field">
-        <label>Expression</label>
-        <input type="text" id="expr-input" placeholder="e.g. (x * y) + z" spellcheck="false">
-      </div>
-      <button class="btn btn-primary" id="btn-build">Build Graph</button>
+<header>
+  <h1>Autograd Playground <span>// interactive backprop</span></h1>
+  <div class="kbd-hints">
+    <span><span class="kbd">F</span> fwd</span>
+    <span><span class="kbd">B</span> bwd</span>
+    <span><span class="kbd">Space</span> play</span>
+    <span><span class="kbd">R</span> reset</span>
+  </div>
+</header>
+
+<div class="top-bar">
+  <div class="examples-row" id="examples-row"></div>
+  <div class="input-row">
+    <input type="text" id="expr-input" placeholder="e.g.  sigmoid(w * x + b)" spellcheck="false" autocomplete="off">
+    <button class="btn btn-pri" id="btn-build">Build</button>
+    <div class="var-bar" id="var-bar"></div>
+  </div>
+</div>
+
+<div class="main-area">
+  <div class="graph-wrap" id="graph-wrap">
+    <div class="graph-empty" id="graph-empty">
+      <div class="icon">&#x2B21;</div>
+      <div>Select an example to get started</div>
     </div>
-    <div id="var-panel" class="var-inputs" style="margin-top:10px"></div>
+    <svg id="graph-svg" style="display:none"></svg>
+    <div class="legend-bar" id="legend" style="display:none">
+      <span><span class="sw" style="background:#e0e7ff;border:1.5px solid #818cf8"></span>Input</span>
+      <span><span class="sw" style="background:#fef3c7;border:1.5px solid #fbbf24"></span>Const</span>
+      <span><span class="sw" style="background:#f1f5f9;border:1.5px solid #94a3b8"></span>Op</span>
+      <span><span class="sw" style="background:#d1fae5;border:1.5px solid #34d399"></span>Fwd</span>
+      <span><span class="sw" style="background:#ffe4e6;border:1.5px solid #fb7185"></span>Bwd</span>
+    </div>
   </div>
 
-  <div class="two-col">
-    <div>
-      <div class="graph-container">
-        <svg id="graph-svg"></svg>
-      </div>
-      <div class="legend" id="legend" style="display:none">
-        <span><span class="dot" style="background:#e3f2fd;border:2px solid #1565c0"></span> Input variable</span>
-        <span><span class="dot" style="background:#fff3e0;border:2px solid #ef6c00"></span> Constant</span>
-        <span><span class="dot" style="background:#f5f5f5;border:2px solid #616161"></span> Operation</span>
-        <span><span class="dot" style="background:#c8e6c9;border:2px solid #2e7d32"></span> Forward computed</span>
-        <span><span class="dot" style="background:#ffcdd2;border:2px solid #c62828"></span> Backward active</span>
+  <div class="sidebar">
+    <div class="card">
+      <div class="card-hd">Controls</div>
+      <div class="card-bd">
+        <div class="ctrl-row">
+          <button class="btn btn-ghost" id="btn-reset" disabled>Reset</button>
+          <button class="btn btn-play" id="btn-play" disabled>&#9654;</button>
+          <div style="flex:1"></div>
+          <button class="btn btn-fwd" id="btn-fwd-step" disabled>Fwd</button>
+          <button class="btn btn-fwd" id="btn-fwd-all" disabled>&raquo;</button>
+          <button class="btn btn-bwd" id="btn-bwd-step" disabled>Bwd</button>
+          <button class="btn btn-bwd" id="btn-bwd-all" disabled>&raquo;</button>
+        </div>
+        <div class="speed-row"><span>Fast</span><input type="range" id="speed" min="100" max="1500" value="500" step="100"><span>Slow</span></div>
+        <div class="progress"><div class="progress-fill" id="pbar"></div></div>
       </div>
     </div>
-
-    <div>
-      <div class="panel">
-        <h3>Controls</h3>
-        <div class="step-controls">
-          <button class="btn btn-gray" id="btn-reset">Reset</button>
-          <div style="flex-basis:100%"></div>
-          <button class="btn btn-green" id="btn-fwd-step">Forward Step</button>
-          <button class="btn btn-green" id="btn-fwd-all">Forward All</button>
-          <div style="flex-basis:100%"></div>
-          <button class="btn btn-red" id="btn-bwd-step">Backward Step</button>
-          <button class="btn btn-red" id="btn-bwd-all">Backward All</button>
-        </div>
-        <div style="margin-top:8px">
-          <span class="step-badge" id="step-badge">Ready</span>
-        </div>
-        <div class="info-box" id="info-box">Build a graph to get started. Select an example or type an expression.</div>
+    <div class="card" style="flex:1;min-height:0;display:flex;flex-direction:column">
+      <div class="card-hd">Step Details</div>
+      <div class="card-bd" style="flex:1;overflow-y:auto;padding:0">
+        <div class="info-box" id="info-box">Pick an example above to start.</div>
+        <div id="chain-rule-area"></div>
       </div>
-
-      <div class="panel" id="grad-panel" style="display:none">
-        <h3>Gradients</h3>
-        <table class="grad-table" id="grad-table">
-          <thead><tr><th>Variable</th><th>Value</th><th>Gradient</th></tr></thead>
-          <tbody></tbody>
-        </table>
+    </div>
+    <div class="card" id="grad-card" style="display:none">
+      <div class="card-hd">Gradients</div>
+      <div class="card-bd" style="padding:0">
+        <table class="grad-table" id="grad-table"><thead><tr><th>Variable</th><th>Value</th><th style="text-align:right">&nabla;</th></tr></thead><tbody></tbody></table>
       </div>
     </div>
   </div>
 </div>
 
+<footer>Built for <a href="https://nipunbatra.github.io/principles-ai-teaching/" target="_blank">Principles of AI</a> &middot; IIT Gandhinagar</footer>
+</div>
+
+<div id="tooltip"></div>
+
 <script>
 // =====================================================================
-// TOKENIZER
+//  TOKENIZER
 // =====================================================================
-const TT = {NUM:'NUM',ID:'ID',PLUS:'+',MINUS:'-',STAR:'*',SLASH:'/',LPAREN:'(',RPAREN:')',COMMA:',',EOF:'EOF'};
-
-function tokenize(expr) {
-  const tokens = [];
-  let i = 0;
-  while (i < expr.length) {
-    if (/\s/.test(expr[i])) { i++; continue; }
-    if (/\d/.test(expr[i]) || (expr[i]==='.' && i+1<expr.length && /\d/.test(expr[i+1]))) {
-      let num = '';
-      while (i < expr.length && (/\d/.test(expr[i]) || expr[i]==='.')) num += expr[i++];
-      tokens.push({type:TT.NUM, value:num});
-      continue;
-    }
-    if (/[a-zA-Z_]/.test(expr[i])) {
-      let id = '';
-      while (i < expr.length && /[a-zA-Z0-9_]/.test(expr[i])) id += expr[i++];
-      tokens.push({type:TT.ID, value:id});
-      continue;
-    }
-    const ch = expr[i];
-    if ('+-*/(),'.includes(ch)) {
-      tokens.push({type:ch, value:ch}); i++; continue;
-    }
-    throw new Error(`Unexpected character: '${ch}' at position ${i}`);
-  }
-  tokens.push({type:TT.EOF, value:''});
-  return tokens;
-}
+const TT={NUM:'NUM',ID:'ID',PLUS:'+',MINUS:'-',STAR:'*',SLASH:'/',LP:'(',RP:')',COMMA:',',EOF:'EOF'};
+function tokenize(e){const t=[];let i=0;while(i<e.length){if(/\s/.test(e[i])){i++;continue}
+if(/\d/.test(e[i])||(e[i]==='.'&&i+1<e.length&&/\d/.test(e[i+1]))){let n='';while(i<e.length&&(/\d/.test(e[i])||e[i]==='.'))n+=e[i++];t.push({type:TT.NUM,value:n});continue}
+if(/[a-zA-Z_]/.test(e[i])){let n='';while(i<e.length&&/[a-zA-Z0-9_]/.test(e[i]))n+=e[i++];t.push({type:TT.ID,value:n});continue}
+const c=e[i];if('+-*/(),'.includes(c)){t.push({type:c==='+'?TT.PLUS:c==='-'?TT.MINUS:c==='*'?TT.STAR:c==='/'?TT.SLASH:c==='('?TT.LP:c===')'?TT.RP:TT.COMMA,value:c});i++;continue}
+throw new Error(`Bad char '${c}' at ${i}`);}t.push({type:TT.EOF,value:''});return t;}
 
 // =====================================================================
-// PARSER  (recursive descent, standard precedence)
+//  PARSER
 // =====================================================================
-function parse(tokens) {
-  let pos = 0;
-  const peek = () => tokens[pos];
-  const advance = () => tokens[pos++];
-  const expect = (t) => { const tk=advance(); if(tk.type!==t) throw new Error(`Expected '${t}', got '${tk.type}'`); return tk; };
-
-  function expr() {
-    let left = term();
-    while (peek().type===TT.PLUS || peek().type===TT.MINUS) {
-      const op = advance().type;
-      left = {type:'binop', op:op===TT.PLUS?'add':'sub', left, right:term()};
-    }
-    return left;
-  }
-  function term() {
-    let left = power();
-    while (peek().type===TT.STAR || peek().type===TT.SLASH) {
-      const op = advance().type;
-      left = {type:'binop', op:op===TT.STAR?'mul':'div', left, right:power()};
-    }
-    return left;
-  }
-  function power() {
-    return unary(); // no ** for now
-  }
-  function unary() {
-    if (peek().type===TT.MINUS) { advance(); return {type:'unary', op:'neg', operand:unary()}; }
-    return call();
-  }
-  function call() {
-    if (peek().type===TT.ID && pos+1<tokens.length && tokens[pos+1].type===TT.LPAREN) {
-      const name = advance().value;
-      advance(); // (
-      const args = [];
-      if (peek().type!==TT.RPAREN) {
-        args.push(expr());
-        while (peek().type===TT.COMMA) { advance(); args.push(expr()); }
-      }
-      expect(TT.RPAREN);
-      return {type:'call', name, args};
-    }
-    return primary();
-  }
-  function primary() {
-    const t = peek();
-    if (t.type===TT.NUM) { advance(); return {type:'num', value:parseFloat(t.value)}; }
-    if (t.type===TT.ID) { advance(); return {type:'var', name:t.value}; }
-    if (t.type===TT.LPAREN) { advance(); const e=expr(); expect(TT.RPAREN); return e; }
-    throw new Error(`Unexpected token: '${t.value||t.type}'`);
-  }
-  const result = expr();
-  if (peek().type!==TT.EOF) throw new Error(`Unexpected token after expression: '${peek().value}'`);
-  return result;
-}
+function parse(t){let p=0;const pk=()=>t[p],ad=()=>t[p++],ex=c=>{const k=ad();if(k.type!==c)throw new Error(`Expected '${c}' got '${k.type}'`);return k};
+function expr(){let l=term();while(pk().type===TT.PLUS||pk().type===TT.MINUS){const o=ad().type;l={type:'bin',op:o===TT.PLUS?'add':'sub',l,r:term()}}return l}
+function term(){let l=un();while(pk().type===TT.STAR||pk().type===TT.SLASH){const o=ad().type;l={type:'bin',op:o===TT.STAR?'mul':'div',l,r:un()}}return l}
+function un(){if(pk().type===TT.MINUS){ad();return{type:'un',op:'neg',a:un()}}return call()}
+function call(){if(pk().type===TT.ID&&p+1<t.length&&t[p+1].type===TT.LP){const n=ad().value;ad();const a=[];
+if(pk().type!==TT.RP){a.push(expr());while(pk().type===TT.COMMA){ad();a.push(expr())}}ex(TT.RP);return{type:'fn',name:n,a}}return pri()}
+function pri(){const k=pk();if(k.type===TT.NUM){ad();return{type:'num',v:parseFloat(k.value)}}
+if(k.type===TT.ID){ad();return{type:'var',name:k.value}}if(k.type===TT.LP){ad();const e=expr();ex(TT.RP);return e}
+throw new Error(`Unexpected '${k.value||k.type}'`);}
+const r=expr();if(pk().type!==TT.EOF)throw new Error(`Extra tokens: '${pk().value}'`);return r;}
 
 // =====================================================================
-// COMPUTATIONAL GRAPH
+//  GRAPH
 // =====================================================================
-class CompNode {
-  constructor(id, type, op, label, inputs=[]) {
-    this.id = id; this.type = type; this.op = op; this.label = label;
-    this.inputs = inputs; this.value = null; this.grad = 0;
-    this.rank = -1; this.x = 0; this.y = 0;
-    this.fwdComputed = false; this.bwdComputed = false;
-    this.fwdActive = false; this.bwdActive = false;
-  }
-}
+class GN{constructor(id,tp,op,label,ins=[]){this.id=id;this.tp=tp;this.op=op;this.label=label;this.ins=ins;
+this.val=null;this.grad=0;this.rank=-1;this.x=0;this.y=0;this.fD=false;this.bD=false;this.fA=false;this.bA=false}}
+const OPS={add:'+',sub:'\u2212',mul:'\u00D7',div:'\u00F7'};
+const FNS=new Set(['exp','log','sigmoid','relu','tanh','sin','cos','sqrt','abs','neg']);
+function buildG(ast){const ns=[],vs={},vo=[];let id=0;
+function mk(tp,op,lb,ins=[]){const n=new GN(id++,tp,op,lb,ins);ns.push(n);return n}
+function w(a){
+if(a.type==='num'){const n=mk('c',null,fc(a.v));n.val=a.v;return n}
+if(a.type==='var'){if(!vs[a.name]){vs[a.name]=mk('i',null,a.name);vo.push(a.name)}return vs[a.name]}
+if(a.type==='bin'){return mk('o',a.op,OPS[a.op]||a.op,[w(a.l),w(a.r)])}
+if(a.type==='un'){return mk('o','neg','\u2212()',[w(a.a)])}
+if(a.type==='fn'){if(!FNS.has(a.name))throw new Error(`Unknown function: ${a.name}`);return mk('o',a.name,a.name,a.a.map(w))}}
+return{ns,vs,vo,out:w(ast)}}
+function fc(v){if(Number.isInteger(v)&&Math.abs(v)<1e4)return String(v);return parseFloat(v.toPrecision(5)).toString()}
+function fm(v){if(v==null)return'?';if(!isFinite(v))return String(v);if(v===0)return'0';if(Math.abs(v)<1e-6)return v.toExponential(2);return parseFloat(v.toPrecision(5)).toString()}
 
-const OP_SYMBOLS = {add:'+', sub:'\u2212', mul:'\u00D7', div:'\u00F7', neg:'\u2212()'};
-const KNOWN_FUNCS = new Set(['exp','log','sigmoid','relu','tanh','sin','cos','sqrt','abs']);
+// =====================================================================
+//  FORWARD & BACKWARD
+// =====================================================================
+function compV(n){const a=n.ins[0]?.val,b=n.ins[1]?.val;switch(n.op){
+case'add':return a+b;case'sub':return a-b;case'mul':return a*b;case'div':return a/b;case'neg':return-a;
+case'exp':return Math.exp(a);case'log':return Math.log(a);case'sigmoid':return 1/(1+Math.exp(-a));
+case'relu':return Math.max(0,a);case'tanh':return Math.tanh(a);case'sin':return Math.sin(a);
+case'cos':return Math.cos(a);case'sqrt':return Math.sqrt(a);case'abs':return Math.abs(a)}}
 
-function buildGraph(ast) {
-  const nodes = [];
-  const varNodes = {};
-  const varOrder = [];
-  let nid = 0;
-  function mk(type, op, label, inputs=[]) {
-    const n = new CompNode(nid++, type, op, label, inputs);
-    nodes.push(n);
-    return n;
-  }
-  function walk(a) {
-    if (a.type==='num') return mk('const', null, fmtNum(a.value));
-    if (a.type==='var') {
-      if (!varNodes[a.name]) { varNodes[a.name]=mk('input',null,a.name); varOrder.push(a.name); }
-      return varNodes[a.name];
+function lgrads(n){const u=n.grad,a=n.ins[0]?.val,b=n.ins[1]?.val;switch(n.op){
+case'add':return[{t:n.ins[0],g:u,l:1},{t:n.ins[1],g:u,l:1}];
+case'sub':return[{t:n.ins[0],g:u,l:1},{t:n.ins[1],g:-u,l:-1}];
+case'mul':return[{t:n.ins[0],g:u*b,l:b},{t:n.ins[1],g:u*a,l:a}];
+case'div':return[{t:n.ins[0],g:u/b,l:1/b},{t:n.ins[1],g:-u*a/(b*b),l:-a/(b*b)}];
+case'neg':return[{t:n.ins[0],g:-u,l:-1}];
+case'exp':return[{t:n.ins[0],g:u*n.val,l:n.val}];
+case'log':return[{t:n.ins[0],g:u/a,l:1/a}];
+case'sigmoid':return[{t:n.ins[0],g:u*n.val*(1-n.val),l:n.val*(1-n.val)}];
+case'relu':return[{t:n.ins[0],g:u*(a>0?1:0),l:a>0?1:0}];
+case'tanh':return[{t:n.ins[0],g:u*(1-n.val*n.val),l:1-n.val*n.val}];
+case'sin':return[{t:n.ins[0],g:u*Math.cos(a),l:Math.cos(a)}];
+case'cos':return[{t:n.ins[0],g:u*(-Math.sin(a)),l:-Math.sin(a)}];
+case'sqrt':return[{t:n.ins[0],g:u/(2*n.val),l:1/(2*n.val)}];
+case'abs':return[{t:n.ins[0],g:u*(a>=0?1:-1),l:a>=0?1:-1}];default:return[]}}
+
+function gfDesc(n){switch(n.op){
+case'add':return['d(a+b)/da = 1','d(a+b)/db = 1'];
+case'sub':return['d(a-b)/da = 1','d(a-b)/db = -1'];
+case'mul':return[`d(a\u00D7b)/da = b = ${fm(n.ins[1]?.val)}`,`d(a\u00D7b)/db = a = ${fm(n.ins[0]?.val)}`];
+case'div':return[`d(a/b)/da = 1/b`,`d(a/b)/db = -a/b\u00B2`];
+case'neg':return['d(-a)/da = -1'];case'exp':return[`d(e^a)/da = e^a = ${fm(n.val)}`];
+case'log':return[`d(ln a)/da = 1/a = ${fm(1/n.ins[0]?.val)}`];
+case'sigmoid':return[`\u03C3\'= \u03C3(1-\u03C3) = ${fm(n.val*(1-n.val))}`];
+case'relu':return[`relu\' = ${n.ins[0]?.val>0?'1':'0'}`];
+case'tanh':return[`tanh\' = 1-tanh\u00B2 = ${fm(1-n.val*n.val)}`];default:return['?']}}
+
+function topo(out){const v=new Set(),o=[];function go(n){if(v.has(n.id))return;v.add(n.id);n.ins.forEach(go);o.push(n)}go(out);return o}
+
+// =====================================================================
+//  LAYOUT
+// =====================================================================
+function layoutG(g){
+  const{ns}=g;const mem={};
+  function rk(n){if(mem[n.id]!=null)return mem[n.id];if(!n.ins.length)return mem[n.id]=0;return mem[n.id]=Math.max(...n.ins.map(rk))+1}
+  ns.forEach(n=>n.rank=rk(n));
+  const mxR=Math.max(...ns.map(n=>n.rank));
+  const ranks=Array.from({length:mxR+1},()=>[]);ns.forEach(n=>ranks[n.rank].push(n));
+  for(let r=1;r<=mxR;r++)ranks[r].sort((a,b)=>{
+    const ay=a.ins.reduce((s,n)=>s+n.y,0)/(a.ins.length||1);const by=b.ins.reduce((s,n)=>s+n.y,0)/(b.ins.length||1);return ay-by});
+  const H=150,V=76,M=50;const mxN=Math.max(...ranks.map(r=>r.length));const tH=(mxN-1)*V;
+  for(let r=0;r<=mxR;r++){const g=ranks[r],gh=(g.length-1)*V,sy=M+(tH-gh)/2;g.forEach((n,i)=>{n.x=M+r*H;n.y=sy+i*V})}
+  const con={};ns.forEach(n=>{if(n.rank>0)n.ins.forEach(inp=>{if(inp.rank===0)(con[inp.id]=con[inp.id]||[]).push(n)})});
+  ranks[0].sort((a,b)=>{const ay=(con[a.id]||[]).reduce((s,n)=>s+n.y,0)/((con[a.id]||[{y:0}]).length);
+    const by=(con[b.id]||[]).reduce((s,n)=>s+n.y,0)/((con[b.id]||[{y:0}]).length);return ay-by});
+  {const g=ranks[0],gh=(g.length-1)*V,sy=M+(tH-gh)/2;g.forEach((n,i)=>{n.y=sy+i*V})}
+  return{w:M*2+mxR*H+80,h:M*2+tH+40}}
+
+// =====================================================================
+//  SVG RENDERER
+// =====================================================================
+const NS='http://www.w3.org/2000/svg';
+function sv(tag,a={},txt){const e=document.createElementNS(NS,tag);for(const[k,v]of Object.entries(a))e.setAttribute(k,v);if(txt!=null)e.textContent=txt;return e}
+
+function ePt(nd,tx,ty){const dx=tx-nd.x,dy=ty-nd.y,d=Math.hypot(dx,dy);if(d===0)return{x:nd.x,y:nd.y};
+if(nd.tp==='o'){const r=26;return{x:nd.x+dx/d*r,y:nd.y+dy/d*r}}
+const hw=46,hh=21,sx=dx?hw/Math.abs(dx):1e9,sy=dy?hh/Math.abs(dy):1e9,s=Math.min(sx,sy);
+return{x:nd.x+dx*s,y:nd.y+dy*s}}
+
+function renderG(svg,g,dims,bwdAnn){
+  svg.innerHTML='';
+  const pad=20;
+  svg.setAttribute('viewBox',`${-pad} ${-pad} ${dims.w+pad*2} ${dims.h+pad*2}`);
+  svg.setAttribute('preserveAspectRatio','xMidYMid meet');
+
+  const defs=sv('defs');
+  [['ah','#94a3b8'],['ahg','#10b981'],['ahr','#f43f5e'],['ahv','#7c3aed']].forEach(([id,c])=>{
+    const m=sv('marker',{id,markerWidth:10,markerHeight:7,refX:9,refY:3.5,orient:'auto',markerUnits:'strokeWidth'});
+    m.appendChild(sv('polygon',{points:'0 0.5,10 3.5,0 6.5',fill:c}));defs.appendChild(m)});
+  const ft=sv('filter',{id:'gl',x:'-50%',y:'-50%',width:'200%',height:'200%'});
+  ft.appendChild(sv('feGaussianBlur',{stdDeviation:'4',result:'b'}));
+  const mg=sv('feMerge');mg.appendChild(sv('feMergeNode',{in:'b'}));mg.appendChild(sv('feMergeNode',{in:'SourceGraphic'}));
+  ft.appendChild(mg);defs.appendChild(ft);svg.appendChild(defs);
+
+  // Edges
+  const eG=sv('g');
+  g.ns.forEach(n=>n.ins.forEach(inp=>{
+    const f=ePt(inp,n.x,n.y),t=ePt(n,inp.x,inp.y);
+    const isActive=n.bA;const done=inp.fD&&n.fD;
+    const col=isActive?'#fda4af':done?'#86efac':'#e2e8f0';
+    const w=done?1.8:1.5;const ah=done?'url(#ahg)':'url(#ah)';
+    eG.appendChild(sv('line',{x1:f.x,y1:f.y,x2:t.x,y2:t.y,stroke:col,'stroke-width':w,'marker-end':ah}))}));
+  svg.appendChild(eG);
+
+  // Nodes
+  const nG=sv('g');
+  g.ns.forEach(n=>{
+    const grp=sv('g',{transform:`translate(${n.x},${n.y})`,'data-nid':n.id,class:'gnode',style:'cursor:pointer'});
+    let fill,stroke,sw=2;
+    if(n.fA){fill='#a7f3d0';stroke='#059669';sw=3;grp.setAttribute('filter','url(#gl)')}
+    else if(n.bA){fill='#fecdd3';stroke='#e11d48';sw=3;grp.setAttribute('filter','url(#gl)')}
+    else if(n.bD&&n.tp!=='c'){fill='#ffe4e6';stroke='#fb7185'}
+    else if(n.fD){fill='#d1fae5';stroke='#34d399'}
+    else if(n.tp==='i'){fill='#e0e7ff';stroke='#818cf8'}
+    else if(n.tp==='c'){fill='#fef3c7';stroke='#fbbf24'}
+    else{fill='#f1f5f9';stroke='#94a3b8'}
+
+    if(n.tp==='o')grp.appendChild(sv('circle',{r:26,fill,stroke,'stroke-width':sw}));
+    else{const w=Math.max(80,n.label.length*9+24);grp.appendChild(sv('rect',{x:-w/2,y:-21,width:w,height:42,rx:10,fill,stroke,'stroke-width':sw}))}
+    const fs=n.tp==='o'?(n.label.length>4?10:n.label.length>3?12:15):13;
+    grp.appendChild(sv('text',{'text-anchor':'middle','dominant-baseline':'central','font-size':fs,'font-weight':'700',fill:'#334155'},n.label));
+
+    if(n.fD&&n.val!=null){
+      grp.appendChild(sv('text',{'text-anchor':'middle',y:n.tp==='o'?40:34,'font-size':11,'font-weight':'600',
+        fill:'#059669',class:'fade-up','font-family':'JetBrains Mono,monospace'},fm(n.val)))}
+    if(n.bD&&n.tp!=='c'){
+      grp.appendChild(sv('text',{'text-anchor':'middle',y:n.tp==='o'?-34:-28,'font-size':10,'font-weight':'700',
+        fill:'#e11d48',class:'fade-up','font-family':'JetBrains Mono,monospace'},`\u2207 ${fm(n.grad)}`))
     }
-    if (a.type==='binop') {
-      const l=walk(a.left), r=walk(a.right);
-      return mk('op', a.op, OP_SYMBOLS[a.op]||a.op, [l,r]);
-    }
-    if (a.type==='unary') {
-      return mk('op', 'neg', 'neg', [walk(a.operand)]);
-    }
-    if (a.type==='call') {
-      if (!KNOWN_FUNCS.has(a.name)) throw new Error(`Unknown function: ${a.name}`);
-      return mk('op', a.name, a.name, a.args.map(walk));
-    }
-  }
-  const output = walk(ast);
-  return {nodes, varNodes, varOrder, output};
-}
+    nG.appendChild(grp)});
+  svg.appendChild(nG);
 
-function fmtNum(v) {
-  if (Number.isInteger(v) && Math.abs(v)<1000) return String(v);
-  return v.toFixed(4).replace(/\.?0+$/,'');
-}
+  // ======================== BACKWARD ANNOTATIONS ========================
+  if(bwdAnn){
+    const ann=sv('g',{class:'bwd-ann'});
+    const nd=bwdAnn.node;
 
-// =====================================================================
-// FORWARD / BACKWARD
-// =====================================================================
-function computeNodeValue(n) {
-  if (n.type==='input'||n.type==='const') return n.value;
-  const a = n.inputs[0]?.value, b = n.inputs[1]?.value;
-  switch(n.op) {
-    case 'add': return a+b;
-    case 'sub': return a-b;
-    case 'mul': return a*b;
-    case 'div': return a/b;
-    case 'neg': return -a;
-    case 'exp': return Math.exp(a);
-    case 'log': return Math.log(a);
-    case 'sigmoid': return 1/(1+Math.exp(-a));
-    case 'relu': return Math.max(0,a);
-    case 'tanh': return Math.tanh(a);
-    case 'sin': return Math.sin(a);
-    case 'cos': return Math.cos(a);
-    case 'sqrt': return Math.sqrt(a);
-    case 'abs': return Math.abs(a);
-  }
-}
+    // Upstream badge above active node
+    ann.appendChild(badge(nd.x,nd.y-(nd.tp==='o'?54:48),`upstream = ${fm(bwdAnn.upstream)}`,
+      '#e11d48','#fff',10));
 
-function localGradients(n) {
-  const u = n.grad;
-  const a = n.inputs[0]?.value, b = n.inputs[1]?.value;
-  switch(n.op) {
-    case 'add': return [{node:n.inputs[0],grad:u,local:1}, {node:n.inputs[1],grad:u,local:1}];
-    case 'sub': return [{node:n.inputs[0],grad:u,local:1}, {node:n.inputs[1],grad:-u,local:-1}];
-    case 'mul': return [{node:n.inputs[0],grad:u*b,local:b}, {node:n.inputs[1],grad:u*a,local:a}];
-    case 'div': return [{node:n.inputs[0],grad:u/b,local:1/b}, {node:n.inputs[1],grad:-u*a/(b*b),local:-a/(b*b)}];
-    case 'neg': return [{node:n.inputs[0],grad:-u,local:-1}];
-    case 'exp': return [{node:n.inputs[0],grad:u*n.value,local:n.value}];
-    case 'log': return [{node:n.inputs[0],grad:u/a,local:1/a}];
-    case 'sigmoid':return [{node:n.inputs[0],grad:u*n.value*(1-n.value),local:n.value*(1-n.value)}];
-    case 'relu': return [{node:n.inputs[0],grad:u*(a>0?1:0),local:a>0?1:0}];
-    case 'tanh': return [{node:n.inputs[0],grad:u*(1-n.value*n.value),local:1-n.value*n.value}];
-    case 'sin': return [{node:n.inputs[0],grad:u*Math.cos(a),local:Math.cos(a)}];
-    case 'cos': return [{node:n.inputs[0],grad:u*(-Math.sin(a)),local:-Math.sin(a)}];
-    case 'sqrt': return [{node:n.inputs[0],grad:u/(2*n.value),local:1/(2*n.value)}];
-    case 'abs':  return [{node:n.inputs[0],grad:u*(a>=0?1:-1),local:a>=0?1:-1}];
-    default: return [];
-  }
-}
+    // For each input: backward arrow + gradient badge
+    bwdAnn.items.forEach((item,idx)=>{
+      const inp=item.target;
+      const fx=ePt(nd,inp.x,inp.y),tx=ePt(inp,nd.x,nd.y);
+      const dx=tx.x-fx.x,dy=tx.y-fx.y,len=Math.hypot(dx,dy);
+      if(len<1)return;
+      const px=-dy/len,py=dx/len;
+      const off=11+idx*4; // offset more for 2nd input
 
-function localGradFormula(n) {
-  switch(n.op) {
-    case 'add': return ['d(a+b)/da = 1', 'd(a+b)/db = 1'];
-    case 'sub': return ['d(a-b)/da = 1', 'd(a-b)/db = -1'];
-    case 'mul': return [`d(a*b)/da = b = ${fmt(n.inputs[1]?.value)}`, `d(a*b)/db = a = ${fmt(n.inputs[0]?.value)}`];
-    case 'div': return [`d(a/b)/da = 1/b = ${fmt(1/n.inputs[1]?.value)}`, `d(a/b)/db = -a/b^2 = ${fmt(-n.inputs[0]?.value/(n.inputs[1]?.value**2))}`];
-    case 'neg': return ['d(-a)/da = -1'];
-    case 'exp': return [`d(exp(a))/da = exp(a) = ${fmt(n.value)}`];
-    case 'log': return [`d(log(a))/da = 1/a = ${fmt(1/n.inputs[0]?.value)}`];
-    case 'sigmoid': return [`d(sig(a))/da = sig(a)(1-sig(a)) = ${fmt(n.value*(1-n.value))}`];
-    case 'relu': return [`d(relu(a))/da = ${n.inputs[0]?.value>0?'1':'0'}`];
-    case 'tanh': return [`d(tanh(a))/da = 1-tanh^2(a) = ${fmt(1-n.value*n.value)}`];
-    default: return ['?'];
-  }
-}
+      // Dashed backward arrow
+      ann.appendChild(sv('line',{
+        x1:fx.x+px*off, y1:fx.y+py*off, x2:tx.x+px*off, y2:tx.y+py*off,
+        stroke:'#7c3aed','stroke-width':2.5,'stroke-dasharray':'7 4',
+        'marker-end':'url(#ahv)',opacity:.85,class:'pulse-glow'}));
 
-function fmt(v) { return v==null?'?':(Math.abs(v)<0.0001&&v!==0)?v.toExponential(3):parseFloat(v.toPrecision(6)).toString(); }
+      // Local gradient badge at 40% along arrow
+      const t1=0.35;
+      const lx=fx.x+dx*t1+px*off*2.2, ly=fx.y+dy*t1+py*off*2.2;
+      ann.appendChild(badge(lx,ly,`local = ${fm(item.local)}`,
+        '#f59e0b','#78350f',9));
 
-function topoSort(output) {
-  const visited = new Set(), order = [];
-  function visit(n) { if(visited.has(n.id))return; visited.add(n.id); n.inputs.forEach(visit); order.push(n); }
-  visit(output);
-  return order;
-}
-
-// =====================================================================
-// LAYOUT
-// =====================================================================
-function layoutGraph(graph) {
-  const {nodes, output} = graph;
-  // Compute ranks
-  const memo = {};
-  function rank(n) {
-    if (memo[n.id]!==undefined) return memo[n.id];
-    if (n.inputs.length===0) return memo[n.id]=0;
-    return memo[n.id] = Math.max(...n.inputs.map(rank)) + 1;
-  }
-  nodes.forEach(n => n.rank = rank(n));
-
-  const maxRank = Math.max(...nodes.map(n=>n.rank));
-  const ranks = Array.from({length:maxRank+1}, ()=>[]);
-  nodes.forEach(n => ranks[n.rank].push(n));
-
-  // Order within ranks: sort by average y of connected nodes in previous rank
-  for (let r=1;r<=maxRank;r++) {
-    ranks[r].sort((a,b) => {
-      const ay = a.inputs.reduce((s,n)=>s+n.y,0)/(a.inputs.length||1);
-      const by = b.inputs.reduce((s,n)=>s+n.y,0)/(b.inputs.length||1);
-      return ay-by;
+      // Downstream badge at 70% along arrow
+      const t2=0.7;
+      const dx2=fx.x+dx*t2+px*off*2.2, dy2=fx.y+dy*t2+py*off*2.2;
+      ann.appendChild(badge(dx2,dy2,`${fm(bwdAnn.upstream)}\u00D7${fm(item.local)} = ${fm(item.downstream)}`,
+        '#7c3aed','#fff',9));
     });
+
+    svg.appendChild(ann);
   }
 
-  const H_SPACE = 160, V_SPACE = 76, MARGIN = 50;
-  const maxInRank = Math.max(...ranks.map(r=>r.length));
-  const totalH = (maxInRank-1)*V_SPACE;
-
-  for (let r=0;r<=maxRank;r++) {
-    const g = ranks[r];
-    const gh = (g.length-1)*V_SPACE;
-    const startY = MARGIN + (totalH - gh)/2;
-    g.forEach((n,i) => { n.x = MARGIN + r*H_SPACE; n.y = startY + i*V_SPACE; });
-  }
-
-  // Second pass: reorder ranks 0 by connected nodes' positions
-  for (let r=0;r<=0;r++) {
-    const consumers = {};
-    nodes.forEach(n => { if(n.rank>0) n.inputs.forEach(inp => { if(inp.rank===r) { if(!consumers[inp.id]) consumers[inp.id]=[]; consumers[inp.id].push(n); } }); });
-    ranks[r].sort((a,b) => {
-      const ay = (consumers[a.id]||[]).reduce((s,n)=>s+n.y,0)/((consumers[a.id]||[1]).length);
-      const by = (consumers[b.id]||[]).reduce((s,n)=>s+n.y,0)/((consumers[b.id]||[1]).length);
-      return ay-by;
-    });
-    const g = ranks[r], gh=(g.length-1)*V_SPACE, startY=MARGIN+(totalH-gh)/2;
-    g.forEach((n,i)=>{n.y=startY+i*V_SPACE;});
-  }
-
-  return {
-    width: MARGIN*2 + maxRank*H_SPACE + 80,
-    height: MARGIN*2 + totalH + 40
-  };
+  // Tooltip events
+  nG.querySelectorAll('.gnode').forEach(grp=>{
+    grp.addEventListener('mouseenter',e=>{const nid=parseInt(grp.dataset.nid);showTT(e,g.ns.find(n=>n.id===nid))});
+    grp.addEventListener('mousemove',e=>{const tt=$('tooltip');tt.style.left=(e.clientX+12)+'px';tt.style.top=(e.clientY+12)+'px'});
+    grp.addEventListener('mouseleave',()=>{$('tooltip').style.display='none'})});
 }
 
-// =====================================================================
-// SVG RENDERER
-// =====================================================================
-const SVG_NS = 'http://www.w3.org/2000/svg';
-function svgEl(tag, attrs={}, text) {
-  const el = document.createElementNS(SVG_NS, tag);
-  for (const [k,v] of Object.entries(attrs)) el.setAttribute(k,v);
-  if (text!==undefined) el.textContent = text;
-  return el;
-}
+function badge(cx,cy,text,bg,fg,fs=10){
+  const g=sv('g');
+  const tw=text.length*fs*0.56+16,th=fs+10;
+  g.appendChild(sv('rect',{x:cx-tw/2,y:cy-th/2,width:tw,height:th,rx:th/2,fill:bg,opacity:.93,
+    filter:'drop-shadow(0 1px 3px rgba(0,0,0,0.2))'}));
+  g.appendChild(sv('text',{x:cx,y:cy+1,'text-anchor':'middle','dominant-baseline':'central',
+    'font-size':fs,'font-weight':'700',fill:fg,'font-family':'JetBrains Mono,monospace'},text));
+  return g}
 
-function edgePoint(node, targetX, targetY) {
-  const dx=targetX-node.x, dy=targetY-node.y, dist=Math.hypot(dx,dy);
-  if(dist===0) return {x:node.x, y:node.y};
-  if (node.type==='op') {
-    const r=25;
-    return {x:node.x+dx/dist*r, y:node.y+dy/dist*r};
-  }
-  // Rectangle: 90x40 with rx=8
-  const hw=45, hh=20;
-  const sx=dx!==0?hw/Math.abs(dx):1e9, sy=dy!==0?hh/Math.abs(dy):1e9;
-  const s=Math.min(sx,sy);
-  return {x:node.x+dx*s, y:node.y+dy*s};
-}
-
-function renderGraph(svg, graph, dims) {
-  svg.innerHTML = '';
-  svg.setAttribute('viewBox', `0 0 ${dims.width} ${dims.height}`);
-  svg.setAttribute('width', dims.width);
-  svg.setAttribute('height', Math.max(dims.height, 350));
-
-  // Defs
-  const defs = svgEl('defs');
-  // Forward arrowhead
-  const marker = svgEl('marker', {id:'ah',markerWidth:10,markerHeight:7,refX:9,refY:3.5,orient:'auto',markerUnits:'strokeWidth'});
-  marker.appendChild(svgEl('polygon',{points:'0 0, 10 3.5, 0 7',fill:'#999'}));
-  defs.appendChild(marker);
-  // Backward arrowhead
-  const markerR = svgEl('marker', {id:'ah-red',markerWidth:10,markerHeight:7,refX:9,refY:3.5,orient:'auto',markerUnits:'strokeWidth'});
-  markerR.appendChild(svgEl('polygon',{points:'0 0, 10 3.5, 0 7',fill:'#c62828'}));
-  defs.appendChild(markerR);
-  // Glow filter
-  const filt = svgEl('filter',{id:'glow',x:'-50%',y:'-50%',width:'200%',height:'200%'});
-  const blur = svgEl('feGaussianBlur',{stdDeviation:'3',result:'blur'});
-  filt.appendChild(blur);
-  const merge = svgEl('feMerge');
-  merge.appendChild(svgEl('feMergeNode',{in:'blur'}));
-  merge.appendChild(svgEl('feMergeNode',{in:'SourceGraphic'}));
-  filt.appendChild(merge);
-  defs.appendChild(filt);
-  svg.appendChild(defs);
-
-  // Edge layer
-  const edgeG = svgEl('g', {class:'edges'});
-  graph.nodes.forEach(n => {
-    n.inputs.forEach((inp,idx) => {
-      const from = edgePoint(inp, n.x, n.y);
-      const to = edgePoint(n, inp.x, inp.y);
-      const isActiveBwd = n.bwdActive;
-      const color = isActiveBwd ? '#c62828' : (inp.fwdComputed&&n.fwdComputed?'#66bb6a':'#ccc');
-      const width = isActiveBwd ? 2.5 : (inp.fwdComputed&&n.fwdComputed?2:1.5);
-      const line = svgEl('line',{x1:from.x,y1:from.y,x2:to.x,y2:to.y,stroke:color,'stroke-width':width,'marker-end':isActiveBwd?'url(#ah-red)':'url(#ah)'});
-      edgeG.appendChild(line);
-    });
-  });
-  svg.appendChild(edgeG);
-
-  // Node layer
-  const nodeG = svgEl('g', {class:'nodes'});
-  graph.nodes.forEach(n => {
-    const g = svgEl('g', {transform:`translate(${n.x},${n.y})`});
-
-    // Determine colors
-    let fill, stroke, strokeW=2;
-    if (n.fwdActive) { fill='#a5d6a7'; stroke='#2e7d32'; strokeW=3; g.setAttribute('filter','url(#glow)'); }
-    else if (n.bwdActive) { fill='#ef9a9a'; stroke='#c62828'; strokeW=3; g.setAttribute('filter','url(#glow)'); }
-    else if (n.bwdComputed && n.type!=='const') { fill='#ffcdd2'; stroke='#e57373'; }
-    else if (n.fwdComputed) { fill='#c8e6c9'; stroke='#66bb6a'; }
-    else if (n.type==='input') { fill='#e3f2fd'; stroke='#1565c0'; }
-    else if (n.type==='const') { fill='#fff3e0'; stroke='#ef6c00'; }
-    else { fill='#f5f5f5'; stroke='#9e9e9e'; }
-
-    // Shape
-    if (n.type==='op') {
-      g.appendChild(svgEl('circle',{r:25,fill,stroke,'stroke-width':strokeW}));
-    } else {
-      const w = Math.max(70, n.label.length*10+20);
-      g.appendChild(svgEl('rect',{x:-w/2,y:-20,width:w,height:40,rx:8,fill,stroke,'stroke-width':strokeW}));
-    }
-
-    // Label
-    const labelSize = n.type==='op'?(n.label.length>3?11:14):13;
-    g.appendChild(svgEl('text',{'text-anchor':'middle','dominant-baseline':'central','font-size':labelSize,'font-weight':'bold',fill:'#333'}, n.label));
-
-    // Value (shown after forward compute)
-    if (n.fwdComputed && n.value!=null) {
-      const vt = svgEl('text',{'text-anchor':'middle',y:n.type==='op'?38:32,'font-size':11,'font-weight':'600',fill:'#2e7d32',class:'fade-in'}, `= ${fmt(n.value)}`);
-      g.appendChild(vt);
-    }
-
-    // Gradient (shown after backward compute)
-    if (n.bwdComputed && n.type!=='const') {
-      const gt = svgEl('text',{'text-anchor':'middle',y:n.type==='op'?-32:-28,'font-size':10,'font-weight':'700',fill:'#c62828',class:'fade-in'}, `grad: ${fmt(n.grad)}`);
-      g.appendChild(gt);
-    }
-
-    nodeG.appendChild(g);
-  });
-  svg.appendChild(nodeG);
-}
+function showTT(e,n){if(!n)return;const tt=$('tooltip');
+let h=`<b style="color:#a5b4fc">${n.tp==='o'?n.op:n.label}</b> <span style="opacity:.4">#${n.id}</span>`;
+if(n.val!=null)h+=`<br>Val: <span style="color:#6ee7b7">${fm(n.val)}</span>`;
+if(n.bD&&n.tp!=='c')h+=`<br>Grad: <span style="color:#fca5a5">${fm(n.grad)}</span>`;
+tt.innerHTML=h;tt.style.display='block';tt.style.left=(e.clientX+12)+'px';tt.style.top=(e.clientY+12)+'px'}
 
 // =====================================================================
-// APP CONTROLLER
+//  EXAMPLES
 // =====================================================================
-const EXAMPLES = [
-  {name:'Simple: (x * y) + z', expr:'(x * y) + z', vars:{x:2,y:3,z:4}},
-  {name:'Quadratic: (x - t)^2', expr:'(x - t) * (x - t)', vars:{x:2.5,t:3}},
-  {name:'Single Neuron', expr:'sigmoid(w1 * x1 + w2 * x2 + b)', vars:{w1:0.5,w2:-0.3,x1:1,x2:2,b:0.1}},
-  {name:'ReLU Neuron', expr:'relu(w * x + b)', vars:{w:1.5,x:-1,b:0.5}},
-  {name:'Logistic Loss', expr:'neg(log(sigmoid(theta0 + theta1 * x1 + theta2 * x2)))', vars:{theta0:1,theta1:1,theta2:2,x1:1,x2:2}},
-  {name:'Cross-Entropy (expanded)', expr:'neg(log(1 / (1 + exp(neg(theta0 + theta1 * x1 + theta2 * x2)))))', vars:{theta0:1,theta1:1,theta2:2,x1:1,x2:2}},
-  {name:'Softplus', expr:'log(1 + exp(x))', vars:{x:2}},
-  {name:'Huber-like', expr:'sqrt(x * x + 0.01)', vars:{x:0.5}},
+const EX=[
+  {n:'Simple',        e:'(x * y) + z',   v:{x:2,y:3,z:4},         d:'Multiply then add'},
+  {n:'MSE Loss',      e:'(pred - target) * (pred - target)', v:{pred:2.5,target:3}, d:'Squared error'},
+  {n:'Sigmoid Neuron', e:'sigmoid(w1 * x1 + w2 * x2 + b)', v:{w1:0.5,w2:-0.3,x1:1,x2:2,b:0.1}, d:'Single neuron'},
+  {n:'ReLU Neuron',   e:'relu(w * x + b)', v:{w:1.5,x:-1,b:0.5},   d:'ReLU activation'},
+  {n:'Logistic Loss',  e:'-log(sigmoid(w * x + b))', v:{w:1,x:2,b:-1}, d:'Binary cross-entropy'},
+  {n:'CE (expanded)',  e:'-log(1 / (1 + exp(-(theta0 + theta1 * x1 + theta2 * x2))))', v:{theta0:1,theta1:1,theta2:2,x1:1,x2:2}, d:'Full logistic loss'},
+  {n:'Softplus',      e:'log(1 + exp(x))', v:{x:2},                d:'Smooth ReLU'},
+  {n:'Polynomial',    e:'x*x*x - 2*x*x + 3*x + 1', v:{x:2},       d:'Cubic x\u00B3-2x\u00B2+3x+1'},
+  {n:'Huber-like',    e:'sqrt(x * x + 0.01)', v:{x:0.5},           d:'Smooth L1'},
+  {n:'Tanh Neuron',   e:'tanh(w * x + b)', v:{w:1,x:0.5,b:0},      d:'Tanh activation'},
 ];
 
-let state = {
-  graph: null,
-  topo: [],
-  fwdStep: 0,
-  bwdStep: 0,
-  phase: 'idle', // idle, forward, fwd_done, backward, bwd_done
-  dims: null,
-};
+// =====================================================================
+//  APP
+// =====================================================================
+let S={g:null,tp:[],fi:0,bi:0,ph:'idle',dm:null,bwdAnn:null};
+let pTimer=null;
+const $=id=>document.getElementById(id);
 
-const $ = id => document.getElementById(id);
-const svg = $('graph-svg');
-const infoBox = $('info-box');
-const stepBadge = $('step-badge');
+function initEx(){const row=$('examples-row');EX.forEach((x,i)=>{
+  const b=document.createElement('button');b.className='ex-btn';b.textContent=x.n;b.title=x.d;
+  b.addEventListener('click',()=>loadEx(i));row.appendChild(b)})}
 
-function initExamples() {
-  const sel = $('example-select');
-  EXAMPLES.forEach((ex,i) => {
-    const opt = document.createElement('option');
-    opt.value = i; opt.textContent = ex.name;
-    sel.appendChild(opt);
-  });
-  sel.addEventListener('change', () => {
-    const ex = EXAMPLES[sel.value];
-    if(!ex) return;
-    $('expr-input').value = ex.expr;
-    buildGraphFromInput(ex.vars);
-  });
-}
+function loadEx(i){document.querySelectorAll('.ex-btn').forEach((b,j)=>b.classList.toggle('active',j===i));
+$('expr-input').value=EX[i].e;buildFrom(EX[i].v)}
 
-function buildGraphFromInput(defaultVars) {
-  const expr = $('expr-input').value.trim();
-  if (!expr) { showInfo('Type an expression or select an example.',''); return; }
-  try {
-    const tokens = tokenize(expr);
-    const ast = parse(tokens);
-    const graph = buildGraph(ast);
+function buildFrom(dv){
+  const expr=$('expr-input').value.trim();if(!expr){info('Type an expression.','');return}
+  stopP();
+  try{const ast=parse(tokenize(expr));const g=buildG(ast);
+    const bar=$('var-bar');bar.innerHTML='';
+    g.vo.forEach(nm=>{const ch=document.createElement('div');ch.className='var-chip';
+      const sp=document.createElement('span');sp.textContent=nm+' =';ch.appendChild(sp);
+      const inp=document.createElement('input');inp.type='number';inp.step='any';inp.value=dv?.[nm]??1;
+      inp.dataset.v=nm;inp.addEventListener('change',()=>resetS());ch.appendChild(inp);bar.appendChild(ch)});
+    S.g=g;S.tp=topo(g.out);S.dm=layoutG(g);resetS();
+    $('graph-empty').style.display='none';$('graph-svg').style.display='block';$('legend').style.display='flex';
+    info('Graph built! Press F or click Fwd to start.','');
+  }catch(e){info('Error: '+e.message,'err')}}
 
-    // Populate variable inputs
-    const panel = $('var-panel');
-    panel.innerHTML = '';
-    if (graph.varOrder.length>0) {
-      const lbl = document.createElement('span');
-      lbl.style.cssText='font-size:12px;font-weight:700;color:#777;margin-right:4px';
-      lbl.textContent='Variables:';
-      panel.appendChild(lbl);
-    }
-    graph.varOrder.forEach(name => {
-      const chip = document.createElement('div');
-      chip.className='var-chip';
-      chip.innerHTML = `<span>${name}</span> = `;
-      const inp = document.createElement('input');
-      inp.type='number'; inp.step='any';
-      inp.value = defaultVars?.[name] ?? 1;
-      inp.style.cssText='width:65px;padding:3px 6px;border:1px solid #90caf9;border-radius:4px;font-size:13px;text-align:center';
-      inp.dataset.varName = name;
-      inp.addEventListener('change', () => resetState());
-      chip.appendChild(inp);
-      panel.appendChild(chip);
-    });
+function resetS(){if(!S.g)return;stopP();S.fi=0;S.bi=0;S.ph='idle';S.bwdAnn=null;
+  S.g.ns.forEach(n=>{n.fD=false;n.bD=false;n.fA=false;n.bA=false;n.grad=0;
+    if(n.tp==='c')n.val=n.val;else if(n.tp==='i')n.val=null;else n.val=null});
+  $('var-bar').querySelectorAll('input').forEach(inp=>{const nm=inp.dataset.v;if(S.g.vs[nm])S.g.vs[nm].val=parseFloat(inp.value)||0});
+  upUI();renderG($('graph-svg'),S.g,S.dm,null);$('grad-card').style.display='none';$('chain-rule-area').innerHTML=''}
 
-    // Set constant values
-    graph.nodes.forEach(n => {
-      if (n.type==='const') n.value = parseFloat(n.label);
-    });
+function fwdStep(){
+  if(!S.g)return;if(S.ph==='idle')S.ph='forward';if(S.ph!=='forward')return;
+  S.g.ns.forEach(n=>n.fA=false);S.bwdAnn=null;
+  if(S.fi>=S.tp.length){S.ph='fwd_done';upUI();return}
+  const nd=S.tp[S.fi];
+  if(nd.tp!=='i'&&nd.tp!=='c')nd.val=compV(nd);
+  nd.fD=true;nd.fA=true;
+  if(nd.tp==='i')info(`Fwd ${S.fi+1}/${S.tp.length}: Input "${nd.label}" = ${fm(nd.val)}`,'fwd');
+  else if(nd.tp==='c')info(`Fwd ${S.fi+1}/${S.tp.length}: Const = ${fm(nd.val)}`,'fwd');
+  else info(`Fwd ${S.fi+1}/${S.tp.length}: ${descOp(nd)}\n= ${fm(nd.val)}`,'fwd');
+  $('chain-rule-area').innerHTML='';
+  S.fi++;if(S.fi>=S.tp.length)S.ph='fwd_done';
+  upUI();renderG($('graph-svg'),S.g,S.dm,null)}
 
-    state.graph = graph;
-    state.topo = topoSort(graph.output);
-    state.dims = layoutGraph(graph);
-    resetState();
-    $('legend').style.display='flex';
-    showInfo('Graph built! Click "Forward Step" to begin the forward pass.','');
-  } catch(e) {
-    showInfo('Error: ' + e.message, 'err');
-  }
-}
+function fwdAll(){if(!S.g)return;stopP();S.g.ns.forEach(n=>n.fA=false);S.bwdAnn=null;
+  while(S.fi<S.tp.length){const n=S.tp[S.fi];if(n.tp!=='i'&&n.tp!=='c')n.val=compV(n);n.fD=true;S.fi++}
+  S.ph='fwd_done';info(`Forward complete. Output = ${fm(S.g.out.val)}\n\nPress B or Bwd to compute gradients.`,'fwd');
+  $('chain-rule-area').innerHTML='';upUI();renderG($('graph-svg'),S.g,S.dm,null)}
 
-function resetState() {
-  if(!state.graph) return;
-  state.fwdStep = 0;
-  state.bwdStep = 0;
-  state.phase = 'idle';
+function bwdStep(){
+  if(!S.g)return;
+  if(S.ph==='fwd_done'){S.ph='backward';S.g.out.grad=1;S.bi=0}
+  if(S.ph!=='backward')return;
+  S.g.ns.forEach(n=>n.bA=false);
+  const rev=[...S.tp].reverse();
+  if(S.bi>=rev.length){S.ph='bwd_done';upUI();return}
+  const nd=rev[S.bi];nd.bA=true;nd.bD=true;
 
-  state.graph.nodes.forEach(n => {
-    n.fwdComputed = false; n.bwdComputed = false;
-    n.fwdActive = false; n.bwdActive = false;
-    n.grad = 0;
-    if (n.type==='const') { n.value = parseFloat(n.label); }
-    else if (n.type==='input') { n.value = null; }
-    else { n.value = null; }
-  });
+  if(nd.tp==='o'){
+    const upstream=nd.grad;
+    const grads=lgrads(nd),descs=gfDesc(nd);
+    const items=grads.map((gr,i)=>({target:gr.t,local:gr.l,downstream:gr.g,desc:descs[i]||''}));
 
-  // Read variable values from inputs
-  const inputs = $('var-panel').querySelectorAll('input');
-  inputs.forEach(inp => {
-    const name = inp.dataset.varName;
-    if (state.graph.varNodes[name]) {
-      state.graph.varNodes[name].value = parseFloat(inp.value) || 0;
-    }
-  });
+    // Store annotation for SVG rendering
+    S.bwdAnn={node:nd,upstream,items};
 
-  updateButtons();
-  renderGraph(svg, state.graph, state.dims);
-  stepBadge.textContent = 'Ready';
-  $('grad-panel').style.display='none';
-  showInfo('Click "Forward Step" to compute values node by node.','');
-}
+    // Propagate
+    grads.forEach(gr=>gr.t.grad+=gr.g);
 
-function forwardStep() {
-  if(!state.graph) return;
-  if(state.phase==='idle') state.phase='forward';
-  if(state.phase!=='forward') return;
+    // Info text
+    const posLabel=(n,i)=>{const p=nd.ins.length>1?['Left','Right'][i]:'';return`${p} "${n.label}" (=${fm(n.val)})`};
+    let txt=`Bwd ${S.bi+1}/${rev.length}: ${nd.op} node\n`;
+    txt+=`Accumulated grad = ${fm(upstream)}\n`;
+    info(txt,'bwd');
 
-  // Clear previous active
-  state.graph.nodes.forEach(n => n.fwdActive=false);
-
-  if(state.fwdStep >= state.topo.length) {
-    state.phase='fwd_done';
-    updateButtons();
-    return;
-  }
-
-  const node = state.topo[state.fwdStep];
-  if (node.type==='input'||node.type==='const') {
-    // Value already set
-    node.fwdComputed = true;
-    node.fwdActive = true;
-    if(node.type==='input') showInfo(`Forward ${state.fwdStep+1}/${state.topo.length}: Input "${node.label}" = ${fmt(node.value)}`,'fwd');
-    else showInfo(`Forward ${state.fwdStep+1}/${state.topo.length}: Constant = ${fmt(node.value)}`,'fwd');
+    // Chain rule visual in sidebar
+    renderChainRule(nd,upstream,items);
+  } else if(nd.tp==='i'){
+    S.bwdAnn=null;
+    info(`Bwd ${S.bi+1}/${rev.length}: Variable "${nd.label}"\n\u2207 = ${fm(nd.grad)}`,'bwd');
+    $('chain-rule-area').innerHTML='';
   } else {
-    node.value = computeNodeValue(node);
-    node.fwdComputed = true;
-    node.fwdActive = true;
-    const inputVals = node.inputs.map(n=>`${fmt(n.value)}`).join(', ');
-    const opDesc = describeOp(node);
-    showInfo(`Forward ${state.fwdStep+1}/${state.topo.length}: ${opDesc}\n= ${fmt(node.value)}`,'fwd');
+    S.bwdAnn=null;
+    info(`Bwd ${S.bi+1}/${rev.length}: Constant ${nd.label}`,'bwd');
+    $('chain-rule-area').innerHTML='';
   }
+  S.bi++;if(S.bi>=rev.length){S.ph='bwd_done';showGT()}
+  upUI();renderG($('graph-svg'),S.g,S.dm,S.bwdAnn)}
 
-  state.fwdStep++;
-  if(state.fwdStep>=state.topo.length) state.phase='fwd_done';
-  stepBadge.textContent = `Forward ${state.fwdStep}/${state.topo.length}`;
-  updateButtons();
-  renderGraph(svg, state.graph, state.dims);
-}
+function bwdAll(){if(!S.g)return;stopP();
+  if(S.ph==='fwd_done'){S.ph='backward';S.g.out.grad=1;S.bi=0}
+  if(S.ph!=='backward')return;
+  S.g.ns.forEach(n=>n.bA=false);S.bwdAnn=null;
+  const rev=[...S.tp].reverse();
+  while(S.bi<rev.length){const nd=rev[S.bi];nd.bD=true;
+    if(nd.tp==='o')lgrads(nd).forEach(gr=>gr.t.grad+=gr.g);S.bi++}
+  S.ph='bwd_done';info('Backward complete! All gradients computed.','bwd');
+  $('chain-rule-area').innerHTML='';showGT();upUI();renderG($('graph-svg'),S.g,S.dm,null)}
 
-function forwardAll() {
-  if(!state.graph) return;
-  state.graph.nodes.forEach(n=>n.fwdActive=false);
-  while(state.fwdStep < state.topo.length) {
-    const node = state.topo[state.fwdStep];
-    if(node.type!=='input'&&node.type!=='const') node.value=computeNodeValue(node);
-    node.fwdComputed=true;
-    state.fwdStep++;
-  }
-  state.phase='fwd_done';
-  stepBadge.textContent = `Forward ${state.fwdStep}/${state.topo.length}`;
-  showInfo(`Forward pass complete! Output = ${fmt(state.graph.output.value)}\n\nClick "Backward Step" to compute gradients.`,'fwd');
-  updateButtons();
-  renderGraph(svg, state.graph, state.dims);
-}
-
-function backwardStep() {
-  if(!state.graph) return;
-  if(state.phase==='fwd_done') {
-    state.phase='backward';
-    state.graph.output.grad = 1;
-    state.bwdStep = 0;
-  }
-  if(state.phase!=='backward') return;
-
-  // Clear previous active
-  state.graph.nodes.forEach(n => {n.bwdActive=false;});
-
-  const revTopo = [...state.topo].reverse();
-  if(state.bwdStep >= revTopo.length) {
-    state.phase='bwd_done';
-    updateButtons();
-    return;
-  }
-
-  const node = revTopo[state.bwdStep];
-  node.bwdActive = true;
-  node.bwdComputed = true;
-
-  if (node.type==='op') {
-    const grads = localGradients(node);
-    const formulas = localGradFormula(node);
-    let info = `Backward ${state.bwdStep+1}/${revTopo.length}: Processing "${node.label}" (${node.op})\n`;
-    info += `This node's gradient: ${fmt(node.grad)}\n\n`;
-    grads.forEach((g,i) => {
-      g.node.grad += g.grad;
-      info += `  -> ${g.node.label}: upstream(${fmt(node.grad)}) x local(${fmt(g.local)}) = ${fmt(g.grad)}\n`;
-      info += `     ${formulas[i]||''}\n`;
-    });
-    showInfo(info,'bwd');
-  } else if (node.type==='input') {
-    showInfo(`Backward ${state.bwdStep+1}/${revTopo.length}: Input "${node.label}"\nAccumulated gradient: ${fmt(node.grad)}`,'bwd');
-  } else {
-    showInfo(`Backward ${state.bwdStep+1}/${revTopo.length}: Constant ${node.label}\nGradient: ${fmt(node.grad)} (not trainable)`,'bwd');
-  }
-
-  state.bwdStep++;
-  if(state.bwdStep>=revTopo.length) {
-    state.phase='bwd_done';
-    showGradTable();
-  }
-  stepBadge.textContent = `Backward ${state.bwdStep}/${revTopo.length}`;
-  updateButtons();
-  renderGraph(svg, state.graph, state.dims);
-}
-
-function backwardAll() {
-  if(!state.graph) return;
-  if(state.phase==='fwd_done') {
-    state.phase='backward';
-    state.graph.output.grad = 1;
-    state.bwdStep = 0;
-  }
-  if(state.phase!=='backward') return;
-
-  state.graph.nodes.forEach(n=>n.bwdActive=false);
-  const revTopo = [...state.topo].reverse();
-  while(state.bwdStep < revTopo.length) {
-    const node = revTopo[state.bwdStep];
-    node.bwdComputed = true;
-    if(node.type==='op') {
-      localGradients(node).forEach(g => g.node.grad += g.grad);
-    }
-    state.bwdStep++;
-  }
-  state.phase='bwd_done';
-  stepBadge.textContent = `Backward ${state.bwdStep}/${revTopo.length}`;
-  showInfo(`Backward pass complete! All gradients computed.\n\nSee the gradient table below.`,'bwd');
-  showGradTable();
-  updateButtons();
-  renderGraph(svg, state.graph, state.dims);
-}
-
-function showGradTable() {
-  const panel = $('grad-panel');
-  const tbody = $('grad-table').querySelector('tbody');
-  tbody.innerHTML='';
-  state.graph.varOrder.forEach(name => {
-    const n = state.graph.varNodes[name];
-    const tr = document.createElement('tr');
-    tr.innerHTML = `<td><strong>${name}</strong></td><td class="grad-val">${fmt(n.value)}</td><td class="grad-grad">${fmt(n.grad)}</td>`;
-    tbody.appendChild(tr);
+function renderChainRule(nd,upstream,items){
+  const area=$('chain-rule-area');
+  let h='<div class="chain-rule"><div style="font-weight:700;margin-bottom:6px;color:#334155">Chain Rule at this node:</div>';
+  items.forEach((it,i)=>{
+    const label=nd.ins.length>1?['Left','Right'][i]+': ':'';
+    h+=`<div class="cr-row">
+      <span style="color:#64748b;font-size:10px;min-width:36px">${label}</span>
+      <span class="cr-pill cr-upstream">${fm(upstream)}</span>
+      <span class="cr-arrow">\u00D7</span>
+      <span class="cr-pill cr-local">${fm(it.local)}</span>
+      <span class="cr-arrow">=</span>
+      <span class="cr-pill cr-downstream">${fm(it.downstream)}</span>
+      <span class="cr-arrow">\u2192</span>
+      <span style="font-weight:600;font-size:11px">${it.target.label}</span>
+    </div>`;
+    h+=`<div style="font-size:10px;color:#94a3b8;margin:0 0 4px 40px">${it.desc}</div>`;
   });
-  panel.style.display='block';
-}
+  h+=`<div style="margin-top:6px;padding-top:6px;border-top:1px solid #e2e8f0;font-size:10px;color:#94a3b8;font-weight:600">
+    <span class="cr-pill cr-upstream">upstream</span> \u00D7
+    <span class="cr-pill cr-local">local</span> =
+    <span class="cr-pill cr-downstream">downstream</span></div></div>`;
+  area.innerHTML=h}
 
-function describeOp(node) {
-  const names = node.inputs.map(n => {
-    if(n.type==='input') return n.label;
-    if(n.type==='const') return n.label;
-    return `(${fmt(n.value)})`;
-  });
-  const vals = node.inputs.map(n => fmt(n.value));
-  switch(node.op) {
-    case 'add': return `${names[0]} + ${names[1]} = ${vals[0]} + ${vals[1]}`;
-    case 'sub': return `${names[0]} - ${names[1]} = ${vals[0]} - ${vals[1]}`;
-    case 'mul': return `${names[0]} * ${names[1]} = ${vals[0]} * ${vals[1]}`;
-    case 'div': return `${names[0]} / ${names[1]} = ${vals[0]} / ${vals[1]}`;
-    case 'neg': return `-(${names[0]}) = -(${vals[0]})`;
-    default: return `${node.op}(${names.join(', ')}) = ${node.op}(${vals.join(', ')})`;
-  }
-}
+function descOp(nd){
+  const nm=i=>{const n=nd.ins[i];return n.tp==='i'?n.label:n.tp==='c'?n.label:fm(n.val)};
+  const vl=i=>fm(nd.ins[i].val);
+  if(nd.ins.length===2)return`${nm(0)} ${nd.label} ${nm(1)}  =  ${vl(0)} ${nd.label} ${vl(1)}`;
+  if(nd.ins.length===1)return`${nd.op}(${nm(0)})  =  ${nd.op}(${vl(0)})`;
+  return`${nd.op}(${nd.ins.map((_,i)=>vl(i)).join(', ')})`}
 
-function showInfo(text, type) {
-  infoBox.textContent = text;
-  infoBox.className = 'info-box' + (type==='fwd'?' info-fwd':type==='bwd'?' info-bwd':type==='err'?' info-err':'');
-}
+function info(t,tp){const b=$('info-box');b.textContent=t;b.className='info-box'+(tp==='fwd'?' fwd':tp==='bwd'?' bwd':tp==='err'?' err':'')}
 
-function updateButtons() {
-  const p = state.phase;
-  const hasGraph = !!state.graph;
-  $('btn-fwd-step').disabled = !hasGraph || (p!=='idle' && p!=='forward');
-  $('btn-fwd-all').disabled = !hasGraph || (p!=='idle' && p!=='forward');
-  $('btn-bwd-step').disabled = !hasGraph || (p!=='fwd_done' && p!=='backward');
-  $('btn-bwd-all').disabled = !hasGraph || (p!=='fwd_done' && p!=='backward');
-  $('btn-reset').disabled = !hasGraph;
-}
+function showGT(){const tb=$('grad-table').querySelector('tbody');tb.innerHTML='';
+  S.g.vo.forEach(nm=>{const n=S.g.vs[nm];const tr=document.createElement('tr');
+    tr.innerHTML=`<td style="font-weight:700">${nm}</td><td class="v-val">${fm(n.val)}</td><td class="v-grad" style="text-align:right">${fm(n.grad)}</td>`;
+    tb.appendChild(tr)});$('grad-card').style.display='block'}
 
-// =====================================================================
-// EVENT HANDLERS
-// =====================================================================
-$('btn-build').addEventListener('click', () => buildGraphFromInput());
-$('btn-reset').addEventListener('click', resetState);
-$('btn-fwd-step').addEventListener('click', forwardStep);
-$('btn-fwd-all').addEventListener('click', forwardAll);
-$('btn-bwd-step').addEventListener('click', backwardStep);
-$('btn-bwd-all').addEventListener('click', backwardAll);
-$('expr-input').addEventListener('keydown', e => { if(e.key==='Enter') buildGraphFromInput(); });
+function toggleP(){if(pTimer){stopP();return}
+  const d=parseInt($('speed').value);$('btn-play').classList.add('playing');$('btn-play').innerHTML='&#9646;&#9646;';
+  pTimer=setInterval(()=>{if(S.ph==='idle'||S.ph==='forward')fwdStep();
+    else if(S.ph==='fwd_done'||S.ph==='backward')bwdStep();if(S.ph==='bwd_done')stopP()},d)}
+function stopP(){if(pTimer){clearInterval(pTimer);pTimer=null}$('btn-play').classList.remove('playing');$('btn-play').innerHTML='&#9654;'}
 
-// Keyboard shortcuts
-document.addEventListener('keydown', e => {
-  if (e.target.tagName==='INPUT'||e.target.tagName==='SELECT') return;
-  if (e.key==='f'||e.key==='F') forwardStep();
-  if (e.key==='b'||e.key==='B') backwardStep();
-  if (e.key==='r'||e.key==='R') resetState();
-  if (e.key===' ') { e.preventDefault(); if(state.phase==='idle'||state.phase==='forward') forwardStep(); else backwardStep(); }
-});
+function upUI(){const p=S.ph,h=!!S.g;
+  $('btn-fwd-step').disabled=!h||(p!=='idle'&&p!=='forward');$('btn-fwd-all').disabled=!h||(p!=='idle'&&p!=='forward');
+  $('btn-bwd-step').disabled=!h||(p!=='fwd_done'&&p!=='backward');$('btn-bwd-all').disabled=!h||(p!=='fwd_done'&&p!=='backward');
+  $('btn-reset').disabled=!h;$('btn-play').disabled=!h||p==='bwd_done';
+  const pf=$('pbar'),total=S.tp.length||1;
+  if(p==='idle'){pf.style.width='0%';pf.className='progress-fill'}
+  else if(p==='forward'||p==='fwd_done'){pf.style.width=`${(S.fi/total)*50}%`;pf.className='progress-fill fwd'}
+  else{pf.style.width=`${50+(S.bi/total)*50}%`;pf.className='progress-fill bwd'}}
 
 // =====================================================================
-// INIT
+//  EVENTS
 // =====================================================================
-initExamples();
-updateButtons();
-// Auto-load first example
-$('example-select').value = 0;
-$('expr-input').value = EXAMPLES[0].expr;
-buildGraphFromInput(EXAMPLES[0].vars);
+$('btn-build').addEventListener('click',()=>buildFrom());
+$('btn-reset').addEventListener('click',resetS);
+$('btn-fwd-step').addEventListener('click',fwdStep);
+$('btn-fwd-all').addEventListener('click',fwdAll);
+$('btn-bwd-step').addEventListener('click',bwdStep);
+$('btn-bwd-all').addEventListener('click',bwdAll);
+$('btn-play').addEventListener('click',toggleP);
+$('expr-input').addEventListener('keydown',e=>{if(e.key==='Enter')buildFrom()});
+document.addEventListener('keydown',e=>{if(e.target.tagName==='INPUT'||e.target.tagName==='SELECT')return;
+  if(e.key==='f'||e.key==='F')fwdStep();if(e.key==='b'||e.key==='B')bwdStep();
+  if(e.key==='r'||e.key==='R')resetS();if(e.key===' '){e.preventDefault();toggleP()}});
+
+// =====================================================================
+//  INIT
+// =====================================================================
+initEx();upUI();loadEx(0);
 </script>
 </body>
 </html>
