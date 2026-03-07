@@ -31,13 +31,14 @@ header h1 span{opacity:.5;font-weight:500;font-size:14px}
 
 /* Top controls */
 .top-bar{flex-shrink:0;background:#fff;border-bottom:1px solid var(--s200);padding:8px 16px}
-.examples-row{display:flex;gap:6px;overflow-x:auto;padding:2px 0;scrollbar-width:thin}
+.examples-row{display:flex;gap:8px;overflow-x:auto;padding:4px 0;scrollbar-width:thin}
 .examples-row::-webkit-scrollbar{height:4px}
 .examples-row::-webkit-scrollbar-thumb{background:var(--s300);border-radius:2px}
-.ex-btn{flex:0 0 auto;padding:5px 12px;background:var(--s100);border:1.5px solid var(--s200);border-radius:20px;
-  cursor:pointer;font-size:11px;font-weight:600;color:var(--s700);transition:all .12s;white-space:nowrap;font-family:inherit}
-.ex-btn:hover{border-color:var(--pri);color:var(--pri)}
+.ex-btn{flex:0 0 auto;padding:8px 18px;background:var(--s100);border:1.5px solid var(--s200);border-radius:22px;
+  cursor:pointer;font-size:13px;font-weight:600;color:var(--s700);transition:all .12s;white-space:nowrap;font-family:inherit}
+.ex-btn:hover{border-color:var(--pri);color:var(--pri);background:#fff}
 .ex-btn.active{background:var(--pri-l);border-color:var(--pri);color:var(--pri-d)}
+.ex-btn .ex-desc{font-size:10px;font-weight:400;color:var(--s400);margin-left:6px}
 .input-row{display:flex;gap:8px;align-items:center;margin-top:6px;flex-wrap:wrap}
 #expr-input{flex:1;min-width:200px;padding:6px 12px;border:1.5px solid var(--s200);border-radius:8px;
   font-family:'JetBrains Mono',monospace;font-size:13px;background:#fff}
@@ -300,13 +301,13 @@ function layoutG(g){
   const ranks=Array.from({length:mxR+1},()=>[]);ns.forEach(n=>ranks[n.rank].push(n));
   for(let r=1;r<=mxR;r++)ranks[r].sort((a,b)=>{
     const ay=a.ins.reduce((s,n)=>s+n.y,0)/(a.ins.length||1);const by=b.ins.reduce((s,n)=>s+n.y,0)/(b.ins.length||1);return ay-by});
-  const H=150,V=76,M=50;const mxN=Math.max(...ranks.map(r=>r.length));const tH=(mxN-1)*V;
+  const H=180,V=100,M=60;const mxN=Math.max(...ranks.map(r=>r.length));const tH=(mxN-1)*V;
   for(let r=0;r<=mxR;r++){const g=ranks[r],gh=(g.length-1)*V,sy=M+(tH-gh)/2;g.forEach((n,i)=>{n.x=M+r*H;n.y=sy+i*V})}
   const con={};ns.forEach(n=>{if(n.rank>0)n.ins.forEach(inp=>{if(inp.rank===0)(con[inp.id]=con[inp.id]||[]).push(n)})});
   ranks[0].sort((a,b)=>{const ay=(con[a.id]||[]).reduce((s,n)=>s+n.y,0)/((con[a.id]||[{y:0}]).length);
     const by=(con[b.id]||[]).reduce((s,n)=>s+n.y,0)/((con[b.id]||[{y:0}]).length);return ay-by});
   {const g=ranks[0],gh=(g.length-1)*V,sy=M+(tH-gh)/2;g.forEach((n,i)=>{n.y=sy+i*V})}
-  return{w:M*2+mxR*H+80,h:M*2+tH+40}}
+  return{w:M*2+mxR*H+100,h:M*2+tH+60}}
 
 // =====================================================================
 //  SVG RENDERER
@@ -315,13 +316,13 @@ const NS='http://www.w3.org/2000/svg';
 function sv(tag,a={},txt){const e=document.createElementNS(NS,tag);for(const[k,v]of Object.entries(a))e.setAttribute(k,v);if(txt!=null)e.textContent=txt;return e}
 
 function ePt(nd,tx,ty){const dx=tx-nd.x,dy=ty-nd.y,d=Math.hypot(dx,dy);if(d===0)return{x:nd.x,y:nd.y};
-if(nd.tp==='o'){const r=26;return{x:nd.x+dx/d*r,y:nd.y+dy/d*r}}
-const hw=46,hh=21,sx=dx?hw/Math.abs(dx):1e9,sy=dy?hh/Math.abs(dy):1e9,s=Math.min(sx,sy);
+if(nd.tp==='o'){const r=30;return{x:nd.x+dx/d*r,y:nd.y+dy/d*r}}
+const hw=50,hh=24,sx=dx?hw/Math.abs(dx):1e9,sy=dy?hh/Math.abs(dy):1e9,s=Math.min(sx,sy);
 return{x:nd.x+dx*s,y:nd.y+dy*s}}
 
 function renderG(svg,g,dims,bwdAnn){
   svg.innerHTML='';
-  const pad=20;
+  const pad=40;
   svg.setAttribute('viewBox',`${-pad} ${-pad} ${dims.w+pad*2} ${dims.h+pad*2}`);
   svg.setAttribute('preserveAspectRatio','xMidYMid meet');
 
@@ -357,16 +358,16 @@ function renderG(svg,g,dims,bwdAnn){
     else if(n.tp==='c'){fill='#fef3c7';stroke='#fbbf24'}
     else{fill='#f1f5f9';stroke='#94a3b8'}
 
-    if(n.tp==='o')grp.appendChild(sv('circle',{r:26,fill,stroke,'stroke-width':sw}));
-    else{const w=Math.max(80,n.label.length*9+24);grp.appendChild(sv('rect',{x:-w/2,y:-21,width:w,height:42,rx:10,fill,stroke,'stroke-width':sw}))}
-    const fs=n.tp==='o'?(n.label.length>4?10:n.label.length>3?12:15):13;
+    if(n.tp==='o')grp.appendChild(sv('circle',{r:30,fill,stroke,'stroke-width':sw}));
+    else{const w=Math.max(90,n.label.length*10+28);grp.appendChild(sv('rect',{x:-w/2,y:-24,width:w,height:48,rx:12,fill,stroke,'stroke-width':sw}))}
+    const fs=n.tp==='o'?(n.label.length>4?11:n.label.length>3?13:16):14;
     grp.appendChild(sv('text',{'text-anchor':'middle','dominant-baseline':'central','font-size':fs,'font-weight':'700',fill:'#334155'},n.label));
 
     if(n.fD&&n.val!=null){
-      grp.appendChild(sv('text',{'text-anchor':'middle',y:n.tp==='o'?40:34,'font-size':11,'font-weight':'600',
+      grp.appendChild(sv('text',{'text-anchor':'middle',y:n.tp==='o'?46:38,'font-size':12,'font-weight':'600',
         fill:'#059669',class:'fade-up','font-family':'JetBrains Mono,monospace'},fm(n.val)))}
     if(n.bD&&n.tp!=='c'){
-      grp.appendChild(sv('text',{'text-anchor':'middle',y:n.tp==='o'?-34:-28,'font-size':10,'font-weight':'700',
+      grp.appendChild(sv('text',{'text-anchor':'middle',y:n.tp==='o'?-40:-32,'font-size':11,'font-weight':'700',
         fill:'#e11d48',class:'fade-up','font-family':'JetBrains Mono,monospace'},`\u2207 ${fm(n.grad)}`))
     }
     nG.appendChild(grp)});
@@ -378,7 +379,7 @@ function renderG(svg,g,dims,bwdAnn){
     const nd=bwdAnn.node;
 
     // Upstream badge above active node
-    ann.appendChild(badge(nd.x,nd.y-(nd.tp==='o'?54:48),`upstream = ${fm(bwdAnn.upstream)}`,
+    ann.appendChild(badge(nd.x,nd.y-(nd.tp==='o'?62:56),`upstream = ${fm(bwdAnn.upstream)}`,
       '#e11d48','#fff',10));
 
     // For each input: backward arrow + gradient badge
@@ -388,7 +389,7 @@ function renderG(svg,g,dims,bwdAnn){
       const dx=tx.x-fx.x,dy=tx.y-fx.y,len=Math.hypot(dx,dy);
       if(len<1)return;
       const px=-dy/len,py=dx/len;
-      const off=11+idx*4; // offset more for 2nd input
+      const off=14+idx*8; // more offset between arrows for multiple inputs
 
       // Dashed backward arrow
       ann.appendChild(sv('line',{
@@ -396,16 +397,16 @@ function renderG(svg,g,dims,bwdAnn){
         stroke:'#7c3aed','stroke-width':2.5,'stroke-dasharray':'7 4',
         'marker-end':'url(#ahv)',opacity:.85,class:'pulse-glow'}));
 
-      // Local gradient badge at 40% along arrow
-      const t1=0.35;
-      const lx=fx.x+dx*t1+px*off*2.2, ly=fx.y+dy*t1+py*off*2.2;
-      ann.appendChild(badge(lx,ly,`local = ${fm(item.local)}`,
+      // Local gradient badge at 30% along arrow, offset away from edge
+      const t1=0.30;
+      const lx=fx.x+dx*t1+px*off*2.8, ly=fx.y+dy*t1+py*off*2.8;
+      ann.appendChild(badge(lx,ly,`local=${fm(item.local)}`,
         '#f59e0b','#78350f',9));
 
-      // Downstream badge at 70% along arrow
-      const t2=0.7;
-      const dx2=fx.x+dx*t2+px*off*2.2, dy2=fx.y+dy*t2+py*off*2.2;
-      ann.appendChild(badge(dx2,dy2,`${fm(bwdAnn.upstream)}\u00D7${fm(item.local)} = ${fm(item.downstream)}`,
+      // Downstream badge at 70% along arrow, offset away from edge
+      const t2=0.70;
+      const dx2=fx.x+dx*t2+px*off*2.8, dy2=fx.y+dy*t2+py*off*2.8;
+      ann.appendChild(badge(dx2,dy2,`${fm(bwdAnn.upstream)}\u00D7${fm(item.local)}=${fm(item.downstream)}`,
         '#7c3aed','#fff',9));
     });
 
@@ -458,7 +459,8 @@ let pTimer=null;
 const $=id=>document.getElementById(id);
 
 function initEx(){const row=$('examples-row');EX.forEach((x,i)=>{
-  const b=document.createElement('button');b.className='ex-btn';b.textContent=x.n;b.title=x.d;
+  const b=document.createElement('button');b.className='ex-btn';
+  b.innerHTML=`${x.n}<span class="ex-desc">${x.d}</span>`;b.title=x.e;
   b.addEventListener('click',()=>loadEx(i));row.appendChild(b)})}
 
 function loadEx(i){document.querySelectorAll('.ex-btn').forEach((b,j)=>b.classList.toggle('active',j===i));
