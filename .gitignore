@@ -4,5 +4,10 @@ video-demo-suggestions.md
 *.pt
 */diagrams/realistic/cache/
 .DS_Store
+**/.DS_Store
 **/data/MNIST/
 manim-animations/
+__pycache__/
+**/__pycache__/
+outputs/
+prompts/
