@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Interactive Computational Graph Explorer</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#f0f2f5;color:#333;min-height:100vh}
+.app{max-width:1400px;margin:0 auto;padding:16px}
+header{background:linear-gradient(135deg,#1a237e,#0d47a1);color:#fff;padding:18px 28px;border-radius:12px;margin-bottom:16px}
+header h1{font-size:22px;font-weight:700}
+header p{opacity:.8;font-size:13px;margin-top:3px}
+.panel{background:#fff;border-radius:12px;padding:16px 20px;margin-bottom:12px;box-shadow:0 2px 8px rgba(0,0,0,.07)}
+.panel h3{font-size:14px;font-weight:700;color:#555;margin-bottom:10px;text-transform:uppercase;letter-spacing:.5px}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end}
+.field{display:flex;flex-direction:column;gap:4px}
+.field label{font-size:12px;font-weight:600;color:#777}
+.field input,.field select{padding:7px 12px;border:2px solid #e0e0e0;border-radius:8px;font-size:14px;font-family:inherit;transition:border-color .2s}
+.field input:focus,.field select:focus{border-color:#1565c0;outline:none}
+#expr-input{width:420px;font-family:'Fira Code',monospace,monospace}
+#example-select{width:280px}
+.btn{padding:7px 16px;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;transition:all .15s;display:inline-flex;align-items:center;gap:5px}
+.btn:active{transform:scale(.97)}
+.btn-primary{background:#1565c0;color:#fff}.btn-primary:hover{background:#0d47a1}
+.btn-green{background:#2e7d32;color:#fff}.btn-green:hover{background:#1b5e20}
+.btn-red{background:#c62828;color:#fff}.btn-red:hover{background:#b71c1c}
+.btn-gray{background:#e0e0e0;color:#333}.btn-gray:hover{background:#bdbdbd}
+.btn:disabled{opacity:.4;cursor:not-allowed;transform:none}
+.graph-container{background:#fff;border-radius:12px;border:2px solid #e0e0e0;min-height:350px;overflow:auto;position:relative}
+#graph-svg{display:block;min-width:100%;min-height:350px}
+.var-inputs{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.var-inputs .field input{width:80px;text-align:center}
+.var-inputs .var-chip{display:flex;align-items:center;gap:4px;background:#e3f2fd;padding:4px 8px 4px 12px;border-radius:8px;font-size:13px;font-weight:600;color:#1565c0}
+.step-controls{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.step-badge{background:#e8eaf6;color:#283593;padding:5px 14px;border-radius:20px;font-size:13px;font-weight:600;min-width:120px;text-align:center}
+.info-box{background:#fafafa;border:1px solid #e0e0e0;border-radius:8px;padding:14px 16px;font-size:13px;line-height:1.6;min-height:60px;white-space:pre-wrap;font-family:'Fira Code',monospace,monospace;margin-top:10px}
+.info-box.info-fwd{border-left:4px solid #2e7d32}
+.info-box.info-bwd{border-left:4px solid #c62828}
+.info-box.info-err{border-left:4px solid #e65100;background:#fff3e0}
+.grad-table{width:100%;border-collapse:collapse;margin-top:8px;font-size:13px}
+.grad-table th{text-align:left;padding:6px 14px;color:#555;font-weight:700;border-bottom:2px solid #e0e0e0;font-size:12px;text-transform:uppercase}
+.grad-table td{padding:6px 14px;border-bottom:1px solid #f0f0f0}
+.grad-table tr:hover td{background:#f5f5f5}
+.grad-val{color:#2e7d32;font-weight:600}
+.grad-grad{color:#c62828;font-weight:600}
+.legend{display:flex;gap:16px;font-size:12px;color:#777;margin-top:8px;flex-wrap:wrap}
+.legend span{display:flex;align-items:center;gap:4px}
+.legend .dot{width:12px;height:12px;border-radius:50%;display:inline-block}
+svg text{font-family:'Segoe UI',system-ui,sans-serif}
+.node-glow{filter:drop-shadow(0 0 8px rgba(21,101,192,.5))}
+.node-glow-green{filter:drop-shadow(0 0 8px rgba(46,125,50,.5))}
+.node-glow-red{filter:drop-shadow(0 0 8px rgba(198,40,40,.5))}
+@keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+.fade-in{animation:fadeIn .3s ease forwards}
+.two-col{display:grid;grid-template-columns:1fr 300px;gap:12px}
+@media(max-width:900px){.two-col{grid-template-columns:1fr}#expr-input{width:100%}}
+</style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <h1>Interactive Computational Graph Explorer</h1>
+    <p>Parse expressions into graphs, then step through forward and backward passes to see how autograd works</p>
+  </header>
+
+  <div class="panel">
+    <div class="row">
+      <div class="field">
+        <label>Example</label>
+        <select id="example-select"><option value="">-- Select an example --</option></select>
+      </div>
+      <div class="field">
+        <label>Expression</label>
+        <input type="text" id="expr-input" placeholder="e.g. (x * y) + z" spellcheck="false">
+      </div>
+      <button class="btn btn-primary" id="btn-build">Build Graph</button>
+    </div>
+    <div id="var-panel" class="var-inputs" style="margin-top:10px"></div>
+  </div>
+
+  <div class="two-col">
+    <div>
+      <div class="graph-container">
+        <svg id="graph-svg"></svg>
+      </div>
+      <div class="legend" id="legend" style="display:none">
+        <span><span class="dot" style="background:#e3f2fd;border:2px solid #1565c0"></span> Input variable</span>
+        <span><span class="dot" style="background:#fff3e0;border:2px solid #ef6c00"></span> Constant</span>
+        <span><span class="dot" style="background:#f5f5f5;border:2px solid #616161"></span> Operation</span>
+        <span><span class="dot" style="background:#c8e6c9;border:2px solid #2e7d32"></span> Forward computed</span>
+        <span><span class="dot" style="background:#ffcdd2;border:2px solid #c62828"></span> Backward active</span>
+      </div>
+    </div>
+
+    <div>
+      <div class="panel">
+        <h3>Controls</h3>
+        <div class="step-controls">
+          <button class="btn btn-gray" id="btn-reset">Reset</button>
+          <div style="flex-basis:100%"></div>
+          <button class="btn btn-green" id="btn-fwd-step">Forward Step</button>
+          <button class="btn btn-green" id="btn-fwd-all">Forward All</button>
+          <div style="flex-basis:100%"></div>
+          <button class="btn btn-red" id="btn-bwd-step">Backward Step</button>
+          <button class="btn btn-red" id="btn-bwd-all">Backward All</button>
+        </div>
+        <div style="margin-top:8px">
+          <span class="step-badge" id="step-badge">Ready</span>
+        </div>
+        <div class="info-box" id="info-box">Build a graph to get started. Select an example or type an expression.</div>
+      </div>
+
+      <div class="panel" id="grad-panel" style="display:none">
+        <h3>Gradients</h3>
+        <table class="grad-table" id="grad-table">
+          <thead><tr><th>Variable</th><th>Value</th><th>Gradient</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// =====================================================================
+// TOKENIZER
+// =====================================================================
+const TT = {NUM:'NUM',ID:'ID',PLUS:'+',MINUS:'-',STAR:'*',SLASH:'/',LPAREN:'(',RPAREN:')',COMMA:',',EOF:'EOF'};
+
+function tokenize(expr) {
+  const tokens = [];
+  let i = 0;
+  while (i < expr.length) {
+    if (/\s/.test(expr[i])) { i++; continue; }
+    if (/\d/.test(expr[i]) || (expr[i]==='.' && i+1<expr.length && /\d/.test(expr[i+1]))) {
+      let num = '';
+      while (i < expr.length && (/\d/.test(expr[i]) || expr[i]==='.')) num += expr[i++];
+      tokens.push({type:TT.NUM, value:num});
+      continue;
+    }
+    if (/[a-zA-Z_]/.test(expr[i])) {
+      let id = '';
+      while (i < expr.length && /[a-zA-Z0-9_]/.test(expr[i])) id += expr[i++];
+      tokens.push({type:TT.ID, value:id});
+      continue;
+    }
+    const ch = expr[i];
+    if ('+-*/(),'.includes(ch)) {
+      tokens.push({type:ch, value:ch}); i++; continue;
+    }
+    throw new Error(`Unexpected character: '${ch}' at position ${i}`);
+  }
+  tokens.push({type:TT.EOF, value:''});
+  return tokens;
+}
+
+// =====================================================================
+// PARSER  (recursive descent, standard precedence)
+// =====================================================================
+function parse(tokens) {
+  let pos = 0;
+  const peek = () => tokens[pos];
+  const advance = () => tokens[pos++];
+  const expect = (t) => { const tk=advance(); if(tk.type!==t) throw new Error(`Expected '${t}', got '${tk.type}'`); return tk; };
+
+  function expr() {
+    let left = term();
+    while (peek().type===TT.PLUS || peek().type===TT.MINUS) {
+      const op = advance().type;
+      left = {type:'binop', op:op===TT.PLUS?'add':'sub', left, right:term()};
+    }
+    return left;
+  }
+  function term() {
+    let left = power();
+    while (peek().type===TT.STAR || peek().type===TT.SLASH) {
+      const op = advance().type;
+      left = {type:'binop', op:op===TT.STAR?'mul':'div', left, right:power()};
+    }
+    return left;
+  }
+  function power() {
+    return unary(); // no ** for now
+  }
+  function unary() {
+    if (peek().type===TT.MINUS) { advance(); return {type:'unary', op:'neg', operand:unary()}; }
+    return call();
+  }
+  function call() {
+    if (peek().type===TT.ID && pos+1<tokens.length && tokens[pos+1].type===TT.LPAREN) {
+      const name = advance().value;
+      advance(); // (
+      const args = [];
+      if (peek().type!==TT.RPAREN) {
+        args.push(expr());
+        while (peek().type===TT.COMMA) { advance(); args.push(expr()); }
+      }
+      expect(TT.RPAREN);
+      return {type:'call', name, args};
+    }
+    return primary();
+  }
+  function primary() {
+    const t = peek();
+    if (t.type===TT.NUM) { advance(); return {type:'num', value:parseFloat(t.value)}; }
+    if (t.type===TT.ID) { advance(); return {type:'var', name:t.value}; }
+    if (t.type===TT.LPAREN) { advance(); const e=expr(); expect(TT.RPAREN); return e; }
+    throw new Error(`Unexpected token: '${t.value||t.type}'`);
+  }
+  const result = expr();
+  if (peek().type!==TT.EOF) throw new Error(`Unexpected token after expression: '${peek().value}'`);
+  return result;
+}
+
+// =====================================================================
+// COMPUTATIONAL GRAPH
+// =====================================================================
+class CompNode {
+  constructor(id, type, op, label, inputs=[]) {
+    this.id = id; this.type = type; this.op = op; this.label = label;
+    this.inputs = inputs; this.value = null; this.grad = 0;
+    this.rank = -1; this.x = 0; this.y = 0;
+    this.fwdComputed = false; this.bwdComputed = false;
+    this.fwdActive = false; this.bwdActive = false;
+  }
+}
+
+const OP_SYMBOLS = {add:'+', sub:'\u2212', mul:'\u00D7', div:'\u00F7', neg:'\u2212()'};
+const KNOWN_FUNCS = new Set(['exp','log','sigmoid','relu','tanh','sin','cos','sqrt','abs']);
+
+function buildGraph(ast) {
+  const nodes = [];
+  const varNodes = {};
+  const varOrder = [];
+  let nid = 0;
+  function mk(type, op, label, inputs=[]) {
+    const n = new CompNode(nid++, type, op, label, inputs);
+    nodes.push(n);
+    return n;
+  }
+  function walk(a) {
+    if (a.type==='num') return mk('const', null, fmtNum(a.value));
+    if (a.type==='var') {
+      if (!varNodes[a.name]) { varNodes[a.name]=mk('input',null,a.name); varOrder.push(a.name); }
+      return varNodes[a.name];
+    }
+    if (a.type==='binop') {
+      const l=walk(a.left), r=walk(a.right);
+      return mk('op', a.op, OP_SYMBOLS[a.op]||a.op, [l,r]);
+    }
+    if (a.type==='unary') {
+      return mk('op', 'neg', 'neg', [walk(a.operand)]);
+    }
+    if (a.type==='call') {
+      if (!KNOWN_FUNCS.has(a.name)) throw new Error(`Unknown function: ${a.name}`);
+      return mk('op', a.name, a.name, a.args.map(walk));
+    }
+  }
+  const output = walk(ast);
+  return {nodes, varNodes, varOrder, output};
+}
+
+function fmtNum(v) {
+  if (Number.isInteger(v) && Math.abs(v)<1000) return String(v);
+  return v.toFixed(4).replace(/\.?0+$/,'');
+}
+
+// =====================================================================
+// FORWARD / BACKWARD
+// =====================================================================
+function computeNodeValue(n) {
+  if (n.type==='input'||n.type==='const') return n.value;
+  const a = n.inputs[0]?.value, b = n.inputs[1]?.value;
+  switch(n.op) {
+    case 'add': return a+b;
+    case 'sub': return a-b;
+    case 'mul': return a*b;
+    case 'div': return a/b;
+    case 'neg': return -a;
+    case 'exp': return Math.exp(a);
+    case 'log': return Math.log(a);
+    case 'sigmoid': return 1/(1+Math.exp(-a));
+    case 'relu': return Math.max(0,a);
+    case 'tanh': return Math.tanh(a);
+    case 'sin': return Math.sin(a);
+    case 'cos': return Math.cos(a);
+    case 'sqrt': return Math.sqrt(a);
+    case 'abs': return Math.abs(a);
+  }
+}
+
+function localGradients(n) {
+  const u = n.grad;
+  const a = n.inputs[0]?.value, b = n.inputs[1]?.value;
+  switch(n.op) {
+    case 'add': return [{node:n.inputs[0],grad:u,local:1}, {node:n.inputs[1],grad:u,local:1}];
+    case 'sub': return [{node:n.inputs[0],grad:u,local:1}, {node:n.inputs[1],grad:-u,local:-1}];
+    case 'mul': return [{node:n.inputs[0],grad:u*b,local:b}, {node:n.inputs[1],grad:u*a,local:a}];
+    case 'div': return [{node:n.inputs[0],grad:u/b,local:1/b}, {node:n.inputs[1],grad:-u*a/(b*b),local:-a/(b*b)}];
+    case 'neg': return [{node:n.inputs[0],grad:-u,local:-1}];
+    case 'exp': return [{node:n.inputs[0],grad:u*n.value,local:n.value}];
+    case 'log': return [{node:n.inputs[0],grad:u/a,local:1/a}];
+    case 'sigmoid':return [{node:n.inputs[0],grad:u*n.value*(1-n.value),local:n.value*(1-n.value)}];
+    case 'relu': return [{node:n.inputs[0],grad:u*(a>0?1:0),local:a>0?1:0}];
+    case 'tanh': return [{node:n.inputs[0],grad:u*(1-n.value*n.value),local:1-n.value*n.value}];
+    case 'sin': return [{node:n.inputs[0],grad:u*Math.cos(a),local:Math.cos(a)}];
+    case 'cos': return [{node:n.inputs[0],grad:u*(-Math.sin(a)),local:-Math.sin(a)}];
+    case 'sqrt': return [{node:n.inputs[0],grad:u/(2*n.value),local:1/(2*n.value)}];
+    case 'abs':  return [{node:n.inputs[0],grad:u*(a>=0?1:-1),local:a>=0?1:-1}];
+    default: return [];
+  }
+}
+
+function localGradFormula(n) {
+  switch(n.op) {
+    case 'add': return ['d(a+b)/da = 1', 'd(a+b)/db = 1'];
+    case 'sub': return ['d(a-b)/da = 1', 'd(a-b)/db = -1'];
+    case 'mul': return [`d(a*b)/da = b = ${fmt(n.inputs[1]?.value)}`, `d(a*b)/db = a = ${fmt(n.inputs[0]?.value)}`];
+    case 'div': return [`d(a/b)/da = 1/b = ${fmt(1/n.inputs[1]?.value)}`, `d(a/b)/db = -a/b^2 = ${fmt(-n.inputs[0]?.value/(n.inputs[1]?.value**2))}`];
+    case 'neg': return ['d(-a)/da = -1'];
+    case 'exp': return [`d(exp(a))/da = exp(a) = ${fmt(n.value)}`];
+    case 'log': return [`d(log(a))/da = 1/a = ${fmt(1/n.inputs[0]?.value)}`];
+    case 'sigmoid': return [`d(sig(a))/da = sig(a)(1-sig(a)) = ${fmt(n.value*(1-n.value))}`];
+    case 'relu': return [`d(relu(a))/da = ${n.inputs[0]?.value>0?'1':'0'}`];
+    case 'tanh': return [`d(tanh(a))/da = 1-tanh^2(a) = ${fmt(1-n.value*n.value)}`];
+    default: return ['?'];
+  }
+}
+
+function fmt(v) { return v==null?'?':(Math.abs(v)<0.0001&&v!==0)?v.toExponential(3):parseFloat(v.toPrecision(6)).toString(); }
+
+function topoSort(output) {
+  const visited = new Set(), order = [];
+  function visit(n) { if(visited.has(n.id))return; visited.add(n.id); n.inputs.forEach(visit); order.push(n); }
+  visit(output);
+  return order;
+}
+
+// =====================================================================
+// LAYOUT
+// =====================================================================
+function layoutGraph(graph) {
+  const {nodes, output} = graph;
+  // Compute ranks
+  const memo = {};
+  function rank(n) {
+    if (memo[n.id]!==undefined) return memo[n.id];
+    if (n.inputs.length===0) return memo[n.id]=0;
+    return memo[n.id] = Math.max(...n.inputs.map(rank)) + 1;
+  }
+  nodes.forEach(n => n.rank = rank(n));
+
+  const maxRank = Math.max(...nodes.map(n=>n.rank));
+  const ranks = Array.from({length:maxRank+1}, ()=>[]);
+  nodes.forEach(n => ranks[n.rank].push(n));
+
+  // Order within ranks: sort by average y of connected nodes in previous rank
+  for (let r=1;r<=maxRank;r++) {
+    ranks[r].sort((a,b) => {
+      const ay = a.inputs.reduce((s,n)=>s+n.y,0)/(a.inputs.length||1);
+      const by = b.inputs.reduce((s,n)=>s+n.y,0)/(b.inputs.length||1);
+      return ay-by;
+    });
+  }
+
+  const H_SPACE = 160, V_SPACE = 76, MARGIN = 50;
+  const maxInRank = Math.max(...ranks.map(r=>r.length));
+  const totalH = (maxInRank-1)*V_SPACE;
+
+  for (let r=0;r<=maxRank;r++) {
+    const g = ranks[r];
+    const gh = (g.length-1)*V_SPACE;
+    const startY = MARGIN + (totalH - gh)/2;
+    g.forEach((n,i) => { n.x = MARGIN + r*H_SPACE; n.y = startY + i*V_SPACE; });
+  }
+
+  // Second pass: reorder ranks 0 by connected nodes' positions
+  for (let r=0;r<=0;r++) {
+    const consumers = {};
+    nodes.forEach(n => { if(n.rank>0) n.inputs.forEach(inp => { if(inp.rank===r) { if(!consumers[inp.id]) consumers[inp.id]=[]; consumers[inp.id].push(n); } }); });
+    ranks[r].sort((a,b) => {
+      const ay = (consumers[a.id]||[]).reduce((s,n)=>s+n.y,0)/((consumers[a.id]||[1]).length);
+      const by = (consumers[b.id]||[]).reduce((s,n)=>s+n.y,0)/((consumers[b.id]||[1]).length);
+      return ay-by;
+    });
+    const g = ranks[r], gh=(g.length-1)*V_SPACE, startY=MARGIN+(totalH-gh)/2;
+    g.forEach((n,i)=>{n.y=startY+i*V_SPACE;});
+  }
+
+  return {
+    width: MARGIN*2 + maxRank*H_SPACE + 80,
+    height: MARGIN*2 + totalH + 40
+  };
+}
+
+// =====================================================================
+// SVG RENDERER
+// =====================================================================
+const SVG_NS = 'http://www.w3.org/2000/svg';
+function svgEl(tag, attrs={}, text) {
+  const el = document.createElementNS(SVG_NS, tag);
+  for (const [k,v] of Object.entries(attrs)) el.setAttribute(k,v);
+  if (text!==undefined) el.textContent = text;
+  return el;
+}
+
+function edgePoint(node, targetX, targetY) {
+  const dx=targetX-node.x, dy=targetY-node.y, dist=Math.hypot(dx,dy);
+  if(dist===0) return {x:node.x, y:node.y};
+  if (node.type==='op') {
+    const r=25;
+    return {x:node.x+dx/dist*r, y:node.y+dy/dist*r};
+  }
+  // Rectangle: 90x40 with rx=8
+  const hw=45, hh=20;
+  const sx=dx!==0?hw/Math.abs(dx):1e9, sy=dy!==0?hh/Math.abs(dy):1e9;
+  const s=Math.min(sx,sy);
+  return {x:node.x+dx*s, y:node.y+dy*s};
+}
+
+function renderGraph(svg, graph, dims) {
+  svg.innerHTML = '';
+  svg.setAttribute('viewBox', `0 0 ${dims.width} ${dims.height}`);
+  svg.setAttribute('width', dims.width);
+  svg.setAttribute('height', Math.max(dims.height, 350));
+
+  // Defs
+  const defs = svgEl('defs');
+  // Forward arrowhead
+  const marker = svgEl('marker', {id:'ah',markerWidth:10,markerHeight:7,refX:9,refY:3.5,orient:'auto',markerUnits:'strokeWidth'});
+  marker.appendChild(svgEl('polygon',{points:'0 0, 10 3.5, 0 7',fill:'#999'}));
+  defs.appendChild(marker);
+  // Backward arrowhead
+  const markerR = svgEl('marker', {id:'ah-red',markerWidth:10,markerHeight:7,refX:9,refY:3.5,orient:'auto',markerUnits:'strokeWidth'});
+  markerR.appendChild(svgEl('polygon',{points:'0 0, 10 3.5, 0 7',fill:'#c62828'}));
+  defs.appendChild(markerR);
+  // Glow filter
+  const filt = svgEl('filter',{id:'glow',x:'-50%',y:'-50%',width:'200%',height:'200%'});
+  const blur = svgEl('feGaussianBlur',{stdDeviation:'3',result:'blur'});
+  filt.appendChild(blur);
+  const merge = svgEl('feMerge');
+  merge.appendChild(svgEl('feMergeNode',{in:'blur'}));
+  merge.appendChild(svgEl('feMergeNode',{in:'SourceGraphic'}));
+  filt.appendChild(merge);
+  defs.appendChild(filt);
+  svg.appendChild(defs);
+
+  // Edge layer
+  const edgeG = svgEl('g', {class:'edges'});
+  graph.nodes.forEach(n => {
+    n.inputs.forEach((inp,idx) => {
+      const from = edgePoint(inp, n.x, n.y);
+      const to = edgePoint(n, inp.x, inp.y);
+      const isActiveBwd = n.bwdActive;
+      const color = isActiveBwd ? '#c62828' : (inp.fwdComputed&&n.fwdComputed?'#66bb6a':'#ccc');
+      const width = isActiveBwd ? 2.5 : (inp.fwdComputed&&n.fwdComputed?2:1.5);
+      const line = svgEl('line',{x1:from.x,y1:from.y,x2:to.x,y2:to.y,stroke:color,'stroke-width':width,'marker-end':isActiveBwd?'url(#ah-red)':'url(#ah)'});
+      edgeG.appendChild(line);
+    });
+  });
+  svg.appendChild(edgeG);
+
+  // Node layer
+  const nodeG = svgEl('g', {class:'nodes'});
+  graph.nodes.forEach(n => {
+    const g = svgEl('g', {transform:`translate(${n.x},${n.y})`});
+
+    // Determine colors
+    let fill, stroke, strokeW=2;
+    if (n.fwdActive) { fill='#a5d6a7'; stroke='#2e7d32'; strokeW=3; g.setAttribute('filter','url(#glow)'); }
+    else if (n.bwdActive) { fill='#ef9a9a'; stroke='#c62828'; strokeW=3; g.setAttribute('filter','url(#glow)'); }
+    else if (n.bwdComputed && n.type!=='const') { fill='#ffcdd2'; stroke='#e57373'; }
+    else if (n.fwdComputed) { fill='#c8e6c9'; stroke='#66bb6a'; }
+    else if (n.type==='input') { fill='#e3f2fd'; stroke='#1565c0'; }
+    else if (n.type==='const') { fill='#fff3e0'; stroke='#ef6c00'; }
+    else { fill='#f5f5f5'; stroke='#9e9e9e'; }
+
+    // Shape
+    if (n.type==='op') {
+      g.appendChild(svgEl('circle',{r:25,fill,stroke,'stroke-width':strokeW}));
+    } else {
+      const w = Math.max(70, n.label.length*10+20);
+      g.appendChild(svgEl('rect',{x:-w/2,y:-20,width:w,height:40,rx:8,fill,stroke,'stroke-width':strokeW}));
+    }
+
+    // Label
+    const labelSize = n.type==='op'?(n.label.length>3?11:14):13;
+    g.appendChild(svgEl('text',{'text-anchor':'middle','dominant-baseline':'central','font-size':labelSize,'font-weight':'bold',fill:'#333'}, n.label));
+
+    // Value (shown after forward compute)
+    if (n.fwdComputed && n.value!=null) {
+      const vt = svgEl('text',{'text-anchor':'middle',y:n.type==='op'?38:32,'font-size':11,'font-weight':'600',fill:'#2e7d32',class:'fade-in'}, `= ${fmt(n.value)}`);
+      g.appendChild(vt);
+    }
+
+    // Gradient (shown after backward compute)
+    if (n.bwdComputed && n.type!=='const') {
+      const gt = svgEl('text',{'text-anchor':'middle',y:n.type==='op'?-32:-28,'font-size':10,'font-weight':'700',fill:'#c62828',class:'fade-in'}, `grad: ${fmt(n.grad)}`);
+      g.appendChild(gt);
+    }
+
+    nodeG.appendChild(g);
+  });
+  svg.appendChild(nodeG);
+}
+
+// =====================================================================
+// APP CONTROLLER
+// =====================================================================
+const EXAMPLES = [
+  {name:'Simple: (x * y) + z', expr:'(x * y) + z', vars:{x:2,y:3,z:4}},
+  {name:'Quadratic: (x - t)^2', expr:'(x - t) * (x - t)', vars:{x:2.5,t:3}},
+  {name:'Single Neuron', expr:'sigmoid(w1 * x1 + w2 * x2 + b)', vars:{w1:0.5,w2:-0.3,x1:1,x2:2,b:0.1}},
+  {name:'ReLU Neuron', expr:'relu(w * x + b)', vars:{w:1.5,x:-1,b:0.5}},
+  {name:'Logistic Loss', expr:'neg(log(sigmoid(theta0 + theta1 * x1 + theta2 * x2)))', vars:{theta0:1,theta1:1,theta2:2,x1:1,x2:2}},
+  {name:'Cross-Entropy (expanded)', expr:'neg(log(1 / (1 + exp(neg(theta0 + theta1 * x1 + theta2 * x2)))))', vars:{theta0:1,theta1:1,theta2:2,x1:1,x2:2}},
+  {name:'Softplus', expr:'log(1 + exp(x))', vars:{x:2}},
+  {name:'Huber-like', expr:'sqrt(x * x + 0.01)', vars:{x:0.5}},
+];
+
+let state = {
+  graph: null,
+  topo: [],
+  fwdStep: 0,
+  bwdStep: 0,
+  phase: 'idle', // idle, forward, fwd_done, backward, bwd_done
+  dims: null,
+};
+
+const $ = id => document.getElementById(id);
+const svg = $('graph-svg');
+const infoBox = $('info-box');
+const stepBadge = $('step-badge');
+
+function initExamples() {
+  const sel = $('example-select');
+  EXAMPLES.forEach((ex,i) => {
+    const opt = document.createElement('option');
+    opt.value = i; opt.textContent = ex.name;
+    sel.appendChild(opt);
+  });
+  sel.addEventListener('change', () => {
+    const ex = EXAMPLES[sel.value];
+    if(!ex) return;
+    $('expr-input').value = ex.expr;
+    buildGraphFromInput(ex.vars);
+  });
+}
+
+function buildGraphFromInput(defaultVars) {
+  const expr = $('expr-input').value.trim();
+  if (!expr) { showInfo('Type an expression or select an example.',''); return; }
+  try {
+    const tokens = tokenize(expr);
+    const ast = parse(tokens);
+    const graph = buildGraph(ast);
+
+    // Populate variable inputs
+    const panel = $('var-panel');
+    panel.innerHTML = '';
+    if (graph.varOrder.length>0) {
+      const lbl = document.createElement('span');
+      lbl.style.cssText='font-size:12px;font-weight:700;color:#777;margin-right:4px';
+      lbl.textContent='Variables:';
+      panel.appendChild(lbl);
+    }
+    graph.varOrder.forEach(name => {
+      const chip = document.createElement('div');
+      chip.className='var-chip';
+      chip.innerHTML = `<span>${name}</span> = `;
+      const inp = document.createElement('input');
+      inp.type='number'; inp.step='any';
+      inp.value = defaultVars?.[name] ?? 1;
+      inp.style.cssText='width:65px;padding:3px 6px;border:1px solid #90caf9;border-radius:4px;font-size:13px;text-align:center';
+      inp.dataset.varName = name;
+      inp.addEventListener('change', () => resetState());
+      chip.appendChild(inp);
+      panel.appendChild(chip);
+    });
+
+    // Set constant values
+    graph.nodes.forEach(n => {
+      if (n.type==='const') n.value = parseFloat(n.label);
+    });
+
+    state.graph = graph;
+    state.topo = topoSort(graph.output);
+    state.dims = layoutGraph(graph);
+    resetState();
+    $('legend').style.display='flex';
+    showInfo('Graph built! Click "Forward Step" to begin the forward pass.','');
+  } catch(e) {
+    showInfo('Error: ' + e.message, 'err');
+  }
+}
+
+function resetState() {
+  if(!state.graph) return;
+  state.fwdStep = 0;
+  state.bwdStep = 0;
+  state.phase = 'idle';
+
+  state.graph.nodes.forEach(n => {
+    n.fwdComputed = false; n.bwdComputed = false;
+    n.fwdActive = false; n.bwdActive = false;
+    n.grad = 0;
+    if (n.type==='const') { n.value = parseFloat(n.label); }
+    else if (n.type==='input') { n.value = null; }
+    else { n.value = null; }
+  });
+
+  // Read variable values from inputs
+  const inputs = $('var-panel').querySelectorAll('input');
+  inputs.forEach(inp => {
+    const name = inp.dataset.varName;
+    if (state.graph.varNodes[name]) {
+      state.graph.varNodes[name].value = parseFloat(inp.value) || 0;
+    }
+  });
+
+  updateButtons();
+  renderGraph(svg, state.graph, state.dims);
+  stepBadge.textContent = 'Ready';
+  $('grad-panel').style.display='none';
+  showInfo('Click "Forward Step" to compute values node by node.','');
+}
+
+function forwardStep() {
+  if(!state.graph) return;
+  if(state.phase==='idle') state.phase='forward';
+  if(state.phase!=='forward') return;
+
+  // Clear previous active
+  state.graph.nodes.forEach(n => n.fwdActive=false);
+
+  if(state.fwdStep >= state.topo.length) {
+    state.phase='fwd_done';
+    updateButtons();
+    return;
+  }
+
+  const node = state.topo[state.fwdStep];
+  if (node.type==='input'||node.type==='const') {
+    // Value already set
+    node.fwdComputed = true;
+    node.fwdActive = true;
+    if(node.type==='input') showInfo(`Forward ${state.fwdStep+1}/${state.topo.length}: Input "${node.label}" = ${fmt(node.value)}`,'fwd');
+    else showInfo(`Forward ${state.fwdStep+1}/${state.topo.length}: Constant = ${fmt(node.value)}`,'fwd');
+  } else {
+    node.value = computeNodeValue(node);
+    node.fwdComputed = true;
+    node.fwdActive = true;
+    const inputVals = node.inputs.map(n=>`${fmt(n.value)}`).join(', ');
+    const opDesc = describeOp(node);
+    showInfo(`Forward ${state.fwdStep+1}/${state.topo.length}: ${opDesc}\n= ${fmt(node.value)}`,'fwd');
+  }
+
+  state.fwdStep++;
+  if(state.fwdStep>=state.topo.length) state.phase='fwd_done';
+  stepBadge.textContent = `Forward ${state.fwdStep}/${state.topo.length}`;
+  updateButtons();
+  renderGraph(svg, state.graph, state.dims);
+}
+
+function forwardAll() {
+  if(!state.graph) return;
+  state.graph.nodes.forEach(n=>n.fwdActive=false);
+  while(state.fwdStep < state.topo.length) {
+    const node = state.topo[state.fwdStep];
+    if(node.type!=='input'&&node.type!=='const') node.value=computeNodeValue(node);
+    node.fwdComputed=true;
+    state.fwdStep++;
+  }
+  state.phase='fwd_done';
+  stepBadge.textContent = `Forward ${state.fwdStep}/${state.topo.length}`;
+  showInfo(`Forward pass complete! Output = ${fmt(state.graph.output.value)}\n\nClick "Backward Step" to compute gradients.`,'fwd');
+  updateButtons();
+  renderGraph(svg, state.graph, state.dims);
+}
+
+function backwardStep() {
+  if(!state.graph) return;
+  if(state.phase==='fwd_done') {
+    state.phase='backward';
+    state.graph.output.grad = 1;
+    state.bwdStep = 0;
+  }
+  if(state.phase!=='backward') return;
+
+  // Clear previous active
+  state.graph.nodes.forEach(n => {n.bwdActive=false;});
+
+  const revTopo = [...state.topo].reverse();
+  if(state.bwdStep >= revTopo.length) {
+    state.phase='bwd_done';
+    updateButtons();
+    return;
+  }
+
+  const node = revTopo[state.bwdStep];
+  node.bwdActive = true;
+  node.bwdComputed = true;
+
+  if (node.type==='op') {
+    const grads = localGradients(node);
+    const formulas = localGradFormula(node);
+    let info = `Backward ${state.bwdStep+1}/${revTopo.length}: Processing "${node.label}" (${node.op})\n`;
+    info += `This node's gradient: ${fmt(node.grad)}\n\n`;
+    grads.forEach((g,i) => {
+      g.node.grad += g.grad;
+      info += `  -> ${g.node.label}: upstream(${fmt(node.grad)}) x local(${fmt(g.local)}) = ${fmt(g.grad)}\n`;
+      info += `     ${formulas[i]||''}\n`;
+    });
+    showInfo(info,'bwd');
+  } else if (node.type==='input') {
+    showInfo(`Backward ${state.bwdStep+1}/${revTopo.length}: Input "${node.label}"\nAccumulated gradient: ${fmt(node.grad)}`,'bwd');
+  } else {
+    showInfo(`Backward ${state.bwdStep+1}/${revTopo.length}: Constant ${node.label}\nGradient: ${fmt(node.grad)} (not trainable)`,'bwd');
+  }
+
+  state.bwdStep++;
+  if(state.bwdStep>=revTopo.length) {
+    state.phase='bwd_done';
+    showGradTable();
+  }
+  stepBadge.textContent = `Backward ${state.bwdStep}/${revTopo.length}`;
+  updateButtons();
+  renderGraph(svg, state.graph, state.dims);
+}
+
+function backwardAll() {
+  if(!state.graph) return;
+  if(state.phase==='fwd_done') {
+    state.phase='backward';
+    state.graph.output.grad = 1;
+    state.bwdStep = 0;
+  }
+  if(state.phase!=='backward') return;
+
+  state.graph.nodes.forEach(n=>n.bwdActive=false);
+  const revTopo = [...state.topo].reverse();
+  while(state.bwdStep < revTopo.length) {
+    const node = revTopo[state.bwdStep];
+    node.bwdComputed = true;
+    if(node.type==='op') {
+      localGradients(node).forEach(g => g.node.grad += g.grad);
+    }
+    state.bwdStep++;
+  }
+  state.phase='bwd_done';
+  stepBadge.textContent = `Backward ${state.bwdStep}/${revTopo.length}`;
+  showInfo(`Backward pass complete! All gradients computed.\n\nSee the gradient table below.`,'bwd');
+  showGradTable();
+  updateButtons();
+  renderGraph(svg, state.graph, state.dims);
+}
+
+function showGradTable() {
+  const panel = $('grad-panel');
+  const tbody = $('grad-table').querySelector('tbody');
+  tbody.innerHTML='';
+  state.graph.varOrder.forEach(name => {
+    const n = state.graph.varNodes[name];
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td><strong>${name}</strong></td><td class="grad-val">${fmt(n.value)}</td><td class="grad-grad">${fmt(n.grad)}</td>`;
+    tbody.appendChild(tr);
+  });
+  panel.style.display='block';
+}
+
+function describeOp(node) {
+  const names = node.inputs.map(n => {
+    if(n.type==='input') return n.label;
+    if(n.type==='const') return n.label;
+    return `(${fmt(n.value)})`;
+  });
+  const vals = node.inputs.map(n => fmt(n.value));
+  switch(node.op) {
+    case 'add': return `${names[0]} + ${names[1]} = ${vals[0]} + ${vals[1]}`;
+    case 'sub': return `${names[0]} - ${names[1]} = ${vals[0]} - ${vals[1]}`;
+    case 'mul': return `${names[0]} * ${names[1]} = ${vals[0]} * ${vals[1]}`;
+    case 'div': return `${names[0]} / ${names[1]} = ${vals[0]} / ${vals[1]}`;
+    case 'neg': return `-(${names[0]}) = -(${vals[0]})`;
+    default: return `${node.op}(${names.join(', ')}) = ${node.op}(${vals.join(', ')})`;
+  }
+}
+
+function showInfo(text, type) {
+  infoBox.textContent = text;
+  infoBox.className = 'info-box' + (type==='fwd'?' info-fwd':type==='bwd'?' info-bwd':type==='err'?' info-err':'');
+}
+
+function updateButtons() {
+  const p = state.phase;
+  const hasGraph = !!state.graph;
+  $('btn-fwd-step').disabled = !hasGraph || (p!=='idle' && p!=='forward');
+  $('btn-fwd-all').disabled = !hasGraph || (p!=='idle' && p!=='forward');
+  $('btn-bwd-step').disabled = !hasGraph || (p!=='fwd_done' && p!=='backward');
+  $('btn-bwd-all').disabled = !hasGraph || (p!=='fwd_done' && p!=='backward');
+  $('btn-reset').disabled = !hasGraph;
+}
+
+// =====================================================================
+// EVENT HANDLERS
+// =====================================================================
+$('btn-build').addEventListener('click', () => buildGraphFromInput());
+$('btn-reset').addEventListener('click', resetState);
+$('btn-fwd-step').addEventListener('click', forwardStep);
+$('btn-fwd-all').addEventListener('click', forwardAll);
+$('btn-bwd-step').addEventListener('click', backwardStep);
+$('btn-bwd-all').addEventListener('click', backwardAll);
+$('expr-input').addEventListener('keydown', e => { if(e.key==='Enter') buildGraphFromInput(); });
+
+// Keyboard shortcuts
+document.addEventListener('keydown', e => {
+  if (e.target.tagName==='INPUT'||e.target.tagName==='SELECT') return;
+  if (e.key==='f'||e.key==='F') forwardStep();
+  if (e.key==='b'||e.key==='B') backwardStep();
+  if (e.key==='r'||e.key==='R') resetState();
+  if (e.key===' ') { e.preventDefault(); if(state.phase==='idle'||state.phase==='forward') forwardStep(); else backwardStep(); }
+});
+
+// =====================================================================
+// INIT
+// =====================================================================
+initExamples();
+updateButtons();
+// Auto-load first example
+$('example-select').value = 0;
+$('expr-input').value = EXAMPLES[0].expr;
+buildGraphFromInput(EXAMPLES[0].vars);
+</script>
+</body>
+</html>
