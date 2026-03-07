@@ -1,479 +1,504 @@
-#!/usr/bin/env python3
-"""
-Diagram generator for Lecture 05: Neural Networks
-Visualizes perceptrons, activation functions, backpropagation, and deep architectures.
-"""
+"""Generate all diagrams for Lecture 05: Neural Networks.
 
-import sys
-import os
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '../..'))
+Run: python generate_diagrams.py
+Output: diagrams/png/*.png and diagrams/svg/*.svg
+"""
 
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
-from matplotlib.patches import FancyBboxPatch, Circle, FancyArrowPatch
 import numpy as np
+import os
 
-# Import shared style
-try:
-    from themes.diagram_style import COLORS, setup_figure, save_svg
-except ImportError:
-    COLORS = {
-        'primary': '#1e3a5f',
-        'accent': '#e85a4f',
-        'success': '#2a9d8f',
-        'warning': '#e9c46a',
-        'blue': '#3b82f6',
-        'purple': '#8b5cf6',
-        'text': '#2d3748',
-        'text_light': '#4a5568',
-        'bg_light': '#f7fafc',
+os.makedirs('diagrams/png', exist_ok=True)
+os.makedirs('diagrams/svg', exist_ok=True)
+
+plt.rcParams['font.size'] = 14
+plt.rcParams['font.family'] = 'sans-serif'
+
+
+def save(fig, name):
+    """Save as both PNG and SVG."""
+    fig.savefig(f'diagrams/png/{name}.png', dpi=200, bbox_inches='tight', facecolor='white')
+    fig.savefig(f'diagrams/svg/{name}.svg', bbox_inches='tight', facecolor='white')
+    plt.close(fig)
+    print(f"  {name}")
+
+
+# ============================================================
+# 1. Biological vs Artificial Neuron
+# ============================================================
+def plot_bio_vs_artificial():
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(16, 6))
+
+    ax1.set_xlim(0, 10); ax1.set_ylim(0, 8); ax1.set_aspect('equal')
+
+    for angle in [150, 170, 190, 210]:
+        rad = np.radians(angle)
+        x0, y0 = 3, 4
+        for length in [1.5, 2.0, 2.5]:
+            dx = length * np.cos(rad) + np.random.uniform(-0.3, 0.3)
+            dy = length * np.sin(rad) + np.random.uniform(-0.3, 0.3)
+            ax1.annotate('', xy=(x0+dx*0.3, y0+dy*0.3), xytext=(x0+dx, y0+dy),
+                         arrowprops=dict(arrowstyle='->', color='#2a9d8f', lw=2))
+
+    ax1.add_patch(plt.Circle((3, 4), 1.0, color='#264653', alpha=0.8))
+    ax1.text(3, 4, 'Cell\nBody', ha='center', va='center', color='white', fontsize=11, fontweight='bold')
+    ax1.annotate('', xy=(7.5, 4), xytext=(4, 4), arrowprops=dict(arrowstyle='->', color='#e76f51', lw=3))
+    ax1.text(5.5, 4.4, 'Axon', fontsize=12, ha='center', color='#e76f51')
+    for dy in [-0.8, 0, 0.8]:
+        ax1.plot([7.5, 8.5], [4, 4+dy], color='#e76f51', lw=2)
+        ax1.plot(8.5, 4+dy, 'o', color='#e76f51', markersize=8)
+    ax1.text(1.0, 7, 'Dendrites\n(inputs)', fontsize=11, color='#2a9d8f', ha='center')
+    ax1.text(8.5, 6, 'Output\nterminals', fontsize=11, color='#e76f51', ha='center')
+    ax1.set_title('Biological Neuron', fontsize=16, fontweight='bold')
+    ax1.axis('off')
+
+    ax2.set_xlim(0, 10); ax2.set_ylim(0, 8); ax2.set_aspect('equal')
+    inputs = [(1, 6.5, '$x_1$'), (1, 4, '$x_2$'), (1, 1.5, '$x_3$')]
+    for x, y, label in inputs:
+        ax2.add_patch(plt.Circle((x, y), 0.5, color='#2a9d8f', alpha=0.8))
+        ax2.text(x, y, label, ha='center', va='center', color='white', fontsize=13, fontweight='bold')
+
+    weights = ['$w_1$', '$w_2$', '$w_3$']
+    for (x, y, _), w in zip(inputs, weights):
+        ax2.annotate('', xy=(4.2, 4), xytext=(1.5, y),
+                    arrowprops=dict(arrowstyle='->', color='#264653', lw=2))
+        mid_x, mid_y = (1.5 + 4.2) / 2, (y + 4) / 2
+        ax2.text(mid_x - 0.3, mid_y + 0.3, w, fontsize=12, color='#264653', fontweight='bold')
+
+    ax2.add_patch(plt.Circle((5, 4), 0.8, color='#264653', alpha=0.8))
+    ax2.text(5, 4, '$\\Sigma$', ha='center', va='center', color='white', fontsize=20, fontweight='bold')
+    ax2.annotate('', xy=(7.3, 4), xytext=(5.8, 4), arrowprops=dict(arrowstyle='->', color='#264653', lw=2))
+    ax2.add_patch(patches.FancyBboxPatch((7.0, 3.0), 1.5, 2, boxstyle="round,pad=0.2",
+                                          facecolor='#e76f51', alpha=0.8))
+    ax2.text(7.75, 4, '$g(z)$', ha='center', va='center', color='white', fontsize=14, fontweight='bold')
+    ax2.annotate('', xy=(9.5, 4), xytext=(8.5, 4), arrowprops=dict(arrowstyle='->', color='#e76f51', lw=3))
+    ax2.text(9.5, 4, '$\\hat{y}$', ha='center', va='center', fontsize=16, fontweight='bold', color='#e76f51')
+    ax2.annotate('', xy=(5, 3.2), xytext=(5, 1.5), arrowprops=dict(arrowstyle='->', color='gray', lw=2))
+    ax2.text(5, 1.0, '+b (bias)', ha='center', fontsize=12, color='gray')
+    ax2.set_title('Artificial Neuron', fontsize=16, fontweight='bold')
+    ax2.axis('off')
+
+    plt.tight_layout()
+    save(fig, 'bio_vs_artificial_neuron')
+
+
+# ============================================================
+# 2. Decision boundaries for AND, OR, XOR
+# ============================================================
+def plot_decision_boundaries():
+    fig, axes = plt.subplots(1, 3, figsize=(16, 5))
+
+    def plot_gate(ax, title, data, w1=None, w2=None, b=None, impossible=False):
+        if not impossible and w1 is not None:
+            xx, yy = np.meshgrid(np.linspace(-0.3, 1.3, 200), np.linspace(-0.3, 1.3, 200))
+            Z = w1 * xx + w2 * yy + b
+            ax.contourf(xx, yy, Z, levels=[-100, 0, 100], colors=['#fde8e4', '#d4edda'], alpha=0.5)
+            x_line = np.linspace(-0.3, 1.3, 100)
+            if abs(w2) > 0.01:
+                y_line = -(w1 * x_line + b) / w2
+                mask = (y_line >= -0.3) & (y_line <= 1.3)
+                ax.plot(x_line[mask], y_line[mask], 'k--', lw=2, alpha=0.7)
+
+        for (x1, x2), y in data:
+            color = '#2a9d8f' if y == 1 else '#e85a4f'
+            marker = '^' if y == 1 else 'o'
+            ax.scatter(x1, x2, c=color, s=300, edgecolors='black', linewidth=2, zorder=5, marker=marker)
+            ax.annotate(f'{y}', (x1, x2), textcoords="offset points", xytext=(12, 8),
+                        fontsize=14, fontweight='bold')
+        ax.set_xlim(-0.3, 1.3); ax.set_ylim(-0.3, 1.3)
+        ax.set_xlabel('$x_1$', fontsize=14); ax.set_ylabel('$x_2$', fontsize=14)
+        ax.set_title(title, fontsize=15, fontweight='bold')
+        ax.set_xticks([0, 1]); ax.set_yticks([0, 1])
+        ax.grid(True, alpha=0.3); ax.set_aspect('equal')
+
+    and_data = [((0,0),0), ((0,1),0), ((1,0),0), ((1,1),1)]
+    or_data  = [((0,0),0), ((0,1),1), ((1,0),1), ((1,1),1)]
+    xor_data = [((0,0),0), ((0,1),1), ((1,0),1), ((1,1),0)]
+
+    plot_gate(axes[0], 'AND: One line works', and_data, w1=1, w2=1, b=-1.5)
+    plot_gate(axes[1], 'OR: One line works', or_data, w1=1, w2=1, b=-0.5)
+    plot_gate(axes[2], 'XOR: No single line!', xor_data, impossible=True)
+
+    x_line = np.linspace(-0.3, 1.3, 50)
+    axes[2].plot(x_line, -x_line + 0.5, 'r--', lw=1.5, alpha=0.5, label='Attempt 1')
+    axes[2].plot(x_line, -x_line + 1.5, 'b--', lw=1.5, alpha=0.5, label='Attempt 2')
+    axes[2].legend(fontsize=10)
+
+    plt.tight_layout()
+    save(fig, 'decision_boundaries_gates')
+
+
+# ============================================================
+# 3. XOR solved in hidden space
+# ============================================================
+def plot_xor_hidden_space():
+    fig, axes = plt.subplots(1, 3, figsize=(18, 5))
+    xor_data = [((0,0),0), ((0,1),1), ((1,0),1), ((1,1),0)]
+
+    for (x1, x2), y in xor_data:
+        color = '#2a9d8f' if y == 1 else '#e85a4f'
+        marker = '^' if y == 1 else 'o'
+        axes[0].scatter(x1, x2, c=color, s=300, edgecolors='black', linewidth=2, zorder=5, marker=marker)
+        axes[0].annotate(f'({x1},{x2})->{y}', (x1, x2), textcoords="offset points", xytext=(10, 10), fontsize=12)
+    axes[0].set_title('Input Space\n(NOT separable)', fontsize=14, fontweight='bold', color='#e85a4f')
+    axes[0].set_xlabel('$x_1$'); axes[0].set_ylabel('$x_2$')
+    axes[0].set_xlim(-0.3, 1.5); axes[0].set_ylim(-0.3, 1.5)
+    axes[0].set_aspect('equal'); axes[0].grid(True, alpha=0.3)
+
+    axes[1].text(0.5, 0.5, 'Hidden Layer\nTransforms\nthe Data!', ha='center', va='center',
+                 fontsize=16, fontweight='bold', color='#264653',
+                 bbox=dict(boxstyle='round,pad=0.5', facecolor='#f0f0f0', edgecolor='#264653', lw=2))
+    axes[1].set_xlim(0, 1); axes[1].set_ylim(0, 1); axes[1].axis('off')
+
+    hidden_map = {(0,0): (0,0,0), (0,1): (1,0,1), (1,0): (1,0,1), (1,1): (1,1,0)}
+    plotted = set()
+    for (x1,x2), (h1, h2, y) in hidden_map.items():
+        color = '#2a9d8f' if y == 1 else '#e85a4f'
+        marker = '^' if y == 1 else 'o'
+        axes[2].scatter(h1, h2, c=color, s=300, edgecolors='black', linewidth=2, zorder=5, marker=marker)
+        offset_y = 10 if (h1,h2) not in plotted else -20
+        axes[2].annotate(f'({x1},{x2})->{y}', (h1, h2), textcoords="offset points",
+                         xytext=(10, offset_y), fontsize=11)
+        plotted.add((h1,h2))
+
+    h1_line = np.linspace(-0.3, 1.5, 100)
+    h2_line = (h1_line - 0.5) / 2
+    mask = (h2_line >= -0.3) & (h2_line <= 1.5)
+    axes[2].plot(h1_line[mask], h2_line[mask], 'k--', lw=2, alpha=0.7)
+    axes[2].fill_between(h1_line[mask], h2_line[mask], -0.3, alpha=0.1, color='#2a9d8f')
+    axes[2].fill_between(h1_line[mask], h2_line[mask], 1.5, alpha=0.1, color='#e85a4f')
+    axes[2].set_title('Hidden Space\n(Separable!)', fontsize=14, fontweight='bold', color='#2a9d8f')
+    axes[2].set_xlabel('$h_1$ (OR)'); axes[2].set_ylabel('$h_2$ (AND)')
+    axes[2].set_xlim(-0.3, 1.5); axes[2].set_ylim(-0.3, 1.5)
+    axes[2].set_aspect('equal'); axes[2].grid(True, alpha=0.3)
+
+    plt.suptitle('The Hidden Layer Transforms XOR into a Linearly Separable Problem!',
+                 fontsize=16, fontweight='bold', y=1.02)
+    plt.tight_layout()
+    save(fig, 'xor_hidden_space')
+
+
+# ============================================================
+# 4. Activation functions comparison
+# ============================================================
+def plot_activations():
+    fig, axes = plt.subplots(1, 4, figsize=(20, 4.5))
+    z = np.linspace(-5, 5, 300)
+
+    axes[0].plot(z, (z > 0).astype(float), lw=3, color='#264653')
+    axes[0].set_title('Step (Original Perceptron)', fontsize=13, fontweight='bold')
+    axes[0].set_ylim(-0.2, 1.3); axes[0].text(2, 0.3, 'Binary:\n0 or 1', fontsize=11, color='gray')
+
+    axes[1].plot(z, 1 / (1 + np.exp(-z)), lw=3, color='#2a9d8f')
+    axes[1].axhline(0.5, color='gray', lw=0.5, ls='--')
+    axes[1].set_title('Sigmoid', fontsize=13, fontweight='bold')
+    axes[1].set_ylim(-0.2, 1.3); axes[1].text(1.5, 0.2, 'Smooth\n(0, 1)', fontsize=11, color='gray')
+
+    axes[2].plot(z, np.tanh(z), lw=3, color='#e9c46a')
+    axes[2].set_title('Tanh', fontsize=13, fontweight='bold')
+    axes[2].set_ylim(-1.3, 1.3); axes[2].text(1.5, -0.7, 'Centered\n(-1, 1)', fontsize=11, color='gray')
+
+    axes[3].plot(z, np.maximum(0, z), lw=3, color='#e76f51')
+    axes[3].set_title('ReLU (Modern Default!)', fontsize=13, fontweight='bold', color='#e76f51')
+    axes[3].set_ylim(-1, 5.5); axes[3].text(1.5, 1, 'Simple!\nmax(0,z)', fontsize=11, color='gray')
+
+    for ax in axes:
+        ax.axhline(0, color='gray', lw=0.5); ax.axvline(0, color='gray', lw=0.5)
+        ax.set_xlabel('z'); ax.set_ylabel('g(z)'); ax.grid(True, alpha=0.3)
+
+    plt.tight_layout()
+    save(fig, 'activation_functions_comparison')
+
+
+# ============================================================
+# 5. Why non-linearity matters
+# ============================================================
+def plot_nonlinearity():
+    fig, axes = plt.subplots(1, 2, figsize=(14, 5))
+
+    x = np.linspace(-3, 3, 100)
+    axes[0].plot(x, 2*x + 1, lw=2, alpha=0.5, color='blue', label='Layer 1: y = 2x + 1')
+    axes[0].plot(x, 0.5*(2*x+1) - 0.3, lw=2, alpha=0.5, color='red', label='Layer 2: y = 0.5h - 0.3')
+    axes[0].plot(x, x + 0.2, lw=3, color='purple', ls='--', label='Combined: y = x + 0.2 (still linear!)')
+    axes[0].set_title('Without Activation:\n100 layers = 1 line', fontsize=14, fontweight='bold', color='#e85a4f')
+    axes[0].legend(fontsize=10); axes[0].grid(True, alpha=0.3)
+    axes[0].set_xlabel('x'); axes[0].set_ylabel('y')
+
+    x2 = np.linspace(-3, 3, 300)
+    h = np.maximum(0, 2*x2 + 1)
+    axes[1].plot(x2, h, lw=2, alpha=0.5, color='blue', label='Layer 1: h = ReLU(2x + 1)')
+    axes[1].plot(x2, 0.5 * h - 0.3, lw=3, color='#2a9d8f', label='Layer 2: y = 0.5h - 0.3')
+    axes[1].set_title('With ReLU Activation:\nCan model non-linear functions!', fontsize=14, fontweight='bold', color='#2a9d8f')
+    axes[1].legend(fontsize=10); axes[1].grid(True, alpha=0.3)
+    axes[1].set_xlabel('x'); axes[1].set_ylabel('y')
+
+    plt.tight_layout()
+    save(fig, 'why_nonlinearity')
+
+
+# ============================================================
+# 6. MLP Architecture diagram
+# ============================================================
+def plot_mlp_architecture():
+    fig, ax = plt.subplots(1, 1, figsize=(14, 7))
+    layer_sizes = [3, 4, 4, 2]
+    layer_names = ['Input\nLayer', 'Hidden\nLayer 1', 'Hidden\nLayer 2', 'Output\nLayer']
+    layer_colors = ['#2a9d8f', '#264653', '#264653', '#e76f51']
+    x_positions = [1, 3.5, 6, 8.5]
+
+    neuron_positions = {}
+    for l, (n, x_pos, name, color) in enumerate(zip(layer_sizes, x_positions, layer_names, layer_colors)):
+        y_offset = (max(layer_sizes) - n) / 2
+        for i in range(n):
+            y = i + y_offset + 0.5
+            ax.add_patch(plt.Circle((x_pos, y), 0.3, color=color, alpha=0.85, zorder=5))
+            neuron_positions[(l, i)] = (x_pos, y)
+            if l == 0:
+                ax.text(x_pos, y, ['$x_1$','$x_2$','$x_3$'][i], ha='center', va='center',
+                        color='white', fontsize=12, fontweight='bold', zorder=6)
+            elif l == len(layer_sizes) - 1:
+                ax.text(x_pos, y, ['$\\hat{y}_1$','$\\hat{y}_2$'][i], ha='center', va='center',
+                        color='white', fontsize=11, fontweight='bold', zorder=6)
+        ax.text(x_pos, -0.5, name, ha='center', fontsize=12, fontweight='bold', color=color)
+
+    for l in range(len(layer_sizes) - 1):
+        for i in range(layer_sizes[l]):
+            for j in range(layer_sizes[l+1]):
+                x1, y1 = neuron_positions[(l, i)]
+                x2, y2 = neuron_positions[(l+1, j)]
+                ax.plot([x1+0.3, x2-0.3], [y1, y2], color='gray', alpha=0.3, lw=1, zorder=1)
+
+    ax.set_xlim(-0.5, 10); ax.set_ylim(-1.5, 5); ax.set_aspect('equal'); ax.axis('off')
+    ax.set_title('Multi-Layer Perceptron (MLP)', fontsize=16, fontweight='bold', pad=20)
+    save(fig, 'mlp_architecture_clean')
+
+
+# ============================================================
+# 7. Old vs New paradigm
+# ============================================================
+def plot_paradigm_change():
+    fig, axes = plt.subplots(2, 1, figsize=(16, 7))
+
+    boxes_old = [(0.5, 'Image', '#bbb'), (2.5, 'Human designs\nfeatures', '#e85a4f'),
+                 (5.0, 'Count edges\n# loops\npixel stats', '#e85a4f'),
+                 (7.5, 'Classifier\n(SVM/LR)', '#2a9d8f'), (10.0, 'Prediction', '#bbb')]
+    for x, text, color in boxes_old:
+        axes[0].add_patch(patches.FancyBboxPatch((x-0.8, 0.1), 1.6, 1.3,
+                          boxstyle="round,pad=0.15", facecolor=color, alpha=0.8))
+        axes[0].text(x, 0.75, text, ha='center', va='center', fontsize=10, fontweight='bold',
+                    color='white' if color != '#bbb' else 'black')
+    for i in range(len(boxes_old)-1):
+        axes[0].annotate('', xy=(boxes_old[i+1][0]-0.8, 0.75), xytext=(boxes_old[i][0]+0.8, 0.75),
+                        arrowprops=dict(arrowstyle='->', color='black', lw=2))
+    axes[0].set_xlim(-0.5, 11.5); axes[0].set_ylim(-0.3, 2)
+    axes[0].set_title('Old Way: Hand-Crafted Features', fontsize=14, fontweight='bold', color='#e85a4f')
+    axes[0].axis('off')
+
+    boxes_new = [(0.5, 'Image', '#bbb'),
+                 (3.5, 'Neural Network\n(learns features AND classifier)', '#2a9d8f'),
+                 (7.5, 'Prediction', '#bbb')]
+    for x, text, color in boxes_new:
+        w = 1.6 if x != 3.5 else 3.5
+        axes[1].add_patch(patches.FancyBboxPatch((x-w/2, 0.1), w, 1.3,
+                          boxstyle="round,pad=0.15", facecolor=color, alpha=0.8))
+        axes[1].text(x, 0.75, text, ha='center', va='center', fontsize=11, fontweight='bold',
+                    color='white' if color != '#bbb' else 'black')
+    axes[1].annotate('', xy=(1.75, 0.75), xytext=(1.3, 0.75),
+                    arrowprops=dict(arrowstyle='->', color='black', lw=2))
+    axes[1].annotate('', xy=(6.7, 0.75), xytext=(5.25, 0.75),
+                    arrowprops=dict(arrowstyle='->', color='black', lw=2))
+    axes[1].set_xlim(-0.5, 11.5); axes[1].set_ylim(-0.3, 2)
+    axes[1].set_title('New Way: End-to-End Learning', fontsize=14, fontweight='bold', color='#2a9d8f')
+    axes[1].axis('off')
+
+    plt.tight_layout()
+    save(fig, 'paradigm_change')
+
+
+# ============================================================
+# 8. Forward pass step-by-step visualization
+# ============================================================
+def plot_forward_pass():
+    fig, ax = plt.subplots(figsize=(18, 8))
+
+    positions = {
+        'x1': (0, 5), 'x2': (0, 2),
+        'z1': (4, 7), 'z2': (4, 4), 'z3': (4, 1),
+        'h1': (7, 7), 'h2': (7, 4), 'h3': (7, 1),
+        'z_out': (10, 4), 'y_hat': (13, 4),
+    }
+    values = {
+        'x1': '1.0', 'x2': '0.5', 'z1': '0.5', 'z2': '-0.55', 'z3': '0.2',
+        'h1': '0.5', 'h2': '0.0', 'h3': '0.2', 'z_out': '0.35', 'y_hat': '0.587',
+    }
+    colors_map = {
+        'x1': '#2a9d8f', 'x2': '#2a9d8f',
+        'z1': '#bbb', 'z2': '#bbb', 'z3': '#bbb',
+        'h1': '#264653', 'h2': '#999', 'h3': '#264653',
+        'z_out': '#bbb', 'y_hat': '#e76f51',
     }
 
-    def setup_figure(figsize=(12, 6), bg_color='white'):
-        fig, ax = plt.subplots(figsize=figsize, facecolor=bg_color)
-        ax.set_facecolor(bg_color)
-        ax.axis('off')
-        return fig, ax
+    for name, (x, y) in positions.items():
+        c = colors_map[name]
+        ax.add_patch(plt.Circle((x, y), 0.6, color=c, alpha=0.85, zorder=5))
+        ax.text(x, y, values[name], ha='center', va='center', color='white',
+                fontsize=11, fontweight='bold', zorder=6)
+        ax.text(x, y+0.9, name.replace('_', '\n'), ha='center', fontsize=10, color=c)
 
-    def save_svg(fig, filename):
-        os.makedirs('diagrams/svg', exist_ok=True)
-        filepath = f'diagrams/svg/{filename}'
-        fig.savefig(filepath, format='svg', bbox_inches='tight', dpi=150)
-        plt.close(fig)
-        print(f"  ✓ {filename}")
+    for src, dst, w in [('x1','z1','0.2'),('x1','z2','-0.5'),('x1','z3','0.3'),
+                         ('x2','z1','0.4'),('x2','z2','0.1'),('x2','z3','-0.2')]:
+        x1, y1 = positions[src]; x2, y2 = positions[dst]
+        ax.annotate('', xy=(x2-0.6, y2), xytext=(x1+0.6, y1),
+                   arrowprops=dict(arrowstyle='->', color='gray', lw=1.5, alpha=0.6))
 
+    for src, dst in [('z1','h1'), ('z2','h2'), ('z3','h3')]:
+        x1, y1 = positions[src]; x2, y2 = positions[dst]
+        ax.annotate('', xy=(x2-0.6, y2), xytext=(x1+0.6, y1),
+                   arrowprops=dict(arrowstyle='->', color='#e76f51', lw=2))
 
-# =============================================================================
-# 1. Single Perceptron (The Neuron)
-# =============================================================================
-def create_perceptron():
-    """Show a single perceptron with inputs, weights, and output."""
-    fig, ax = plt.subplots(figsize=(12, 7), facecolor='white')
-    ax.set_facecolor(COLORS['bg_light'])
-    ax.set_xlim(0, 14)
-    ax.set_ylim(0, 8)
+    ax.text(5.5, 8, 'ReLU', fontsize=12, color='#e76f51', fontweight='bold', ha='center')
 
-    # Input labels
-    inputs = ['x₁', 'x₂', 'x₃', 'bias']
-    weights = ['w₁', 'w₂', 'w₃', 'b']
-    y_positions = [6, 4.5, 3, 1.5]
+    for src in ['h1', 'h2', 'h3']:
+        x1, y1 = positions[src]; x2, y2 = positions['z_out']
+        ax.annotate('', xy=(x2-0.6, y2), xytext=(x1+0.6, y1),
+                   arrowprops=dict(arrowstyle='->', color='gray', lw=1.5, alpha=0.6))
 
-    for i, (inp, w, y) in enumerate(zip(inputs, weights, y_positions)):
-        # Input node
-        circle = Circle((1, y), 0.4, facecolor=COLORS['blue'],
-                      edgecolor=COLORS['primary'], linewidth=2, alpha=0.7)
-        ax.add_patch(circle)
-        ax.text(1, y, inp, fontsize=12, ha='center', va='center',
-               fontweight='bold', color='white')
+    ax.annotate('', xy=(positions['y_hat'][0]-0.6, 4), xytext=(positions['z_out'][0]+0.6, 4),
+               arrowprops=dict(arrowstyle='->', color='#e76f51', lw=2))
+    ax.text(11.5, 5, '$\\sigma$', fontsize=16, color='#e76f51', fontweight='bold', ha='center')
 
-        # Weight label
-        ax.text(3, y + 0.6, w, fontsize=12, ha='center',
-               color=COLORS['accent'], fontweight='bold')
+    ax.text(0, -0.5, 'Input', fontsize=13, ha='center', fontweight='bold', color='#2a9d8f')
+    ax.text(4, -0.5, 'Step 1:\nWeighted Sum', fontsize=11, ha='center', color='gray')
+    ax.text(7, -0.5, 'Step 2:\nReLU', fontsize=11, ha='center', color='#e76f51')
+    ax.text(10, -0.5, 'Step 3:\nWeighted Sum', fontsize=11, ha='center', color='gray')
+    ax.text(13, -0.5, 'Step 4:\nSigmoid', fontsize=11, ha='center', color='#e76f51')
 
-        # Arrow to sum
-        arrow = FancyArrowPatch((1.5, y), (6, 4),
-                              arrowstyle='->', mutation_scale=20,
-                              color=COLORS['primary'], linewidth=1.5, alpha=0.5)
-        ax.add_patch(arrow)
+    ax.annotate('Dead neuron!\n(ReLU killed it)', xy=(7, 4), xytext=(9, 2),
+               fontsize=10, color='#e85a4f', fontweight='bold',
+               arrowprops=dict(arrowstyle='->', color='#e85a4f', lw=1.5))
 
-    # Sum circle
-    circle = Circle((6, 4), 0.6, facecolor=COLORS['warning'],
-                   edgecolor=COLORS['primary'], linewidth=2, alpha=0.8)
-    ax.add_patch(circle)
-    ax.text(6, 4, 'Σ', fontsize=20, ha='center', va='center',
-           fontweight='bold', color=COLORS['primary'])
-
-    # Activation function
-    rect = FancyBboxPatch((7.5, 3.2), 1.5, 1.6, boxstyle="round,pad=0.1",
-                         facecolor=COLORS['purple'], edgecolor=COLORS['primary'],
-                         linewidth=2, alpha=0.6)
-    ax.add_patch(rect)
-    ax.text(8.25, 4, 'σ(z)', fontsize=14, ha='center', va='center',
-           fontweight='bold', color='white')
-
-    # Arrow to activation
-    arrow = FancyArrowPatch((6.7, 4), (7.4, 4),
-                          arrowstyle='->', mutation_scale=20,
-                          color=COLORS['primary'], linewidth=2)
-    ax.add_patch(arrow)
-
-    # Output
-    circle = Circle((11, 4), 0.5, facecolor=COLORS['success'],
-                   edgecolor=COLORS['primary'], linewidth=2, alpha=0.8)
-    ax.add_patch(circle)
-    ax.text(11, 4, 'y', fontsize=14, ha='center', va='center',
-           fontweight='bold', color='white')
-
-    # Arrow to output
-    arrow = FancyArrowPatch((9.1, 4), (10.4, 4),
-                          arrowstyle='->', mutation_scale=20,
-                          color=COLORS['primary'], linewidth=2)
-    ax.add_patch(arrow)
-
-    # Labels
-    ax.text(6, 2.5, 'Sum weighted\ninputs', fontsize=10, ha='center',
-           color=COLORS['text_light'])
-    ax.text(8.25, 2.5, 'Apply\nactivation', fontsize=10, ha='center',
-           color=COLORS['text_light'])
-
-    ax.set_title('A Single Perceptron\n"The basic building block of neural networks"',
-                fontsize=15, fontweight='bold', color=COLORS['primary'], pad=20)
-
-    save_svg(fig, 'perceptron.svg')
+    ax.set_xlim(-1.5, 14.5); ax.set_ylim(-1.5, 9); ax.axis('off')
+    ax.set_title('Forward Pass: Step by Step (2->3->1 network)', fontsize=16, fontweight='bold', pad=20)
+    save(fig, 'forward_pass_visual')
 
 
-# =============================================================================
-# 2. Activation Functions Comparison
-# =============================================================================
-def create_activation_functions():
-    """Compare different activation functions."""
-    fig, axes = plt.subplots(2, 2, figsize=(14, 10), facecolor='white')
+# ============================================================
+# 9. Softmax visualization
+# ============================================================
+def plot_softmax():
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(14, 5))
+    digits = list(range(10))
+    raw = [0.5, 0.2, 3.1, 1.0, -0.5, 0.1, -0.3, 0.8, 0.3, -1.0]
+    probs = np.exp(raw) / np.exp(raw).sum()
 
-    x = np.linspace(-5, 5, 200)
+    c1 = ['#264653']*10; c1[2] = '#e76f51'
+    ax1.barh(digits, raw, color=c1, edgecolor='white')
+    ax1.set_xlabel('Raw Score (logit)'); ax1.set_ylabel('Digit')
+    ax1.set_title('Before Softmax\n(Raw Scores)', fontsize=14, fontweight='bold')
+    ax1.set_yticks(digits); ax1.axvline(0, color='gray', lw=0.5)
 
-    # Sigmoid
-    ax = axes[0, 0]
-    ax.set_facecolor('white')
-    y = 1 / (1 + np.exp(-x))
-    ax.plot(x, y, color=COLORS['blue'], linewidth=3)
-    ax.axhline(y=0.5, color=COLORS['gray'], linestyle='--', alpha=0.5)
-    ax.axvline(x=0, color=COLORS['gray'], linestyle='--', alpha=0.5)
-    ax.set_title('Sigmoid σ(x) = 1/(1+e⁻ˣ)', fontsize=13, fontweight='bold')
-    ax.set_ylabel('Output', fontsize=11)
-    ax.grid(True, alpha=0.3)
-    ax.text(-4.5, 0.9, '• Outputs 0 to 1\n• Probabilities', fontsize=10,
-           bbox=dict(boxstyle='round', facecolor='white', alpha=0.8))
+    c2 = ['#2a9d8f']*10; c2[2] = '#e76f51'
+    ax2.barh(digits, probs, color=c2, edgecolor='white')
+    ax2.set_xlabel('Probability'); ax2.set_ylabel('Digit')
+    ax2.set_title('After Softmax\n(Probabilities)', fontsize=14, fontweight='bold')
+    ax2.set_yticks(digits)
+    for i, p in enumerate(probs):
+        ax2.text(p + 0.01, i, f'{p:.1%}', va='center', fontsize=10, fontweight='bold')
 
-    # Tanh
-    ax = axes[0, 1]
-    ax.set_facecolor('white')
-    y = np.tanh(x)
-    ax.plot(x, y, color=COLORS['success'], linewidth=3)
-    ax.axhline(y=0, color=COLORS['gray'], linestyle='--', alpha=0.5)
-    ax.axvline(x=0, color=COLORS['gray'], linestyle='--', alpha=0.5)
-    ax.set_title('Tanh tanh(x)', fontsize=13, fontweight='bold')
-    ax.grid(True, alpha=0.3)
-    ax.text(-4.5, 0.7, '• Outputs -1 to 1\n• Zero-centered', fontsize=10,
-           bbox=dict(boxstyle='round', facecolor='white', alpha=0.8))
-
-    # ReLU
-    ax = axes[1, 0]
-    ax.set_facecolor('white')
-    y = np.maximum(0, x)
-    ax.plot(x, y, color=COLORS['accent'], linewidth=3)
-    ax.axhline(y=0, color=COLORS['gray'], linestyle='--', alpha=0.5)
-    ax.axvline(x=0, color=COLORS['gray'], linestyle='--', alpha=0.5)
-    ax.set_title('ReLU max(0, x)', fontsize=13, fontweight='bold')
-    ax.set_xlabel('Input', fontsize=11)
-    ax.set_ylabel('Output', fontsize=11)
-    ax.grid(True, alpha=0.3)
-    ax.text(-4.5, 4, '• Default choice\n• No vanishing', fontsize=10,
-           bbox=dict(boxstyle='round', facecolor='white', alpha=0.8))
-
-    # Leaky ReLU
-    ax = axes[1, 1]
-    ax.set_facecolor('white')
-    y = np.where(x > 0, x, 0.01 * x)
-    ax.plot(x, y, color=COLORS['purple'], linewidth=3)
-    ax.axhline(y=0, color=COLORS['gray'], linestyle='--', alpha=0.5)
-    ax.axvline(x=0, color=COLORS['gray'], linestyle='--', alpha=0.5)
-    ax.set_title('Leaky ReLU max(0.01x, x)', fontsize=13, fontweight='bold')
-    ax.set_xlabel('Input', fontsize=11)
-    ax.grid(True, alpha=0.3)
-    ax.text(-4.5, 4, '• Fixes dead neurons\n• Small gradient for x<0', fontsize=10,
-           bbox=dict(boxstyle='round', facecolor='white', alpha=0.8))
-
-    plt.suptitle('Activation Functions: Introduce Non-Linearity',
-                fontsize=15, fontweight='bold', color=COLORS['primary'])
-    plt.tight_layout(rect=[0, 0, 1, 0.96])
-
-    save_svg(fig, 'activation_functions.svg')
+    plt.suptitle('Softmax: Raw Scores -> Probabilities (sum to 1)', fontsize=15, fontweight='bold', y=1.02)
+    plt.tight_layout()
+    save(fig, 'softmax_visualization')
 
 
-# =============================================================================
-# 3. Multi-Layer Perceptron (Deep Network)
-# =============================================================================
-def create_mlp_architecture():
-    """Show a multi-layer perceptron architecture."""
-    fig, ax = plt.subplots(figsize=(14, 9), facecolor='white')
-    ax.set_facecolor('white')
-    ax.set_xlim(0, 14)
-    ax.set_ylim(0, 10)
-    ax.axis('off')
+# ============================================================
+# 10. Parameter counting visual
+# ============================================================
+def plot_parameter_counting():
+    fig, ax = plt.subplots(figsize=(14, 5))
+    for i, (x, name, s) in enumerate(zip([1,5,9],
+            ['Input\n(784)','Hidden\n(128)','Output\n(10)'], [784,128,10])):
+        h = max(0.5, s / 200)
+        ax.add_patch(patches.FancyBboxPatch((x-0.8, 2-h/2), 1.6, h, boxstyle="round,pad=0.1",
+                     facecolor=['#2a9d8f','#264653','#e76f51'][i], alpha=0.85))
+        ax.text(x, 2, name, ha='center', va='center', color='white', fontsize=12, fontweight='bold')
 
-    # Layer configurations
-    layers = [
-        ('Input\nLayer', 2, 4, 1.5, COLORS['blue']),      # 4 inputs (2 features shown)
-        ('Hidden\nLayer 1', 4, 5, 4, COLORS['purple']),    # 5 neurons
-        ('Hidden\nLayer 2', 7.5, 4, 7, COLORS['warning']),  # 4 neurons
-        ('Output\nLayer', 10.5, 3, 9.5, COLORS['success']),  # 3 classes
-    ]
+    ax.annotate('', xy=(4.2, 2), xytext=(1.8, 2), arrowprops=dict(arrowstyle='->', lw=3, color='gray'))
+    ax.text(3, 2.8, '784 x 128 = 100,352\nweights', ha='center', fontsize=11, fontweight='bold')
+    ax.text(3, 1.2, '+ 128 biases\n= 100,480', ha='center', fontsize=10, color='gray')
 
-    neurons = {}  # Store neuron positions
+    ax.annotate('', xy=(8.2, 2), xytext=(5.8, 2), arrowprops=dict(arrowstyle='->', lw=3, color='gray'))
+    ax.text(7, 2.8, '128 x 10 = 1,280\nweights', ha='center', fontsize=11, fontweight='bold')
+    ax.text(7, 1.2, '+ 10 biases\n= 1,290', ha='center', fontsize=10, color='gray')
 
-    for layer_idx, (name, x, n_neurons, y_start, color) in enumerate(layers):
-        # Layer label
-        ax.text(x, y_start + n_neurons * 0.8 + 0.5, name,
-               fontsize=12, ha='center', fontweight='bold', color=color)
-
-        # Draw neurons
-        for i in range(n_neurons):
-            y = y_start + i * 0.8
-            circle = Circle((x, y), 0.3, facecolor=color,
-                          edgecolor=COLORS['primary'], linewidth=2, alpha=0.7)
-            ax.add_patch(circle)
-            neurons[(layer_idx, i)] = (x, y)
-
-    # Draw connections
-    # Input to Hidden 1
-    for in_i in range(4):
-        for out_i in range(5):
-            x1, y1 = neurons[(0, in_i)]
-            x2, y2 = neurons[(1, out_i)]
-            alpha = 0.3 if np.random.random() > 0.5 else 0.1
-            ax.plot([x1, x2], [y1, y2], color=COLORS['primary'],
-                   linewidth=0.5, alpha=alpha, zorder=0)
-
-    # Hidden 1 to Hidden 2
-    for in_i in range(5):
-        for out_i in range(4):
-            x1, y1 = neurons[(1, in_i)]
-            x2, y2 = neurons[(2, out_i)]
-            alpha = 0.3 if np.random.random() > 0.5 else 0.1
-            ax.plot([x1, x2], [y1, y2], color=COLORS['primary'],
-                   linewidth=0.5, alpha=alpha, zorder=0)
-
-    # Hidden 2 to Output
-    for in_i in range(4):
-        for out_i in range(3):
-            x1, y1 = neurons[(2, in_i)]
-            x2, y2 = neurons[(3, out_i)]
-            alpha = 0.3 if np.random.random() > 0.5 else 0.1
-            ax.plot([x1, x2], [y1, y2], color=COLORS['primary'],
-                   linewidth=0.5, alpha=alpha, zorder=0)
-
-    # Labels
-    ax.text(1.5, 0.8, 'Features', fontsize=10, ha='center', color=COLORS['text_light'])
-    ax.text(10.5, 0.8, 'Classes', fontsize=10, ha='center', color=COLORS['text_light'])
-
-    ax.set_title('Multi-Layer Perceptron (Deep Network)\n"Stack layers to learn complex patterns"',
-                fontsize=15, fontweight='bold', color=COLORS['primary'], pad=20)
-
-    save_svg(fig, 'mlp_architecture.svg')
+    ax.text(5, 4, 'Total: 101,770 parameters!', ha='center', fontsize=16, fontweight='bold', color='#264653',
+            bbox=dict(boxstyle='round', facecolor='#f0f0f0', edgecolor='#264653', lw=2))
+    ax.set_xlim(-0.5, 10.5); ax.set_ylim(0, 5); ax.axis('off')
+    ax.set_title('MNIST Classifier: Parameter Count', fontsize=15, fontweight='bold')
+    save(fig, 'parameter_counting')
 
 
-# =============================================================================
-# 4. Backpropagation Visualization
-# =============================================================================
-def create_backpropagation():
-    """Visualize backpropagation - gradient flowing backward."""
-    fig, ax = plt.subplots(figsize=(14, 7), facecolor='white')
-    ax.set_facecolor(COLORS['bg_light'])
-    ax.set_xlim(0, 14)
-    ax.set_ylim(0, 8)
-
-    # Simple 3-layer network
-    layers = [
-        ('Input', 2, 3, 4, COLORS['blue']),
-        ('Hidden', 6, 4, 3, COLORS['purple']),
-        ('Output', 10, 2, 4, COLORS['success']),
-    ]
-
-    neurons = {}
-    for layer_idx, (name, x, n_neurons, y_start, color) in enumerate(layers):
-        ax.text(x, y_start + n_neurons * 0.8 + 0.5, name,
-               fontsize=11, ha='center', fontweight='bold', color=color)
-        for i in range(n_neurons):
-            y = y_start + i * 0.8
-            circle = Circle((x, y), 0.25, facecolor=color,
-                          edgecolor=COLORS['primary'], linewidth=2, alpha=0.7)
-            ax.add_patch(circle)
-            neurons[(layer_idx, i)] = (x, y)
-
-    # Forward pass (solid arrows, blue)
-    for in_i in range(3):
-        for out_i in range(4):
-            if np.random.random() > 0.3:
-                x1, y1 = neurons[(0, in_i)]
-                x2, y2 = neurons[(1, out_i)]
-                arrow = FancyArrowPatch((x1 + 0.3, y1), (x2 - 0.3, y2),
-                                      arrowstyle='->', mutation_scale=12,
-                                      color=COLORS['blue'], linewidth=1.5, alpha=0.6)
-                ax.add_patch(arrow)
-
-    for in_i in range(4):
-        for out_i in range(2):
-            if np.random.random() > 0.3:
-                x1, y1 = neurons[(1, in_i)]
-                x2, y2 = neurons[(2, out_i)]
-                arrow = FancyArrowPatch((x1 + 0.3, y1), (x2 - 0.3, y2),
-                                      arrowstyle='->', mutation_scale=12,
-                                      color=COLORS['blue'], linewidth=1.5, alpha=0.6)
-                ax.add_patch(arrow)
-
-    # Backward pass (dashed arrows, red/overlay)
-    for in_i in range(4):
-        for out_i in range(2):
-            if np.random.random() > 0.3:
-                x1, y1 = neurons[(2, out_i)]
-                x2, y2 = neurons[(1, in_i)]
-                # Offset slightly to show both directions
-                arrow = FancyArrowPatch((x2 + 0.2, y2 + 0.2), (x1 - 0.2, y1 - 0.2),
-                                      arrowstyle='->', mutation_scale=12,
-                                      color=COLORS['accent'], linewidth=1.5,
-                                      linestyle='--', alpha=0.8)
-                ax.add_patch(arrow)
-
-    for in_i in range(3):
-        for out_i in range(4):
-            if np.random.random() > 0.3:
-                x1, y1 = neurons[(1, out_i)]
-                x2, y2 = neurons[(0, in_i)]
-                arrow = FancyArrowPatch((x2 + 0.2, y2 + 0.2), (x1 - 0.2, y1 - 0.2),
-                                      arrowstyle='->', mutation_scale=12,
-                                      color=COLORS['accent'], linewidth=1.5,
-                                      linestyle='--', alpha=0.8)
-                ax.add_patch(arrow)
-
-    # Legend
-    ax.plot([], [], color=COLORS['blue'], linewidth=2, label='Forward (prediction)')
-    ax.plot([], [], color=COLORS['accent'], linewidth=2, linestyle='--',
-           label='Backward (gradients)')
-    ax.legend(loc='upper right', fontsize=11, framealpha=0.95)
-
-    ax.set_title('Backpropagation\n"Gradients flow backward to update weights"',
-                fontsize=15, fontweight='bold', color=COLORS['primary'], pad=20)
-
-    save_svg(fig, 'backpropagation.svg')
-
-
-# =============================================================================
-# 5. Loss Landscape (Visual Optimization)
-# =============================================================================
-def create_loss_landscape_3d():
-    """Show 3D loss landscape with gradient descent path."""
-    fig = plt.figure(figsize=(14, 8), facecolor='white')
+# ============================================================
+# 11. Loss landscape 3D
+# ============================================================
+def plot_loss_landscape():
+    fig = plt.figure(figsize=(12, 8))
     ax = fig.add_subplot(111, projection='3d')
-
-    # Create loss landscape
     w1 = np.linspace(-3, 3, 50)
     w2 = np.linspace(-3, 3, 50)
     W1, W2 = np.meshgrid(w1, w2)
     Loss = W1**2 + W2**2 + 0.5 * np.sin(3*W1) * np.sin(3*W2)
+    ax.plot_surface(W1, W2, Loss, cmap='viridis', alpha=0.8, edgecolor='none', rstride=2, cstride=2)
 
-    # Plot surface
-    surf = ax.plot_surface(W1, W2, Loss, cmap='viridis', alpha=0.8,
-                          edgecolor='none', rstride=2, cstride=2)
-
-    # Gradient descent path
-    path_w1 = np.array([-2.5, -2.0, -1.5, -1.0, -0.5, 0])
-    path_w2 = np.array([-2.5, -2.0, -1.5, -1.0, -0.5, 0])
-    path_loss = [path_w1[i]**2 + path_w2[i]**2 + 0.5 * np.sin(3*path_w1[i]) * np.sin(3*path_w2[i])
-                 for i in range(len(path_w1))]
-
-    ax.plot(path_w1, path_w2, path_loss, 'o-', color=COLORS['accent'],
-           linewidth=3, markersize=10, label='Gradient Descent')
-
-    # Mark start and end
-    ax.scatter([path_w1[0]], [path_w2[0]], [path_loss[0]], s=200,
-              color=COLORS['warning'], marker='*', edgecolors='black',
-              linewidth=1.5, label='Start', zorder=10)
-    ax.scatter([path_w1[-1]], [path_w2[-1]], [path_loss[-1]], s=200,
-              color=COLORS['success'], marker='*', edgecolors='black',
-              linewidth=1.5, label='Optimum', zorder=10)
-
-    ax.set_xlabel('Weight 1', fontsize=11)
-    ax.set_ylabel('Weight 2', fontsize=11)
-    ax.set_zlabel('Loss', fontsize=11)
-    ax.set_title('Loss Landscape: Gradient Descent Path\n"Follow the slope downhill to minimize loss"',
-                fontsize=14, fontweight='bold', color=COLORS['primary'], pad=20)
-    ax.legend(loc='upper right', fontsize=10)
-
-    save_svg(fig, 'loss_landscape_3d.svg')
+    path_w = np.array([-2.5, -2.0, -1.5, -1.0, -0.5, 0])
+    path_l = [w**2 + w**2 + 0.5*np.sin(3*w)*np.sin(3*w) for w in path_w]
+    ax.plot(path_w, path_w, path_l, 'o-', color='#e85a4f', linewidth=3, markersize=10)
+    ax.set_xlabel('Weight 1'); ax.set_ylabel('Weight 2'); ax.set_zlabel('Loss')
+    ax.set_title('Loss Landscape: Gradient Descent', fontsize=14, fontweight='bold')
+    save(fig, 'loss_landscape_3d')
 
 
-# =============================================================================
-# 6. Universal Approximation Visualization
-# =============================================================================
-def create_universal_approximation():
-    """Show how neural networks can approximate any function."""
-    fig, axes = plt.subplots(1, 3, figsize=(15, 5), facecolor='white')
-
-    # True function
-    x = np.linspace(0, 4, 100)
+# ============================================================
+# 12. Universal approximation
+# ============================================================
+def plot_universal_approximation():
+    fig, axes = plt.subplots(1, 3, figsize=(15, 5))
+    x = np.linspace(0, 4, 200)
     y_true = np.sin(x * 3) + 0.5 * x
 
-    # Plot true function on all
-    for ax in axes:
-        ax.set_facecolor('white')
-        ax.plot(x, y_true, '--', color=COLORS['primary'], linewidth=2,
-               label='True function', alpha=0.7)
-        ax.set_xlabel('x', fontsize=11)
-        ax.set_ylabel('f(x)', fontsize=11)
-        ax.grid(True, alpha=0.3)
-        ax.set_xlim(0, 4)
-
-    # Number of neurons
-    configs = [(2, '1 neuron', COLORS['accent']),
-               (5, '5 neurons', COLORS['warning']),
-               (20, '20 neurons', COLORS['success'])]
-
-    for ax, (n_neurons, title, color) in zip(axes, configs):
-        # Simulate network output (sum of sigmoids)
+    for ax, (n, title, color) in zip(axes,
+            [(2, '2 neurons', '#e85a4f'), (10, '10 neurons', '#e9c46a'), (50, '50 neurons', '#2a9d8f')]):
+        ax.plot(x, y_true, '--', color='#264653', lw=2, label='Target', alpha=0.7)
         np.random.seed(42)
         y_pred = np.zeros_like(x)
-        for _ in range(n_neurons):
-            w = np.random.uniform(-3, 3)
-            b = np.random.uniform(-3, 3)
-            y_pred += np.random.uniform(-1, 1) * (1 / (1 + np.exp(-w * x + b)))
-
-        # Normalize
+        for _ in range(n):
+            w, b, a = np.random.randn()*2, np.random.randn()*2, np.random.randn()
+            y_pred += a * (1 / (1 + np.exp(-w * x + b)))
         y_pred = (y_pred - y_pred.min()) / (y_pred.max() - y_pred.min())
         y_pred = y_pred * (y_true.max() - y_true.min()) + y_true.min()
-
-        ax.plot(x, y_pred, '-', color=color, linewidth=2.5, label=f'NN ({n_neurons} neurons)')
+        ax.plot(x, y_pred, '-', color=color, lw=2.5, label=f'NN ({n} neurons)')
         ax.set_title(title, fontsize=13, fontweight='bold')
-        ax.legend(loc='upper right', fontsize=10)
+        ax.legend(fontsize=10); ax.grid(True, alpha=0.3)
+        ax.set_xlabel('x'); ax.set_ylabel('f(x)')
 
-    plt.suptitle('Universal Approximation Theorem\n"More neurons → better function approximation"',
-                fontsize=14, fontweight='bold', color=COLORS['primary'])
+    plt.suptitle('Universal Approximation: More Neurons = Better Fit', fontsize=15, fontweight='bold')
     plt.tight_layout()
+    save(fig, 'universal_approximation')
 
-    save_svg(fig, 'universal_approximation.svg')
 
-
-# =============================================================================
-# Main
-# =============================================================================
-if __name__ == "__main__":
-    print("Generating diagrams for L05: Neural Networks...")
-    print()
-
-    print("Creating perceptron diagram...")
-    create_perceptron()
-
-    print("Creating activation functions comparison...")
-    create_activation_functions()
-
-    print("Creating MLP architecture...")
-    create_mlp_architecture()
-
-    print("Creating backpropagation visualization...")
-    create_backpropagation()
-
-    print("Creating 3D loss landscape...")
-    create_loss_landscape_3d()
-
-    print("Creating universal approximation visualization...")
-    create_universal_approximation()
-
-    print()
-    print("Done! All diagrams generated in diagrams/svg/")
-    print()
-    print("Generated diagrams:")
-    print("  - perceptron.svg")
-    print("  - activation_functions.svg")
-    print("  - mlp_architecture.svg")
-    print("  - backpropagation.svg")
-    print("  - loss_landscape_3d.svg")
-    print("  - universal_approximation.svg")
+if __name__ == '__main__':
+    np.random.seed(42)
+    print("Generating diagrams for Lecture 05...")
+    plot_bio_vs_artificial()
+    plot_decision_boundaries()
+    plot_xor_hidden_space()
+    plot_activations()
+    plot_nonlinearity()
+    plot_mlp_architecture()
+    plot_paradigm_change()
+    plot_forward_pass()
+    plot_softmax()
+    plot_parameter_counting()
+    plot_loss_landscape()
+    plot_universal_approximation()
+    print("Done! Output in diagrams/png/ and diagrams/svg/")

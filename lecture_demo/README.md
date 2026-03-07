@@ -17,6 +17,14 @@ Interactive Jupyter notebooks for the "Principles of AI" course. These notebooks
 | L07 | `L07_language_models.ipynb` | Tokenization, next-token prediction, n-grams, embeddings, attention |
 | L08 | `L08_generative_ai.ipynb` | Base model problem, SFT, RLHF, complete pipeline, ethics |
 
+## Supplemental L05 Notebooks
+
+| Notebook | Topics Covered |
+|----------|----------------|
+| `L05_nn_power.ipynb` | Why neural networks are powerful: circles classification, linear models in sklearn and PyTorch, basis expansion, and neural nets |
+| `L05_perceptron.ipynb` | Single perceptron learning on logic gates, boundary evolution, decision surfaces, and XOR failure |
+| `L05_fc_visualizer_demo.ipynb` | Visualize a fully connected PyTorch network with optional `W`, `b`, `z`, and `a` annotations for small models |
+
 ## Requirements
 
 ```bash
