@@ -111,8 +111,8 @@ jobs:
                   cp -r "${lecture_dir}/diagrams" "_site/lectures/${name}/" 2>/dev/null || true
                 fi
                 # Copy interactive HTML tools
-                for html in "${lecture_dir}"interactive_*.html; do
-                  [ -f "$html" ] && cp "$html" "_site/lectures/${name}/" 2>/dev/null || true
+                for html in "${lecture_dir}"/interactive_*.html; do
+                  [ -f "$html" ] && cp "$html" "_site/lectures/${name}/" || true
                 done
               fi
             done
