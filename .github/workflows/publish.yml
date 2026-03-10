@@ -110,6 +110,10 @@ jobs:
                 if [ -d "${lecture_dir}/diagrams" ]; then
                   cp -r "${lecture_dir}/diagrams" "_site/lectures/${name}/" 2>/dev/null || true
                 fi
+                # Copy additional PDFs (e.g., mlp.pdf, autograd.pdf)
+                for pdf in "${lecture_dir}"/*.pdf; do
+                  [ -f "$pdf" ] && cp "$pdf" "_site/lectures/${name}/" || true
+                done
                 # Copy interactive HTML tools
                 for html in "${lecture_dir}"/interactive_*.html; do
                   [ -f "$html" ] && cp "$html" "_site/lectures/${name}/" || true
